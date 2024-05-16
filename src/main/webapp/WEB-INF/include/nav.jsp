@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
+<jsp:include page="/WEB-INF/record/recordModal.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/include/nav.css" />
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-
-
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
@@ -19,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault(); // Prevent the default action
                 // Show the SweetAlert alert
                 Swal.fire({
-                    /* title: '해당 서비스는 로그인 후 이용하실 수 있습니다.', */
                     text: '해당 서비스는 로그인 후 이용하실 수 있습니다.',
                     confirmButtonText: '확인',
                     customClass: {
@@ -34,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
             this.classList.add('active'); // Add active to the clicked link
         });
     });
-});
-/*
+}); 
+*/
+
 document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
@@ -45,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-*/
+
 </script>
 <nav class="navbar navbar-expand container-fluid mt-4 pb-4">
 	<div class="container">
@@ -53,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			<ul class="navbar-nav w-100 justify-content-between list-unstyled d-flex">
 				<li class="nav-item">
 					<%-- <a href="${ctp}/main" class="nav-link" id="home"> --%>
-					<a href="http://192.168.50.61:9090/zavaclass/main" class="nav-link" id="home">
-					<!-- <a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home"> -->
+					<!-- <a href="http://192.168.50.61:9090/zavaclass/main" class="nav-link" id="home"> -->
+					<a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home">
 						<i class="ph ph-house mr-1"></i>
 						<i class="ph-fill ph-house mr-1"></i>
 						<span>home</span>
@@ -68,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					</a>
 				</li>
 				<li class="nav-item">
-				<jsp:include page="/WEB-INF/record/recordModal.jsp" />
 					<a href="#" class="nav-link" data-toggle="modal" data-target="#recordModal" id="record">
 					<!--<a href="#" class="nav-link" data-toggle="modal" data-target="#notLoginModal" id="record">-->
 						<i class="ph ph-plus-circle mr-1"></i>
@@ -85,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link" data-toggle="modal" data-target="#notLoginModal" id="archive">
+					<!-- <a href="#" class="nav-link" data-toggle="modal" data-target="#notLoginModal" id="archive"> -->
+					<a href="archive.a" class="nav-link" id="bookmark">
 						<i class="ph ph-archive mr-1"></i>
 						<i class="ph-fill ph-archive mr-1"></i>
 						<span>archive</span>

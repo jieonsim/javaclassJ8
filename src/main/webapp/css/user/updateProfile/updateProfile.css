@@ -68,6 +68,7 @@ label {
 	border: 1px solid black;
 	height: 50px;
 	font-size: 20px;
+	border-radius: 0;
 }
 
 .updateProfile-form .form-group span {

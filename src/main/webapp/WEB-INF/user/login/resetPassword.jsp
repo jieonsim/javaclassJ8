@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
-<jsp:include page="/include/bs4.jsp" />
+<jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/login/resetPassword.css" />
 </head>
 <body>
-    <jsp:include page="/include/header.jsp" />
-    <jsp:include page="/include/nav.jsp" />
+<jsp:include page="/WEB-INF/include/header.jsp" />
+<jsp:include page="/WEB-INF/include/nav.jsp" />
     <div class="container mt-5 pt-3">
         <div class="resetPassword-container">
             <h4 class="mb-3">비밀번호 재설정</h4>

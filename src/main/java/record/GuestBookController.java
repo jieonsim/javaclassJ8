@@ -1,4 +1,4 @@
-package user.login;
+package record;
 
 import java.io.IOException;
 
@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.UserInterface;
-
 @SuppressWarnings("serial")
-@WebServlet("*.l")
-public class LoginController extends HttpServlet {
+@WebServlet("*.g")
+public class GuestBookController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserInterface command = null;
-		String viewPage = "/WEB-INF/user/login/";
+		RecordInterface command = null;
+		String viewPage = "/WEB-INF/record/";
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("login")) {
-			viewPage += "login.jsp";
-		}
-
+		if (com.equals("guestBook")) {
+			viewPage += "guestBook.jsp";
+		} 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

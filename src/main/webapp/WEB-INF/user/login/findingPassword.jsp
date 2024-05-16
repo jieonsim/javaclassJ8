@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
-<jsp:include page="/include/bs4.jsp" />
+<jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/login/findingPassword.css" />
 </head>
 <body>
-    <jsp:include page="/include/header.jsp" />
-    <jsp:include page="/include/nav.jsp" />
+<jsp:include page="/WEB-INF/include/header.jsp" />
+<jsp:include page="/WEB-INF/include/nav.jsp" />
     <div class="container mt-5 pt-3">
         <div class="findingPassword-container">
             <h4 class="mb-5">비밀번호 찾기</h4>
@@ -20,7 +20,7 @@
                 <div class="form-group row">
                     <div class="col">
                     	<label for="name">아이디</label>
-                        <input type="text" class="form-control" name="id" 
+                        <input type="text" class="form-control" name="id"  id="id"
                         		placeholder="아이디를 입력해주세요." <%-- value="<%=id %>" --%> autofocus required />
                         <span>가입 시 등록한 아이디를 입력해주세요.</span>
                     </div>
@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <div class="col">
                     	<label for="name">이메일</label>
-                        <input type="email" class="form-control" name="email"
+                        <input type="email" class="form-control" name="email" id='email'
                             placeholder="이메일을 입력해주세요." required />
                         <span>가입 시 등록한 이메일을 입력해주세요.</span>
                     </div>

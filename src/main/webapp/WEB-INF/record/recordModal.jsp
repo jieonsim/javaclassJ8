@@ -9,7 +9,7 @@
 			<div class="modal-body">
 				<ul class="nav flex-column list-unstyled">
 					<li class="nav-item">
-						<a href="#" class="nav-link" id="visitor">
+						<a href="guestBook.g" class="nav-link" id="guestBook">
 							<span class="link-content">
 								<img src="${ctp}/images/pin.png" alt="Pin">
 									<span class="text-content">
@@ -20,7 +20,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link" id="daylog">
+						<a href="#" class="nav-link" id="localLog">
 							<span class="link-content">
 								<img src="${ctp}/images/images.png" alt="Images">
 									<span class="text-content">

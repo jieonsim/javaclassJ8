@@ -1,4 +1,4 @@
-package user.login;
+package archive;
 
 import java.io.IOException;
 
@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.UserInterface;
-
 @SuppressWarnings("serial")
-@WebServlet("*.l")
-public class LoginController extends HttpServlet {
+@WebServlet("*.a")
+public class ArchiveController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserInterface command = null;
-		String viewPage = "/WEB-INF/user/login/";
+		ArchiveInterface command = null;
+		String viewPage = "/WEB-INF/archive/";
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("login")) {
-			viewPage += "login.jsp";
-		}
-
+		if (com.equals("archive")) {
+			viewPage += "archive.jsp";
+		} 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

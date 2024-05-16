@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
-<jsp:include page="/include/bs4.jsp" />
+<jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/login/foundIdDisplay.css" />
 </head>
 <body>
-	<jsp:include page="/include/header.jsp" />
-	<jsp:include page="/include/nav.jsp" />
+<jsp:include page="/WEB-INF/include/header.jsp" />
+<jsp:include page="/WEB-INF/include/nav.jsp" />
 		<div class="foundIdDisplay-container">
 			<i class="ph ph-seal-check" id="sealCheck"></i>
 			<h4 class="pt-3 mb-2">회원님의 로컬로그 계정을 찾았습니다.</h4>

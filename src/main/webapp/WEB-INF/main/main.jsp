@@ -6,12 +6,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Local Log</title>
-	<jsp:include page="/include/bs4.jsp" />
+	<title>Local Lens</title>
+	<jsp:include page="/WEB-INF/include/bs4.jsp" />
 </head>
 <body>
-<jsp:include page="/include/header.jsp" />
-<jsp:include page="/include/nav.jsp" />
+<jsp:include page="/WEB-INF/include/header.jsp" />
+<jsp:include page="/WEB-INF/include/nav.jsp" />
 <div class="container mt-5">
 	<h2>메인화면</h2>
 </div>

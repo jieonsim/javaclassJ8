@@ -8,16 +8,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
-<link rel="stylesheet" type="text/css" href="${ctp}/css/user/signup/signup.css" />
 </head>
 <body>
 <jsp:include page="/WEB-INF/include/header.jsp" />
 <jsp:include page="/WEB-INF/include/nav.jsp" />
     <div class="container pt-5">
-        <div class="signUp-container">
-            <h3 class="mb-5">회원가입</h3>
+        <div class="guestBook-container">
+            <h3 class="mb-5">방명록</h3>
             <hr>
-            <form class="signUp-form pl-3 pr-3" method="post" action="signupComplete.s">
+            <form class="signUp-form pl-3 pr-3" method="post" action="">
                 <div class="form-group row">
 			        <label for="id" class="col-sm-3 col-form-label">아이디</label>
 			        <div class="col-sm-6">
@@ -74,30 +73,11 @@
 			            <button type="button" class="btn btn-custom form-control" id="emailDuplicated">중복확인</button>
 			        </div>
                 </div>
-                <!--  
-                <div class="form-group row">
-                	<label for="phone" class="col-sm-3 col-form-label">휴대폰</label>
-                    <div class="col-sm-6">
-                        <input type="number" class="form-control" name="phone"
-                            placeholder="숫자만 입력해주세요." required />
-                    </div>
-                    <div class="col-sm-3">
-			            <button type="submit" class="btn btn-custom form-control" id="phoneDuplicated">중복확인</button>
-			        </div>
-                </div>
-                <div class="form-group row">
-                	<label for="address" class="col-sm-3 col-form-label">주소</label>
-                    <div class="col-sm-6">
-                        <input type="button" class="btn btn-custom form-control" name="address" id="address"
-                            value="주소 검색" /><i class="ph ph-magnifying-glass"></i>
-                    </div>
-                </div>
-                -->
                 <hr>
                 <div class="form-group row text-center">
                 	<div class="col-sm-3"></div>
                     <div class="col-sm-6 mt-3">
-                        <button type="submit" class="btn btn-custom form-control" id="signUp">회원가입</button>
+                        <button type="submit" class="btn btn-custom form-control" id="post">회원가입</button>
                     </div>
                 </div>
             </form>

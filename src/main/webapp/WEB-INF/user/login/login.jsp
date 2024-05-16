@@ -7,18 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
-<jsp:include page="/include/bs4.jsp" />
+<jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/login/login.css" />
 </head>
 <body>
-    <jsp:include page="/include/header.jsp" />
-    <jsp:include page="/include/nav.jsp" />
+    <jsp:include page="/WEB-INF/include/header.jsp" />
+    <jsp:include page="/WEB-INF/include/nav.jsp" />
     <div class="container mt-5 pt-3">
         <div class="login-container">
             <h4 class="mb-5">로그인</h4>
-            <form class="login-form" method="post" action="main.l">
+            <form class="login-form" method="post" action="${ctp}/main">
                 <div class="form-group row">
-                    <div class="col">
+                    <div class="col">	
                         <input type="text" class="form-control" name="id" id="id" 
                         		placeholder="아이디를 입력해주세요." <%-- value="<%=id %>" --%> autofocus required />
                     </div>
@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-custom btn-lg form-control mb-3" id="logIn">로그인</button>
                     </div>
                     <div>
-                        <button onclick="location.href='signup.s'" type="button" class="btn btn-custom btn-lg form-control mb-2" id="signUp">회원가입</button>
+                        <button onclick="location.href='signup.s'" type="button" class="btn btn-custom btn-lg form-control mb-2" id="signup">회원가입</button>
                     </div>
 	                <div class="col">
 	                    <a href="findingId.fi" class="link-small">아이디 찾기</a>

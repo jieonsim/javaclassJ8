@@ -18,8 +18,9 @@ h4 {
 	text-align: center;
 }
 
-.form-control {
+.form-control:not(#logIn):not(#signup) {
 	border-radius: 0;
+	height: 45px;
 }
 
 .form-control:focus {
@@ -49,14 +50,16 @@ h4 {
 	border: none;
 	height: 50px;
 	font-size: 20px;
+	border-radius: 0;
 }
 
-#signUp {
+#signup {
 	background-color: white;
 	border: 1px solid black;
 	color: black;
 	height: 50px;
 	font-size: 20px;
+	border-radius: 0;
 }
 
 #rememberId {

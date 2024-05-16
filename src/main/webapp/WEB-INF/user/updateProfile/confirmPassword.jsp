@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
-<jsp:include page="/include/bs4.jsp" />
+<jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/updateProfile/comfrimPassword.css" />
 </head>
 <body>
-    <jsp:include page="/include/header.jsp" />
-    <jsp:include page="/include/nav.jsp" />
+<jsp:include page="/WEB-INF/include/header.jsp" />
+<jsp:include page="/WEB-INF/include/nav.jsp" />
     <div class="container mt-5 pt-3">
         <div class="confirmPassword-container">
             <h4 class="mb-3">내 정보 수정</h4>
@@ -21,14 +21,14 @@
                 <div class="form-group row">
                     <div class="col">
                     	<label for="name">아이디</label>
-                        <input type="text" class="form-control" name="id" 
+                        <input type="text" class="form-control" name="id"  id="id"
                         		value="locallens" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col">
                     	<label for="name">비밀번호</label>
-                        <input type="password" class="form-control" name="password"
+                        <input type="password" class="form-control" name="password" id="password"
                             placeholder="현재 비밀번호를 입력해주세요." required />
                     </div>
                 </div>
