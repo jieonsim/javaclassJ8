@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Pretendard-SemiBold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+h4 {
+	font-family: 'Pretendard-SemiBold';
+	text-align: center;
+}
+
+.leave-container {
+	max-width: 400px;
+	margin: auto;
+	padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#makeAccountPrivate {
+	color: white;
+	background-color: black;
+	border: none;
+	font-size: 20px;
+	height: 50px;
+	border-radius: 0px;
+}
+
+#makeAccountPrivate:focus {
+	box-shadow: none;
+}
+
+#leave {
+	color: red;
+	border: none;
+	font-size: 20px;
+	height: 50px;
+}
+#leave:focus {
+	box-shadow: none;
+}
+
+.card-body {
+	padding: 5;
+	font-size: 15px;
+}
+
+#case {
+	font-family:'Pretendard-SemiBold';
+	margin-bottom: 10px;
+}

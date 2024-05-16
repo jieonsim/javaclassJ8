@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.nav-link .link-content {
+    display: flex;
+    align-items: center;  
+    gap: 20px; 
+    color: black;
+}
+
+.nav-link .link-icon {
+    width: 30px; 
+    height: 30px;
+}
+
+.nav-link .text-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-link .text-content span {
+    display: block;  
+}
+
+.nav-link .text-content .text-description {
+    color: gray;  
+    font-size: 13px; 
+}
