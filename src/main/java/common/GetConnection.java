@@ -4,20 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class GetConn {
-	private static Connection conn = null;
+public class GetConnection {
+	private static Connection connection = null;
 	
 	private String driver = "com.mysql.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost:3306/javaclass";
 	private String user = "root";
 	private String password = "1234";
 	
-	private static GetConn instance = new GetConn();
+	private static GetConnection instance = new GetConnection();
 	
-	private GetConn() {
+	private GetConnection() {
 		try {
 			Class.forName(driver);
-			conn = DriverManager.getConnection(url, user, password);
+			connection = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 검색 실패 : " + e.getMessage());
 		} catch (SQLException e) {
@@ -25,11 +25,11 @@ public class GetConn {
 		}
 	}
 	
-	public static GetConn getInstance() {
+	public static GetConnection getInstance() {
 		return instance;
 	}
 	
 	public static Connection getConn() {
-		return conn;
+		return connection;
 	}
 }
