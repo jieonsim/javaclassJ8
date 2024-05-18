@@ -9,7 +9,7 @@
 			<div class="modal-body">
 				<ul class="nav flex-column list-unstyled">
 					<li class="nav-item">
-						<a href="guestBook.g" class="nav-link" id="guestBook">
+						<a href="record-guestBook.g" class="nav-link" id="guestBook">
 							<span class="link-content">
 								<img src="${ctp}/images/pin.png" alt="Pin">
 									<span class="text-content">

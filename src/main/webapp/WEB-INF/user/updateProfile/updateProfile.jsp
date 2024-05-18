@@ -62,6 +62,13 @@
 			        </div>
                 </div>
                 <div class="form-group row">
+                	<label for="nickname" class="col-sm-3 col-form-label">소개</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="introduction" id="introduction"
+                            placeholder="소개글을 입력해 주세요." />
+                    </div>
+                </div>
+                <div class="form-group row">
                 	<label for="name" class="col-sm-3 col-form-label">이름</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name"

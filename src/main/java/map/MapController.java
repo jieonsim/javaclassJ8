@@ -1,4 +1,4 @@
-package archive;
+package map;
 
 import java.io.IOException;
 
@@ -10,23 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("*.a")
-public class ArchiveController extends HttpServlet {
+@WebServlet("*.m")
+public class MapController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArchiveInterface command = null;
-		String viewPage = "/WEB-INF/archive/";
+		MapInterface command = null;
+		String viewPage = "/WEB-INF/map/";
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("archive-localLog")) {
-			viewPage += "archive-localLog.jsp";
-		} else if (com.equals("archive-guestBook")) {
-			viewPage += "archive-guestBook.jsp";
-		} else if (com.equals("archive-curation")) {
-			viewPage += "archive-curation.jsp";
+		if (com.equals("map")) {
+			viewPage += "map.jsp";
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

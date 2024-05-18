@@ -30,8 +30,8 @@
 			    	<span class="ml-2">locallens</span>
 			</button>
 			<div class="dropdown-menu dropdown-menu-right">
-			    <a class="dropdown-item" href="confirmPassword.u">내 정보 수정</a>
-			    <a class="dropdown-item" href="#">로그아웃</a>
+			    <a class="dropdown-item" href="updateProfile-confirmPassword.u">내 정보 수정</a>
+			    <a class="dropdown-item" href="${ctp}/main">로그아웃</a>
   			</div>
 			</div>
 		</div>

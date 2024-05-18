@@ -7,7 +7,7 @@
 	margin-top: 60px;
 }
 
-#recordFirstCuration {
+#firstRecord {
 	font-size: 20px;
 	height: 50px;
 	color: white;
@@ -17,23 +17,30 @@
 	width: 300px;
 	box-shadow: none;
 }
+
 #nickname {
 		font-family: 'Manrope', sans-serif;
 		font-size: 20px;
 		font-weight: bold;
 }
 
-#localLog, #guestBook, #curation {
-	text-decoration: none;
-	color: black;
-	font-size: 18px;
-	font-weight: bold;
+.archive-container ul li a {
+    text-decoration: none;
+    color: lightgray;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-#localLog, #guestBook, #curation:hover {
-	color: black;
+.archive-container ul li a:hover, 
+.archive-container ul li a.active {
+    color: black;
 }
 
 #profileNoimage {
 	font-size: 48px;
+}
+
+#updateProfile {
+	color: gray;
+	text-decoration: none;
 }

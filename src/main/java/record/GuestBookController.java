@@ -19,7 +19,7 @@ public class GuestBookController extends HttpServlet {
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("guestBook")) {
+		if (com.equals("record-guestBook")) {
 			viewPage += "guestBook.jsp";
 		} 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

@@ -10,6 +10,23 @@
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive.css" />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const links = document.querySelectorAll('.archive-container ul li a');
+    const currentPage = window.location.pathname.split('/').pop();
+
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            links.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+
+        if (link.getAttribute('href').includes(currentPage)) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/include/header.jsp" />
@@ -22,32 +39,29 @@
 				</div>
 				<div class="col-10">
 					<div id="nickname">locallens</div>
-					<div style="color: gray">탭하고 소개 글을 입력해 보세요.</div>
+					<div><a href="updateProfile-confirmPassword.u" id="updateProfile">클릭하고 소개 글을 입력해 보세요.</a></div>
 				</div>
 			</div>
 			<ul class="d-flex justify-content-between list-unstyled">
 				<li>
-					<a href="#" id="localLog">로컬로그</a>
+					<a href="archive-localLog.a" id="localLog">로컬로그</a>
 				</li>
 				<li>
-					<a href="#" id="guestBook"  style="color: lightgray">방명록</a>
+					<a href="archive-guestBook.a" id="guestBook">방명록</a>
 				</li>
 				<li>
-					<a href="#" id="curation"  style="color: lightgray">큐레이션</a>
+					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
 			</ul>
 			<div class="text-center" style="margin-top: 100px;">
 				<div class="mb-2">내가 방문한 공간을 기록해보세요.</div>
-				<button class="btn btn-custom" id="recordFirstCuration">첫 로컬로그 남기기</button>
+				<button class="btn btn-custom" id="firstRecord">첫 로컬로그 남기기</button>
 			</div>
-			<div class="text-center" style="margin-top: 100px;">	
-				<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
-				<button class="btn btn-custom" id="recordFirstCuration">첫 방명록 남기기</button>
+			<div class="text-center" style="margin-top: 100px;">
+				<i class="ph ph-image" style="font-size: 48px"></i>
+				<div class="mb-1 mt-3" style="font-weight: bold">콘텐츠가 없습니다.</div>
+				<div style="color: dimgray">아직 콘텐츠가 존재하지 않습니다.</div>
 			</div>
-			<div class="text-center" style="margin-top: 100px;">	
-				<div class="mb-2">추천하고 싶은 나만의 공간 가이드를 만들어보세요.</div>
-				<button class="btn btn-custom" id="recordFirstCuration">첫 큐레이션 작성하기</button>
-			</div>			
 		</div>
 	</div>
 </body>

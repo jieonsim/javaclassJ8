@@ -21,7 +21,7 @@ public class UpdateProfileController extends HttpServlet {
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("confirmPassword")) {
+		if (com.equals("updateProfile-confirmPassword")) {
 			viewPage += "confirmPassword.jsp";
 		} else if (com.equals("updateProfile")) {
 			viewPage += "updateProfile.jsp";

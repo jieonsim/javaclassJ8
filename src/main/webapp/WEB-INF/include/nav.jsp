@@ -32,13 +32,29 @@
 }); 
 */
 
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             navLinks.forEach(lnk => lnk.classList.remove('active')); // Remove active from all links
             this.classList.add('active'); // Add active to the clicked link
         });
+    });
+}); */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPage = window.location.pathname.split('/').pop();
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.forEach(lnk => lnk.classList.remove('active')); // Remove active from all links
+            this.classList.add('active'); // Add active to the clicked link
+        });
+
+        if (link.getAttribute('href').includes(currentPage)) {
+            link.classList.add('active');
+        }
     });
 });
 
@@ -49,15 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			<ul class="navbar-nav w-100 justify-content-between list-unstyled d-flex">
 				<li class="nav-item">
 					<%-- <a href="${ctp}/main" class="nav-link" id="home"> --%>
-					<a href="http://192.168.50.61:9090/zavaclass/main" class="nav-link" id="home">
-					<!-- <a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home"> -->
+					<!-- <a href="http://192.168.50.61:9090/zavaclass/main" class="nav-link" id="home"> -->
+					<a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home">
 						<i class="ph ph-house mr-1"></i>
 						<i class="ph-fill ph-house mr-1"></i>
 						<span>home</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link" id="map">
+					<a href="map.m" class="nav-link" id="map">
 						<i class="ph ph-map-trifold mr-1"></i>
 						<i class="ph-fill ph-map-trifold mr-1"></i>
 						<span>map</span>
@@ -65,14 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				</li>
 				<li class="nav-item">
 					<a href="#" class="nav-link" data-toggle="modal" data-target="#recordModal" id="record">
-					<!--<a href="#" class="nav-link" data-toggle="modal" data-target="#notLoginModal" id="record">-->
 						<i class="ph ph-plus-circle mr-1"></i>
 						<i class="ph-fill ph-plus-circle mr-1"></i>
 						<span>record</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<!-- <a href="#" class="nav-link" data-toggle="modal" data-target="#notLoginModal" id="bookmark"> -->
 					<a href="#" class="nav-link" id="bookmark">
 						<i class="ph ph-bookmark-simple mr-1"></i>
 						<i class="ph-fill ph-bookmark-simple mr-1"></i>
@@ -80,8 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					</a>
 				</li>
 				<li class="nav-item">
-					<!-- <a href="#" class="nav-link" data-toggle="modal" data-target="#notLoginModal" id="archive"> -->
-					<a href="archive.a" class="nav-link" id="bookmark">
+					<a href="archive-localLog.a" class="nav-link" id="archive">
 						<i class="ph ph-archive mr-1"></i>
 						<i class="ph-fill ph-archive mr-1"></i>
 						<span>archive</span>
