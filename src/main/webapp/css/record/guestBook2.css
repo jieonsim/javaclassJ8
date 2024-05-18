@@ -8,52 +8,52 @@
 }
 
 h4 {
-    font-family: 'Pretendard-SemiBold';
+	font-family: 'Pretendard-SemiBold';
 }
 
 .gusetBook-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
+	max-width: 400px;
+	margin: auto;
+	padding: 20px;
+	text-align: center;
 }
 
 .guestBook-form .form-control:not(#write) {
-    border-radius: 0;
+	border-radius: 0;
 }
 
 .guestBook-form .form-control:focus {
-    border-color: black;
-    box-shadow: none;
+	border-color: black;
+	box-shadow: none;
 }
 
 #map-pin {
-    font-size: 48px;
-    background: #eee;
-    border-radius: 50%;
-    padding: 5%;
+	font-size: 48px;
+	background: #eee; 
+	border-radius: 50%;
+	padding: 5%
 }
 
 #place {
-    border: none;
-    background-color: white;
-    color: dimgrey;
-    font-size: 20px;
-    font-weight: bold;
+	border: none;
+	background-color: white;
+	color: dimgrey;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #write {
-    color: white;
-    background-color: black;
-    border: none;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 30px;
+	color: white;
+	background-color: black;
+	border: none;
+	height: 50px;
+	font-size: 20px;
+	border-radius: 30px;
 }
 
-.gusetBook-container label:not(.option-btn) {
-    font-size: 14px;
-    color: dimgrey;
+#visibility {
+	font-size: 14px;
+	color: dimgrey;
 }
 
 input[type='checkbox'] {
@@ -70,6 +70,8 @@ input[type='checkbox'] {
     display: flex;
     align-items: center;
     justify-content: center;
+    /*background-color: #f0f0f0;*/
+    /*border: 1px solid #ddd;*/
     border: 1px solid #ced4da;
     border-radius: 30px;
     padding: 10px 15px;
@@ -78,16 +80,18 @@ input[type='checkbox'] {
 }
 
 .option-btn:hover {
+    /*background-color: #e0e0e0;*/
     background-color: black;
     color: white;
 }
 
-input[type="checkbox"]:not(#visibility){
+input[type="radio"] {
     display: none;
 }
 
-input[type="checkbox"]:checked + .option-btn {
+input[type="radio"]:checked + .option-btn {
     background-color: black;
     color: white;
     border-color: black;
 }
+
