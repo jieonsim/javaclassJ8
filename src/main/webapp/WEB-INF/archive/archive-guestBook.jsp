@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/include/header.jsp" />
-<jsp:include page="/WEB-INF/include/nav.jsp" />
+	<jsp:include page="/WEB-INF/include/header.jsp" />
+	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container">
 		<div class="archive-container">
 			<div class="row mb-5">
@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 				<div class="col-10">
 					<div id="nickname">locallens</div>
-					<div><a href="updateProfile-confirmPassword.u" style="color: gray; text-decoration: none">클릭하고 소개 글을 입력해 보세요.</a></div>
+					<div>
+						<a href="updateProfile-confirmPassword.u" style="color: gray; text-decoration: none">클릭하고 소개 글을 입력해 보세요.</a>
+					</div>
 				</div>
 			</div>
 			<ul class="d-flex justify-content-between list-unstyled">
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
 			</ul>
-			<div class="text-center" style="margin-top: 100px;">	
+			<div class="text-center" style="margin-top: 100px;">
 				<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
 				<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
 			</div>

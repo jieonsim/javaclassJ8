@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Pretendard-SemiBold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+h4 {
+    font-family: 'Pretendard-SemiBold';
+}
+
+.localLog-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.localLog_title {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.localLog_title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.localLog_title i {
+    margin-right: 8px;
+}
+
+.localLog-container .localLog-form .form-control:not(#submit) {
+    border-radius: 0;
+}
+
+.localLog-container .localLog-form .form-control:focus {
+    border-color: black;
+    box-shadow: none;
+}
+
+#place {
+    border: none;
+    background-color: white;
+    color: dimgrey;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+#submit {
+    color: white;
+    background-color: black;
+    border: none;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 30px;
+}
+
+.localLog-container label:not(.option-btn) {
+    font-size: 16px; /* Increased font size */
+    color: dimgrey;
+    text-align: left; /* Align text to the left */
+}
+
+.photo-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.photo-placeholder {
+    width: 100%;
+    height: 150px;
+    border: 1px dashed #ced4da;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #ced4da;
+    border-radius: 8px;
+    cursor: pointer; /* Add pointer cursor for file upload */
+}
+
+#photo-upload {
+    display: none;
+}
+
+input[type='checkbox'] {
+    accent-color: black;
+}
+
+input[type='radio'] {
+    display: none;
+}
+
+.companions-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ced4da;
+    border-radius: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.option-btn:hover {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+input[type="radio"]:checked + .option-btn {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+/* New style to ensure the '공간 추가' button is completely on the right */
+.form-group.row {
+    display: flex;
+    align-items: center;
+}
+
+.form-group.row .col {
+    flex-grow: 1;
+}
+
+.form-group.row .col label {
+    flex-shrink: 0;
+}

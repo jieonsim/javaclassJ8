@@ -5,31 +5,34 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class GetConnection {
-	private static Connection connection = null;
-	
-	private String driver = "com.mysql.jdbc.Driver";
-	private String url = "jdbc:mysql://localhost:3306/javaclass";
-	private String user = "root";
-	private String password = "1234";
-	
-	private static GetConnection instance = new GetConnection();
-	
-	private GetConnection() {
-		try {
-			Class.forName(driver);
-			connection = DriverManager.getConnection(url, user, password);
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 검색 실패 : " + e.getMessage());
-		} catch (SQLException e) {
-			System.out.println("데이터베이스 연결 실패 : " + e.getMessage());
-		}
-	}
-	
-	public static GetConnection getInstance() {
-		return instance;
-	}
-	
-	public static Connection getConn() {
-		return connection;
-	}
+    private static Connection connection = null;
+
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/javaclass8";
+    private static final String USER = "root";
+    private static final String PASSWORD = "1234";
+
+    private static GetConnection instance;
+
+    private GetConnection() {
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            System.out.println("드라이버 검색 실패 : " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("데이터베이스 연결 실패 : " + e.getMessage());
+        }
+    }
+
+    public static synchronized GetConnection getInstance() {
+        if (instance == null) {
+            instance = new GetConnection();
+        }
+        return instance;
+    }
+
+    public static Connection getConn() {
+        return connection;
+    }
 }

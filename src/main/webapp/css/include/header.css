@@ -2,9 +2,7 @@
 
 @font-face {
 	font-family: 'ClimateCrisisKR-1979';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/ClimateCrisisKR-1979.woff2')
-		format('woff2');
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/ClimateCrisisKR-1979.woff2') format('woff2');
 	font-weight: 900;
 	font-style: normal;
 }
@@ -22,8 +20,8 @@
 
 #user {
 	background-color: white;
-	box-shadow: none; 
-	border: none; 
+	box-shadow: none;
+	border: none;
 	color: black;
 }
 
@@ -34,8 +32,8 @@
 }
 
 .dropdown-menu .dropdown-item:active {
-    background-color: transparent; 
-    color: black; 
+	background-color: transparent;
+	color: black;
 }
 
 .header-link {
@@ -63,7 +61,7 @@
 	transition: color 0.3s, background-color 0.3s;
 }*/
 
-.search-input {
+.header-link .search-input {
 	border: 1px solid black;
 	border-radius: 25px;
 	padding: 10px 40px 10px 20px;
@@ -76,7 +74,7 @@
     border-color: inherit;
     box-shadow: none;
 } */
-.search-btn {
+.header-link .search-btn {
 	position: absolute;
 	right: 30px;
 	top: 50%;

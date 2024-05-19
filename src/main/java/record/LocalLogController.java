@@ -1,4 +1,4 @@
-package user.signup;
+package record;
 
 import java.io.IOException;
 
@@ -9,27 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.UserInterface;
-
 @SuppressWarnings("serial")
-@WebServlet("*.s")
-public class SignupController extends HttpServlet{
+@WebServlet("*.ll")
+public class LocalLogController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserInterface command = null;
-		String viewPage = "/WEB-INF/user/signup/";
-		
+		RecordInterface command = null;
+		String viewPage = "/WEB-INF/record/";
+
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
-		
-		if(com.equals("signup")) {
-			viewPage += "signup.jsp";
-		} else if (com.equals("signupComplete")) {
-			command = new SignupCommand();
-			command.execute(request, response);
-			viewPage += "signupComplete.jsp";
+
+		if (com.equals("record-localLog")) {
+			viewPage += "localLog.jsp";
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 }

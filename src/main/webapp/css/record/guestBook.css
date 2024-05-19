@@ -1,93 +1,111 @@
 @charset "UTF-8";
 
 @font-face {
-    font-family: 'Pretendard-SemiBold';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
+	font-family: 'Pretendard-SemiBold';
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
 }
 
 h4 {
-    font-family: 'Pretendard-SemiBold';
+	font-family: 'Pretendard-SemiBold';
 }
 
 .gusetBook-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
+	max-width: 400px;
+	margin: auto;
+	padding: 20px;
+	text-align: center;
 }
 
-.guestBook-form .form-control:not(#write) {
-    border-radius: 0;
+.guestBook_title {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	font-size: 18px;
 }
 
-.guestBook-form .form-control:focus {
-    border-color: black;
-    box-shadow: none;
+.guestBook_title a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.guestBook_title i {
+	margin-right: 8px;
+}
+
+.gusetBook-container .guestBook-form .form-control:not(#submit) {
+	border-radius: 0;
+}
+
+.gusetBook-container .guestBook-form .form-control:focus {
+	border-color: black;
+	box-shadow: none;
 }
 
 #map-pin {
-    font-size: 48px;
-    background: #eee;
-    border-radius: 50%;
-    padding: 5%;
+	font-size: 48px;
+	background: #eee;
+	border-radius: 50%;
+	padding: 5%;
 }
 
 #place {
-    border: none;
-    background-color: white;
-    color: dimgrey;
-    font-size: 20px;
-    font-weight: bold;
+	border: none;
+	background-color: white;
+	color: dimgrey;
+	font-size: 20px;
+	font-weight: bold;
 }
 
-#write {
-    color: white;
-    background-color: black;
-    border: none;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 30px;
+#submit {
+	color: white;
+	background-color: black;
+	border: none;
+	height: 50px;
+	font-size: 20px;
+	border-radius: 30px;
 }
 
-.gusetBook-container label:not(.option-btn) {
-    font-size: 14px;
+#companions {
+    font-size: 16px; /* Increased font size */
     color: dimgrey;
+    text-align: left; /* Align text to the left */
 }
 
 input[type='checkbox'] {
-    accent-color: black;
+	accent-color: black;
 }
 
 .companions-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 .option-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ced4da;
-    border-radius: 30px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ced4da;
+	border-radius: 30px;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: background-color 0.3s, border-color 0.3s;
 }
 
 .option-btn:hover {
-    background-color: black;
-    color: white;
+	background-color: black;
+	color: white;
+	border-color: black;
 }
 
-input[type="checkbox"]:not(#visibility){
-    display: none;
+input[type="checkbox"]:not(#visibility) {
+	display: none;
 }
 
-input[type="checkbox"]:checked + .option-btn {
-    background-color: black;
-    color: white;
-    border-color: black;
+input[type="checkbox"]:checked+.option-btn {
+	background-color: black;
+	color: white;
+	border-color: black;
 }
