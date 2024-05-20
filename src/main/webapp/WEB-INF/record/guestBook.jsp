@@ -15,8 +15,10 @@
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container mt-5">
 		<div class="guestBook_title">
-			<a href="javascript:history.back();"> <i class="ph ph-caret-left"></i>
-			</a> <span>방명록 작성</span>
+			<a href="javascript:history.back();">
+				<i class="ph ph-caret-left"></i>
+			</a>
+			<span>방명록 작성</span>
 		</div>
 		<div class="gusetBook-container">
 			<form class="guestBook-form" method="post" action="">
@@ -31,14 +33,10 @@
 						</div>
 						<%-- <jsp:include page="/WEB-INF/record/addAPlace.jsp" /> --%>
 						<input type="button" value="공간을 선택해주세요" data-toggle="modal" data-target="#addAPlace" id="place" />
-						<span style="color: lightcoral;"><b>*</b></span>
 						<i class="ph ph-caret-down" style="color: dimgrey; font-size: 20px; font-weight: bold;"></i>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="visit_date" class="col-sm-4 col-form-label">
-						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
-					</label>
 					<div class="col">
 						<input type="date" class="form-control" name="visit_date" id="visit_date" required />
 					</div>

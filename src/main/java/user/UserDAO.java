@@ -38,27 +38,19 @@ public class UserDAO {
         }
     }
 
-    // Create
-    public int insertUser(UserVO user) {
+    // 회원가입
+    public int insertUser(UserVO userVO) {
         int result = 0;
-        sql = "INSERT INTO users (id, password, nickname, name, email, role, introduction, createdAt, updatedAt, profileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, user.getId());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getNickname());
-            pstmt.setString(4, user.getName());
-            pstmt.setString(5, user.getEmail());
-            pstmt.setString(6, user.getRole());
-            pstmt.setString(7, user.getIntroduction());
-            pstmt.setTimestamp(8, user.getCreatedAt());
-            pstmt.setTimestamp(9, user.getUpdatedAt());
-            pstmt.setString(10, user.getProfileImage());
+        String sql = "INSERT INTO users2 (id, password, nickname, name, email) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userVO.getId());
+            pstmt.setString(2, userVO.getPassword());
+            pstmt.setString(3, userVO.getNickname());
+            pstmt.setString(4, userVO.getName());
+            pstmt.setString(5, userVO.getEmail());
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            pstmtClose();
+            System.out.println("SQL 오류 : " + e.getMessage());
         }
         return result;
     }

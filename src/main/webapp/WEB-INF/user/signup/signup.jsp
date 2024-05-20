@@ -25,7 +25,7 @@
 						<span>6자 이상 16자 이하의 영문 혹은 영문과 숫자를 조합</span>
 					</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-custom form-control" id="idDuplicated">중복확인</button>
+						<button type="button" class="btn btn-custom form-control" id="isIdDuplicated">중복확인</button>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -50,7 +50,7 @@
 						<span>15자 이하, 영문/숫자/마침표/언더바만 입력 가능</span>
 					</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-custom form-control" id="idDuplicated">중복확인</button>
+						<button type="button" class="btn btn-custom form-control" id="isNicknameDuplicated">중복확인</button>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -65,28 +65,9 @@
 						<input type="email" class="form-control" name="email" placeholder="예: ll@locallens.com" required />
 					</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-custom form-control" id="emailDuplicated">중복확인</button>
+						<button type="button" class="btn btn-custom form-control" id="isEmailDuplicated">중복확인</button>
 					</div>
 				</div>
-				<!--  
-                <div class="form-group row">
-                	<label for="phone" class="col-sm-3 col-form-label">휴대폰</label>
-                    <div class="col-sm-6">
-                        <input type="number" class="form-control" name="phone"
-                            placeholder="숫자만 입력해주세요." required />
-                    </div>
-                    <div class="col-sm-3">
-			            <button type="submit" class="btn btn-custom form-control" id="phoneDuplicated">중복확인</button>
-			        </div>
-                </div>
-                <div class="form-group row">
-                	<label for="address" class="col-sm-3 col-form-label">주소</label>
-                    <div class="col-sm-6">
-                        <input type="button" class="btn btn-custom form-control" name="address" id="address"
-                            value="주소 검색" /><i class="ph ph-magnifying-glass"></i>
-                    </div>
-                </div>
-                -->
 				<hr>
 				<div class="form-group row text-center">
 					<div class="col-sm-3"></div>

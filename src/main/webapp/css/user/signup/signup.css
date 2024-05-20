@@ -38,7 +38,7 @@ label {
 }
 
 /* 중복확인 되었을 때 비활성화 처리
-#address, #idDuplicated, #emailDuplicated {
+#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
 	background-color: #eee;
 	border: none;
 	color: lightgray;
@@ -46,7 +46,7 @@ label {
 }
 */
 
-#address, #idDuplicated, #emailDuplicated {
+#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
 	background-color: white;
 	border: 1px solid black;
 	color: black;
@@ -62,7 +62,6 @@ label {
 	font-size: 20px;
 	text-align: center;
 }
-
 
 .signUp-form .form-group span {
     color: lightcoral;
