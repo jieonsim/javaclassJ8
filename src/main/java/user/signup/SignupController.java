@@ -13,23 +13,27 @@ import user.UserInterface;
 
 @SuppressWarnings("serial")
 @WebServlet("*.s")
-public class SignupController extends HttpServlet{
+public class SignupController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserInterface command = null;
 		String viewPage = "/WEB-INF/user/signup/";
-		
+
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
-		
-		if(com.equals("signup")) {
+
+		if (com.equals("signup")) {
 			viewPage += "signup.jsp";
 		} else if (com.equals("signupComplete")) {
 			command = new SignupCommand();
 			command.execute(request, response);
 			viewPage += "signupComplete.jsp";
+		} else if (com.equals("checkIdDuplicated")) {
+			command = new CheckIdDuplicated();
+			command.execute(request, response);
+			return;
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 }

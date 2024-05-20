@@ -10,7 +10,7 @@
 					<li class="nav-item">
 						<a href="record-guestBook.g" class="nav-link" id="guestBook">
 							<span class="link-content">
-								<img src="${ctp}/images/pin.png" alt="Pin">
+								<img src="${ctp}/images/record/guestBook.png" alt="guestBook">
 								<span class="text-content">
 									<span>
 										<b>방명록</b>
@@ -23,7 +23,7 @@
 					<li class="nav-item">
 						<a href="record-localLog.ll" class="nav-link" id="localLog">
 							<span class="link-content">
-								<img src="${ctp}/images/images.png" alt="Images">
+								<img src="${ctp}/images/record/localLog.png" alt="localLog">
 								<span class="text-content">
 									<span>
 										<b>로컬로그</b>
@@ -36,7 +36,7 @@
 					<li class="nav-item">
 						<a href="#" class="nav-link" id="curation">
 							<span class="link-content">
-								<img src="${ctp}/images/book.png" alt="Book">
+								<img src="${ctp}/images/record/curation.png" alt="curation">
 								<span class="text-content">
 									<span>
 										<b>큐레이션</b>

@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
-.signUp-container {
-	max-width: 700px;
-	margin: auto;
-	padding: 20px;
-	text-align: center;
+.signup-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
 }
 
 @font-face {
@@ -15,26 +15,50 @@
 }
 
 h3 {
-	font-family: 'Pretendard-SemiBold';
+    font-family: 'Pretendard-SemiBold';
 }
 
 .form-control {
-	border-radius: 0;
+    border-radius: 0;
 }
 
 .form-control:focus {
-	border-color: black;
-	box-shadow: none;
+    border-color: black;
+    box-shadow: none;
 }
 
 label {
-	text-align: left;
+    text-align: left;
 }
 
 .link-small {
-	font-size: small;
-	color: gray;
-	text-decoration: none;
+    font-size: small;
+    color: gray;
+    text-decoration: none;
+}
+
+#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    border-radius: 0;
+}
+
+#signup {
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 0;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.signup-form .form-group .validation-message {
+    display: none;
+    color: lightcoral;
+    font-size: 13px;
+    margin-top: 5px; /* Add some margin if needed */
 }
 
 /* 중복확인 되었을 때 비활성화 처리
@@ -45,27 +69,3 @@ label {
 	border-radius: 0;
 }
 */
-
-#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
-	background-color: white;
-	border: 1px solid black;
-	color: black;
-	border-radius: 0;
-}
-
-#signUp {
-	color: white;
-	background-color: black;
-	border: none;
-	border-radius: 0;
-	height: 50px;
-	font-size: 20px;
-	text-align: center;
-}
-
-.signUp-form .form-group span {
-    color: lightcoral;
-    font-size: 13px;
-    text-align: left; /* Add this to align text to the left */
-    display: block; /* Makes span behave like a block element, allowing text-align to work */
-}
