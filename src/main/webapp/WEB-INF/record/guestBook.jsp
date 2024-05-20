@@ -31,10 +31,14 @@
 						</div>
 						<%-- <jsp:include page="/WEB-INF/record/addAPlace.jsp" /> --%>
 						<input type="button" value="공간을 선택해주세요" data-toggle="modal" data-target="#addAPlace" id="place" />
+						<span style="color: lightcoral;"><b>*</b></span>
 						<i class="ph ph-caret-down" style="color: dimgrey; font-size: 20px; font-weight: bold;"></i>
 					</div>
 				</div>
 				<div class="form-group row">
+					<label for="visit_date" class="col-sm-4 col-form-label">
+						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
+					</label>
 					<div class="col">
 						<input type="date" class="form-control" name="visit_date" id="visit_date" required />
 					</div>

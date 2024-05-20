@@ -15,4 +15,8 @@ CREATE TABLE users2 (
 );
 
 desc users2;
+
+
+
+
 drop table users2;

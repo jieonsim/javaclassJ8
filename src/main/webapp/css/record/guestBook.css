@@ -109,3 +109,22 @@ input[type="checkbox"]:checked+.option-btn {
 	color: white;
 	border-color: black;
 }
+
+.guestBook-container label:not(.option-btn) {
+    font-size: 16px; /* Increased font size */
+    color: dimgrey;
+    text-align: left; /* Align text to the left */
+}
+
+.form-group.row {
+    display: flex;
+    align-items: center;
+}
+
+.form-group.row .col {
+    flex-grow: 1;
+}
+
+.form-group.row .col label {
+    flex-shrink: 0;
+}

@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			<ul class="navbar-nav w-100 justify-content-between list-unstyled d-flex">
 				<li class="nav-item">
 					<%-- <a href="${ctp}/main" class="nav-link" id="home"> --%>
-					<!-- <a href="http://192.168.50.61:9090/zavaclass/main" class="nav-link" id="home"> -->
-					<a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home">
+					<a href="http://192.168.50.61:9090/zavaclass/main" class="nav-link" id="home">
+					<!-- <a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home"> -->
 						<i class="ph ph-house mr-1"></i> <i class="ph-fill ph-house mr-1"></i>
 						<span>home</span>
 					</a>
