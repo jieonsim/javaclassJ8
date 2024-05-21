@@ -55,17 +55,17 @@ label {
     margin-top: 5px; 
 }
 
-#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
+#isIdDuplicatedBtn, #isNicknameDuplicatedBtn, #isEmailDuplicatedBtn {
     background-color: white;
     border: 1px solid black;
     color: black;
     border-radius: 0;
 }
 
-/*#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
-	background-color: #eee;
-	border: none;
-	color: lightgray;
-	border-radius: 0;
-}*/
+#isIdDuplicatedBtn.disabled, #isNicknameDuplicatedBtn.disabled, #isEmailDuplicatedBtn.disabled {
+    background-color: #eee;
+    border: none;
+    color: lightgray;
+    border-radius: 0;
+}
 

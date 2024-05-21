@@ -7,17 +7,18 @@ import java.sql.SQLException;
 public class GetConnection {
     private static Connection connection = null;
 
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.jdbc.Driver"; // 최신 MySQL 드라이버
     private static final String URL = "jdbc:mysql://localhost:3306/javaclass8";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
-    private static GetConnection instance;
+    private static GetConnection instance = new GetConnection();
 
     private GetConnection() {
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("DB 연결 성공");
         } catch (ClassNotFoundException e) {
             System.out.println("드라이버 검색 실패 : " + e.getMessage());
         } catch (SQLException e) {
@@ -25,13 +26,10 @@ public class GetConnection {
         }
     }
 
-    public static synchronized GetConnection getInstance() {
-        if (instance == null) {
-            instance = new GetConnection();
-        }
+    public static GetConnection getInstance() {
         return instance;
     }
-
+    
     public static Connection getConn() {
         return connection;
     }

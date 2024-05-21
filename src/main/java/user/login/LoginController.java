@@ -14,22 +14,22 @@ import user.UserInterface;
 @SuppressWarnings("serial")
 @WebServlet("*.l")
 public class LoginController extends HttpServlet {
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserInterface command = null;
-		String viewPage = "/WEB-INF/user/login/";
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserInterface command = null;
+        String viewPage = "/WEB-INF/user/login/";
 
-		String com = request.getRequestURI();
-		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
+        String com = request.getRequestURI();
+        com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("login")) {
-			viewPage += "login.jsp";
-		} else if (com.equals("main")) {
-			// command = new loginCommand();
-            // command.execute(request, response);
-			viewPage = "/WEB-INF/main/main.jsp";
-		}
+        if (com.equals("login")) {
+            viewPage += "login.jsp";
+        } else if (com.equals("welcome")) {
+            command = new LoginCommand();
+            command.execute(request, response);
+            viewPage = "/WEB-INF/main/main.jsp";
+        }
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
-	}
+        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+        dispatcher.forward(request, response);
+    }
 }

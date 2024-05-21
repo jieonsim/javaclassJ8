@@ -12,10 +12,19 @@ CREATE TABLE users2 (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '계정 생성 일자',
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '마지막 정보 업데이트 일자',
     profileImage VARCHAR(255) COMMENT '프로필 사진 경로',
-    visibility ENUM('public', 'private') NOT NULL DEFAULT 'public' COMMENT '공개/비공개 구별',
+    visibility ENUM('public', 'private') NOT NULL DEFAULT 'public' COMMENT '공개/비공개 구별'
 );
 
+
 desc users2;
+select * from users2;
+
+INSERT INTO users2 (id, password, nickname, name, email) VALUES ('test1', 'test123^^!', '테스트', '홍길동', 'test@naver.com');
+
+SELECT * FROM users2 WHERE id = 'test1';
+DESCRIBE users2;
+SELECT * FROM users2 WHERE id = 'hkd123';
+
 
 
 

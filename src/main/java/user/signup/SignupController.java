@@ -1,6 +1,7 @@
 package user.signup;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ public class SignupController extends HttpServlet {
 
         if (com.equals("signup")) {
             viewPage += "signup.jsp";
-        } 
+        }
         else if (com.equals("signupComplete")) {
             command = new SignupCommand();
             command.execute(request, response);
@@ -34,14 +35,14 @@ public class SignupController extends HttpServlet {
             return; 
         }
         else if (com.equals("checkNicknameDuplicated")) {
-            command = new CheckNicknameDuplicated();
-            command.execute(request, response);
-            return;
+        	command = new CheckNicknameDuplicated();
+        	command.execute(request, response);
+        	return; 
         }
         else if (com.equals("checkEmailDuplicated")) {
-            command = new CheckEmailDuplicated();
-            command.execute(request, response);
-            return;
+        	command = new CheckEmailDuplicated();
+        	command.execute(request, response);
+        	return; 
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

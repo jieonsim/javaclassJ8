@@ -1,7 +1,6 @@
 package user.signup;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,18 +13,22 @@ public class CheckIdDuplicated implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		String id = request.getParameter("id") == null ? "" : request.getParameter("id");
+
+		if (id.isEmpty()) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().write("Invalid ID");
+			return;
+		}
 
 		UserDAO dao = new UserDAO();
-		boolean isDuplicated = dao.isIdDuplicated(id);
+		boolean isDuplicated = dao.checkIdDuplicated(id);
 
 		response.setContentType("text/plain");
-		PrintWriter out = response.getWriter();
 		if (isDuplicated) {
-			out.print("duplicated");
+			response.getWriter().write("duplicated");
 		} else {
-			out.print("available");
+			response.getWriter().write("available");
 		}
-		out.flush();
 	}
 }

@@ -28,7 +28,7 @@
 				<div class="dropdown">
 					<button type="button" class="btn btn-custom btn-lg dropdown-toggle" data-toggle="dropdown" id="user">
 						<i class="ph ph-user"></i>
-						<span class="ml-2">locallens</span>
+						<span class="ml-2">${sessionNickname}</span>
 					</button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="updateProfile-confirmPassword.u">내 정보 수정</a>
