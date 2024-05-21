@@ -37,7 +37,6 @@ label {
     text-decoration: none;
 }
 
-
 #signup {
     color: white;
     background-color: black;
@@ -55,17 +54,22 @@ label {
     margin-top: 5px; 
 }
 
-#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
+.btn-custom {
+    border-radius: 0;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+}
+
+.btn-active {
     background-color: white;
     border: 1px solid black;
     color: black;
     border-radius: 0;
 }
 
-/*#isIdDuplicated, #isNicknameDuplicated, #isEmailDuplicated {
-	background-color: #eee;
-	border: none;
-	color: lightgray;
-	border-radius: 0;
-}*/
-
+.btn-disabled {
+    background-color: #eee;
+    border: none;
+    color: lightgray;
+}

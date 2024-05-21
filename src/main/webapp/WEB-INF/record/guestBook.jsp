@@ -21,7 +21,7 @@
 			<span>방명록 작성</span>
 		</div>
 		<div class="gusetBook-container">
-			<form class="guestBook-form" method="post" action="">
+			<form class="guestBook-form" method="post" action="" enctype="multipart/form-data">
 				<!-- 숨겨진 필드 추가 -->
 				<input type="hidden" id="selected-place-name" name="place_name" />
 				<input type="hidden" id="selected-place-lat" name="place_lat" />

@@ -1,7 +1,6 @@
 package user.signup;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,26 +13,38 @@ import user.UserInterface;
 @SuppressWarnings("serial")
 @WebServlet("*.s")
 public class SignupController extends HttpServlet {
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserInterface command = null;
-		String viewPage = "/WEB-INF/user/signup/";
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserInterface command = null;
+        String viewPage = "/WEB-INF/user/signup/";
 
-		String com = request.getRequestURI();
-		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
+        String com = request.getRequestURI();
+        com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("signup")) {
-			viewPage += "signup.jsp";
-		} else if (com.equals("signupComplete")) {
-			command = new SignupCommand();
-			command.execute(request, response);
-			viewPage += "signupComplete.jsp";
-		} else if (com.equals("checkIdDuplicated")) {
-			command = new CheckIdDuplicated();
-			command.execute(request, response);
-			return;
-		}
+        if (com.equals("signup")) {
+            viewPage += "signup.jsp";
+        } 
+        else if (com.equals("signupComplete")) {
+            command = new SignupCommand();
+            command.execute(request, response);
+            viewPage += "signupComplete.jsp";
+        } 
+        else if (com.equals("checkIdDuplicated")) {
+            command = new CheckIdDuplicated();
+            command.execute(request, response);
+            return; 
+        }
+        else if (com.equals("checkNicknameDuplicated")) {
+            command = new CheckNicknameDuplicated();
+            command.execute(request, response);
+            return;
+        }
+        else if (com.equals("checkEmailDuplicated")) {
+            command = new CheckEmailDuplicated();
+            command.execute(request, response);
+            return;
+        }
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
-	}
+        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+        dispatcher.forward(request, response);
+    }
 }

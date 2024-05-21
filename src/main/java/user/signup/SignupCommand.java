@@ -20,8 +20,13 @@ public class SignupCommand implements UserInterface {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
 
-        if (id == null || password == null || nickname == null || name == null || email == null) {
-            request.setAttribute("errorMessage", "모든 정보를 입력해주세요.");
+        if (id == null || id.isEmpty() || 
+            password == null || password.isEmpty() || 
+            nickname == null || nickname.isEmpty() || 
+            name == null || name.isEmpty() || 
+            email == null || email.isEmpty()) {
+            request.setAttribute("message", "모든 정보를 입력해주세요.");
+            request.setAttribute("url", "signup.s");
             request.getRequestDispatcher("/WEB-INF/user/signup/signup.jsp").forward(request, response);
             return;
         }
@@ -44,9 +49,10 @@ public class SignupCommand implements UserInterface {
         int result = dao.insertUser(vo);
 
         if (result != 0) {
-            request.getRequestDispatcher("/WEB-INF/user/signup/signupComplete.jsp").forward(request, response);
+            response.sendRedirect("signupComplete.s");
         } else {
-            request.setAttribute("errorMessage", "회원 가입에 실패하였습니다. 다시 시도해주세요.");
+            request.setAttribute("message", "회원 가입이 정상적으로 완료되지 않았습니다. 다시 시도해주세요.");
+            request.setAttribute("url", "signup.s");
             request.getRequestDispatcher("/WEB-INF/user/signup/signup.jsp").forward(request, response);
         }
     }

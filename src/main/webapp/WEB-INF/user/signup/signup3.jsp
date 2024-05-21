@@ -11,48 +11,28 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/signup/signup.css" />
 </head>
 <script>
-	'use strict';
-	
-	$(document).ready(function() {
-		const idRegex = /^[a-z][a-z0-9]{4,14}$/;
-		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
-		const nicknameRegex = /^[a-z0-9._]{1,30}$/;
-		const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
-		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	const idRegex = /^[a-z][a-z0-9]{4,14}$/;
+	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
+	const nicknameRegex = /^[a-z0-9._]{1,30}$/;
+	const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
+	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-		function validateInput(input, regex, span) {
-			if (!regex.test(input.value)) {
-				span.style.display = 'inline';
-			} else {
-				span.style.display = 'none';
-			}
+	function showValidationMessage(element, message) {
+		element.nextElementSibling.textContent = message;
+		element.nextElementSibling.style.display = 'block';
+	}
+
+	function hideValidationMessage(element) {
+		element.nextElementSibling.style.display = 'none';
+	}
+
+	function validateField(element, regex, message) {
+		if (!regex.test(element.value)) {
+			showValidationMessage(element, message);
+		} else {
+			hideValidationMessage(element);
 		}
-
-		// ID validation
-		$('#id').on('input', function() {
-			validateInput(this, idRegex, this.nextElementSibling);
-		});
-
-		// Password validation
-		$('input[name="password"]').on('input', function() {
-			validateInput(this, passwordRegex, this.nextElementSibling);
-		});
-
-		// Nickname validation
-		$('input[name="nickname"]').on('input', function() {
-			validateInput(this, nicknameRegex, this.nextElementSibling);
-		});
-
-		// Name validation
-		$('input[name="name"]').on('input', function() {
-			validateInput(this, nameRegex, this.nextElementSibling);
-		});
-
-		// Email validation
-		$('input[name="email"]').on('input', function() {
-			validateInput(this, emailRegex, this.nextElementSibling);
-		});
-	});
+	}
 
 	function isIdDuplicated() {
 		const id = document.forms["signupForm"].id.value;
@@ -73,6 +53,10 @@
 						document.forms["signupForm"].id.focus();
 					} else {
 						alert('사용 가능한 아이디입니다.');
+						const button = document
+								.getElementById("isIdDuplicated");
+						button.disabled = true;
+						button.classList.add("disabled");
 					}
 				},
 				error : function() {
@@ -101,6 +85,10 @@
 						document.forms["signupForm"].nickname.focus();
 					} else {
 						alert('사용 가능한 닉네임입니다.');
+						const button = document
+								.getElementById("isNicknameDuplicated");
+						button.disabled = true;
+						button.classList.add("disabled");
 					}
 				},
 				error : function() {
@@ -114,7 +102,7 @@
 		const email = document.forms["signupForm"].email.value;
 
 		if (email.trim() === "") {
-			alert("닉네임을 입력하세요.");
+			alert("이메일을 입력하세요.");
 			document.forms["signupForm"].email.focus();
 		} else {
 			$.ajax({
@@ -129,6 +117,10 @@
 						document.forms["signupForm"].email.focus();
 					} else {
 						alert('사용 가능한 이메일입니다.');
+						const button = document
+								.getElementById("isEmailDuplicated");
+						button.disabled = true;
+						button.classList.add("disabled");
 					}
 				},
 				error : function() {
@@ -137,6 +129,78 @@
 			});
 		}
 	}
+
+	function validateAndSubmitForm(event) {
+		event.preventDefault();
+		const isIdChecked = document.getElementById("isIdDuplicated").disabled;
+		const isNicknameChecked = document
+				.getElementById("isNicknameDuplicated").disabled;
+		const isEmailChecked = document.getElementById("isEmailDuplicated").disabled;
+
+		if (!isIdChecked) {
+			alert('아이디 중복 확인을 해주세요.');
+			return;
+		}
+
+		if (!isNicknameChecked) {
+			alert('닉네임 중복 확인을 해주세요.');
+			return;
+		}
+
+		if (!isEmailChecked) {
+			alert('이메일 중복 확인을 해주세요.');
+			return;
+		}
+
+		if (validateForm()) {
+			document.forms["signupForm"].submit();
+		}
+	}
+
+	function validateForm() {
+		const id = document.forms["signupForm"].id;
+		const password = document.forms["signupForm"].password;
+		const nickname = document.forms["signupForm"].nickname;
+		const name = document.forms["signupForm"].name;
+		const email = document.forms["signupForm"].email;
+
+		validateField(id, idRegex, '5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합');
+		validateField(password, passwordRegex, '10자 이상, 영문, 숫자, 특수문자 조합');
+		validateField(nickname, nicknameRegex,
+				'15자 이하, 영문, 숫자, 마침표, 언더바만 입력 가능');
+		validateField(name, nameRegex, '2자 이상, 한글/영문만 입력 가능');
+		validateField(email, emailRegex, '이메일 형식에 맞춰 입력해주세요.');
+
+		return idRegex.test(id.value) && passwordRegex.test(password.value)
+				&& nicknameRegex.test(nickname.value)
+				&& nameRegex.test(name.value) && emailRegex.test(email.value);
+	}
+
+	document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById("signupForm")
+				.addEventListener(
+						"input",
+						function(event) {
+							const target = event.target;
+							if (target.name === "id")
+								validateField(target, idRegex,
+										'5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합');
+							if (target.name === "password")
+								validateField(target, passwordRegex,
+										'10자 이상, 영문, 숫자, 특수문자 조합');
+							if (target.name === "nickname")
+								validateField(target, nicknameRegex,
+										'15자 이하, 영문, 숫자, 마침표, 언더바만 입력 가능');
+							if (target.name === "name")
+								validateField(target, nameRegex,
+										'2자 이상, 한글/영문만 입력 가능');
+							if (target.name === "email")
+								validateField(target, emailRegex,
+										'이메일 형식에 맞춰 입력해주세요.');
+						});
+		document.getElementById("signup").addEventListener("click",
+				validateAndSubmitForm);
+	});
 </script>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -145,12 +209,12 @@
 		<div class="signup-container">
 			<h3 class="mb-5">회원가입</h3>
 			<hr>
-			<form name="signupForm" class="signup-form pl-3 pr-3" method="post" action="signupComplete.s">
+			<form name="signupForm" id="signupForm" class="signup-form pl-3 pr-3" method="post" action="signupComplete.s">
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
 					<div class="col-sm-6 text-left">
 						<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요." autofocus required />
-						<span class="validation-message">5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합</span>
+						<span class="validation-message" style="display: none;">5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합</span>
 					</div>
 					<div class="col-sm-3">
 						<button type="button" class="btn btn-custom form-control" id="isIdDuplicated" onclick="isIdDuplicated()">중복확인</button>
@@ -160,21 +224,21 @@
 					<label for="password" class="col-sm-3 col-form-label">비밀번호</label>
 					<div class="col-sm-6 text-left">
 						<input type="password" class="form-control" name="password" placeholder="비밀번호를 입력해주세요." required />
-						<span class="validation-message">10자 이상, 영문,숫자,특수문자 조합</span>
+						<span class="validation-message" style="display: none;">10자 이상, 영문,숫자,특수문자 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="password" class="col-sm-3 col-form-label">비밀번호 확인</label>
 					<div class="col-sm-6 text-left">
 						<input type="password" class="form-control" name="password" placeholder="비밀번호를 한번 더 입력해주세요." required />
-						<span class="validation-message">동일한 비밀번호를 입력</span>
+						<span class="validation-message" style="display: none;">동일한 비밀번호를 입력</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="nickname" class="col-sm-3 col-form-label">닉네임</label>
 					<div class="col-sm-6 text-left">
 						<input type="text" class="form-control" name="nickname" placeholder="닉네임을 입력해주세요." required />
-						<span class="validation-message">15자 이하, 영문,숫자,마침표,언더바만 입력 가능</span>
+						<span class="validation-message" style="display: none;">15자 이하, 영문,숫자,마침표,언더바만 입력 가능</span>
 					</div>
 					<div class="col-sm-3">
 						<button type="button" class="btn btn-custom form-control" id="isNicknameDuplicated" onclick="isNicknameDuplicated()">중복확인</button>
@@ -184,14 +248,14 @@
 					<label for="name" class="col-sm-3 col-form-label">이름</label>
 					<div class="col-sm-6 text-left">
 						<input type="text" class="form-control" name="name" placeholder="이름을 입력해주세요." required />
-						<span class="validation-message">2자 이상, 한글/영문만 입력 가능</span>
+						<span class="validation-message" style="display: none;">2자 이상, 한글/영문만 입력 가능</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="email" class="col-sm-3 col-form-label">이메일</label>
 					<div class="col-sm-6 text-left">
 						<input type="email" class="form-control" name="email" placeholder="예: ll@locallens.com" required />
-						<span class="validation-message">이메일 형식에 맞춰 입력해주세요.</span>
+						<span class="validation-message" style="display: none;">이메일 형식에 맞춰 입력해주세요.</span>
 					</div>
 					<div class="col-sm-3">
 						<button type="button" class="btn btn-custom form-control" id="isEmailDuplicated" onclick="isEmailDuplicated()">중복확인</button>

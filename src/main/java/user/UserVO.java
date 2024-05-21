@@ -15,27 +15,13 @@ public class UserVO {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String profileImage;
+    private String visibility;
 
     // 기본 생성자
     public UserVO() {
     }
 
-    // 매개변수 생성
-    public UserVO(int userIdx, String id, String password, String nickname, String name, String email, String role, String introduction, Timestamp createdAt, Timestamp updatedAt, String profileImage) {
-        this.userIdx = userIdx;
-        this.id = id;
-        this.password = password;
-        this.nickname = nickname;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.introduction = introduction;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.profileImage = profileImage;
-    }
-
-    // Getters and setters
+	// Getters and setters
     public int getUserIdx() {
         return userIdx;
     }
@@ -123,25 +109,23 @@ public class UserVO {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+    
+    public String getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
 
     // toString method
     @Override
-    public String toString() {
-        return "UserVO{" +
-                "userIdx=" + userIdx +
-                ", id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", profileImage='" + profileImage + '\'' +
-                '}';
-    }
-
+	public String toString() {
+		return "UserVO [userIdx=" + userIdx + ", id=" + id + ", password=" + password + ", nickname=" + nickname + ", name=" + name + ", email=" + email
+				+ ", role=" + role + ", introduction=" + introduction + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", profileImage="
+				+ profileImage + ", visibility=" + visibility + "]";
+	}
+    
     // equals and hashCode methods
     @Override
     public boolean equals(Object o) {
@@ -161,7 +145,7 @@ public class UserVO {
                 Objects.equals(profileImage, userVO.profileImage);
     }
 
-    @Override
+	@Override
     public int hashCode() {
         return Objects.hash(userIdx, id, password, nickname, name, email, role, introduction, createdAt, updatedAt, profileImage);
     }

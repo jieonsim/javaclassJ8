@@ -23,6 +23,10 @@ public class LoginController extends HttpServlet {
 
 		if (com.equals("login")) {
 			viewPage += "login.jsp";
+		} else if (com.equals("main")) {
+			// command = new loginCommand();
+            // command.execute(request, response);
+			viewPage = "/WEB-INF/main/main.jsp";
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

@@ -11,48 +11,28 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/signup/signup.css" />
 </head>
 <script>
-	'use strict';
-	
-	$(document).ready(function() {
-		const idRegex = /^[a-z][a-z0-9]{4,14}$/;
-		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
-		const nicknameRegex = /^[a-z0-9._]{1,30}$/;
-		const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
-		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	const idRegex = /^[a-z][a-z0-9]{4,14}$/;
+	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
+	const nicknameRegex = /^[a-z0-9._]{1,30}$/;
+	const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
+	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-		function validateInput(input, regex, span) {
-			if (!regex.test(input.value)) {
-				span.style.display = 'inline';
-			} else {
-				span.style.display = 'none';
-			}
+	function showValidationMessage(element, message) {
+		element.nextElementSibling.textContent = message;
+		element.nextElementSibling.style.display = 'block';
+	}
+
+	function hideValidationMessage(element) {
+		element.nextElementSibling.style.display = 'none';
+	}
+
+	function validateField(element, regex, message) {
+		if (!regex.test(element.value)) {
+			showValidationMessage(element, message);
+		} else {
+			hideValidationMessage(element);
 		}
-
-		// ID validation
-		$('#id').on('input', function() {
-			validateInput(this, idRegex, this.nextElementSibling);
-		});
-
-		// Password validation
-		$('input[name="password"]').on('input', function() {
-			validateInput(this, passwordRegex, this.nextElementSibling);
-		});
-
-		// Nickname validation
-		$('input[name="nickname"]').on('input', function() {
-			validateInput(this, nicknameRegex, this.nextElementSibling);
-		});
-
-		// Name validation
-		$('input[name="name"]').on('input', function() {
-			validateInput(this, nameRegex, this.nextElementSibling);
-		});
-
-		// Email validation
-		$('input[name="email"]').on('input', function() {
-			validateInput(this, emailRegex, this.nextElementSibling);
-		});
-	});
+	}
 
 	function isIdDuplicated() {
 		const id = document.forms["signupForm"].id.value;
@@ -73,6 +53,11 @@
 						document.forms["signupForm"].id.focus();
 					} else {
 						alert('사용 가능한 아이디입니다.');
+						const button = document
+								.getElementById("isIdDuplicated");
+						button.disabled = true;
+						button.classList.remove("btn-active");
+						button.classList.add("btn-disabled");
 					}
 				},
 				error : function() {
@@ -101,6 +86,11 @@
 						document.forms["signupForm"].nickname.focus();
 					} else {
 						alert('사용 가능한 닉네임입니다.');
+						const button = document
+								.getElementById("isNicknameDuplicated");
+						button.disabled = true;
+						button.classList.remove("btn-active");
+						button.classList.add("btn-disabled");
 					}
 				},
 				error : function() {
@@ -114,7 +104,7 @@
 		const email = document.forms["signupForm"].email.value;
 
 		if (email.trim() === "") {
-			alert("닉네임을 입력하세요.");
+			alert("이메일을 입력하세요.");
 			document.forms["signupForm"].email.focus();
 		} else {
 			$.ajax({
@@ -129,6 +119,11 @@
 						document.forms["signupForm"].email.focus();
 					} else {
 						alert('사용 가능한 이메일입니다.');
+						const button = document
+								.getElementById("isEmailDuplicated");
+						button.disabled = true;
+						button.classList.remove("btn-active");
+						button.classList.add("btn-disabled");
 					}
 				},
 				error : function() {
@@ -137,6 +132,78 @@
 			});
 		}
 	}
+
+	function validateAndSubmitForm(event) {
+		event.preventDefault();
+		const isIdChecked = document.getElementById("isIdDuplicated").disabled;
+		const isNicknameChecked = document
+				.getElementById("isNicknameDuplicated").disabled;
+		const isEmailChecked = document.getElementById("isEmailDuplicated").disabled;
+
+		if (!isIdChecked) {
+			alert('아이디 중복 확인을 해주세요.');
+			return;
+		}
+
+		if (!isNicknameChecked) {
+			alert('닉네임 중복 확인을 해주세요.');
+			return;
+		}
+
+		if (!isEmailChecked) {
+			alert('이메일 중복 확인을 해주세요.');
+			return;
+		}
+
+		if (validateForm()) {
+			document.forms["signupForm"].submit();
+		}
+	}
+
+	function validateForm() {
+		const id = document.forms["signupForm"].id;
+		const password = document.forms["signupForm"].password;
+		const nickname = document.forms["signupForm"].nickname;
+		const name = document.forms["signupForm"].name;
+		const email = document.forms["signupForm"].email;
+
+		validateField(id, idRegex, '5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합');
+		validateField(password, passwordRegex, '10자 이상, 영문, 숫자, 특수문자 조합');
+		validateField(nickname, nicknameRegex,
+				'15자 이하, 영문, 숫자, 마침표, 언더바만 입력 가능');
+		validateField(name, nameRegex, '2자 이상, 한글/영문만 입력 가능');
+		validateField(email, emailRegex, '이메일 형식에 맞춰 입력해주세요.');
+
+		return idRegex.test(id.value) && passwordRegex.test(password.value)
+				&& nicknameRegex.test(nickname.value)
+				&& nameRegex.test(name.value) && emailRegex.test(email.value);
+	}
+
+	document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById("signupForm")
+				.addEventListener(
+						"input",
+						function(event) {
+							const target = event.target;
+							if (target.name === "id")
+								validateField(target, idRegex,
+										'5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합');
+							if (target.name === "password")
+								validateField(target, passwordRegex,
+										'10자 이상, 영문, 숫자, 특수문자 조합');
+							if (target.name === "nickname")
+								validateField(target, nicknameRegex,
+										'15자 이하, 영문, 숫자, 마침표, 언더바만 입력 가능');
+							if (target.name === "name")
+								validateField(target, nameRegex,
+										'2자 이상, 한글/영문만 입력 가능');
+							if (target.name === "email")
+								validateField(target, emailRegex,
+										'이메일 형식에 맞춰 입력해주세요.');
+						});
+		document.getElementById("signup").addEventListener("click",
+				validateAndSubmitForm);
+	});
 </script>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />

@@ -61,7 +61,7 @@
 	transition: color 0.3s, background-color 0.3s;
 }*/
 
-.header-link .search-input {
+.search-input {
 	border: 1px solid black;
 	border-radius: 25px;
 	padding: 10px 40px 10px 20px;
@@ -69,12 +69,13 @@
 	outline: none;
 }
 
-/* .search-input:focus {
+/*.search-input:focus {
     outline: none;
     border-color: inherit;
     box-shadow: none;
-} */
-.header-link .search-btn {
+}*/
+
+.search-btn {
 	position: absolute;
 	right: 30px;
 	top: 50%;
