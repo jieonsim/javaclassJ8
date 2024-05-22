@@ -13,7 +13,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class LoginCommand implements UserInterface {
+public class LoginCommand2 implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,6 +89,5 @@ public class LoginCommand implements UserInterface {
 		request.setAttribute("message", message);
 		request.setAttribute("url", url);
 		// request.getRequestDispatcher("/WEB-INF/user/login/login.jsp").forward(request,
-		// response);
 	}
 }

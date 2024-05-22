@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="row mb-5">
 				<div class="col-2">
 					<i class="ph ph-user-focus" id="profileNoimage"></i>
-					<%-- <img src="${ctp}/images/user/${mVo.photo}" width="200px"/> --%>
+					<%-- <img src="${ctp}/images/pds/user/${mVo.photo}" width="200px"/> --%>
 				</div>
 				<div class="col-10">
-					<div id="nickname">locallens</div>
+					<div id="nickname">${sessionNickname}</div>
 					<div>
 						<a href="updateProfile-confirmPassword.u" id="updateProfile">클릭하고 소개 글을 입력해 보세요.</a>
 					</div>

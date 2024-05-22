@@ -12,7 +12,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class SignupCommand implements UserInterface {
+public class SignupCommand2 implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,43 +22,41 @@ public class SignupCommand implements UserInterface {
 		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
 		String email = request.getParameter("email") == null ? "" : request.getParameter("email");
 
-		if (id.isEmpty() || password.isEmpty() || nickname.isEmpty() || name.isEmpty() || email.isEmpty()) {
-			request.setAttribute("message", "모든 정보를 입력해주세요.");
-			request.setAttribute("url", "signup.s");
-			return;
-		}
+        if (id.isEmpty() || password.isEmpty() || nickname.isEmpty() || name.isEmpty() || email.isEmpty()) {
+            request.setAttribute("message", "모든 정보를 입력해주세요.");
+            request.setAttribute("url", "signup.s");
+            request.getRequestDispatcher("/WEB-INF/user/signup/signup.jsp").forward(request, response);
+            return;
+        }
 
 		// 아이디, 닉네임, 이메일 중복 체크
 		UserDAO dao = new UserDAO();
 
 		if (dao.checkIdDuplicated(id)) {
-			request.setAttribute("message", "이미 사용 중인 아이디입니다.");
-			request.setAttribute("url", "signup.s");
+			setMessage(request, response, "이미 사용 중인 아이디입니다.", "signup.s");
 			return;
 		}
 
 		if (dao.checkNicknameDuplicated(nickname)) {
-			request.setAttribute("message", "이미 사용 중인 닉네임입니다.");
-			request.setAttribute("url", "signup.s");
+			setMessage(request, response, "이미 사용 중인 닉네임입니다.", "signup.s");
 			return;
 		}
 
 		if (dao.checkEmailDuplicated(email)) {
-			request.setAttribute("message", "이미 사용 중인 이메일입니다.");
-			request.setAttribute("url", "signup.s");
+			setMessage(request, response, "이미 사용 중인 이메일입니다.", "signup.s");
 			return;
 		}
 
 		// 비밀번호 암호화
 		String salt = UUID.randomUUID().toString().substring(0, 8);
 		SecurityUtil security = new SecurityUtil();
-		String hashedPassword = security.encryptSHA256(salt + password);
-		String storedPassword = salt + hashedPassword;
+		password = security.encryptSHA256(salt + password);
+		password = salt + password;
 
 		// 저장
 		UserVO vo = new UserVO();
 		vo.setId(id);
-		vo.setPassword(storedPassword);
+		vo.setPassword(password);
 		vo.setNickname(nickname);
 		vo.setName(name);
 		vo.setEmail(email);
@@ -68,8 +66,14 @@ public class SignupCommand implements UserInterface {
 		if (result != 0) {
 			request.setAttribute("url", "signupComplete.s");
 		} else {
-			request.setAttribute("message", "회원 가입이 정상적으로 완료되지 않았습니다. 다시 시도해주세요.");
-			request.setAttribute("url", "signup.s");
+			setMessage(request, response, "회원 가입이 정상적으로 완료되지 않았습니다. 다시 시도해주세요.", "signup.s");
+			return;
 		}
+	}
+
+	private void setMessage(HttpServletRequest request, HttpServletResponse response, String message, String url) throws ServletException, IOException {
+		request.setAttribute("message", message);
+		request.setAttribute("url", url);
+		request.getRequestDispatcher("/WEB-INF/user/signup/signup.jsp").forward(request, response);
 	}
 }

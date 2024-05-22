@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import user.UserInterface;
 
 @SuppressWarnings("serial")
-@WebServlet("*.l")
-public class LoginController extends HttpServlet {
+//@WebServlet("*.l")
+public class LoginController3 extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserInterface command = null;
 		String viewPage = "/WEB-INF/user/login/";
@@ -21,21 +21,26 @@ public class LoginController extends HttpServlet {
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
+		HttpSession session = request.getSession();
+		String role = session.getAttribute("sessionRole") == null ? "" : (String) session.getAttribute("sessionRole");
+
 		if (com.equals("login")) {
 			viewPage += "login.jsp";
-		} 
-		else if (com.equals("tryingLogin")) {
-            command = new Login();
-            command.execute(request, response);
-            viewPage += "login.jsp";
-		}
-		else if (com.equals("welcome")) {
-			command = new UserMain();
+		} else if (com.equals("tryingLogin")) {
+			command = new Login();
 			command.execute(request, response);
-			viewPage = "/WEB-INF/main/main.jsp";
-		}
-		else if (com.equals("logout")) {
-			command = new Logout();
+			String url = (String) request.getAttribute("url");
+			if (url != null && url.equals("welcome.l")) {
+				viewPage = "/WEB-INF/main/main.jsp";
+			} else {
+				viewPage += "login.jsp";
+			}
+		} else if (role.isEmpty()) {
+			request.setAttribute("message", "로그인 후 이용해 주세요.");
+			request.setAttribute("url", "login.l");
+			viewPage += "login.jsp";
+		} else if (com.equals("welcome")) {
+			command = new UserMain();
 			command.execute(request, response);
 			viewPage = "/WEB-INF/main/main.jsp";
 		}

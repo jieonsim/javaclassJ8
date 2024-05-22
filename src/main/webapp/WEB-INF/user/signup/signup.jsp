@@ -9,6 +9,9 @@
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/signup/signup.css" />
+<script src="${ctp}/js/user/signup/signup.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -17,17 +20,6 @@
 		<div class="signup-container">
 			<h3 class="mb-5">회원가입</h3>
 			<hr>
-			<!-- 메시지 알럿 표시 및 URL 이동 시작 -->
-			<c:if test="${not empty message}">
-				<div class="alert alert-success" role="alert">${message}</div>
-				<script>
-					alert("${message}");
-					// URL이 있는 경우 리디렉션 처리
-					<c:if test="${not empty url}">
-					window.location.href = "${ctp}/${url}";
-					</c:if>
-				</script>
-			</c:if>
 			<form name="signupForm" class="signup-form pl-3 pr-3" method="post" action="${ctp}/signupComplete.s" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
@@ -90,7 +82,7 @@
 			</form>
 		</div>
 	</div>
-	<script>
+<!-- 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const idRegex = /^[a-z][a-z0-9]{4,14}$/;
 			const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
@@ -391,6 +383,6 @@
 
 			return true;
 		}
-	</script>
+	</script> -->
 </body>
 </html>

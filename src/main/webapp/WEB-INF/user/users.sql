@@ -23,7 +23,7 @@ INSERT INTO users2 (id, password, nickname, name, email) VALUES ('test1', 'test1
 
 SELECT * FROM users2 WHERE id = 'test1';
 DESCRIBE users2;
-SELECT * FROM users2 WHERE id = 'hkd123';
+SELECT * FROM users2 WHERE id = 'test522';
 
 
 

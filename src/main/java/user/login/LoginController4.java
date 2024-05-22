@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import user.UserInterface;
 
 @SuppressWarnings("serial")
-@WebServlet("*.l")
-public class LoginController extends HttpServlet {
+// @WebServlet("*.l")
+public class LoginController4 extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserInterface command = null;
 		String viewPage = "/WEB-INF/user/login/";
@@ -23,13 +23,16 @@ public class LoginController extends HttpServlet {
 
 		if (com.equals("login")) {
 			viewPage += "login.jsp";
-		} 
-		else if (com.equals("tryingLogin")) {
-            command = new Login();
-            command.execute(request, response);
-            viewPage += "login.jsp";
-		}
-		else if (com.equals("welcome")) {
+		} else if (com.equals("tryingLogin")) {
+			command = new Login();
+			command.execute(request, response);
+			String url = (String) request.getAttribute("url");
+			if (url != null && url.equals("welcome.l")) {
+				viewPage = "/WEB-INF/main/main.jsp";
+			} else {
+				viewPage += "login.jsp";
+			}
+		} else if (com.equals("welcome")) {
 			command = new UserMain();
 			command.execute(request, response);
 			viewPage = "/WEB-INF/main/main.jsp";

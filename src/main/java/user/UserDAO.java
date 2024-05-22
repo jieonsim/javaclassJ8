@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import common.GetConnection;
-import common.SecurityUtil;
 
 public class UserDAO {
 
@@ -111,96 +110,7 @@ public class UserDAO {
 		return isDuplicated;
 	}
 
-	// 로그인 시 아이디, 비밀번호 확인
-//	public UserVO validateUser(String id, String password) {
-//		UserVO userVO = null;
-//	    try {
-//	        conn = GetConnection.getConn();
-//	        System.out.println("Database connection: " + (conn != null ? "Successful" : "Failed"));
-//
-//	        sql = "SELECT * FROM users2 WHERE id = ?";
-//	        System.out.println("Executing query: " + sql);
-//	        
-//	        pstmt = conn.prepareStatement(sql);
-//	        pstmt.setString(1, id);
-//	        rs = pstmt.executeQuery();
-//	        
-//	        System.out.println("Query executed with ID: " + id);
-//	        
-//	        if (rs.next()) {
-//	            String storedPassword = rs.getString("password");
-//	            String salt = storedPassword.substring(0, 8);
-//	            SecurityUtil security = new SecurityUtil();
-//	            String hashedPassword = security.encryptSHA256(salt + password);
-//	            
-//	            System.out.println("Stored password: " + storedPassword);
-//	            System.out.println("Computed hash: " + hashedPassword);
-//	            
-//	            if (storedPassword.equals(salt + hashedPassword)) {
-//	                userVO = new UserVO();
-//	                userVO.setUserIdx(rs.getInt("userIdx"));
-//	                userVO.setId(rs.getString("id"));
-//	                userVO.setPassword(storedPassword);
-//	                userVO.setNickname(rs.getString("nickname"));
-//	                userVO.setName(rs.getString("name"));
-//	                userVO.setEmail(rs.getString("email"));
-//	                userVO.setRole(rs.getString("role"));
-//	                userVO.setIntroduction(rs.getString("introduction"));
-//	                userVO.setCreatedAt(rs.getTimestamp("createdAt"));
-//	                userVO.setUpdatedAt(rs.getTimestamp("updatedAt"));
-//	                userVO.setProfileImage(rs.getString("profile_image"));
-//	                userVO.setVisibility(rs.getString("visibility"));
-//	            } else {
-//	                System.out.println("Password does not match.");
-//	            }
-//	        } else {
-//	            System.out.println("No user found with the provided ID.");
-//	        }
-//	    } catch (SQLException e) {
-//	        System.out.println("SQL 오류 : " + e.getMessage());
-//	    } finally {
-//	        try {
-//	            if (rs != null) rs.close();
-//	            if (pstmt != null) pstmt.close();
-//	            if (conn != null) conn.close();
-//	        } catch (SQLException e) {
-//	            e.printStackTrace();
-//	        }
-//	    }
-//	    return userVO;
-//	}
-
-//	public UserVO validateUser(String id, String password) {
-//	    UserVO userVO = null;
-//	    try {
-//	        sql = "SELECT * FROM users2 WHERE id = ? AND password = ?";
-//	        pstmt = conn.prepareStatement(sql);
-//	        pstmt.setString(1, id);
-//	        pstmt.setString(2, password);
-//	        rs = pstmt.executeQuery();
-//	        if (rs.next()) {
-//	        	userVO = new UserVO();
-//	        	userVO.setUserIdx(rs.getInt("userIdx"));
-//	        	userVO.setId(rs.getString("id"));
-//	        	userVO.setPassword(rs.getString("password"));
-//	        	userVO.setNickname(rs.getString("nickname"));
-//	        	userVO.setName(rs.getString("name"));
-//	        	userVO.setEmail(rs.getString("email"));
-//	        	userVO.setRole(rs.getString("role"));
-//	        	userVO.setIntroduction(rs.getString("introduction"));
-//	        	userVO.setCreatedAt(rs.getTimestamp("createdAt"));
-//	            userVO.setUpdatedAt(rs.getTimestamp("updatedAt"));
-//	            userVO.setProfileImage(rs.getString("profileImage"));
-//	            userVO.setVisibility(rs.getString("visibility"));
-//	        }
-//	    } catch (SQLException e) {
-//	    	System.out.println("SQL 오류 : " + e.getMessage());
-//	    } finally {
-//	        rsClose();
-//	    }
-//	    return userVO;
-//	}
-	
+	// 아이디 조회
 	public UserVO validateUser(String id) {
 	    UserVO userVO = null;
 	    try {

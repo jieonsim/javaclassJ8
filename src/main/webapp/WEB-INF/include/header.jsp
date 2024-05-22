@@ -15,26 +15,31 @@
 				</button>
 			</div>
 			<div class="col-auto d-flex align-items-center">
-				<a href="signup.s" class="header-link">
-					<i class="ph ph-user"></i>
-					<span class="ml-2 mr-4">sign up</span>
-				</a>
-				<a href="login.l" class="header-link">
-					<i class="ph ph-sign-in"></i>
-					<span class="ml-2">login</span>
-				</a>
-			</div>
-			<div class="col-auto d-flex align-items-center">
-				<div class="dropdown">
-					<button type="button" class="btn btn-custom btn-lg dropdown-toggle" data-toggle="dropdown" id="user">
+				<c:if test="${empty sessionNickname}">
+					<a href="signup.s" class="header-link">
 						<i class="ph ph-user"></i>
-						<span class="ml-2">${sessionNickname}</span>
-					</button>
-					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="updateProfile-confirmPassword.u">내 정보 수정</a>
-						<a class="dropdown-item" href="${ctp}/main">로그아웃</a>
+						<span class="ml-2 mr-4">sign up</span>
+					</a>
+					<a href="login.l" class="header-link">
+						<i class="ph ph-sign-in"></i>
+						<span class="ml-2">login</span>
+					</a>
+				</c:if>
+				<c:if test="${not empty sessionNickname}">
+					<div class="dropdown">
+						<button type="button" class="btn btn-custom btn-lg dropdown-toggle" data-toggle="dropdown" id="user">
+							<i class="ph ph-user"></i>
+							<span class="ml-2">${sessionNickname}</span>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right">
+							<c:if test="${sessionRole == 'admin'}">
+								<a class="dropdown-item" href="adminPage.a">관리자 페이지</a>
+							</c:if>
+							<a class="dropdown-item" href="updateProfile-confirmPassword.u">내 정보 수정</a>
+							<a class="dropdown-item" href="${ctp}/logout.l">로그아웃</a>
+						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
