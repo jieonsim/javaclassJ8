@@ -26,7 +26,7 @@ public class Login implements UserInterface {
 			return;
 		}
 
-		// DB 확인
+		// DB에서 아이디 유무 확인
 		UserDAO userDAO = new UserDAO();
 		UserVO userVO = userDAO.validateUser(id);
 
