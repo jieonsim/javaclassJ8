@@ -30,15 +30,24 @@ public class FindingUserInfoController extends HttpServlet {
             viewPage += "findingId.jsp";
 		}
 		else if (com.equals("foundIdDisplay")) {
-			System.out.println("id : " + request.getParameter("id"));
 			viewPage += "foundIdDisplay.jsp";
 		}
 		else if (com.equals("findingPassword")) {
 			viewPage += "findingPassword.jsp";
 		}
+		else if (com.equals("tryToFindPassword")) {
+			command = new TryToFindPassword();
+            command.execute(request, response);
+            viewPage += "findingPassword.jsp";
+		}
 		else if (com.equals("resetPassword")) {
 			viewPage += "resetPassword.jsp";
 		} 
+		else if (com.equals("tryToResetPassword")) {
+			command = new TryToResetPassword();
+            command.execute(request, response);
+            viewPage += "resetPassword.jsp";
+		}
 		else if (com.equals("passwordResetComplete")) {
 			viewPage += "passwordResetComplete.jsp";
 		}

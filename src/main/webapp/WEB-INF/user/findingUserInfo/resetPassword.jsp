@@ -9,6 +9,76 @@
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/findingUserInfo/resetPassword.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
+
+		document.querySelector('input[name="password"]').addEventListener('input', function() {
+			validateInput(this, passwordRegex);
+			validatePasswordConfirmation();
+		});
+
+		document.querySelector('input[name="passwordConfirmation"]').addEventListener('input', validatePasswordConfirmation);
+	});
+	
+    function validateInput(input, regex) {
+        const span = input.nextElementSibling;
+        if (!regex.test(input.value)) {
+            span.style.display = 'inline';
+        } else {
+            span.style.display = 'none';
+        }
+    }
+    
+    function validatePasswordConfirmation() {
+        const password = document.querySelector('input[name="password"]').value;
+        const passwordConfirmation = document.querySelector('input[name="passwordConfirmation"]').value;
+        const span = document.querySelector('input[name="passwordConfirmation"]').nextElementSibling;
+        if (password !== passwordConfirmation && passwordConfirmation !== "") {
+            span.style.display = 'inline';
+        } else {
+            span.style.display = 'none';
+        }
+    }
+    
+    function showAlert(message) {
+        Swal.fire({
+            html: message,
+            confirmButtonText: '확인',
+            customClass: {
+                confirmButton: 'swal2-confirm',
+                popup: 'custom-swal-popup',
+                htmlContainer: 'custom-swal-text'
+            }
+        });
+    }
+    
+	function validateForm() {
+        const password = document.forms["signupForm"].password.value.trim();
+        const passwordConfirmation = document.forms["signupForm"].passwordConfirmation.value.trim();
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
+        
+        if (password === "") {
+            showAlert("비밀번호를 입력해주세요.");
+            document.forms["signupForm"].password.focus();
+            return false;
+        }
+
+        if (!passwordRegex.test(password)) {
+            showAlert("비밀번호는 10자 이상,<br>영문, 숫자, 특수문자 포함");
+            document.forms["signupForm"].password.focus();
+            return false;
+        }
+
+        if (password !== passwordConfirmation) {
+            showAlert("비밀번호가 일치하지 않습니다.");
+            document.forms["signupForm"].passwordConfirmation.focus();
+            return false;
+        }
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -19,21 +89,19 @@
 			<div class="mb-5 text-center" id="ment">
 				비밀번호 재설정을 위해<br>새로운 비밀번호 입력해 주세요.
 			</div>
-			<form class="resetPassword-form" method="post" action="passwordResetComplete.fi">
+			<form name="resetPasswordForm" class="resetPassword-form" method="post" action="tryToResetPassword.fi" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<div class="col">
 						<label for="name">새 비밀번호 등록</label>
-						<input type="password" class="form-control" name="password" placeholder="새 비밀번호를 입력해 주세요." <%-- value="<%=id %>" --%> autofocus required />
-						<span>10자 이상 입력</span>
-						<span>영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</span>
-						<span>동일한 숫자 3개 이상 연속 사용 불가</span>
+						<input type="password" class="form-control" name="password" placeholder="새 비밀번호를 입력해 주세요." autofocus required />
+						<span class="validation-message">10자 이상, 영문,숫자,특수문자 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col">
 						<label for="name">새 비밀번호 확인</label>
-						<input type="password" class="form-control" name="password" placeholder="새 비밀번호를 한 번 더 입력해 주세요." required />
-						<span>동일한 비밀번호를 입력해주세요.</span>
+						<input type="password" class="form-control" name="passwordConfirmation" placeholder="새 비밀번호를 한 번 더 입력해 주세요." required />
+						<span class="validation-message">동일한 비밀번호를 입력</span>
 					</div>
 				</div>
 				<div class="form-group text-center">
@@ -44,5 +112,7 @@
 			</form>
 		</div>
 	</div>
+	<input type="hidden" id="message" value="${message}" />
+	<input type="hidden" id="url" value="${url}" />
 </body>
 </html>

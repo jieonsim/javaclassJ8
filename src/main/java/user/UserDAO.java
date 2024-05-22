@@ -172,4 +172,10 @@ public class UserDAO {
 		}
 		return userVO;
 	}
+
+	// 비밀번호 찾기를 통한 비밀번호 재설정
+	public int UpdatePassword(String id, String hashedPassword) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

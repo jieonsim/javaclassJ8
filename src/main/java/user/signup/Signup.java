@@ -12,7 +12,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class SignupCommand implements UserInterface {
+public class Signup implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

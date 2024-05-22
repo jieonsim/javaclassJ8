@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
             viewPage += "login.jsp";
 		}
 		else if (com.equals("welcome")) {
-			command = new UserMain();
+			command = new Welcome();
 			command.execute(request, response);
 			viewPage = "/WEB-INF/main/main.jsp";
 		}

@@ -11,7 +11,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class UserMain implements UserInterface {
+public class Welcome implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

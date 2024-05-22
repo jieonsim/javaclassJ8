@@ -1,7 +1,6 @@
 package user;
 
 import java.sql.Timestamp;
-import java.util.Objects;
 
 public class UserVO {
 	private int userIdx;
