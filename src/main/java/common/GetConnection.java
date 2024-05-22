@@ -18,7 +18,6 @@ public class GetConnection {
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("DB 연결 성공");
         } catch (ClassNotFoundException e) {
             System.out.println("드라이버 검색 실패 : " + e.getMessage());
         } catch (SQLException e) {

@@ -68,7 +68,7 @@
 
     function showAlert(message) {
         Swal.fire({
-            text: message,
+            html: message,
             confirmButtonText: '확인',
             customClass: {
                 confirmButton: 'swal2-confirm',
@@ -228,7 +228,7 @@
         }
 
         if (!idRegex.test(id)) {
-            showAlert("아이디는 5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합해야 합니다.");
+            showAlert("아이디는 5자 이상 15자 이하의<br>영문 혹은 영문과 숫자를 조합");
             document.forms["signupForm"].id.focus();
             return false;
         }
@@ -245,7 +245,7 @@
         }
 
         if (!passwordRegex.test(password)) {
-            showAlert("비밀번호는 10자 이상이어야 하며, 영문, 숫자, 특수문자가 포함되어야 합니다.");
+            showAlert("비밀번호는 10자 이상,<br>영문, 숫자, 특수문자 포함");
             document.forms["signupForm"].password.focus();
             return false;
         }
@@ -263,7 +263,7 @@
         }
 
         if (!nicknameRegex.test(nickname)) {
-            showAlert("닉네임은 2자 이상 30자 이하의 영문, 숫자, 마침표, 언더바만 입력 가능합니다.");
+            showAlert("닉네임은 2자 이상 30자 이하의<br>영문, 숫자, 마침표, 언더바만 가능");
             document.forms["signupForm"].nickname.focus();
             return false;
         }
@@ -280,7 +280,7 @@
         }
 
         if (!nameRegex.test(name)) {
-            showAlert("이름은 2자 이상 50자 이하의 한글 또는 영문만 입력 가능합니다.");
+            showAlert("이름은 2자 이상 50자 이하의<br>한글 또는 영문만 입력 가능");
             document.forms["signupForm"].name.focus();
             return false;
         }

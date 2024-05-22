@@ -1,4 +1,4 @@
-package user.login;
+package user.findingUserInfo;
 
 import java.io.IOException;
 
@@ -13,23 +13,33 @@ import user.UserInterface;
 
 @SuppressWarnings("serial")
 @WebServlet("*.fi")
-public class FindingInfoController extends HttpServlet {
+public class FindingUserInfoController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserInterface command = null;
-		String viewPage = "/WEB-INF/user/login/";
+		String viewPage = "/WEB-INF/user/findingUserInfo/";
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
 		if (com.equals("findingId")) {
 			viewPage += "findingId.jsp";
-		} else if (com.equals("foundIdDisplay")) {
+		}
+		else if (com.equals("tryToFindId")) {
+			command = new TryToFindId();
+            command.execute(request, response);
+            viewPage += "findingId.jsp";
+		}
+		else if (com.equals("foundIdDisplay")) {
+			System.out.println("id : " + request.getParameter("id"));
 			viewPage += "foundIdDisplay.jsp";
-		} else if (com.equals("findingPassword")) {
+		}
+		else if (com.equals("findingPassword")) {
 			viewPage += "findingPassword.jsp";
-		} else if (com.equals("resetPassword")) {
+		}
+		else if (com.equals("resetPassword")) {
 			viewPage += "resetPassword.jsp";
-		} else if (com.equals("passwordResetComplete")) {
+		} 
+		else if (com.equals("passwordResetComplete")) {
 			viewPage += "passwordResetComplete.jsp";
 		}
 

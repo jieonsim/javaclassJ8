@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				<li class="nav-item">
 					<%-- <a href="${ctp}/main" class="nav-link" id="home"> --%>
 					<a href="http://192.168.50.61:9090/javaclassJ8/main" class="nav-link" id="home">
-					<!-- <a href="http://192.168.0.10:9090/zavaclass/main" class="nav-link" id="home"> -->
+					<!-- <a href="http://192.168.0.10:9090/javaclassJ8/main" class="nav-link" id="home"> -->
 						<i class="ph ph-house mr-1"></i> <i class="ph-fill ph-house mr-1"></i>
 						<span>home</span>
 					</a>

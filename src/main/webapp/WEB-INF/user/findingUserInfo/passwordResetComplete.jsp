@@ -8,19 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
-<link rel="stylesheet" type="text/css" href="${ctp}/css/user/login/foundIdDisplay.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/user/findingUserInfo/passwordResetComplete.css" />
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="foundIdDisplay-container">
+	<div class="passwordResetComplete-container">
 		<i class="ph ph-seal-check" id="sealCheck"></i>
-		<h4 class="pt-3 mb-2">회원님의 로컬로그 계정을 찾았습니다.</h4>
-		<div id="ment" class="mb-5">아이디 확인 후 로그인해 주세요.</div>
-		<h3>zie***</h3>
-		<div id="dateOfSignup" class="mb-5">가입일 2024.05.09</div>
+		<h4 class="pt-3 mb-2">비밀번호 재설정이 완료되었습니다.</h4>
+		<div id="ment" class="mb-5">변경된 비밀번호로 로그인해 주세요.</div>
 		<div>
-			<button onclick="location.href='login.l'" type="submit" class="btn btn-custom btn-lg" id="logIn">로그인</button>
+			<button onclick="location.href='login.l'" type="button" class="btn btn-custom btn-lg" id="logIn">로그인</button>
 		</div>
 	</div>
 </body>

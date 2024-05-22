@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (message) {
         Swal.fire({
-            text: message,
+            html: message,
             confirmButtonText: '확인',
             customClass: {
                 confirmButton: 'swal2-confirm',

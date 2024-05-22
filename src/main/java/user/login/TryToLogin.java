@@ -13,7 +13,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class Login implements UserInterface {
+public class TryToLogin implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

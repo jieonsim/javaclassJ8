@@ -30,7 +30,7 @@ if (cookies != null) {
 	<div class="container mt-5 pt-3">
 		<div class="login-container">
 			<h4 class="mb-5">로그인</h4>
-			<form name="loginForm" class="login-form" method="post" action="${ctp}/tryingLogin.l">
+			<form name="loginForm" class="login-form" method="post" action="${ctp}/tryToLogin.l">
 				<div class="form-group row">
 					<div class="col">
 						<input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력해주세요." value="${id}" autofocus required />

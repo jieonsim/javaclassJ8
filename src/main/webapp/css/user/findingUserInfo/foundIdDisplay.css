@@ -19,7 +19,7 @@
 	box-shadow: none;
 }
 
-#ment, #dateOfSignup {
+#ment, #createdAt {
 	color: dimgray;
 	font-size: 16px;
 }

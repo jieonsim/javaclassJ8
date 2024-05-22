@@ -110,34 +110,66 @@ public class UserDAO {
 		return isDuplicated;
 	}
 
-	// 아이디 조회
+	// 아이디(계정 존재 유무) 조회
 	public UserVO validateUser(String id) {
-	    UserVO userVO = null;
-	    try {
-	        sql = "SELECT * FROM users2 WHERE id = ?";
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, id);
-	        rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            userVO = new UserVO();
-	            userVO.setUserIdx(rs.getInt("userIdx"));
-	            userVO.setId(rs.getString("id"));
-	            userVO.setPassword(rs.getString("password"));
-	            userVO.setNickname(rs.getString("nickname"));
-	            userVO.setName(rs.getString("name"));
-	            userVO.setEmail(rs.getString("email"));
-	            userVO.setRole(rs.getString("role"));
-	            userVO.setIntroduction(rs.getString("introduction"));
-	            userVO.setCreatedAt(rs.getTimestamp("createdAt"));
-	            userVO.setUpdatedAt(rs.getTimestamp("updatedAt"));
-	            userVO.setProfileImage(rs.getString("profileImage"));
-	            userVO.setVisibility(rs.getString("visibility"));
-	        }
-	    } catch (SQLException e) {
-	        System.out.println("SQL 오류 : " + e.getMessage());
-	    } finally {
-	        rsClose();
-	    }
-	    return userVO;
+		UserVO userVO = null;
+		try {
+			sql = "SELECT * FROM users2 WHERE id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				userVO = new UserVO();
+				userVO.setUserIdx(rs.getInt("userIdx"));
+				userVO.setId(rs.getString("id"));
+				userVO.setPassword(rs.getString("password"));
+				userVO.setNickname(rs.getString("nickname"));
+				userVO.setName(rs.getString("name"));
+				userVO.setEmail(rs.getString("email"));
+				userVO.setRole(rs.getString("role"));
+				userVO.setIntroduction(rs.getString("introduction"));
+				userVO.setCreatedAt(rs.getTimestamp("createdAt"));
+				userVO.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				userVO.setProfileImage(rs.getString("profileImage"));
+				userVO.setVisibility(rs.getString("visibility"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return userVO;
+	}
+
+	// 아이디 찾기
+	public UserVO findUserIdByNameAndEmail(String name, String email) {
+		UserVO userVO = null;
+		try {
+			sql = "SELECT * FROM users2 WHERE name = ? AND email = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				userVO = new UserVO();
+				userVO.setUserIdx(rs.getInt("userIdx"));
+				userVO.setId(rs.getString("id"));
+				userVO.setPassword(rs.getString("password"));
+				userVO.setNickname(rs.getString("nickname"));
+				userVO.setName(rs.getString("name"));
+				userVO.setEmail(rs.getString("email"));
+				userVO.setRole(rs.getString("role"));
+				userVO.setIntroduction(rs.getString("introduction"));
+				userVO.setCreatedAt(rs.getTimestamp("createdAt"));
+				userVO.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				userVO.setProfileImage(rs.getString("profileImage"));
+				userVO.setVisibility(rs.getString("visibility"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return userVO;
 	}
 }
