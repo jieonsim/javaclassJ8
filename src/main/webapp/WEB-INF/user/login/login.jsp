@@ -27,9 +27,6 @@ if (cookies != null) {
 	function validateForm() {
 		const id = document.forms["loginForm"].id.value.trim();
 		const password = document.forms["loginForm"].password.value.trim();
-		
-        const idRegex = /^[a-z][a-z0-9]{4,14}$/;
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
 
         if (id === "") {
             showAlert("아이디를 입력해주세요.");
@@ -37,20 +34,8 @@ if (cookies != null) {
             return false;
         }
         
-        if (!idRegex.test(id)) {
-            showAlert("아이디는 5자 이상 15자 이하의<br>영문 혹은 영문과 숫자를 조합");
-            document.forms["loginForm"].id.focus();
-            return false;
-        }
-        
         if (password === "") {
             showAlert("비밀번호를 입력해주세요.");
-            document.forms["loginForm"].password.focus();
-            return false;
-        }
-        
-        if (!passwordRegex.test(password)) {
-            showAlert("비밀번호는 10자 이상,<br>영문, 숫자, 특수문자 포함");
             document.forms["loginForm"].password.focus();
             return false;
         }

@@ -13,7 +13,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class SignInCommand implements UserInterface {
+public class LoginCommand implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,6 +46,7 @@ public class SignInCommand implements UserInterface {
 			request.setAttribute("message", "비밀번호를 확인해주세요.");
 			request.setAttribute("url", "login.l");
 			return;
+			
 		} else {
 			// 아이디 저장을 위한 쿠키 처리
 			boolean rememberId = request.getParameter("rememberId") != null;
@@ -59,8 +60,9 @@ public class SignInCommand implements UserInterface {
 			session.setAttribute("sessionUserIdx", userVO.getUserIdx());
 			session.setAttribute("sessionId", userVO.getId());
 			session.setAttribute("sessionNickname", userVO.getNickname());
-			session.setAttribute("SessionName", userVO.getName());
+			session.setAttribute("sessionName", userVO.getName());
 			session.setAttribute("sessionRole", userVO.getRole());
+			session.setAttribute("sessionEmail", userVO.getEmail());
 			
 			response.sendRedirect(request.getContextPath() + "/main");
 		}

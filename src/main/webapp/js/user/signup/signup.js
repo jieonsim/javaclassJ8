@@ -66,18 +66,6 @@
     let nicknameChecked = false;
     let emailChecked = false;
 
-/*    function showAlert(message) {
-        Swal.fire({
-            html: message,
-            confirmButtonText: '확인',
-            customClass: {
-                confirmButton: 'swal2-confirm',
-                popup: 'custom-swal-popup',
-                htmlContainer: 'custom-swal-text'
-            }
-        });
-    }*/
-
     function checkIdDuplicated() {
         const id = document.forms["signupForm"].id.value.trim();
         const idRegex = /^[a-z][a-z0-9]{4,14}$/;

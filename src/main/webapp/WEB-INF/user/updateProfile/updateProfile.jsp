@@ -9,6 +9,9 @@
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/updateProfile/updateProfile.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<script src="${ctp}/js/user/updateProfile/updateProfile.js"></script>
+<script src="${ctp}/js/common/basicAlert.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -17,7 +20,7 @@
 		<div class="updateProfile-container">
 			<h3 class="mb-5">프로필 수정</h3>
 			<hr>
-			<form class="updateProfile-form pl-3 pr-3" method="post" action="">
+			<form name="updateProfileForm" class="updateProfile-form pl-3 pr-3" method="post" action="">
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
 					<div class="col-sm-6">
@@ -28,32 +31,31 @@
 					<label for="password" class="col-sm-3 col-form-label">현재 비밀번호</label>
 					<div class="col-sm-6">
 						<input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="비밀번호를 입력해주세요." />
-						<span>10자 이상, 영문/숫자/특수문자 중 2개 이상 조합</span>
+						<span class="validation-message">10자 이상, 영문,숫자,특수문자 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="password" class="col-sm-3 col-form-label">새 비밀번호</label>
 					<div class="col-sm-6">
 						<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="새 비밀번호를 입력해주세요." />
-						<span>10자 이상, 영문/숫자/특수문자 중 2개 이상 조합</span>
+						<span class="validation-message">10자 이상, 영문,숫자,특수문자 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="password" class="col-sm-3 col-form-label">새로운 비밀번호 확인</label>
 					<div class="col-sm-6">
-						<input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" placeholder="새 비밀번호를 다시 입력해주세요." />
-						<span>동일한 비밀번호를 입력</span>
+						<input type="password" class="form-control" id="newPasswordConfirmation" name="newPasswordConfirmation" placeholder="새 비밀번호를 다시 입력해주세요." />
+						<span class="validation-message">동일한 비밀번호를 입력</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="nickname" class="col-sm-3 col-form-label">닉네임</label>
 					<div class="col-sm-6">
 						<input type="text" class="form-control" name="nickname" id="nickname" value="${sessionNickname}" />
-						<!-- <span>이미 사용 중인 닉네임입니다.</span> -->
-						<span>15자 이하, 영문/숫자/마침표/언더바만 입력 가능</span>
+						<span class="validation-message">15자 이하, 영문,숫자,마침표,언더바만 입력 가능</span>
 					</div>
 					<div class="col-sm-3">
-						<button type="submit" class="btn btn-custom form-control" id="isNicknameDuplicated">중복확인</button>
+						<button type="submit" class="btn btn-custom form-control" id="isNicknameDuplicatedBtn">중복확인</button>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -65,16 +67,18 @@
 				<div class="form-group row">
 					<label for="name" class="col-sm-3 col-form-label">이름</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" name="name" id="name" value="심지언" />
+						<input type="text" class="form-control" name="name" id="name" value="${sessionName}" />
+						<span class="validation-message">2자 이상, 한글/영문만 입력 가능</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="email" class="col-sm-3 col-form-label">이메일</label>
 					<div class="col-sm-6">
-						<input type="email" class="form-control" name="email" id="email" value="ll@locallens.com" />
+						<input type="email" class="form-control" name="email" id="email" value="${sessionEmail}" />
+						<span class="validation-message">이메일 형식에 맞춰 입력해주세요.</span>
 					</div>
 					<div class="col-sm-3">
-						<button type="submit" class="btn btn-custom form-control" id="isEmailDuplicated">중복확인</button>
+						<button type="submit" class="btn btn-custom form-control" id="isEmailDuplicatedBtn">중복확인</button>
 					</div>
 				</div>
 				<hr>
@@ -92,5 +96,7 @@
 		</div>
 	</div>
 	<input type="hidden" name="userIdx" value="${userIdx}">
+	<input type="hidden" id="message" value="${message}" />
+	<input type="hidden" id="url" value="${url}" />
 </body>
 </html>

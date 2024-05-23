@@ -29,9 +29,8 @@
 				<div>세션 IDX : ${sessionUserIdx}</div>
 				<div>세션 아이디 : ${sessionId}</div>
 				<div>세션 닉네임 : ${sessionNickname}</div>
-				<div>세션 이름 : ${SessionName}</div>
+				<div>세션 이름 : ${sessionName}</div>
 				<div>세션 등급 : ${sessionRole}</div>
-				<!-- Add more personalized content here -->
 			</c:when>
 			<c:otherwise>
 				<div>미로그인 상태</div>

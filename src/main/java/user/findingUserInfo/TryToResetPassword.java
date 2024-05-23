@@ -1,4 +1,4 @@
-package user.findUserInfo;
+package user.findingUserInfo;
 
 import java.io.IOException;
 import java.util.UUID;

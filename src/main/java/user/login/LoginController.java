@@ -22,8 +22,9 @@ public class LoginController extends HttpServlet {
 		if (com.equals("login")) {
 			viewPage += "login.jsp";
 		} else if (com.equals("tryToLogin")) {
-			command = new TryToLogin();
+			command = new LoginCommand();
 			command.execute(request, response);
+			//viewPage += "login.jsp";
 			return;
 		}
 
