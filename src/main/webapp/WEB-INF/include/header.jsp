@@ -35,7 +35,7 @@
 							<c:if test="${sessionRole == 'admin'}">
 								<a class="dropdown-item" href="adminPage.a">관리자 페이지</a>
 							</c:if>
-							<a class="dropdown-item" href="updateProfile-confirmPassword.u">내 정보 수정</a>
+							<a class="dropdown-item" href="updateProfile-checkPassword.u">프로필 수정</a>
 							<a class="dropdown-item" href="${ctp}/logout.l">로그아웃</a>
 						</div>
 					</div>

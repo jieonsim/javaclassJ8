@@ -66,7 +66,7 @@
     let nicknameChecked = false;
     let emailChecked = false;
 
-    function showAlert(message) {
+/*    function showAlert(message) {
         Swal.fire({
             html: message,
             confirmButtonText: '확인',
@@ -76,7 +76,7 @@
                 htmlContainer: 'custom-swal-text'
             }
         });
-    }
+    }*/
 
     function checkIdDuplicated() {
         const id = document.forms["signupForm"].id.value.trim();

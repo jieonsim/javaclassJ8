@@ -15,7 +15,7 @@
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container pt-5">
 		<div class="updateProfile-container">
-			<h3 class="mb-5">내 정보 수정</h3>
+			<h3 class="mb-5">프로필 수정</h3>
 			<hr>
 			<form class="updateProfile-form pl-3 pr-3" method="post" action="">
 				<div class="form-group row">
@@ -91,5 +91,6 @@
 			</form>
 		</div>
 	</div>
+	<input type="hidden" name="userIdx" value="${userIdx}">
 </body>
 </html>

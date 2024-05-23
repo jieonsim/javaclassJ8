@@ -22,61 +22,61 @@
 
 		document.querySelector('input[name="passwordConfirmation"]').addEventListener('input', validatePasswordConfirmation);
 	});
-	
-    function validateInput(input, regex) {
-        const span = input.nextElementSibling;
-        if (!regex.test(input.value)) {
-            span.style.display = 'inline';
-        } else {
-            span.style.display = 'none';
-        }
-    }
-    
-    function validatePasswordConfirmation() {
-        const password = document.querySelector('input[name="password"]').value;
-        const passwordConfirmation = document.querySelector('input[name="passwordConfirmation"]').value;
-        const span = document.querySelector('input[name="passwordConfirmation"]').nextElementSibling;
-        if (password !== passwordConfirmation && passwordConfirmation !== "") {
-            span.style.display = 'inline';
-        } else {
-            span.style.display = 'none';
-        }
-    }
-    
-    function showAlert(message) {
-        Swal.fire({
-            html: message,
-            confirmButtonText: '확인',
-            customClass: {
-                confirmButton: 'swal2-confirm',
-                popup: 'custom-swal-popup',
-                htmlContainer: 'custom-swal-text'
-            }
-        });
-    }
-    
+
+	function validateInput(input, regex) {
+		const span = input.nextElementSibling;
+		if (!regex.test(input.value)) {
+			span.style.display = 'inline';
+		} else {
+			span.style.display = 'none';
+		}
+	}
+
+	function validatePasswordConfirmation() {
+		const password = document.querySelector('input[name="password"]').value;
+		const passwordConfirmation = document.querySelector('input[name="passwordConfirmation"]').value;
+		const span = document.querySelector('input[name="passwordConfirmation"]').nextElementSibling;
+		if (password !== passwordConfirmation && passwordConfirmation !== "") {
+			span.style.display = 'inline';
+		} else {
+			span.style.display = 'none';
+		}
+	}
+
+	function showAlert(message) {
+		Swal.fire({
+			html : message,
+			confirmButtonText : '확인',
+			customClass : {
+				confirmButton : 'swal2-confirm',
+				popup : 'custom-swal-popup',
+				htmlContainer : 'custom-swal-text'
+			}
+		});
+	}
+
 	function validateForm() {
-        const password = document.forms["signupForm"].password.value.trim();
-        const passwordConfirmation = document.forms["signupForm"].passwordConfirmation.value.trim();
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
-        
-        if (password === "") {
-            showAlert("비밀번호를 입력해주세요.");
-            document.forms["signupForm"].password.focus();
-            return false;
-        }
+		const password = document.forms["resetPasswordForm"].password.value.trim();
+		const passwordConfirmation = document.forms["resetPasswordForm"].passwordConfirmation.value.trim();
+		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{10,30}$/;
 
-        if (!passwordRegex.test(password)) {
-            showAlert("비밀번호는 10자 이상,<br>영문, 숫자, 특수문자 포함");
-            document.forms["signupForm"].password.focus();
-            return false;
-        }
+		if (password === "") {
+			showAlert("비밀번호를 입력해주세요.");
+			document.forms["resetPasswordForm"].password.focus();
+			return false;
+		}
 
-        if (password !== passwordConfirmation) {
-            showAlert("비밀번호가 일치하지 않습니다.");
-            document.forms["signupForm"].passwordConfirmation.focus();
-            return false;
-        }
+		if (!passwordRegex.test(password)) {
+			showAlert("비밀번호는 10자 이상,<br>영문, 숫자, 특수문자 포함");
+			document.forms["resetPasswordForm"].password.focus();
+			return false;
+		}
+
+		if (password !== passwordConfirmation) {
+			showAlert("비밀번호가 일치하지 않습니다.");
+			document.forms["resetPasswordForm"].passwordConfirmation.focus();
+			return false;
+		}
 	}
 </script>
 </head>
@@ -90,6 +90,7 @@
 				비밀번호 재설정을 위해<br>새로운 비밀번호 입력해 주세요.
 			</div>
 			<form name="resetPasswordForm" class="resetPassword-form" method="post" action="tryToResetPassword.fi" onsubmit="return validateForm();">
+				<input type="hidden" name="id" value="${id}" />
 				<div class="form-group row">
 					<div class="col">
 						<label for="name">새 비밀번호 등록</label>
@@ -106,7 +107,7 @@
 				</div>
 				<div class="form-group text-center">
 					<div>
-						<button type="submit" class="btn btn-custom btn-lg form-control mt-3" id="confirm">확인</button>
+						<button type="submit" class="btn btn-custom btn-lg form-control mt-3" id="submitBtn">확인</button>
 					</div>
 				</div>
 			</form>

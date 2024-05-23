@@ -34,29 +34,33 @@
 		}
 	}
 
-	function showAlert(message) {
-		Swal.fire({
-			html : message,
-			confirmButtonText : '확인',
-			customClass : {
-				confirmButton : 'swal2-confirm',
-				popup : 'custom-swal-popup',
-				htmlContainer : 'custom-swal-text'
-			}
-		});
-	}
-
 	function validateForm() {
 		const name = document.forms["findingIdForm"].name.value.trim();
 		const email = document.forms["findingIdForm"].email.value.trim();
+
+		const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 		if (name === "") {
 			showAlert("이름을 입력해주세요.");
 			document.forms["findingIdForm"].name.focus();
 			return false;
 		}
+
+		if (!nameRegex.test(name)) {
+			showAlert("이름은 2자 이상 50자 이하의<br>한글 또는 영문만 입력 가능");
+			document.forms["findingIdForm"].name.focus();
+			return false;
+		}
+
 		if (email === "") {
 			showAlert("이메일을 입력해주세요.");
+			document.forms["findingIdForm"].email.focus();
+			return false;
+		}
+
+		if (!emailRegex.test(email)) {
+			showAlert("이메일 형식에 맞춰 입력해주세요.");
 			document.forms["findingIdForm"].email.focus();
 			return false;
 		}

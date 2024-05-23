@@ -15,12 +15,12 @@ public class Welcome implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 
-		String id = (String) session.getAttribute("sessionId");
+		int userIdx = (int) session.getAttribute("sessionUserIdx");
 
 		UserDAO userDAO = new UserDAO();
-		UserVO userVO = userDAO.validateUser(id);
+		UserVO userVO = userDAO.getUserByIdx(userIdx);
 
 		request.setAttribute("userVO", userVO);
 	}

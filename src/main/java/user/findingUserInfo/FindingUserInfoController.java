@@ -1,14 +1,12 @@
 package user.findingUserInfo;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import user.UserInterface;
 
 @SuppressWarnings("serial")
@@ -23,35 +21,27 @@ public class FindingUserInfoController extends HttpServlet {
 
 		if (com.equals("findingId")) {
 			viewPage += "findingId.jsp";
-		}
-		else if (com.equals("tryToFindId")) {
+		} else if (com.equals("tryToFindId")) {
 			command = new TryToFindId();
-            command.execute(request, response);
-            viewPage += "findingId.jsp";
-		}
-		else if (com.equals("foundIdDisplay")) {
+			command.execute(request, response);
+			return;
+		} else if (com.equals("foundIdDisplay")) {
 			viewPage += "foundIdDisplay.jsp";
-		}
-		else if (com.equals("findingPassword")) {
+		} else if (com.equals("findingPassword")) {
 			viewPage += "findingPassword.jsp";
-		}
-		else if (com.equals("tryToFindPassword")) {
+		} else if (com.equals("tryToFindPassword")) {
 			command = new TryToFindPassword();
-            command.execute(request, response);
-            viewPage += "findingPassword.jsp";
-		}
-		else if (com.equals("resetPassword")) {
+			command.execute(request, response);
+			return;
+		} else if (com.equals("resetPassword")) {
 			viewPage += "resetPassword.jsp";
-		} 
-		else if (com.equals("tryToResetPassword")) {
+		} else if (com.equals("tryToResetPassword")) {
 			command = new TryToResetPassword();
-            command.execute(request, response);
-            viewPage += "resetPassword.jsp";
-		}
-		else if (com.equals("passwordResetComplete")) {
+			command.execute(request, response);
+			return;
+		} else if (com.equals("passwordResetComplete")) {
 			viewPage += "passwordResetComplete.jsp";
 		}
-
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

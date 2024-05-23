@@ -34,32 +34,36 @@
 		}
 	}
 
-	function showAlert(message) {
-		Swal.fire({
-			html : message,
-			confirmButtonText : '확인',
-			customClass : {
-				confirmButton : 'swal2-confirm',
-				popup : 'custom-swal-popup',
-				htmlContainer : 'custom-swal-text'
-			}
-		});
-	}
-
 	function validateForm() {
 		const id = document.forms["findingPasswordForm"].id.value.trim();
 		const email = document.forms["findingPasswordForm"].email.value.trim();
-
-		if (name === "") {
+		
+		const idRegex = /^[a-z][a-z0-9]{4,14}$/;
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		
+		if (id === "") {
 			showAlert("아이디를 입력해주세요.");
 			document.forms["findingPasswordForm"].id.focus();
 			return false;
 		}
+        
+		if (!idRegex.test(id)) {
+            showAlert("아이디는 5자 이상 15자 이하의<br>영문 혹은 영문과 숫자를 조합");
+            document.forms["findingPasswordForm"].id.focus();
+            return false;
+        }
+        
 		if (email === "") {
 			showAlert("이메일을 입력해주세요.");
 			document.forms["findingPasswordForm"].email.focus();
 			return false;
 		}
+		
+        if (!emailRegex.test(email)) {
+            showAlert("이메일 형식에 맞춰 입력해주세요.");
+            document.forms["findingPasswordForm"].email.focus();
+            return false;
+        }
 	}
 </script>
 </head>
