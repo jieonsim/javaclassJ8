@@ -20,7 +20,7 @@
 		<div class="signup-container">
 			<h3 class="mb-5">회원가입</h3>
 			<hr>
-			<form name="signupForm" class="signup-form pl-3 pr-3" method="post" action="${ctp}/signupComplete.s" onsubmit="return validateForm();">
+			<form name="signupForm" class="signup-form pl-3 pr-3" method="post" action="${ctp}/tryToSignup.s" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
 					<div class="col-sm-6 text-left">

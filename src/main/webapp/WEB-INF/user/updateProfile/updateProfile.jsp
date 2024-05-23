@@ -21,7 +21,7 @@
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="id" name="id" value="admin" readonly />
+						<input type="text" class="form-control" id="id" name="id" value="${sessionId}" readonly />
 					</div>
 				</div>
 				<div class="form-group row">
@@ -48,7 +48,7 @@
 				<div class="form-group row">
 					<label for="nickname" class="col-sm-3 col-form-label">닉네임</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" name="nickname" id="nickname" value="locallens" />
+						<input type="text" class="form-control" name="nickname" id="nickname" value="${sessionNickname}" />
 						<!-- <span>이미 사용 중인 닉네임입니다.</span> -->
 						<span>15자 이하, 영문/숫자/마침표/언더바만 입력 가능</span>
 					</div>

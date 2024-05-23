@@ -1,4 +1,4 @@
-package user.findingUserInfo;
+package user.findUserInfo;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;

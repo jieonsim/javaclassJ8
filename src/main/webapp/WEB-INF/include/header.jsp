@@ -36,7 +36,8 @@
 								<a class="dropdown-item" href="adminPage.a">관리자 페이지</a>
 							</c:if>
 							<a class="dropdown-item" href="updateProfile-checkPassword.u">프로필 수정</a>
-							<a class="dropdown-item" href="${ctp}/logout.l">로그아웃</a>
+							<%-- <a class="dropdown-item" href="${ctp}/logout.l">로그아웃</a> --%>
+							<a class="dropdown-item" href="${ctp}/main?action=logout">로그아웃</a>
 						</div>
 					</div>
 				</c:if>
