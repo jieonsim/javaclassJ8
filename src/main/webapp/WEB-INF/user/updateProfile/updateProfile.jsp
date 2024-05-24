@@ -12,6 +12,22 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <script src="${ctp}/js/user/updateProfile/updateProfile.js"></script>
 <script src="${ctp}/js/common/basicAlert.js"></script>
+<script>
+	function previewPhoto(event) {
+		const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				const photo = document.getElementById('profile-photo');
+				const icon = document.getElementById('profile-icon');
+				photo.src = e.target.result;
+				photo.classList.remove('d-none');
+				icon.classList.add('d-none');
+			};
+			reader.readAsDataURL(file);
+		}
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -21,6 +37,20 @@
 			<h3 class="mb-5">프로필 수정</h3>
 			<hr>
 			<form name="updateProfileForm" class="updateProfile-form pl-3 pr-3" method="post" action="">
+				<div class="form-group row justify-content-center">
+					<div class="col-sm-6">
+						<div class="photo-section text-center">
+							<label for="photo-upload" class="photo-placeholder">
+								<img id="profile-photo" src="path/to/default/photo.jpg" alt="Profile Photo" class="profile-photo d-none">
+								<span id="profile-icon" class="profile-icon">
+									<i class="ph ph-user"></i>
+								</span>
+								<i class="ph-fill ph-camera camera-icon"></i>
+							</label>
+							<input type="file" id="photo-upload" name="photo-upload" class="d-none" onchange="previewPhoto(event)" />
+						</div>
+					</div>
+				</div>
 				<div class="form-group row">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label>
 					<div class="col-sm-6">
@@ -88,7 +118,7 @@
 						<button onclick="location.href='leave.lv'" type="button" class="btn btn-custom form-control" id="leave">탈퇴하기</button>
 					</div>
 					<div class="col-3">
-						<button type="submit" class="btn btn-custom form-control" id="update">회원정보수정</button>
+						<button type="submit" class="btn btn-custom form-control" id="update">저장</button>
 					</div>
 					<div class="col-sm-3"></div>
 				</div>

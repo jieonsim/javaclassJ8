@@ -36,20 +36,12 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="row mb-5">
 				<div class="col-2">
 					<i class="ph ph-user-focus" id="profileNoimage"></i>
-					<%-- <img src="${ctp}/images/pds/user/${mVo.photo}" width="200px"/> --%>
 				</div>
 				<div class="col-10">
-					<div id="nickname">${sessionNickname}</div>
-					<c:if test="${empty userVO.introduction}">
-						<div>
-							<a href="updateProfile-checkPassword.u" id="updateProfile">클릭하고 소개 글을 입력해 보세요.</a>
-						</div>
-					</c:if>
-					<c:if test="${not empty userVO.introduction}">
-						<div>
-							<a href="updateProfile-checkPassword.u" id="updateProfile">${userVO.introduction}</a>
-						</div>
-					</c:if>
+					<div id="nickname">locallens</div>
+					<div>
+						<a href="updateProfile-confirmPassword.u" style="color: gray; text-decoration: none">클릭하고 소개 글을 입력해 보세요.</a>
+					</div>
 				</div>
 			</div>
 			<ul class="d-flex justify-content-between list-unstyled">
@@ -64,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				</li>
 			</ul>
 			<div class="text-center" style="margin-top: 100px;">
-				<div class="mb-2">내가 방문한 공간을 기록해보세요.</div>
-				<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-localLog.ll'">첫 로컬로그 남기기</button>
+				<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
+				<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
 			</div>
 			<div class="text-center" style="margin-top: 100px;">
 				<i class="ph ph-image" style="font-size: 48px"></i>

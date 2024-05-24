@@ -74,5 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="message" value="message" />
+	<input type="hidden" id="url" value="url" />
 </body>
 </html>

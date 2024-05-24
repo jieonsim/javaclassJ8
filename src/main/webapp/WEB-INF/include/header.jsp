@@ -15,7 +15,7 @@
 				</button>
 			</div>
 			<div class="col-auto d-flex align-items-center">
-				<c:if test="${empty sessionNickname}">
+				<c:if test="${empty sessionUserIdx}">
 					<a href="signup.s" class="header-link">
 						<i class="ph ph-user"></i>
 						<span class="ml-2 mr-4">sign up</span>
@@ -25,10 +25,10 @@
 						<span class="ml-2">login</span>
 					</a>
 				</c:if>
-				<c:if test="${not empty sessionNickname}">
+				<c:if test="${not empty sessionUserIdx}">
 					<div class="dropdown">
 						<button type="button" class="btn btn-custom btn-lg dropdown-toggle" data-toggle="dropdown" id="user">
-							<i class="ph ph-user"></i>
+							<i class="ph-fill ph-user"></i>
 							<span class="ml-2">${sessionNickname}</span>
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
