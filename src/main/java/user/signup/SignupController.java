@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import user.UserInterface;
+import user.common.CheckEmailDuplicated;
+import user.common.CheckNicknameDuplicated;
 
 @SuppressWarnings("serial")
 @WebServlet("*.s")

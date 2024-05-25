@@ -12,15 +12,15 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
-function validateForm() {
-	const password = document.forms["checkPasswordForm"].password.value.trim();
-	
-    if (password === "") {
-        showAlert("비밀번호를 입력해주세요.");
-        document.forms["checkPasswordForm"].password.focus();
-        return false;
-    }
-}
+	function validateForm() {
+		const password = document.forms["checkPasswordForm"].password.value.trim();
+
+		if (password === "") {
+			showAlert("비밀번호를 입력해주세요.");
+			document.forms["checkPasswordForm"].password.focus();
+			return false;
+		}
+	}
 </script>
 </head>
 <body>
@@ -55,6 +55,6 @@ function validateForm() {
 	</div>
 	<input type="hidden" id="message" value="${message}">
 	<input type="hidden" id="url" value="${url}">
-	<input type="hidden" name="sessionUserIdx" value="${sessionUserIdx}">
+	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 </body>
 </html>

@@ -67,10 +67,11 @@ public class LoginCommand implements UserInterface {
 			session.setAttribute("sessionId", userVO.getId());
 			session.setAttribute("sessionNickname", userVO.getNickname());
 			session.setAttribute("sessionName", userVO.getName());
-			session.setAttribute("sessionRole", userVO.getRole());
 			session.setAttribute("sessionEmail", userVO.getEmail());
+			session.setAttribute("sessionRole", userVO.getRole());
 			session.setAttribute("sessionIntroduction", userVO.getIntroduction());
 			session.setAttribute("sessionProfileImage", userVO.getProfileImage());
+			session.setAttribute("sessionVisibility", userVO.getVisibility());
 			
 			response.sendRedirect(request.getContextPath() + "/main");
 		}

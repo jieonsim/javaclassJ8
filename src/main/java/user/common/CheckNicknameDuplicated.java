@@ -1,4 +1,4 @@
-package user.signup;
+package user.common;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import user.UserDAO;
 import user.UserInterface;
 
-public class CheckEmailDuplicated implements UserInterface {
+public class CheckNicknameDuplicated implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email") == null ? "" : request.getParameter("email");
+		String nickname = request.getParameter("nickname") == null ? "" : request.getParameter("nickname");
 
-		if (email.isEmpty()) {
+		if (nickname.isEmpty()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().write("Invalid Email");
+			response.getWriter().write("Invalid Nickname");
 			return;
 		}
 
 		UserDAO dao = new UserDAO();
-		boolean isDuplicated = dao.checkEmailDuplicated(email);
+		boolean isDuplicated = dao.checkNicknameDuplicated(nickname);
 
 		response.setContentType("text/plain");
 		if (isDuplicated) {

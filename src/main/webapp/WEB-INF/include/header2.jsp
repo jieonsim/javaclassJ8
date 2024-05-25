@@ -29,15 +29,14 @@
 					<div class="dropdown">
 						<button type="button" class="btn btn-custom btn-lg dropdown-toggle" data-toggle="dropdown" id="user">
 							<i class="ph-fill ph-user"></i>
-							<span class="ml-2">${sessionScope.sessionNickname}</span>
-							<%-- <span class="ml-2">${userVO.nickname}</span> --%>
-							<!-- Use session attribute directly -->
+							<span class="ml-2">${userVO.nickname}</span>
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
-							<c:if test="${sessionScope.sessionRole == 'admin'}">
+							<c:if test="${sessionRole == 'admin'}">
 								<a class="dropdown-item" href="adminPage.a">관리자 페이지</a>
 							</c:if>
 							<a class="dropdown-item" href="checkPassword.u">프로필 수정</a>
+							<%-- <a class="dropdown-item" href="${ctp}/logout.l">로그아웃</a> --%>
 							<a class="dropdown-item" href="${ctp}/main?action=logout">로그아웃</a>
 						</div>
 					</div>
@@ -45,5 +44,5 @@
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}">
- </header>
+	<input type="hidden" name="sessionUserIdx" value="${sessionUserIdx}">
+</header>

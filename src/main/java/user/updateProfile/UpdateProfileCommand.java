@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -29,7 +30,6 @@ public class UpdateProfileCommand implements UserInterface {
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
 
 		String userIdxStr = multipartRequest.getParameter("userIdx");
-		System.out.println("userIdxStr : " + userIdxStr);
 		int userIdx;
 		try {
 			userIdx = Integer.parseInt(userIdxStr);
@@ -77,6 +77,18 @@ public class UpdateProfileCommand implements UserInterface {
 
 		int result = userDAO.updateProfile(userVO);
 		request.setAttribute("userVO", userVO);
+		
+		// 세션 처리
+		HttpSession session = request.getSession();
+		session.setAttribute("sessionUserIdx", userVO.getUserIdx());
+		session.setAttribute("sessionId", userVO.getId());
+		session.setAttribute("sessionNickname", userVO.getNickname());
+		session.setAttribute("sessionName", userVO.getName());
+		session.setAttribute("sessionEmail", userVO.getEmail());
+		session.setAttribute("sessionRole", userVO.getRole());
+		session.setAttribute("sessionIntroduction", userVO.getIntroduction());
+		session.setAttribute("sessionProfileImage", userVO.getProfileImage());
+		session.setAttribute("sessionVisibility", userVO.getVisibility());
 
 		if (result != 0) {
 			request.setAttribute("message", "프로필 수정이 완료되었습니다.");

@@ -45,10 +45,13 @@
 				</c:otherwise>
 			</c:choose>
 			<div class="col">
-				<div>to-do-list</div>
+				<div style="font-size: 45px;">to-do-list</div>
 				<ul>
 					<li>회원 정보 수정 페이지 가장 상단에 기본 프로필 아이콘 넣고 사진 파일 추가 버튼 넣기</li>
 					<li>비밀번호 재설정 시 기존 비밀번호랑 동일하게 변경 불가</li>
+					<li>카카오맵 api 가져오기</li>
+					<li>방명록 crud</li>
+					<li>아카이브 내 상단 프로필에 유저 닉네임, 소개글, 프로필이미지 뿌리기</li>
 				</ul>
 			</div>
 		</div>

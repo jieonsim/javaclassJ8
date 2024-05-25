@@ -17,10 +17,8 @@ public class LoadProfileCommand implements UserInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "/WEB-INF/user/updateProfile/updateProfile.jsp";
 
-		// Retrieve userIdx from session if not provided as a parameter
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
-		System.out.println("sessionUserIdx : " + sessionUserIdx);
 
 		if (sessionUserIdx == null) {
 			request.setAttribute("message", "잘못된 userIdx입니다.");

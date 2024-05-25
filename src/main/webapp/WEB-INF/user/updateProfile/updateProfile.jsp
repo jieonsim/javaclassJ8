@@ -24,7 +24,7 @@
 			<h3 class="mb-5">프로필 수정</h3>
 			<hr>
 			<form name="updateProfileForm" class="updateProfile-form pl-3 pr-3" method="post" action="tryToUpdateProfile.u" onsubmit="return validateForm();" enctype="multipart/form-data">
-				<input type="hidden" name="userIdx" value="${sessionUserIdx}">
+				<input type="hidden" name="userIdx" value="${sessionScope.sessionUserIdx}">
 				<div class="form-group row justify-content-center">
 					<div class="col-sm-6">
 						<div class="photo-section text-center">
@@ -116,7 +116,7 @@
 	</div>
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
-	<input type="hidden" name="sessionUserIdx" value="${sessionUserIdx}" />
+	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 	<script src="${ctp}/js/user/updateProfile/updateProfile.js"></script>
 </body>
 </html>

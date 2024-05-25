@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user.UserInterface;
-import user.signup.CheckEmailDuplicated;
-import user.signup.CheckNicknameDuplicated;
+import user.common.CheckEmailDuplicated;
+import user.common.CheckNicknameDuplicated;
 
 @SuppressWarnings("serial")
 @WebServlet("*.u")
@@ -22,7 +22,7 @@ public class UpdateProfileController extends HttpServlet {
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
-
+		
 		if (com.equals("checkPassword")) {
 			viewPage += "checkPassword.jsp";
 		} 
