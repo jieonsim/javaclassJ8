@@ -32,7 +32,7 @@ function validateForm() {
 			<div class="mb-5" id="ment">
 				회원님의 정보를 안전하게 보호하기 위해<br>비밀번호를 다시 한번 확인해주세요.
 			</div>
-			<form name="checkPasswordForm" class="checkPassword-form" method="post" action="checkPassword.u" onsubmit="return validateForm();">
+			<form name="checkPasswordForm" class="checkPassword-form" method="post" action="tryToCheckPassword.u" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<div class="col">
 						<label for="name">아이디</label>
@@ -55,5 +55,6 @@ function validateForm() {
 	</div>
 	<input type="hidden" id="message" value="${message}">
 	<input type="hidden" id="url" value="${url}">
+	<input type="hidden" name="sessionUserIdx" value="${sessionUserIdx}">
 </body>
 </html>

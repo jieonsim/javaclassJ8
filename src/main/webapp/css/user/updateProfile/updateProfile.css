@@ -8,10 +8,10 @@
 }
 
 @font-face {
-    font-family: 'Pretendard-SemiBold';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
+	font-family: 'Pretendard-SemiBold';
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
 }
 
 h3 {
@@ -56,118 +56,129 @@ label {
 }
 
 .updateProfile-form .form-group .validation-message {
-    display: none;
-    color: lightcoral;
-    font-size: 13px;
-    margin-top: 5px; 
+	display: none;
+	color: lightcoral;
+	font-size: 13px;
+	margin-top: 5px;
 }
 
-#isNicknameDuplicatedBtn, #isEmailDuplicatedBtn {
-    background-color: white;
-    border: 1px solid black;
-    color: black;
-    border-radius: 0;
+#isNicknameDuplicatedBtn,
+#isEmailDuplicatedBtn {
+	background-color: white;
+	border: 1px solid black;
+	color: black;
+	border-radius: 0;
 }
 
-#isNicknameDuplicatedBtn, #isEmailDuplicatedBtn {
-    background-color: #eee;
-    border: none;
-    color: lightgray;
-    border-radius: 0;
+#isNicknameDuplicatedBtn,
+#isEmailDuplicatedBtn {
+	background-color: #eee;
+	border: none;
+	color: lightgray;
+	border-radius: 0;
+	pointer-events: none;
 }
 
 input[readonly] {
-    background-color: #f7f7f7;
-    color: gray;
+	background-color: #f7f7f7;
+	color: gray;
 }
-
-/*.photo-section {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.photo-placeholder {
-    width: 150px;
-    height: 150px;
-    border: 1px dashed darkgray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    color: darkgray;
-    border-radius: 50%;
-    cursor: pointer; 
-}
-
-
-#photo-upload {
-    display: none;
-}*/
-
-/*.photo-placeholder {
-    width: 150px;
-    width: 150px;
-    height: 150px;
-    height: 150px;
-    border: 1px dashed #ced4da;
-    border: 1px solid #ced4da;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    color: #ced4da;
-    color: darkgray;
-    border-radius: 8px;
-    border-radius: 50%;
-    cursor: pointer;  Add pointer cursor for file upload 
-}*/
 
 .photo-section {
-    margin-bottom: 20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	margin-bottom: 20px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .photo-placeholder {
-    width: 150px;
-    height: 150px;
-    border: 1px dashed darkgray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    color: darkgray;
-    border-radius: 50%;
-    cursor: pointer; 
-    position: relative;
+	width: 150px;
+	height: 150px;
+	border: 1px dashed darkgray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 50px;
+	color: darkgray;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
 }
 
 .profile-photo {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
 }
 
 .profile-icon {
-    font-size: 50px;
-    color: darkgray;
+	font-size: 50px;
+	color: darkgray;
 }
 
 .camera-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: black;
-    color: white;
-    font-size: 20px;
-    border-radius: 50%;
-    padding: 10px;
-    cursor: pointer;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	background-color: black;
+	color: white;
+	font-size: 20px;
+	border-radius: 50%;
+	padding: 10px;
+	cursor: pointer;
 }
 
 .d-none {
-    display: none;
+	display: none;
 }
 
+
+/*.photo-section {
+	margin-bottom: 20px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.photo-placeholder {
+	width: 150px;
+	height: 150px;
+	border: 1px dashed darkgray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 50px;
+	color: darkgray;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
+}
+
+.profile-photo {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.profile-icon {
+	font-size: 50px;
+	color: darkgray;
+}
+
+.camera-icon {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	background-color: black;
+	color: white;
+	font-size: 20px;
+	border-radius: 50%;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.d-none {
+	display: none;
+}*/

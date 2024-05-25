@@ -24,8 +24,11 @@ public class SignupController extends HttpServlet {
 		} else if (com.equals("tryToSignup")) {
 			command = new SignupCommand();
 			command.execute(request, response);
+			return;
+		} else if(com.equals("signupComplete")) {
 			viewPage += "signupComplete.jsp";
-		} else if (com.equals("checkIdDuplicated")) {
+		}
+		else if (com.equals("checkIdDuplicated")) {
 			command = new CheckIdDuplicated();
 			command.execute(request, response);
 			return;

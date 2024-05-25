@@ -224,23 +224,66 @@ public class UserDAO {
 		return exists;
 	}
 
+	// 아이디로 기존 비밀번호 조회 - 비밀번호 재설정 시 기존 비밀번호와 입력한 신규 비밀번호가 동일한지 확인
+	public String getPasswordById(String id) {
+		String storedPassword = null;
+		try {
+			sql = "SELECT password FROM users2 WHERE id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				storedPassword = rs.getString("password");
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return storedPassword;
+	}
+
 	// 신규 비밀번호 재설정 - 비밀번호 찾기 > 비밀번호 재설정
 	public boolean updatePasswordById(String id, String storedPassword) {
-	    boolean isUpdated = false;
-	    try {
-	        sql = "UPDATE users2 SET password = ? WHERE id = ?";
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, storedPassword);
-	        pstmt.setString(2, id);
-	        int rowsAffected = pstmt.executeUpdate();
-	        if (rowsAffected > 0) {
-	            isUpdated = true;
-	        }
-	    } catch (SQLException e) {
-	        System.out.println("SQL 오류 : " + e.getMessage());
-	    } finally {
-	        pstmtClose();
-	    }
-	    return isUpdated;
+		boolean isUpdated = false;
+		try {
+			sql = "UPDATE users2 SET password = ? WHERE id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, storedPassword);
+			pstmt.setString(2, id);
+			int rowsAffected = pstmt.executeUpdate();
+			if (rowsAffected > 0) {
+				isUpdated = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return isUpdated;
+	}
+
+	// 프로필 수정
+	public int updateProfile(UserVO userVO) {
+		int result = 0;
+		sql = "UPDATE users2 SET password = ?, nickname = ?, name = ?, email = ?, role = ?, introduction = ?, updatedAt = ?, profileImage = ? WHERE userIdx = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userVO.getPassword());
+			pstmt.setString(2, userVO.getNickname());
+			pstmt.setString(3, userVO.getName());
+			pstmt.setString(4, userVO.getEmail());
+			pstmt.setString(5, userVO.getRole());
+			pstmt.setString(6, userVO.getIntroduction());
+			pstmt.setTimestamp(7, userVO.getUpdatedAt());
+			pstmt.setString(8, userVO.getProfileImage());
+			pstmt.setInt(9, userVO.getUserIdx());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return result;
 	}
 }

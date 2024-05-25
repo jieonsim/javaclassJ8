@@ -35,20 +35,34 @@ document.addEventListener("DOMContentLoaded", function() {
 		<div class="archive-container">
 			<div class="row mb-5">
 				<div class="col-2">
-					<i class="ph ph-user-focus" id="profileNoimage"></i>
-					<%-- <img src="${ctp}/images/pds/user/${mVo.photo}" width="200px"/> --%>
+					<div class="photo-section text-center">
+						<label for="photo-upload" class="photo-placeholder">
+							<c:choose>
+								<c:when test="${not empty userVO.profileImage}">
+									<img id="profile-photo" src="${ctp}/images/profileImage/${userVO.profileImage}" alt="Profile Photo" class="profile-photo" />
+								</c:when>
+								<c:otherwise>
+									<span id="profile-icon" class="profile-icon">
+										<i class="ph ph-user-focus" id="profileIcon"></i>
+									</span>
+									<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
+								</c:otherwise>
+							</c:choose>
+							<i class="ph-fill ph-camera camera-icon"></i>
+						</label>
+						<input type="file" id="photo-upload" name="photo-upload" class="d-none" onchange="previewPhoto(event)" />
+					</div>
 				</div>
 				<div class="col-10">
-					<div id="nickname">${sessionNickname}</div>
-					<c:if test="${empty userVO.introduction}">
+					<%-- <div id="nickname">${sessionNickname}</div> --%>
+					<div id="nickname">${userVO.nickname}</div>
+					<c:if test="${empty sessionIntroduction}">
 						<div>
-							<a href="updateProfile-checkPassword.u" id="updateProfile">클릭하고 소개 글을 입력해 보세요.</a>
+							<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
 						</div>
 					</c:if>
-					<c:if test="${not empty userVO.introduction}">
-						<div>
-							<a href="updateProfile-checkPassword.u" id="updateProfile">${userVO.introduction}</a>
-						</div>
+					<c:if test="${not empty sessionIntorduction}">
+						<div>${sessionIntorduction}</div>
 					</c:if>
 				</div>
 			</div>

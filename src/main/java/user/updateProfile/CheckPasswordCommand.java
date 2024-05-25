@@ -13,27 +13,28 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class CheckPassword implements UserInterface {
+public class CheckPasswordCommand implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String viewPage = "/WEB-INF/user/updateProfile/checkPassword.jsp";
+		
 		String password = request.getParameter("password") == null ? "" : request.getParameter("password");
 
 		HttpSession session = request.getSession();
-		Integer userIdx = (Integer) session.getAttribute("sessionUserIdx");
+		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
 		// Null 검사
-		if (userIdx == null) {
-			System.out.println("세션에 userIdx가 없습니다.");
+		if (sessionUserIdx == null) {
 			request.setAttribute("message", "세션이 만료되었습니다. 다시 로그인 해주세요.");
-			request.setAttribute("url", "login.u");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/user/login.jsp");
+			viewPage = "/WEB-INF/user/login/login.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
 
 		UserDAO userDAO = new UserDAO();
-		UserVO userVO = userDAO.getUserByIdx(userIdx);
+		UserVO userVO = userDAO.getUserByIdx(sessionUserIdx);
 
 		// 저장된 비밀번호에서 salt를 추출
 		String storedPassword = userVO.getPassword();
@@ -47,11 +48,11 @@ public class CheckPassword implements UserInterface {
 		// 저장된 비밀번호와 비교
 		if (!storedHashedPassword.equals(hashedPassword)) {
 			request.setAttribute("message", "비밀번호를 확인해주세요.");
-			request.setAttribute("url", "updateProfile-checkPassword.u");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/user/updateProfile/checkPassword.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		} else {
+			session.setAttribute("sessionUserIdx", userVO.getUserIdx());
 			response.sendRedirect("updateProfile.u");
 		}
 	}

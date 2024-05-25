@@ -16,7 +16,7 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class UpdateProfileCommand implements UserInterface {
+public class UpdateProfileCommand3 implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,12 +29,11 @@ public class UpdateProfileCommand implements UserInterface {
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
 
 		String userIdxStr = multipartRequest.getParameter("userIdx");
-		System.out.println("userIdxStr : " + userIdxStr);
-		int userIdx;
+		int userIdx = 0;
 		try {
 			userIdx = Integer.parseInt(userIdxStr);
 		} catch (NumberFormatException e) {
-			request.setAttribute("message", "잘못된 userIdx입니다.");
+			request.setAttribute("message", "잘못된 userIdx 입니다.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
@@ -49,6 +48,13 @@ public class UpdateProfileCommand implements UserInterface {
 
 		UserDAO userDAO = new UserDAO();
 		UserVO userVO = userDAO.getUserByIdx(userIdx); // 기존 사용자 정보를 가져옴
+
+		if (userVO == null) {
+			request.setAttribute("message", "사용자 정보를 가져오지 못했습니다.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
 
 		// 비밀번호 암호화 및 설정
 		if (newPassword != null && !newPassword.trim().isEmpty()) {
@@ -77,7 +83,7 @@ public class UpdateProfileCommand implements UserInterface {
 
 		int result = userDAO.updateProfile(userVO);
 		request.setAttribute("userVO", userVO);
-
+		
 		if (result != 0) {
 			request.setAttribute("message", "프로필 수정이 완료되었습니다.");
 		} else {

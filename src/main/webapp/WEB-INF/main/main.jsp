@@ -25,6 +25,8 @@
 						<div>이름 : ${userVO.name}</div>
 						<div>이메일 : ${userVO.email}</div>
 						<div>등급 : ${userVO.role}</div>
+						<div>소개 : ${userVO.introduction}</div>
+						<div>프로필사진 : ${userVO.profileImage}</div>
 					</div>
 					<div class="col">
 						<h5>로그인한 유저의 세션 정보</h5>
@@ -32,7 +34,10 @@
 						<div>세션 아이디 : ${sessionId}</div>
 						<div>세션 닉네임 : ${sessionNickname}</div>
 						<div>세션 이름 : ${sessionName}</div>
+						<div>세션 이메일 : ${sessionEmail}</div>
 						<div>세션 등급 : ${sessionRole}</div>
+						<div>세션 소개 : ${sessionIntroduction}</div>
+						<div>세션 프로필사진 : ${sessionProfileImage}</div>
 					</div>
 				</c:when>
 				<c:otherwise>

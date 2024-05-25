@@ -95,7 +95,7 @@
                         idChecked = true;
                         deactivateButton(document.getElementById('isIdDuplicatedBtn'));
                     } else if (response === 'Invalid ID') {
-                        showAlert('잘못된 ID입니다.');
+                        showAlert('잘못된 아이디입니다.');
                         document.forms["signupForm"].id.focus();
                     } else {
                         console.error("Unexpected response:", response);

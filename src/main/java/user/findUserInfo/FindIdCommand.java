@@ -1,4 +1,4 @@
-package user.findingUserInfo;
+package user.findUserInfo;
 
 import java.io.IOException;
 
@@ -11,11 +11,11 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class TryToFindId implements UserInterface {
+public class FindIdCommand implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/user/findingUserInfo/";
+		String viewPage = "/WEB-INF/user/findUserInfo/";
 
 		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
 		String email = request.getParameter("email") == null ? "" : request.getParameter("email");
@@ -30,7 +30,7 @@ public class TryToFindId implements UserInterface {
 
 			request.setAttribute("id", maskedId);
 			request.setAttribute("createdAt", createdAt);
-
+			
 			viewPage += "foundIdDisplay.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);

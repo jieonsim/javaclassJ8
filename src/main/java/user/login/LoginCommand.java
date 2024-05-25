@@ -2,6 +2,7 @@ package user.login;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +18,15 @@ public class LoginCommand implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String viewPage = "/WEB-INF/user/login/login.jsp";
+		
 		String id = request.getParameter("id") == null ? "" : request.getParameter("id");
 		String password = request.getParameter("password") == null ? "" : request.getParameter("password");
 
 		if (id.isEmpty() || password.isEmpty()) {
 			request.setAttribute("message", "모든 정보를 입력해주세요.");
-			request.setAttribute("url", "login.l");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 			return;
 		}
 
@@ -32,7 +36,8 @@ public class LoginCommand implements UserInterface {
 
 		if (userVO == null) {
 			request.setAttribute("message", "아이디를 확인해주세요.");
-			request.setAttribute("url", "login.l");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 			return;
 		}
 
@@ -44,7 +49,8 @@ public class LoginCommand implements UserInterface {
 
 		if (!storedPassword.equals(salt + hashedPassword)) {
 			request.setAttribute("message", "비밀번호를 확인해주세요.");
-			request.setAttribute("url", "login.l");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 			return;
 			
 		} else {
@@ -63,6 +69,8 @@ public class LoginCommand implements UserInterface {
 			session.setAttribute("sessionName", userVO.getName());
 			session.setAttribute("sessionRole", userVO.getRole());
 			session.setAttribute("sessionEmail", userVO.getEmail());
+			session.setAttribute("sessionIntroduction", userVO.getIntroduction());
+			session.setAttribute("sessionProfileImage", userVO.getProfileImage());
 			
 			response.sendRedirect(request.getContextPath() + "/main");
 		}

@@ -8,17 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
-<link rel="stylesheet" type="text/css" href="${ctp}/css/user/findingUserInfo/findingPassword.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/user/findUserInfo/findId.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-		const idRegex = /^[a-z][a-z0-9]{4,14}$/;
+		const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-		document.getElementById('id').addEventListener('input', function() {
-            validateInput(this, idRegex);
-        });
+		document.querySelector('input[name="name"]').addEventListener('input', function() {
+			validateInput(this, nameRegex);
+		});
 
 		document.querySelector('input[name="email"]').addEventListener('input', function() {
 			validateInput(this, emailRegex);
@@ -35,35 +35,35 @@
 	}
 
 	function validateForm() {
-		const id = document.forms["findingPasswordForm"].id.value.trim();
-		const email = document.forms["findingPasswordForm"].email.value.trim();
-		
-		const idRegex = /^[a-z][a-z0-9]{4,14}$/;
+		const name = document.forms["findingIdForm"].name.value.trim();
+		const email = document.forms["findingIdForm"].email.value.trim();
+
+		const nameRegex = /^(?:[a-z]{2,50}|[가-힣]{2,50})$/;
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		
-		if (id === "") {
-			showAlert("아이디를 입력해주세요.");
-			document.forms["findingPasswordForm"].id.focus();
+
+		if (name === "") {
+			showAlert("이름을 입력해주세요.");
+			document.forms["findingIdForm"].name.focus();
 			return false;
 		}
-        
-		if (!idRegex.test(id)) {
-            showAlert("아이디는 5자 이상 15자 이하의<br>영문 혹은 영문과 숫자를 조합");
-            document.forms["findingPasswordForm"].id.focus();
-            return false;
-        }
-        
+
+		if (!nameRegex.test(name)) {
+			showAlert("이름은 2자 이상 50자 이하의<br>한글 또는 영문만 입력 가능");
+			document.forms["findingIdForm"].name.focus();
+			return false;
+		}
+
 		if (email === "") {
 			showAlert("이메일을 입력해주세요.");
-			document.forms["findingPasswordForm"].email.focus();
+			document.forms["findingIdForm"].email.focus();
 			return false;
 		}
-		
-        if (!emailRegex.test(email)) {
-            showAlert("이메일 형식에 맞춰 입력해주세요.");
-            document.forms["findingPasswordForm"].email.focus();
-            return false;
-        }
+
+		if (!emailRegex.test(email)) {
+			showAlert("이메일 형식에 맞춰 입력해주세요.");
+			document.forms["findingIdForm"].email.focus();
+			return false;
+		}
 	}
 </script>
 </head>
@@ -71,20 +71,20 @@
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container mt-5 pt-3">
-		<div class="findingPassword-container">
-			<h4 class="mb-5">비밀번호 찾기</h4>
-			<form name="findingPasswordForm" class="findingPassword-form" method="post" action="tryToFindPassword.fi" onsubmit="return validateForm();">
+		<div class="findingId-container">
+			<h4 class="mb-5">아이디 찾기</h4>
+			<form name="findingIdForm" class="findingId-form" method="post" action="tryToFindId.fi" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">아이디</label>
-						<input type="text" class="form-control" name="id" id="id" placeholder="가입 시 등록한 아이디를 입력해주세요." autofocus />
-						<span class="validation-message">5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합</span>
+						<label for="name">이름</label>
+						<input type="text" class="form-control" name="name" id="name" placeholder="가입 시 등록한 이름을 입력해주세요." autofocus />
+						<span class="validation-message">2자 이상 50자 이하의 한글 또는 영문만 입력 가능</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">이메일</label>
-						<input type="email" class="form-control" name="email" id='email' placeholder="가입 시 등록한 이메일을 입력해주세요." />
+						<label for="email">이메일</label>
+						<input type="email" class="form-control" name="email" id="email" placeholder="가입 시 등록한 이메일을 입력해주세요." />
 						<span class="validation-message">이메일 형식에 맞춰 입력해주세요.</span>
 					</div>
 				</div>

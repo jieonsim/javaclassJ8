@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
-<link rel="stylesheet" type="text/css" href="${ctp}/css/user/findingUserInfo/passwordResetComplete.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/user/findUserInfo/passwordResetComplete.css" />
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />

@@ -19,28 +19,57 @@
 }
 
 #nickname {
-		font-family: 'Manrope', sans-serif;
-		font-size: 20px;
-		font-weight: bold;
+	font-family: 'Manrope', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .archive-container ul li a {
-    text-decoration: none;
-    color: lightgray;
-    font-size: 18px;
-    font-weight: bold;
+	text-decoration: none;
+	color: lightgray;
+	font-size: 18px;
+	font-weight: bold;
 }
 
-.archive-container ul li a:hover, 
+.archive-container ul li a:hover,
 .archive-container ul li a.active {
-    color: black;
+	color: black;
 }
 
-#profileNoimage {
+
+#userIcon {
 	font-size: 48px;
 }
 
-#updateProfile {
+.profile-photo {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+#updateProfileLink {
 	color: gray;
 	text-decoration: none;
+}
+
+.photo-section {
+	margin-bottom: 20px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.photo-placeholder {
+	width: 150px;
+	height: 150px;
+	border: 1px dashed darkgray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 50px;
+	color: darkgray;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
 }

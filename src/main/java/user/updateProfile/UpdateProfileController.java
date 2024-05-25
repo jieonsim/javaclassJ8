@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user.UserInterface;
+import user.signup.CheckEmailDuplicated;
+import user.signup.CheckNicknameDuplicated;
 
 @SuppressWarnings("serial")
 @WebServlet("*.u")
@@ -21,16 +23,33 @@ public class UpdateProfileController extends HttpServlet {
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("updateProfile-checkPassword")) {
+		if (com.equals("checkPassword")) {
 			viewPage += "checkPassword.jsp";
 		} 
-		else if (com.equals("checkPassword")) {
-			command = new CheckPassword();
+		else if (com.equals("tryToCheckPassword")) {
+			command = new CheckPasswordCommand();
 			command.execute(request, response);
 			return;
 		}
 		else if (com.equals("updateProfile")) {
-			viewPage += "updateProfile.jsp";
+			command = new LoadProfileCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if (com.equals("tryToUpdateProfile")) {
+			command = new UpdateProfileCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if (com.equals("checkNicknameDuplicated")) {
+			command = new CheckNicknameDuplicated();
+			command.execute(request, response);
+			return;
+		}
+		else if (com.equals("checkEmailDuplicated")) {
+			command = new CheckEmailDuplicated();
+			command.execute(request, response);
+			return;
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

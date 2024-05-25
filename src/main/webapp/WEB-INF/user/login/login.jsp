@@ -73,9 +73,9 @@ if (cookies != null) {
 						<button onclick="location.href='signup.s'" type="button" class="btn btn-custom btn-lg form-control mb-2" id="signup">회원가입</button>
 					</div>
 					<div class="col">
-						<a href="findingId.fi" class="link-small">아이디 찾기</a>
+						<a href="findId.fi" class="link-small">아이디 찾기</a>
 						<span id="divisionLine">I</span>
-						<a href="findingPassword.fi" class="link-small">비밀번호 찾기</a>
+						<a href="findPassword.fi" class="link-small">비밀번호 찾기</a>
 					</div>
 				</div>
 			</form>
