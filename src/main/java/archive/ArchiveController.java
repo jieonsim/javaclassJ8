@@ -20,13 +20,19 @@ public class ArchiveController extends HttpServlet {
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
 		if (com.equals("archive-localLog")) {
+			command = new LocalLogCommand();
+			command.execute(request, response);
 			viewPage += "archive-localLog.jsp";
 		} else if (com.equals("archive-guestBook")) {
+			command = new GuestBookCommand();
+			command.execute(request, response);
 			viewPage += "archive-guestBook.jsp";
 		} else if (com.equals("archive-curation")) {
+			command = new CurationCommand();
+			command.execute(request, response);
 			viewPage += "archive-curation.jsp";
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

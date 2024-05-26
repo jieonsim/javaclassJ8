@@ -26,6 +26,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+// 화살표클릭시 화면 상단으로 부드럽게 이동하기
+$(window).scroll(function(){
+	if($(this).scrollTop() > 100) {
+		$("#topBtn").addClass("on");
+	}
+	else {
+		$("#topBtn").removeClass("on");
+	}
+	
+	$("#topBtn").click(function(){
+		window.scrollTo({top:0, behavior: "smooth"});
+	});
+});
 </script>
 </head>
 <body>
@@ -34,36 +48,33 @@ document.addEventListener("DOMContentLoaded", function() {
 	<div class="container">
 		<div class="archive-container">
 			<div class="row mb-5">
-				<div class="col-2">
-					<div class="photo-section text-center">
-						<label for="photo-upload" class="photo-placeholder">
-							<c:choose>
-								<c:when test="${not empty userVO.profileImage}">
-									<img id="profile-photo" src="${ctp}/images/profileImage/${userVO.profileImage}" alt="Profile Photo" class="profile-photo" />
-								</c:when>
-								<c:otherwise>
-									<span id="profile-icon" class="profile-icon">
-										<i class="ph ph-user-focus" id="profileIcon"></i>
-									</span>
-									<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
-								</c:otherwise>
-							</c:choose>
-							<i class="ph-fill ph-camera camera-icon"></i>
-						</label>
-						<input type="file" id="photo-upload" name="photo-upload" class="d-none" onchange="previewPhoto(event)" />
+				<div class="col-3">
+					<div class="photo-placeholder">
+						<c:choose>
+							<c:when test="${not empty userVO.profileImage}">
+								<img id="profile-photo" src="${ctp}/images/profileImage/${userVO.profileImage}" alt="Profile Photo" class="profile-photo" />
+							</c:when>
+							<c:otherwise>
+								<span id="profile-icon" class="profile-icon">
+									<i class="ph ph-user-focus" id="profileIcon"></i>
+								</span>
+								<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
-				<div class="col-10">
-					<%-- <div id="nickname">${sessionNickname}</div> --%>
-					<div id="nickname">${userVO.nickname}</div>
-					<c:if test="${empty sessionIntroduction}">
-						<div>
-							<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
-						</div>
-					</c:if>
-					<c:if test="${not empty sessionIntorduction}">
-						<div>${sessionIntorduction}</div>
-					</c:if>
+				<div class="col-9">
+					<div class="mb-3" id="nickname">@ ${userVO.nickname}</div>
+					<c:choose>
+						<c:when test="${not empty userVO.introduction}">
+							<div>${userVO.introduction}</div>
+						</c:when>
+						<c:otherwise>
+							<div>
+								<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<ul class="d-flex justify-content-between list-unstyled">
@@ -86,7 +97,19 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div class="mb-1 mt-3" style="font-weight: bold">콘텐츠가 없습니다.</div>
 				<div style="color: dimgray">아직 콘텐츠가 존재하지 않습니다.</div>
 			</div>
+			<!-- 위로가기 버튼 -->
+			<div id="topBtn" class="">
+				<!-- <i class="ph ph-arrow-circle-up" id="arrowUp"></i> -->
+				<!-- <i class="ph ph-arrow-up" id="arrowUp"></i> -->
+				<!-- <i class="ph ph-caret-double-up" id="arrowUp"></i> -->
+				<!-- <i class="ph ph-arrow-fat-lines-up" id="arrowUp"></i> -->
+				<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
+				<!-- <i class="ph-fill ph-caret-circle-double-up" id="arrowUp"></i> -->
+			</div>
 		</div>
 	</div>
+	<input type="hidden" id="message" value="${message}" />
+	<input type="hidden" id="url" value="${url}" />
+	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 </body>
 </html>

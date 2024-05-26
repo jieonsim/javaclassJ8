@@ -19,25 +19,29 @@
 				<c:when test="${not empty userVO}">
 					<div class="col">
 						<h5>로그인한 유저의 VO 정보</h5>
-						<div>IDX : ${userVO.userIdx}</div>
-						<div>아이디 : ${userVO.id}</div>
-						<div>닉네임 : ${userVO.nickname}</div>
-						<div>이름 : ${userVO.name}</div>
-						<div>이메일 : ${userVO.email}</div>
-						<div>등급 : ${userVO.role}</div>
-						<div>소개 : ${userVO.introduction}</div>
-						<div>프로필사진 : ${userVO.profileImage}</div>
+						<div>userVO.userIdx : ${userVO.userIdx}</div>
+						<div>userVO.id : ${userVO.id}</div>
+						<div>userVO.nickname : ${userVO.nickname}</div>
+						<div>userVO.name : ${userVO.name}</div>
+						<div>userVO.email : ${userVO.email}</div>
+						<div>userVO.role : ${userVO.role}</div>
+						<div>userVO.introduction : ${userVO.introduction}</div>
+						<div>userVO.createdAt : ${userVO.createdAt}</div>
+						<%-- <div>userVO.updatedAt : ${userVO.updatedAt != null ? userVO.updatedAt : 'N/A'}</div> --%>
+						<div>userVO.updatedAt : ${userVO.updatedAt}</div>
+						<div>userVO.profileImage : ${userVO.profileImage}</div>
+						<div>userVO.visibility : ${userVO.visibility}</div>
 					</div>
 					<div class="col">
 						<h5>로그인한 유저의 세션 정보</h5>
-						<div>세션 IDX : ${sessionUserIdx}</div>
-						<div>세션 아이디 : ${sessionId}</div>
-						<div>세션 닉네임 : ${sessionNickname}</div>
-						<div>세션 이름 : ${sessionName}</div>
-						<div>세션 이메일 : ${sessionEmail}</div>
-						<div>세션 등급 : ${sessionRole}</div>
-						<div>세션 소개 : ${sessionIntroduction}</div>
-						<div>세션 프로필사진 : ${sessionProfileImage}</div>
+						<div>sessionUserIdx : ${sessionUserIdx}</div>
+						<div>sessionId : ${sessionId}</div>
+						<div>sessionNickname : ${sessionNickname}</div>
+						<div>sessionName : ${sessionName}</div>
+						<div>sessionEmail : ${sessionEmail}</div>
+						<div>sessionRole : ${sessionRole}</div>
+						<div>sessionIntroduction : ${sessionIntroduction}</div>
+						<div>sessionProfileImage : ${sessionProfileImage}</div>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -47,11 +51,8 @@
 			<div class="col">
 				<div style="font-size: 45px;">to-do-list</div>
 				<ul>
-					<li>회원 정보 수정 페이지 가장 상단에 기본 프로필 아이콘 넣고 사진 파일 추가 버튼 넣기</li>
-					<li>비밀번호 재설정 시 기존 비밀번호랑 동일하게 변경 불가</li>
 					<li>카카오맵 api 가져오기</li>
 					<li>방명록 crud</li>
-					<li>아카이브 내 상단 프로필에 유저 닉네임, 소개글, 프로필이미지 뿌리기</li>
 				</ul>
 			</div>
 		</div>

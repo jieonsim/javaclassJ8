@@ -85,7 +85,7 @@ input[readonly] {
 }
 
 .photo-section {
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 	position: relative;
 	display: flex;
 	justify-content: center;

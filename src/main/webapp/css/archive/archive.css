@@ -20,7 +20,7 @@
 
 #nickname {
 	font-family: 'Manrope', sans-serif;
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
 }
 
@@ -37,8 +37,22 @@
 }
 
 
-#userIcon {
-	font-size: 48px;
+#updateProfileLink {
+	color: gray;
+	text-decoration: none;
+}
+
+.photo-placeholder {
+	width: 120px;
+	height: 120px;
+	border: 1px dashed darkgray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 40px;
+	color: darkgray;
+	border-radius: 50%;
+	position: relative;
 }
 
 .profile-photo {
@@ -47,29 +61,23 @@
 	border-radius: 50%;
 }
 
-#updateProfileLink {
-	color: gray;
-	text-decoration: none;
+#topBtn {
+	position: fixed;
+	/*right: 1rem;*/
+	right: 10%;
+	bottom: 3%;
+	transition: 0.7s ease;
 }
 
-.photo-section {
-	margin-bottom: 20px;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 
-.photo-placeholder {
-	width: 150px;
-	height: 150px;
-	border: 1px dashed darkgray;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 50px;
-	color: darkgray;
-	border-radius: 50%;
+.on {
+	/*opacity: 0.8;*/
 	cursor: pointer;
-	position: relative;
+	bottom: 0;
+}
+
+#arrowUp {
+	font-size: 45px;
+	color: gainsboro;
+	
 }

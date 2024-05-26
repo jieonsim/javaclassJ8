@@ -238,7 +238,7 @@ function validateForm() {
 		const maxSize = 1024 * 1024 * 2;
 		const fileSize = document.getElementById("photo-upload").files[0].size;
 
-		if (extension != 'jpg' && extension != 'gif' && extension != 'png') {
+		if (extension != 'jpg' && extension != 'jpeg' && extension != 'gif' && extension != 'png') {
 			showAlert("이미지 파일만 업로드 가능합니다.");
 			return false;
 		} else if (fileSize > maxSize) {
@@ -294,6 +294,5 @@ function validateForm() {
 		document.forms["updateProfileForm"].introduction.focus();
 		return false;
 	}
-
 	return true;
 }

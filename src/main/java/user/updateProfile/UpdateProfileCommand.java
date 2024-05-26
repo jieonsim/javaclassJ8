@@ -1,5 +1,6 @@
 package user.updateProfile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -45,7 +46,8 @@ public class UpdateProfileCommand implements UserInterface {
 		String name = multipartRequest.getParameter("name");
 		String email = multipartRequest.getParameter("email");
 		String introduction = multipartRequest.getParameter("introduction");
-		String profileImage = multipartRequest.getFilesystemName("photo-upload");
+		//String profileImage = multipartRequest.getFilesystemName("photo-upload");
+		String newProfileImage = multipartRequest.getFilesystemName("photo-upload");
 
 		UserDAO userDAO = new UserDAO();
 		UserVO userVO = userDAO.getUserByIdx(userIdx); // 기존 사용자 정보를 가져옴
@@ -68,13 +70,35 @@ public class UpdateProfileCommand implements UserInterface {
 		if (email != null && !email.trim().isEmpty()) {
 			userVO.setEmail(email);
 		}
-		if (introduction != null && !introduction.trim().isEmpty()) {
-			userVO.setIntroduction(introduction);
-		}
-		if (profileImage != null && !profileImage.trim().isEmpty()) {
-			userVO.setProfileImage(profileImage);
-		}
+		
+//		if (introduction != null && !introduction.trim().isEmpty()) {
+//			userVO.setIntroduction(introduction);
+//		}
+//		위와 같이 했을 때 소개 란을 빈 칸으로 두고 저장해도 기존 소개 글이 업데이트됨, 
+//		소개는 null이 허용되기 때문에 아무것도 입력하지 않은 채로 회원 수정하면 null로 저장되어야하기 때문에 아래 같이 코드 변경
+		
+		if (introduction != null && introduction.trim().isEmpty()) {
+            introduction = null;  // 빈 문자열을 null로 변환
+        }
+        userVO.setIntroduction(introduction);
+        
+//		if (profileImage != null && !profileImage.trim().isEmpty()) {
+//			userVO.setProfileImage(profileImage);
+//		}
+        
+        if (newProfileImage != null && !newProfileImage.trim().isEmpty()) {
+            // 기존 프로필 사진 파일 삭제
+            String oldProfileImage = userVO.getProfileImage();
+            if (oldProfileImage != null && !oldProfileImage.trim().isEmpty()) {
+                File oldFile = new File(realPath + oldProfileImage);
+                if (oldFile.exists()) {
+                    oldFile.delete();
+                }
+            }
+            userVO.setProfileImage(newProfileImage);
+        }
 
+		// 업데이트 처리
 		int result = userDAO.updateProfile(userVO);
 		request.setAttribute("userVO", userVO);
 		

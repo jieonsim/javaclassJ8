@@ -34,14 +34,33 @@ document.addEventListener("DOMContentLoaded", function() {
 	<div class="container">
 		<div class="archive-container">
 			<div class="row mb-5">
-				<div class="col-2">
-					<i class="ph ph-user-focus" id="profileNoimage"></i>
-				</div>
-				<div class="col-10">
-					<div id="nickname">locallens</div>
-					<div>
-						<a href="updateProfile-confirmPassword.u" style="color: gray; text-decoration: none">클릭하고 소개 글을 입력해 보세요.</a>
+				<div class="col-3">
+					<div class="photo-placeholder">
+						<c:choose>
+							<c:when test="${not empty userVO.profileImage}">
+								<img id="profile-photo" src="${ctp}/images/profileImage/${userVO.profileImage}" alt="Profile Photo" class="profile-photo" />
+							</c:when>
+							<c:otherwise>
+								<span id="profile-icon" class="profile-icon">
+									<i class="ph ph-user-focus" id="profileIcon"></i>
+								</span>
+								<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
+							</c:otherwise>
+						</c:choose>
 					</div>
+				</div>
+				<div class="col-9">
+					<div class="mb-3" id="nickname">@ ${userVO.nickname}</div>
+					<c:choose>
+						<c:when test="${not empty userVO.introduction}">
+							<div>${userVO.introduction}</div>
+						</c:when>
+						<c:otherwise>
+							<div>
+								<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<ul class="d-flex justify-content-between list-unstyled">
@@ -66,5 +85,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="message" value="${message}" />
+	<input type="hidden" id="url" value="${url}" />
+	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 </body>
 </html>
