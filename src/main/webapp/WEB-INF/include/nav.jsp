@@ -1,31 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-String role = session.getAttribute("sessionRole") == null ? "" : (String) session.getAttribute("sessionRole");
-pageContext.setAttribute("role", role);
-%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
-<jsp:include page="/WEB-INF/record/recordModal.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/include/nav.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const currentPage = window.location.pathname.split('/').pop();
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navLinks.forEach(lnk => lnk.classList.remove('active')); 
-            this.classList.add('active'); 
-        });
-
-        if (link.getAttribute('href').includes(currentPage)) {
-            link.classList.add('active');
-        }
-    });
-});
-</script>
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<jsp:include page="/WEB-INF/record/recordModal.jsp" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
 <nav class="navbar navbar-expand container-fluid mt-4 pb-4">
 	<div class="container">
 		<div class="collapse navbar-collapse">
@@ -51,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link" id="bookmark">
+					<a href="bookmark.b" class="nav-link" id="bookmark">
 						<i class="ph ph-bookmark-simple mr-1"></i> <i class="ph-fill ph-bookmark-simple mr-1"></i>
 						<span>bookmark</span>
 					</a>
@@ -65,4 +44,25 @@ document.addEventListener('DOMContentLoaded', () => {
 			</ul>
 		</div>
 	</div>
+	<input type="hidden" id="message" value="${message}" />
+	<input type="hidden" id="url" value="${url}" />
+	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPage = window.location.pathname.split('/').pop();
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.forEach(lnk => lnk.classList.remove('active')); 
+            this.classList.add('active'); 
+        });
+
+        if (link.getAttribute('href').includes(currentPage)) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>

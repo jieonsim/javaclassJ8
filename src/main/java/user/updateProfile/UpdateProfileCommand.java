@@ -46,7 +46,6 @@ public class UpdateProfileCommand implements UserInterface {
 		String name = multipartRequest.getParameter("name");
 		String email = multipartRequest.getParameter("email");
 		String introduction = multipartRequest.getParameter("introduction");
-		//String profileImage = multipartRequest.getFilesystemName("photo-upload");
 		String newProfileImage = multipartRequest.getFilesystemName("photo-upload");
 
 		UserDAO userDAO = new UserDAO();
@@ -81,10 +80,6 @@ public class UpdateProfileCommand implements UserInterface {
             introduction = null;  // 빈 문자열을 null로 변환
         }
         userVO.setIntroduction(introduction);
-        
-//		if (profileImage != null && !profileImage.trim().isEmpty()) {
-//			userVO.setProfileImage(profileImage);
-//		}
         
         if (newProfileImage != null && !newProfileImage.trim().isEmpty()) {
             // 기존 프로필 사진 파일 삭제

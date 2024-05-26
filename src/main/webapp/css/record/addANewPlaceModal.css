@@ -1,0 +1,80 @@
+.addAPlace_title {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.addAPlace_title a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.addAPlace_title i {
+	margin-right: 8px;
+}
+
+#inputPlaceName {
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+#inputPlaceName:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.category-section {
+	margin-bottom: 20px;
+}
+
+.category-section b {
+	display: block;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+
+.category-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.option-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ced4da;
+	border-radius: 30px;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: background-color 0.3s, border-color 0.3s;
+	background-color: white;
+	color: black;
+}
+
+.option-btn:hover {
+	background-color: black;
+	color: white;
+	border-color: black;
+}
+
+input[type="checkbox"]:not(#visibility) {
+	display: none;
+}
+
+input[type="checkbox"]:checked+.option-btn {
+	background-color: black;
+	color: white;
+	border-color: black;
+}
+
+#complete {
+	color: white;
+	background-color: black;
+	border: none;
+	height: 50px;
+	font-size: 20px;
+	border-radius: 30px;
+}

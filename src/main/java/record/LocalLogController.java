@@ -20,7 +20,7 @@ public class LocalLogController extends HttpServlet {
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
 		if (com.equals("record-localLog")) {
-			viewPage += "localLog.jsp";
+			viewPage += "record-localLog.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

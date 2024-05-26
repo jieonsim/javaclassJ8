@@ -34,43 +34,34 @@ h4 {
 	margin-right: 8px;
 }
 
-.gusetBook-container .guestBook-form .form-control:not(#submit) {
+.gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place) {
 	border-radius: 0;
+    border: 1px solid #ced4da; /* Ensure border is visible */
 }
+
+#place {
+    border: none;
+    background-color: white;
+    color: dimgrey;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    text-decoration: none;
+}
+
 
 .gusetBook-container .guestBook-form .form-control:focus {
 	border-color: black;
 	box-shadow: none;
 }
 
-#map-pin {
-	font-size: 48px;
-	background: #eee;
-	border-radius: 50%;
-	padding: 5%;
-}
-
-#place {
-	border: none;
-	background-color: white;
-	color: dimgrey;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-#submit {
+#submitBtn {
 	color: white;
 	background-color: black;
 	border: none;
 	height: 50px;
 	font-size: 20px;
 	border-radius: 30px;
-}
-
-#companions {
-    font-size: 16px; /* Increased font size */
-    color: dimgrey;
-    text-align: left; /* Align text to the left */
 }
 
 input[type='checkbox'] {
@@ -111,9 +102,9 @@ input[type="checkbox"]:checked+.option-btn {
 }
 
 .guestBook-container label:not(.option-btn) {
-    font-size: 16px; /* Increased font size */
+    font-size: 16px; 
     color: dimgrey;
-    text-align: left; /* Align text to the left */
+    text-align: left; 
 }
 
 .form-group.row {

@@ -9,10 +9,22 @@
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/record/guestBook.css" />
+<script>
+	function switchModals() {
+		$('#searchAPlaceModal').modal('hide');
+		$('#searchAPlaceModal').on('hidden.bs.modal', function() {
+			$('#addANewPlaceModal').modal('show');
+			$('#searchAPlaceModal').off('hidden.bs.modal');
+			// Ensure the event is unbound to prevent duplicate bindings
+		});
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
+	<jsp:include page="/WEB-INF/record/searchAPlaceModal.jsp" />
+	<jsp:include page="/WEB-INF/record/addANewPlaceModal.jsp" />
 	<div class="container mt-5">
 		<div class="guestBook_title">
 			<a href="javascript:history.back();">
@@ -22,33 +34,32 @@
 		</div>
 		<div class="gusetBook-container">
 			<form class="guestBook-form" method="post" action="" enctype="multipart/form-data">
-				<!-- 숨겨진 필드 추가 -->
-				<input type="hidden" id="selected-place-name" name="place_name" />
-				<input type="hidden" id="selected-place-lat" name="place_lat" />
-				<input type="hidden" id="selected-place-lng" name="place_lng" />
 				<div class="form-group row">
-					<div class="col mb-4">
-						<div class="mb-4">
-							<i class="ph-fill ph-map-pin" id="map-pin"></i>
-						</div>
-						<%-- <jsp:include page="/WEB-INF/record/addAPlace.jsp" /> --%>
-						<input type="button" value="공간을 선택해주세요" data-toggle="modal" data-target="#addAPlace" id="place" />
-						<i class="ph ph-caret-down" style="color: dimgrey; font-size: 20px; font-weight: bold;"></i>
+					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
+						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
+					</label>
+					<div class="col">
+						<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
+							<i class="ph ph-caret-right"></i>
+						</a>
 					</div>
 				</div>
-				<div class="form-group row">
+				<div class="form-group row mb-4">
+					<label for="visit_date" class="col-sm-4 col-form-label text-left" id="visitdateLabel">
+						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
+					</label>
 					<div class="col">
 						<input type="date" class="form-control" name="visit_date" id="visit_date" required />
 					</div>
 				</div>
-				<div class="form-group row">
+				<div class="form-group row mb-4">
 					<div class="col">
 						<textarea name="content" rows="4" class="form-control" name="content" id="content" placeholder="방명록을 작성해 보세요."></textarea>
 					</div>
 				</div>
-				<div class="form-group row mb-5">
+				<div class="form-group row mb-4">
 					<div class="col text-left">
-						<label for="companions" id="companions">
+						<label for="companions" id="companionsLabel" class="text-left">
 							<b>누구와 방문했나요?</b>
 						</label>
 						<div class="companions-options">
@@ -83,9 +94,10 @@
 				</div>
 				<div class="form-group text-center">
 					<div>
-						<button type="submit" class="btn btn-custom btn-lg form-control mb-3" id="submit">등록</button>
+						<button type="submit" class="btn btn-custom btn-lg form-control mb-3" id="submitBtn">등록</button>
 					</div>
 				</div>
+				<input type="hidden" name="hostIp" value="${pageContext.request.remoteAddr}" />
 			</form>
 		</div>
 	</div>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 @WebServlet("*.g")
-public class GuestBookController extends HttpServlet {
+public class GuestbookController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RecordInterface command = null;
 		String viewPage = "/WEB-INF/record/";
@@ -20,8 +20,8 @@ public class GuestBookController extends HttpServlet {
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
 		if (com.equals("record-guestBook")) {
-			viewPage += "guestBook.jsp";
-		} 
+			viewPage += "record-guestBook.jsp";
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

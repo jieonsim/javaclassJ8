@@ -2,6 +2,7 @@ package archive;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +15,17 @@ public class GuestBookCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String viewPage = "/WEB-INF/archive/archive-guestBook.jsp";
+
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
+		// Null 검사
 		if (sessionUserIdx == null) {
-			request.setAttribute("message", "세션이 만료되었습니다. 로그인 후 이용해주세요.");
-			request.setAttribute("url", "login.l");
+			request.setAttribute("message", "로그인 후 이용해 주세요.");
+			viewPage = "/WEB-INF/user/login/login.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 			return;
 		}
 
@@ -28,11 +34,13 @@ public class GuestBookCommand implements ArchiveInterface {
 
 		if (userVO == null) {
 			request.setAttribute("message", "사용자 정보를 가져오지 못했습니다.");
-			request.setAttribute("url", "archive-guestBook.a");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 			return;
 		}
 
 		request.setAttribute("userVO", userVO);
-		request.setAttribute("url", "archive-guestBook.a");
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+		dispatcher.forward(request, response);
 	}
 }

@@ -1,4 +1,4 @@
-package main;
+package bookmark;
 
 import java.io.IOException;
 
@@ -10,12 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-//@WebServlet("/main")
-public class Main2 extends HttpServlet {
-	@Override
+@WebServlet("*.b")
+public class BookmarkController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// BookmarkInterface command = null;
+		String viewPage = "/WEB-INF/bookmark/";
 
-		String viewPage = "/WEB-INF/main/main.jsp"; 
+		String com = request.getRequestURI();
+		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
+
+		if (com.equals("bookmark")) {
+			viewPage += "bookmark.jsp";
+		} 
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

@@ -51,8 +51,9 @@
 			<div class="col">
 				<div style="font-size: 45px;">to-do-list</div>
 				<ul>
-					<li>카카오맵 api 가져오기</li>
+					<li>맵 api 가져오기</li>
 					<li>방명록 crud</li>
+					<li>방명록 좋아요</li>
 				</ul>
 			</div>
 		</div>

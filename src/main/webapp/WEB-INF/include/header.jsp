@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
 <link rel="stylesheet" type="text/css" href="${ctp}/css/include/header.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
 <header class="container-fluid mt-5">
 	<div class="container">
 		<div class="row align-items-center justify-content-between">

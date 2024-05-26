@@ -21,10 +21,6 @@ public class LoadProfileCommand implements UserInterface {
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
 		if (sessionUserIdx == null) {
-//			request.setAttribute("message", "잘못된 userIdx입니다.");
-//			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-//			dispatcher.forward(request, response);
-//			return;
 			request.setAttribute("message", "세션이 만료되었습니다. 로그인 후 이용해주세요.");
 			viewPage = "/WEB-INF/user/login/login.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
