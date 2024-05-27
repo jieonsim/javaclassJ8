@@ -36,7 +36,16 @@ h4 {
 
 .gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place) {
 	border-radius: 0;
-    border: 1px solid #ced4da; /* Ensure border is visible */
+    border: 1px solid #ced4da;
+}
+
+.gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place):focus {
+	border-color: black;
+	box-shadow: none;
+}
+
+#place:focus {
+	box-shadow: none;
 }
 
 #place {
@@ -47,12 +56,6 @@ h4 {
     font-weight: bold;
     text-align: right;
     text-decoration: none;
-}
-
-
-.gusetBook-container .guestBook-form .form-control:focus {
-	border-color: black;
-	box-shadow: none;
 }
 
 #submitBtn {
@@ -103,7 +106,8 @@ input[type="checkbox"]:checked+.option-btn {
 
 .guestBook-container label:not(.option-btn) {
     font-size: 16px; 
-    color: dimgrey;
+    /*color: dimgrey;*/
+    color: #212529;
     text-align: left; 
 }
 

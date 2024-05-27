@@ -43,6 +43,10 @@ h4 {
     box-shadow: none;
 }
 
+#place:focus {
+	box-shadow: none;
+}
+
 #place {
     border: none;
     background-color: white;
@@ -50,6 +54,7 @@ h4 {
     font-size: 20px;
     font-weight: bold;
     text-align: right;
+    text-decoration: none;
 }
 
 #submit {
@@ -97,7 +102,7 @@ input[type='radio'] {
     display: none;
 }
 
-.companions-options {
+.community-options {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -139,3 +144,12 @@ input[type="radio"]:checked + .option-btn {
 .form-group.row .col label {
     flex-shrink: 0;
 }
+
+
+.localLog-container .localLog-form label:not(.option-btn):not(.photo-placeholder) {
+    font-size: 16px; 
+    color: #212529;
+    text-align: left; 
+}
+
+

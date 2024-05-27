@@ -15,14 +15,14 @@
 }
 
 #inputPlaceName {
-    border: none;
-    border-bottom: 1px solid black;
-    border-radius: 0;
+	border: none;
+	border-bottom: 1px solid black;
+	border-radius: 0;
 }
 
 #inputPlaceName:focus {
-    box-shadow: none;
-    outline: none;
+	box-shadow: none;
+	outline: none;
 }
 
 .category-section {
@@ -77,4 +77,14 @@ input[type="checkbox"]:checked+.option-btn {
 	height: 50px;
 	font-size: 20px;
 	border-radius: 30px;
+}
+
+#region_1depth_name, #region_2depth_name {
+	border-radius: 0;
+	border: 1px solid #ced4da;
+}
+
+#region_1depth_name:focus, #region_2depth_name:focus {
+	border-color: black;
+	box-shadow: none;
 }

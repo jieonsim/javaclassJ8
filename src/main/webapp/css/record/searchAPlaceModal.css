@@ -51,14 +51,14 @@
 
 #goToNewModal {
 	text-decoration: none;
-	color: lightcoral;
-	font-size: 13px;
+	color: black;
 	font-weight: bold;
+	font-size: 18px;
 }
 
 #placesList {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-top: 10px;
+	max-height: 400px;
+	overflow-y: auto;
+	margin-top: 10px;
 }
 

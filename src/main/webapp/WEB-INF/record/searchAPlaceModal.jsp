@@ -12,21 +12,19 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<!-- <div class="row"> -->
-					<!-- <div class="col"></div> -->
-					<div class="text-right mr-4">
-						<a href="#" id="goToNewModal" onclick="switchModals()"> 찾는 공간이 없다면? </a>
-					</div>
-				<!-- </div> -->
 				<form name="searchAPlaceForm" class="searchAPlace-form" method="post" action="">
-					<div class="mb-3 mx-3">
+					<div class="my-3 mx-3">
 						<input type="search" placeholder="공간명 검색" aria-label="Search" id="searching">
-						<button id="searchBtn" type="button" onclick="searchPlaces()">
+						<!-- <button id="searchBtn" type="button" onclick="searchPlaces()">
 							<i class="ph ph-magnifying-glass"></i>
-						</button>
+						</button> -->
 					</div>
-					<div id="placesList"></div>
+				<div id="placesList"></div>
 				</form>
+				<div class="text-center my-5">
+					<div>검색 결과가 없습니다.</div>
+					<a href="#" id="goToNewModal" onclick="switchModals()">이 곳을 클릭해 새로운 공간을 추가해보세요.</a>
+				</div>
 			</div>
 		</div>
 	</div>

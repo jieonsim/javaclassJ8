@@ -15,13 +15,14 @@
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container mt-5">
 		<div class="localLog_title">
-			<a href="javascript:history.back();">
+			<i class="ph ph-image"></i>
+			<!-- <a href="javascript:history.back();">
 				<i class="ph ph-caret-left"></i>
-			</a>
+			</a> -->
 			<span>로컬로그 작성</span>
 		</div>
 		<div class="localLog-container">
-			<form class="localLog-form" method="post" action="" enctype="multipart/form-data">
+			<form name="localLogForm" class="localLog-form" method="post" action="" enctype="multipart/form-data">
 				<div class="form-group row">
 					<div class="col">
 						<div class="photo-section">
@@ -45,8 +46,13 @@
 					<label for="place" class="col-sm-4 col-form-label">
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
 					</label>
-					<div class="col">
+					<!-- <div class="col">
 						<input type="button" value=">" class="form-control" name="place" id="place" required />
+					</div> -->
+					<div class="col">
+						<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
+							<i class="ph ph-caret-right"></i>
+						</a>
 					</div>
 				</div>
 				<div class="form-group row mb-4">
@@ -57,33 +63,33 @@
 						<input type="date" class="form-control" name="visit_date" id="visit_date" required />
 					</div>
 				</div>
-				<div class="form-group row mb-5">
+				<div class="form-group row mb-4">
 					<div class="col text-left">
-						<label for="companions">
-							<b>카테고리 선택</b>
+						<label for="community">
+							<b>커뮤니티 선택</b>
 						</label>
-						<div class="companions-options">
-							<input type="radio" name="companions" id="travel" value="여행">
+						<div class="community-options">
+							<input type="radio" name="community" id="travel" value="여행">
 							<label for="travel" class="option-btn">✈️ 여행</label>
-							<input type="radio" name="companions" id="culture" value="문화생활">
+							<input type="radio" name="community" id="culture" value="문화생활">
 							<label for="culture" class="option-btn">🎨 문화생활</label>
-							<input type="radio" name="companions" id="coffee" value="커피">
+							<input type="radio" name="community" id="coffee" value="커피">
 							<label for="coffee" class="option-btn">☕ 커피</label>
-							<input type="radio" name="companions" id="food" value="미식">
+							<input type="radio" name="community" id="food" value="미식">
 							<label for="food" class="option-btn">🍽 미식</label>
-							<input type="radio" name="companions" id="architecture" value="건축">
+							<input type="radio" name="community" id="architecture" value="건축">
 							<label for="architecture" class="option-btn">🏛 건축</label>
-							<input type="radio" name="companions" id="outdoor" value="아웃도어">
+							<input type="radio" name="community" id="outdoor" value="아웃도어">
 							<label for="outdoor" class="option-btn">🏕 아웃도어</label>
-							<input type="radio" name="companions" id="workspace" value="워크스페이스">
+							<input type="radio" name="community" id="workspace" value="워크스페이스">
 							<label for="workspace" class="option-btn">💼 워크스페이스</label>
-							<input type="radio" name="companions" id="drink" value="술">
+							<input type="radio" name="community" id="drink" value="술">
 							<label for="drink" class="option-btn">🍹 술</label>
-							<input type="radio" name="companions" id="pet" value="반려">
+							<input type="radio" name="community" id="pet" value="반려">
 							<label for="pet" class="option-btn">🐕 반려</label>
-							<input type="radio" name="companions" id="tea" value="차">
+							<input type="radio" name="community" id="tea" value="차">
 							<label for="tea" class="option-btn">🍵 차</label>
-							<input type="radio" name="companions" id="withChild" value="아이와 함께">
+							<input type="radio" name="community" id="withChild" value="아이와 함께">
 							<label for="withChild" class="option-btn">👶 아이와 함께</label>
 						</div>
 					</div>

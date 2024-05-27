@@ -15,7 +15,6 @@
 		$('#searchAPlaceModal').on('hidden.bs.modal', function() {
 			$('#addANewPlaceModal').modal('show');
 			$('#searchAPlaceModal').off('hidden.bs.modal');
-			// Ensure the event is unbound to prevent duplicate bindings
 		});
 	}
 </script>
@@ -27,13 +26,14 @@
 	<jsp:include page="/WEB-INF/record/addANewPlaceModal.jsp" />
 	<div class="container mt-5">
 		<div class="guestBook_title">
-			<a href="javascript:history.back();">
+			<i class="ph ph-map-pin-simple"></i>
+			<!-- <a href="javascript:history.back();">
 				<i class="ph ph-caret-left"></i>
-			</a>
+			</a> -->
 			<span>방명록 작성</span>
 		</div>
 		<div class="gusetBook-container">
-			<form class="guestBook-form" method="post" action="" enctype="multipart/form-data">
+			<form name="guestBookForm" class="guestBook-form" method="post" action="" enctype="multipart/form-data">
 				<div class="form-group row">
 					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
@@ -94,7 +94,7 @@
 				</div>
 				<div class="form-group text-center">
 					<div>
-						<button type="submit" class="btn btn-custom btn-lg form-control mb-3" id="submitBtn">등록</button>
+						<button type="submit" class="btn btn-custom btn-lg form-control" id="submitBtn">등록</button>
 					</div>
 				</div>
 				<input type="hidden" name="hostIp" value="${pageContext.request.remoteAddr}" />

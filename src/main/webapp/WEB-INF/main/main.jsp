@@ -51,7 +51,8 @@
 			<div class="col">
 				<div style="font-size: 45px;">to-do-list</div>
 				<ul>
-					<li>맵 api 가져오기</li>
+					<li>새로운 공간 추가 백단 처리</li>
+					<li>공간 검색 백단 처리</li>
 					<li>방명록 crud</li>
 					<li>방명록 좋아요</li>
 				</ul>
