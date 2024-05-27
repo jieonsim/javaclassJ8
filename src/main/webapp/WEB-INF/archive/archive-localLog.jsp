@@ -66,7 +66,7 @@ $(window).scroll(function(){
 					</div>
 				</div>
 				<div class="col-9">
-					<div class="mb-3" id="nickname">@ ${userVO.nickname}</div>
+					<div class="mb-3" id="nickname">${userVO.nickname}</div>
 					<c:choose>
 						<c:when test="${not empty userVO.introduction}">
 							<div>${userVO.introduction}</div>

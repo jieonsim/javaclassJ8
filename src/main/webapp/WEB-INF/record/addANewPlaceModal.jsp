@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
-<link rel="stylesheet" type="text/css" href="${ctp}/css/record/addANewPlaceModal.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/addANewPlaceModal.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
 <div class="modal fade" id="addANewPlaceModal" tabindex="-1" role="dialog" aria-labelledby="addANewPlaceModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -12,7 +14,10 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form name="addAPlaceForm" class="addAPlace-form" method="post" action="">
+				<!-- <form name="addAPlaceForm" class="addAPlace-form" method="post" action=""> -->
+				<form name="addANewPlaceForm" class="addAPlace-form">
+					<!-- 장소 최초 등록한 userIdx hidden 처리 -->
+					<input type="hidden" name="createdBy" value="${userVO.userIdx}">
 					<div class="form-group mr-5 pb-4">
 						<label for="placeName" class="col-sm-4 col-form-label text-left">
 							<b>이름 <span style="color: lightcoral;">*</span></b>
@@ -25,8 +30,8 @@
 						</label>
 						<div class="row mx-2">
 							<div class="col-sm-6">
-								<select class="form-control" id="region_1depth_name" name="region_1depth_name">
-									<option selected disabled>특별시·광역시·도</option>
+								<select class="form-control" id="region_1depth_name" name="region1DepthName">
+									<option value="" selected disabled>특별시·광역시·도</option>
 									<option value="서울특별시">서울특별시</option>
 									<option value="부산광역시">부산광역시</option>
 									<option value="대구광역시">대구광역시</option>
@@ -47,8 +52,8 @@
 								</select>
 							</div>
 							<div class="col-sm-6">
-								<select class="form-control" id="region_2depth_name" name="region_2depth_name">
-									<option selected disabled>시·군·구·읍·면·동</option>
+								<select class="form-control" id="region_2depth_name" name="region2DepthName">
+									<option value="" selected disabled>시·군·구·읍·면·동</option>
 									<!-- 서울특별시 -->
 									<option data-parent="서울특별시">강남구</option>
 									<option data-parent="서울특별시">강동구</option>
@@ -326,25 +331,25 @@
 						<label for="category" class="col-sm-4 col-form-label text-left mb-3">
 							<b>공간 유형 <span style="color: lightcoral;">*</span></b>
 						</label>
-						<div class="mx-3 mb-4" style="font-size: 14px;">공간을 가장 잘 나타내는 유형을 먼저 선택해주세요.</div>
+						<div class="mx-3 mb-4" style="font-size: 14px;">공간을 가장 잘 나타내는 유형 하나를 선택해주세요.</div>
 						<!-- Categories and options -->
 						<div class="category-section mx-3">
 							<b>식음료</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="checkbox" name="category" value="바">
+									<input type="radio" name="category" value="바">
 									<span class="option-btn">바</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="카페">
+									<input type="radio" name="category" value="카페">
 									<span class="option-btn">카페</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="음식점">
+									<input type="radio" name="category" value="음식점">
 									<span class="option-btn">음식점</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="디저트 / 베이커리">
+									<input type="radio" name="category" value="디저트 / 베이커리">
 									<span class="option-btn">디저트 / 베이커리</span>
 								</label>
 							</div>
@@ -352,27 +357,27 @@
 							<b>여행</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="checkbox" name="category" value="포토존">
+									<input type="radio" name="category" value="포토존">
 									<span class="option-btn">포토존</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="광장">
+									<input type="radio" name="category" value="광장">
 									<span class="option-btn">광장</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="관광지">
+									<input type="radio" name="category" value="관광지">
 									<span class="option-btn">관광지</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="종교시설">
+									<input type="radio" name="category" value="종교시설">
 									<span class="option-btn">종교시설</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="역사 유적지">
+									<input type="radio" name="category" value="역사 유적지">
 									<span class="option-btn">역사 유적지</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="자연">
+									<input type="radio" name="category" value="자연">
 									<span class="option-btn">자연</span>
 								</label>
 							</div>
@@ -380,43 +385,47 @@
 							<b>문화</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="checkbox" name="category" value="복합문화공간">
+									<input type="radio" name="category" value="복합문화공간">
 									<span class="option-btn">복합문화공간</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="박물관">
+									<input type="radio" name="category" value="박물관">
 									<span class="option-btn">박물관</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="음악">
+									<input type="radio" name="category" value="음악">
 									<span class="option-btn">음악</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="전시">
+									<input type="radio" name="category" value="전시">
 									<span class="option-btn">전시</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="공연">
+									<input type="radio" name="category" value="공연">
 									<span class="option-btn">공연</span>
+								</label>
+								<label>
+									<input type="radio" name="category" value="도서관">
+									<span class="option-btn">도서관</span>
 								</label>
 							</div>
 
 							<b>쇼핑</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="checkbox" name="category" value="샵">
+									<input type="radio" name="category" value="샵">
 									<span class="option-btn">샵</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="서점">
+									<input type="radio" name="category" value="서점">
 									<span class="option-btn">서점</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="시장">
+									<input type="radio" name="category" value="시장">
 									<span class="option-btn">시장</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="쇼핑몰">
+									<input type="radio" name="category" value="쇼핑몰">
 									<span class="option-btn">쇼핑몰</span>
 								</label>
 							</div>
@@ -424,61 +433,45 @@
 							<b>숙박</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="checkbox" name="category" value="호텔">
+									<input type="radio" name="category" value="호텔">
 									<span class="option-btn">호텔</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="스테이">
+									<input type="radio" name="category" value="스테이">
 									<span class="option-btn">스테이</span>
-								</label>
-							</div>
-
-							<b>작업</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="checkbox" name="category" value="학교">
-									<span class="option-btn">학교</span>
-								</label>
-								<label>
-									<input type="checkbox" name="category" value="코워킹 공간">
-									<span class="option-btn">코워킹 공간</span>
-								</label>
-								<label>
-									<input type="checkbox" name="category" value="도서관">
-									<span class="option-btn">도서관</span>
 								</label>
 							</div>
 
 							<b>액티비티</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="checkbox" name="category" value="미용 / 스파">
+									<input type="radio" name="category" value="미용 / 스파">
 									<span class="option-btn">미용 / 스파</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="오락">
+									<input type="radio" name="category" value="오락">
 									<span class="option-btn">오락</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="운동">
+									<input type="radio" name="category" value="운동">
 									<span class="option-btn">운동</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="스튜디오 / 클래스">
+									<input type="radio" name="category" value="스튜디오 / 클래스">
 									<span class="option-btn">스튜디오 / 클래스</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="골프장">
+									<input type="radio" name="category" value="골프장">
 									<span class="option-btn">골프장</span>
 								</label>
 								<label>
-									<input type="checkbox" name="category" value="캠핑장">
+									<input type="radio" name="category" value="캠핑장">
 									<span class="option-btn">캠핑장</span>
 								</label>
 							</div>
 						</div>
 					</div>
-					<button type="submit" class="form-control mb-3" id="complete">완료</button>
+					<button type="button" class="form-control mb-3" id="complete" onclick="addANewPlace()">완료</button>
 				</form>
 			</div>
 		</div>
@@ -512,4 +505,61 @@
 
 	// 초기 상태에서 region_2depth_name을 비활성화
 	document.getElementById('region_2depth_name').disabled = true;
+
+	function addANewPlace() {
+		const createdBy = document.forms["addANewPlaceForm"].createdBy.value.trim();
+		const placeName = document.forms["addANewPlaceForm"].placeName.value.trim();
+		const region1DepthName = document.forms["addANewPlaceForm"].region1DepthName.value.trim();
+		const region2DepthName = document.forms["addANewPlaceForm"].region2DepthName.value.trim();
+		const categoryName = document.forms["addANewPlaceForm"].category.value.trim();
+
+		if (placeName === "") {
+			showAlert("공간의 이름을 입력해주세요.");
+			document.forms["addANewPlaceForm"].placeName.focus();
+			return false;
+		}
+
+		if (region1DepthName === "") {
+			showAlert("주소를 선택해 주세요.");
+			document.forms["addANewPlaceForm"].region1DepthName.focus();
+			return false;
+		}
+
+		if (region2DepthName === "") {
+			showAlert("상세 주소를 선택해 주세요.");
+			document.forms["addANewPlaceForm"].region2DepthName.focus();
+			return false;
+		}
+
+		if (categoryName === "") {
+			showAlert("공간의 카테고리를 선택해 주세요.");
+			return false;
+		}
+
+		else {
+			$.ajax({
+				url : '${ctp}/addANewPlace.g',
+				type : 'POST',
+				data : {
+					createdBy : '${userVO.userIdx}',
+					placeName : placeName,
+					region1DepthName : region1DepthName,
+					region2DepthName : region2DepthName,
+					categoryName : categoryName
+				},
+				success : function(response) {
+					if (response === 'true') {
+						$('#addANewPlaceModal').modal('hide');
+						$('#searchAPlaceModal').modal('hide');
+						location.reload(); // 새로고침하여 새로 추가된 장소를 폼에 반영
+					} else {
+						showAlert('장소 추가가 정상적으로 이루어지지 않았습니다. <br>다시 시도해주세요.');
+					}
+				},
+				error : function() {
+					showAlert("전송 오류");
+				}
+			});
+		}
+	}
 </script>

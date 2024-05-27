@@ -9,7 +9,18 @@
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/record/guestBook.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
+    function setVisibilityValue() {
+        const visibilityCheckbox = document.getElementById('visibility');
+        const visibilityInput = document.createElement('input');
+        visibilityInput.setAttribute('type', 'hidden');
+        visibilityInput.setAttribute('name', 'visibility');
+        visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
+        document.forms['guestBookForm'].appendChild(visibilityInput);
+    }
+	
 	function switchModals() {
 		$('#searchAPlaceModal').modal('hide');
 		$('#searchAPlaceModal').on('hidden.bs.modal', function() {
@@ -27,21 +38,32 @@
 	<div class="container mt-5">
 		<div class="guestBook_title">
 			<i class="ph ph-map-pin-simple"></i>
-			<!-- <a href="javascript:history.back();">
-				<i class="ph ph-caret-left"></i>
-			</a> -->
 			<span>방명록 작성</span>
 		</div>
 		<div class="gusetBook-container">
-			<form name="guestBookForm" class="guestBook-form" method="post" action="" enctype="multipart/form-data">
+			<form name="guestBookForm" class="guestBook-form" method="post" action="submitGuestBook.g" onsubmit="setVisibilityValue()">
+				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+				<%-- <input type="hidden" name="userIdx" value="${userVO.userIdx}" /> --%>
 				<div class="form-group row">
 					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
 					</label>
-					<div class="col">
-						<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
-							<i class="ph ph-caret-right"></i>
-						</a>
+					<!-- <div class="col"> -->
+					<div class="col" style="position: relative;">
+						<c:choose>
+							<c:when test="${not empty sessionScope.temporaryPlace}">
+								<input type="text" class="form-control" name="placeName" value="${sessionScope.temporaryPlace.placeName}" readonly>
+								<!-- <a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal"> -->
+								<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
+									<i class="ph ph-caret-right"></i>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
+									<i class="ph ph-caret-right"></i>
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="form-group row mb-4">
@@ -49,12 +71,12 @@
 						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col">
-						<input type="date" class="form-control" name="visit_date" id="visit_date" required />
+						<input type="date" class="form-control" name="visitDate" required />
 					</div>
 				</div>
 				<div class="form-group row mb-4">
 					<div class="col">
-						<textarea name="content" rows="4" class="form-control" name="content" id="content" placeholder="방명록을 작성해 보세요."></textarea>
+						<textarea name="content" rows="4" class="form-control" name="content" placeholder="방명록을 작성해 보세요."></textarea>
 					</div>
 				</div>
 				<div class="form-group row mb-4">
@@ -87,7 +109,7 @@
 					</div>
 					<div class="col-sm-10 text-left mt-2">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="true" name="visibility" id="visibility" checked>
+							<input class="form-check-input" type="checkbox" value="public" name="visibility" id="visibility" checked>
 							<label class="form-check-label" for="visibility">전체공개</label>
 						</div>
 					</div>
@@ -101,5 +123,7 @@
 			</form>
 		</div>
 	</div>
+	<input type="hidden" id="message" value="${message}" />
+	<input type="hidden" id="url" value="${url}" />
 </body>
 </html>

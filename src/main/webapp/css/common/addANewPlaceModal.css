@@ -41,7 +41,7 @@
 	gap: 10px;
 }
 
-.option-btn {
+/*.option-btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -68,7 +68,39 @@ input[type="checkbox"]:checked+.option-btn {
 	background-color: black;
 	color: white;
 	border-color: black;
+}*/
+
+.option-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ced4da;
+	border-radius: 30px;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: background-color 0.3s, border-color 0.3s;
+	background-color: white;
+	color: black;
 }
+
+.option-btn:hover {
+	background-color: black;
+	color: white;
+	border-color: black;
+}
+
+/* 기존 체크박스 스타일 숨기기 제거 */
+input[type="radio"] {
+	display: none;
+}
+
+/* 선택된 라디오 버튼의 스타일 변경 */
+input[type="radio"]:checked+.option-btn {
+	background-color: black;
+	color: white;
+	border-color: black;
+}
+
 
 #complete {
 	color: white;
@@ -79,12 +111,18 @@ input[type="checkbox"]:checked+.option-btn {
 	border-radius: 30px;
 }
 
-#region_1depth_name, #region_2depth_name {
+#complete:focus {
+	box-shadow: none;
+}
+
+#region_1depth_name,
+#region_2depth_name {
 	border-radius: 0;
 	border: 1px solid #ced4da;
 }
 
-#region_1depth_name:focus, #region_2depth_name:focus {
+#region_1depth_name:focus,
+#region_2depth_name:focus {
 	border-color: black;
 	box-shadow: none;
 }

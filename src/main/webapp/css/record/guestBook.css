@@ -123,3 +123,25 @@ input[type="checkbox"]:checked+.option-btn {
 .form-group.row .col label {
     flex-shrink: 0;
 }
+
+.form-control-link {
+    position: absolute;
+    top: 52%;
+    right: 20px; /* 인풋 필드의 오른쪽 끝에서 약간의 여유를 둡니다 */
+    transform: translateY(-50%);
+    background: #E9ECEF !important;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: dimgrey !important;
+    text-decoration: none !important;
+    font-size: 18px; /* 아이콘 크기 */
+}
+
+.form-control-link i {
+    font-size: inherit;
+}
+
+/*.form-control-link:hover {
+    color: #0056b3;  링크 호버 색상 
+}*/
