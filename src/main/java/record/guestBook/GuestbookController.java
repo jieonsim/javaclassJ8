@@ -33,7 +33,7 @@ public class GuestbookController extends HttpServlet {
 			return;
 		}
 		else if (com.equals("submitGuestBook")) {
-            command = new SubmitGuestBookCommand();
+            command = new SubmitGuestBookCommand3();
             command.execute(request, response);
             return;
         }

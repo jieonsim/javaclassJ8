@@ -12,7 +12,16 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
-    function setVisibilityValue() {
+    /* function setVisibilityValue() {
+        const visibilityCheckbox = document.getElementById('visibility');
+        const visibilityInput = document.createElement('input');
+        visibilityInput.setAttribute('type', 'hidden');
+        visibilityInput.setAttribute('name', 'visibility');
+        visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
+        document.forms['guestBookForm'].appendChild(visibilityInput);
+    } */
+	
+    /* function setVisibilityValue() {
         const visibilityCheckbox = document.getElementById('visibility');
         const visibilityInput = document.createElement('input');
         visibilityInput.setAttribute('type', 'hidden');
@@ -20,7 +29,35 @@
         visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
         document.forms['guestBookForm'].appendChild(visibilityInput);
     }
-	
+
+    document.forms['guestBookForm'].addEventListener('submit', function(event) {
+        setVisibilityValue();
+
+        // 디버깅을 위해 form 데이터 출력
+        const formData = new FormData(document.forms['guestBookForm']);
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+    }); */
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        function setVisibilityValue() {
+            const visibilityCheckbox = document.getElementById('visibility');
+            const visibilityInput = document.createElement('input');
+            visibilityInput.setAttribute('type', 'hidden');
+            visibilityInput.setAttribute('name', 'visibility');
+            visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
+            document.forms['guestBookForm'].appendChild(visibilityInput);
+        }
+
+        const guestBookForm = document.forms['guestBookForm'];
+        if (guestBookForm) {
+            guestBookForm.addEventListener('submit', setVisibilityValue);
+        } else {
+            console.error("guestBookForm is not defined");
+        }
+    });
+    
 	function switchModals() {
 		$('#searchAPlaceModal').modal('hide');
 		$('#searchAPlaceModal').on('hidden.bs.modal', function() {

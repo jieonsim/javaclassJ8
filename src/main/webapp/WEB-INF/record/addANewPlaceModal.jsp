@@ -14,10 +14,10 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<!-- <form name="addAPlaceForm" class="addAPlace-form" method="post" action=""> -->
-				<form name="addANewPlaceForm" class="addAPlace-form">
+				<form name="addAPlaceForm" class="addAPlace-form" method="post" action="${ctp}/addANewPlace.g">
+				<!-- <form name="addANewPlaceForm" class="addAPlace-form"> -->
 					<!-- 장소 최초 등록한 userIdx hidden 처리 -->
-					<input type="hidden" name="createdBy" value="${userVO.userIdx}">
+					<input type="hidden" name="createdBy" value="${sessionScope.sessionUserIdx}" />
 					<div class="form-group mr-5 pb-4">
 						<label for="placeName" class="col-sm-4 col-form-label text-left">
 							<b>이름 <span style="color: lightcoral;">*</span></b>
@@ -471,7 +471,8 @@
 							</div>
 						</div>
 					</div>
-					<button type="button" class="form-control mb-3" id="complete" onclick="addANewPlace()">완료</button>
+					<!-- <button type="button" class="form-control mb-3" id="complete" onclick="addANewPlace()">완료</button> -->
+					<button type="submit" class="form-control mb-3" id="complete" onclick="validateForm()">완료</button>
 				</form>
 			</div>
 		</div>
@@ -536,12 +537,12 @@
 			return false;
 		}
 
-		else {
+		/* else {
 			$.ajax({
 				url : '${ctp}/addANewPlace.g',
 				type : 'POST',
 				data : {
-					createdBy : '${userVO.userIdx}',
+					createdBy : createdBy,
 					placeName : placeName,
 					region1DepthName : region1DepthName,
 					region2DepthName : region2DepthName,
@@ -556,10 +557,11 @@
 						showAlert('장소 추가가 정상적으로 이루어지지 않았습니다. <br>다시 시도해주세요.');
 					}
 				},
-				error : function() {
+				error : function(xhr, status, error) {
+					console.error("AJAX Error: ", status, error);
 					showAlert("전송 오류");
 				}
 			});
-		}
+		} */
 	}
 </script>
