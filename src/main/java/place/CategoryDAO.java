@@ -59,4 +59,28 @@ public class CategoryDAO {
 
 		return categoryList;
 	}
+
+	
+	// PlaceVO 객체에 categoryName을 설정할 수 있도록 CategoryDAO에 getCategoryByIdx 메소드를 추가
+	public CategoryVO getCategoryByIdx(int categoryIdx) {
+		CategoryVO categoryVO = null;
+		String sql = "SELECT * FROM categories WHERE categoryIdx = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categoryIdx);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				categoryVO = new CategoryVO();
+				categoryVO.setCategoryIdx(rs.getInt("categoryIdx"));
+				categoryVO.setCategoryName(rs.getString("categoryName"));
+				categoryVO.setCategoryType(rs.getString("categoryType"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return categoryVO;
+	}
 }

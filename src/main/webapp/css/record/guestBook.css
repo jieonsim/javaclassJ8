@@ -36,7 +36,7 @@ h4 {
 
 .gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place) {
 	border-radius: 0;
-    border: 1px solid #ced4da;
+	border: 1px solid #ced4da;
 }
 
 .gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place):focus {
@@ -49,13 +49,13 @@ h4 {
 }
 
 #place {
-    border: none;
-    background-color: white;
-    color: dimgrey;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: right;
-    text-decoration: none;
+	border: none;
+	background-color: white;
+	color: dimgrey;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: right;
+	text-decoration: none;
 }
 
 #submitBtn {
@@ -105,43 +105,53 @@ input[type="checkbox"]:checked+.option-btn {
 }
 
 .guestBook-container label:not(.option-btn) {
-    font-size: 16px; 
-    /*color: dimgrey;*/
-    color: #212529;
-    text-align: left; 
+	font-size: 16px;
+	/*color: dimgrey;*/
+	color: #212529;
+	text-align: left;
 }
 
 .form-group.row {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .form-group.row .col {
-    flex-grow: 1;
+	flex-grow: 1;
 }
 
 .form-group.row .col label {
-    flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 .form-control-link {
-    position: absolute;
-    top: 52%;
-    right: 20px; /* 인풋 필드의 오른쪽 끝에서 약간의 여유를 둡니다 */
-    transform: translateY(-50%);
-    background: #E9ECEF !important;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: dimgrey !important;
-    text-decoration: none !important;
-    font-size: 18px; /* 아이콘 크기 */
+	position: absolute;
+	top: 52%;
+	right: 20px;
+	/* 인풋 필드의 오른쪽 끝에서 약간의 여유를 둡니다 */
+	transform: translateY(-50%);
+	background: #E9ECEF !important;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	color: dimgrey !important;
+	text-decoration: none !important;
+	font-size: 18px;
+	/* 아이콘 크기 */
 }
 
 .form-control-link i {
-    font-size: inherit;
+	font-size: inherit;
 }
 
-/*.form-control-link:hover {
-    color: #0056b3;  링크 호버 색상 
-}*/
+
+#placeInfoResult {
+	color: dimgray
+}
+
+#placeNameReslut {
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}

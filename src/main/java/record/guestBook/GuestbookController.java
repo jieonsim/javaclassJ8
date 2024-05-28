@@ -23,23 +23,19 @@ public class GuestbookController extends HttpServlet {
 			command = new GuestBookCommand();
 			command.execute(request, response);
 			return;
-		}
-		else if (com.equals("addANewPlace")) {
+		} else if (com.equals("addANewPlace")) {
 			command = new AddANewPlaceCommand();
 			command.execute(request, response);
 			return;
-		}
-		else if (com.equals("submitGuestBook")) {
-            command = new SubmitGuestBookCommand();
-            command.execute(request, response);
-            return;
-        }
-		else if (com.equals("searchPlace")) {
-			command = new SearchPlaceCommand();
+		} else if (com.equals("submitGuestBook")) {
+			command = new SubmitGuestBookCommand();
 			command.execute(request, response);
 			return;
+		} else if (com.equals("searchPlace")) {
+			command = new SearchPlaceCommand();
+			command.execute(request, response);
+			viewPage += "record-guestBook.jsp";
 		}
-
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

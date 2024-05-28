@@ -4,7 +4,8 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/record/addANewPlaceModal.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <div class="modal fade" id="addANewPlaceModal" tabindex="-1" role="dialog" aria-labelledby="addANewPlaceModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+	<!-- <div class="modal-dialog modal-dialog-centered" role="document"> -->
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="addANewPlaceModalLabel">새로운 공간 추가하기</h5>
