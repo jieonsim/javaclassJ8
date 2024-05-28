@@ -100,39 +100,6 @@
 		});
 	}
 
-/* 	function selectPlace(placeName) {
-		$.ajax({
-			url : '${ctp}/getPlaceDetails.g',
-			type : 'GET',
-			data : {
-				placeName : placeName
-			},
-			success : function(response) {
-				if (response === "success") {
-					const placeNameField = document.getElementById('placeNameInput');
-					const placeLink = document.getElementById('placeLink');
-
-					if (placeNameField) {
-						placeNameField.value = placeName;
-						placeNameField.style.display = 'block';
-
-						// Hide the place link
-						if (placeLink) {
-							placeLink.style.display = 'none';
-						}
-
-						$('#searchAPlaceModal').modal('hide');
-					}
-				} else {
-					showAlert("장소 정보를 가져오는 데 실패했습니다.");
-				}
-			},
-			error : function() {
-				showAlert("장소 정보를 가져오는 중 오류가 발생했습니다.");
-			}
-		});
-	} */
-
 	function selectPlace(placeName) {
 	    // Get references to the specific input fields
 	    const placeNameField = document.getElementById('placeNameInput');

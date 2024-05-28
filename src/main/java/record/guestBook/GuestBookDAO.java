@@ -38,17 +38,17 @@ public class GuestBookDAO {
 	public int saveGuestBook(GuestBookVO guestBookVO) {
 		int result = 0;
 		try {
-			sql = "INSERT INTO guestBooks (userIdx, placeIdx, visitDate, content, companions, visibility, hostIp) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, guestBookVO.getUserIdx());
-			pstmt.setInt(2, guestBookVO.getPlaceIdx());
-			pstmt.setString(3, guestBookVO.getVisitDate());
-			pstmt.setString(4, guestBookVO.getContent());
-			pstmt.setString(5, guestBookVO.getCompanions());
-			pstmt.setString(6, guestBookVO.getVisibility());
-			pstmt.setString(7, guestBookVO.getHostIp());
+	        sql = "INSERT INTO guestBooks (userIdx, placeIdx, visitDate, content, companions, visibility, hostIp) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, guestBookVO.getUserIdx());
+	        pstmt.setInt(2, guestBookVO.getPlaceIdx());
+	        pstmt.setString(3, guestBookVO.getVisitDate());
+	        pstmt.setString(4, guestBookVO.getContent());
+	        pstmt.setString(5, guestBookVO.getCompanions());
+	        pstmt.setString(6, guestBookVO.getVisibility());
+	        pstmt.setString(7, guestBookVO.getHostIp());
 
-			result = pstmt.executeUpdate();
+	        result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {

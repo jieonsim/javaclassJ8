@@ -15,6 +15,8 @@ public class PlaceVO {
 	
 	// 검색을 위한 새로운 필드 추가
 	private String categoryName;
+	
+	
 
 	public PlaceVO(int createdBy, String placeName, String region1DepthName, String region2DepthName, int categoryIdx) {
         this.createdBy = createdBy;
