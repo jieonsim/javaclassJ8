@@ -7,18 +7,18 @@ public class PlaceVO {
 	private String placeName;
 	private String region1DepthName;
 	private String region2DepthName;
-	private String categoryName;
+	private int categoryIdx;
 	private int createdBy;
 	private int updatedBy;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 
-	public PlaceVO(int createdBy, String placeName, String region1DepthName, String region2DepthName, String categoryName) {
+	public PlaceVO(int createdBy, String placeName, String region1DepthName, String region2DepthName, int categoryIdx) {
         this.createdBy = createdBy;
         this.placeName = placeName;
         this.region1DepthName = region1DepthName;
         this.region2DepthName = region2DepthName;
-        this.categoryName = categoryName;
+        this.categoryIdx = categoryIdx;
     }
 
 	public int getPlaceIdx() {
@@ -53,6 +53,14 @@ public class PlaceVO {
 		this.region2DepthName = region2DepthName;
 	}
 
+	public int getCategoryIdx() {
+		return categoryIdx;
+	}
+
+	public void setCategoryIdx(int categoryIdx) {
+		this.categoryIdx = categoryIdx;
+	}
+
 	public int getCreatedBy() {
 		return createdBy;
 	}
@@ -85,18 +93,9 @@ public class PlaceVO {
 		this.updatedAt = updatedAt;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
 	@Override
 	public String toString() {
-		return "PlaceVO [placeIdx=" + placeIdx + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName="
-				+ region2DepthName + ", categoryName=" + categoryName + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + "]";
+		return "PlaceVO [placeIdx=" + placeIdx + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName=" + region2DepthName + ", categoryIdx=" + categoryIdx
+				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }

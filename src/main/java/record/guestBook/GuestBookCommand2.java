@@ -1,6 +1,7 @@
 package record.guestBook;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import place.CategoryDAO;
+import place.CategoryVO;
 import user.UserDAO;
 import user.UserVO;
 
-public class GuestBookCommand implements GuestBookInterface {
+public class GuestBookCommand2 implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,20 +41,13 @@ public class GuestBookCommand implements GuestBookInterface {
 			dispatcher.forward(request, response);
 			return;
 		}
-		
-		// 카테고리 데이터 로드
-		LoadCategoriesHelper.loadCategories(request);
-//		CategoryDAO categoryDAO = new CategoryDAO();
-//		List<CategoryVO> categories = categoryDAO.getAllCategories();
-//
-//		Map<String, List<CategoryVO>> categoriesByType = new HashMap<>();
-//		for (CategoryVO category : categories) {
-//			categoriesByType.computeIfAbsent(category.getCategoryType(), k -> new ArrayList<>()).add(category);
-//		}
 
-		//request.setAttribute("categoriesByType", categoriesByType);
-		request.setAttribute("userVO", userVO);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
+		//CategoryDAO categoryDAO = new CategoryDAO();
+        //List<CategoryVO> categories = categoryDAO.getAllCategories();
+
+        request.setAttribute("userVO", userVO);
+        //request.setAttribute("categories", categories);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+        dispatcher.forward(request, response);
 	}
 }

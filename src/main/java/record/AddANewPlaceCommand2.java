@@ -39,10 +39,10 @@ public class AddANewPlaceCommand2 implements GuestBookInterface {
 			String categoryName = request.getParameter("categoryName");
 
 			// PlaceVO 객체 생성
-			PlaceVO placeVO = new PlaceVO(createdBy, placeName, region1DepthName, region2DepthName, categoryName);
+			//PlaceVO placeVO = new PlaceVO(createdBy, placeName, region1DepthName, region2DepthName, categoryName);
 
 			// PlaceVO 객체를 세션에 저장
-			request.getSession().setAttribute("temporaryPlace", placeVO);
+			//request.getSession().setAttribute("temporaryPlace", placeVO);
 
 			response.getWriter().write("true");
 		} catch (Exception e) {

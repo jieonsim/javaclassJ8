@@ -63,14 +63,14 @@ public class PlaceDAO {
 
 	public int savePlace(PlaceVO placeVO) {
 		int placeIdx = 0;
-		sql = "INSERT INTO places (placeName, region1DepthName, region2DepthName, categoryName, createdBy) VALUES (?, ?, ?, ?, ?)";
+		sql = "INSERT INTO places (placeName, region1DepthName, region2DepthName, categoryIdx, createdBy) VALUES (?, ?, ?, ?, ?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, placeVO.getPlaceName());
 			pstmt.setString(2, placeVO.getRegion1DepthName());
 			pstmt.setString(3, placeVO.getRegion2DepthName());
-			pstmt.setString(4, placeVO.getCategoryName());
+			pstmt.setInt(4, placeVO.getCategoryIdx());
 			pstmt.setInt(5, placeVO.getCreatedBy());
 			pstmt.executeUpdate();
 

@@ -13,6 +13,21 @@ CREATE TABLE places (
     FOREIGN KEY (updatedBy) REFERENCES users2(userIdx)
 );
 
+CREATE TABLE places (
+    placeIdx INT AUTO_INCREMENT PRIMARY KEY COMMENT '장소 고유번호',
+    placeName VARCHAR(255) NOT NULL COMMENT '장소 이름',
+    region1DepthName VARCHAR(255) NOT NULL COMMENT '장소 첫번째 구분',
+    region2DepthName VARCHAR(255) NOT NULL COMMENT '장소 두번째 구분',
+    categoryIdx INT NOT NULL COMMENT '카테고리 고유번호',
+    createdBy INT NOT NULL COMMENT '장소 최초 등록 userIdx',
+    updatedBy INT DEFAULT NULL COMMENT '장소 수정한 사람 userIdx',
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '장소 생성일자',
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '장소 수정일자',
+    FOREIGN KEY (categoryIdx) REFERENCES categories(categoryIdx),
+    FOREIGN KEY (createdBy) REFERENCES users2(userIdx),
+    FOREIGN KEY (updatedBy) REFERENCES users2(userIdx)
+);
+
 show tables;
 desc places;
 

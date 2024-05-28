@@ -6,9 +6,9 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE categories (
-    categoryIdx INT AUTO_INCREMENT PRIMARY KEY COMMENT '카테고리 고유번호',
-    categoryName VARCHAR(50) NOT NULL COMMENT '소분류',
-    categoryType ENUM('식음료', '여행', '문화', '쇼핑', '숙박', '액티비티') NOT NULL COMMENT '대분류'
+    categoryIdx INT AUTO_INCREMENT PRIMARY KEY COMMENT '장소 카테고리 고유번호',
+    categoryName VARCHAR(50) NOT NULL COMMENT '장소 카테고리 소분류',
+    categoryType ENUM('식음료', '여행', '문화', '쇼핑', '숙박', '액티비티') NOT NULL COMMENT '장소 대분류'
 );
 
 INSERT INTO categories (categoryName, categoryType) VALUES 
@@ -42,8 +42,6 @@ INSERT INTO categories (categoryName, categoryType) VALUES
 ('캠핑장', '액티비티');
 
 select * from categories;
-
 desc categories;
-select * from categories;
 
 drop table categories;

@@ -331,7 +331,26 @@
 							<b>공간 유형 <span style="color: lightcoral;">*</span></b>
 						</label>
 						<div class="mx-3 mb-4" style="font-size: 14px;">공간을 가장 잘 나타내는 유형 하나를 선택해주세요.</div>
-						<!-- Categories and options -->
+						<div class="category-section mx-3" id="categorySection">
+							<c:forEach var="categoryType" items="${categoriesByType.keySet()}">
+								<b>${categoryType}</b>
+								<div class="category-options mb-2">
+									<c:forEach var="category" items="${categoriesByType[categoryType]}">
+										<label>
+											<input type="radio" name="categoryIdx" value="${category.categoryIdx}">
+											<span class="option-btn">${category.categoryName}</span>
+										</label>
+									</c:forEach>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+					<!-- <div class="form-group">
+						<label for="category" class="col-sm-4 col-form-label text-left mb-3">
+							<b>공간 유형 <span style="color: lightcoral;">*</span></b>
+						</label>
+						<div class="mx-3 mb-4" style="font-size: 14px;">공간을 가장 잘 나타내는 유형 하나를 선택해주세요.</div>
+						Categories and options
 						<div class="category-section mx-3">
 							<b>식음료</b>
 							<div class="category-options mb-2">
@@ -469,7 +488,7 @@
 								</label>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<button type="submit" class="form-control mb-3" id="complete" onclick="validateForm()">완료</button>
 				</form>
 			</div>
@@ -510,7 +529,7 @@
 		const placeName = document.forms["addANewPlaceForm"].placeName.value.trim();
 		const region1DepthName = document.forms["addANewPlaceForm"].region1DepthName.value.trim();
 		const region2DepthName = document.forms["addANewPlaceForm"].region2DepthName.value.trim();
-		const categoryName = document.forms["addANewPlaceForm"].categoryName.value.trim();
+		const categoryIdx = document.forms["addANewPlaceForm"].categoryIdx.value.trim();
 
 		if (placeName === "") {
 			showAlert("공간의 이름을 입력해주세요.");
@@ -530,9 +549,12 @@
 			return false;
 		}
 
-		if (categoryName === "") {
-			showAlert("공간의 카테고리를 선택해 주세요.");
+		if (categoryIdx === "") {
+			showAlert("공간의 유형을 선택해 주세요.");
 			return false;
 		}
+
+		// 폼이 유효한 경우 폼을 제출합니다.
+		document.forms["addANewPlaceForm"].submit();
 	}
 </script>

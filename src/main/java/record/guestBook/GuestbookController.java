@@ -30,10 +30,12 @@ public class GuestbookController extends HttpServlet {
 			return;
 		}
 		else if (com.equals("submitGuestBook")) {
-            command = new SubmitGuestBookCommand3();
+            command = new SubmitGuestBookCommand();
             command.execute(request, response);
             return;
         }
+
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}
