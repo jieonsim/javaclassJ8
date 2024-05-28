@@ -9,14 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import record.AddANewPlaceCommand;
-import record.RecordInterface;
-
 @SuppressWarnings("serial")
 @WebServlet("*.g")
 public class GuestbookController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecordInterface command = null;
+		GuestBookInterface command = null;
 		String viewPage = "/WEB-INF/record/";
 
 		String com = request.getRequestURI();

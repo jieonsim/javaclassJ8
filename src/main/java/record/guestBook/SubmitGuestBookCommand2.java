@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import place.PlaceDAO;
 import place.PlaceVO;
-import record.RecordInterface;
 
-public class SubmitGuestBookCommand2 implements RecordInterface {
+public class SubmitGuestBookCommand2 implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

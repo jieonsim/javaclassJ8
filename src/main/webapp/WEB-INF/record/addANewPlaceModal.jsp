@@ -15,7 +15,6 @@
 			</div>
 			<div class="modal-body">
 				<form name="addAPlaceForm" class="addAPlace-form" method="post" action="${ctp}/addANewPlace.g">
-				<!-- <form name="addANewPlaceForm" class="addAPlace-form"> -->
 					<!-- 장소 최초 등록한 userIdx hidden 처리 -->
 					<input type="hidden" name="createdBy" value="${sessionScope.sessionUserIdx}" />
 					<div class="form-group mr-5 pb-4">
@@ -337,19 +336,19 @@
 							<b>식음료</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="radio" name="category" value="바">
+									<input type="radio" name="categoryName" value="바">
 									<span class="option-btn">바</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="카페">
+									<input type="radio" name="categoryName" value="카페">
 									<span class="option-btn">카페</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="음식점">
+									<input type="radio" name="categoryName" value="음식점">
 									<span class="option-btn">음식점</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="디저트 / 베이커리">
+									<input type="radio" name="categoryName" value="디저트 / 베이커리">
 									<span class="option-btn">디저트 / 베이커리</span>
 								</label>
 							</div>
@@ -357,27 +356,27 @@
 							<b>여행</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="radio" name="category" value="포토존">
+									<input type="radio" name="categoryName" value="포토존">
 									<span class="option-btn">포토존</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="광장">
+									<input type="radio" name="categoryName" value="광장">
 									<span class="option-btn">광장</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="관광지">
+									<input type="radio" name="categoryName" value="관광지">
 									<span class="option-btn">관광지</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="종교시설">
+									<input type="radio" name="categoryName" value="종교시설">
 									<span class="option-btn">종교시설</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="역사 유적지">
+									<input type="radio" name="categoryName" value="역사 유적지">
 									<span class="option-btn">역사 유적지</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="자연">
+									<input type="radio" name="categoryName" value="자연">
 									<span class="option-btn">자연</span>
 								</label>
 							</div>
@@ -385,27 +384,27 @@
 							<b>문화</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="radio" name="category" value="복합문화공간">
+									<input type="radio" name="categoryName" value="복합문화공간">
 									<span class="option-btn">복합문화공간</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="박물관">
+									<input type="radio" name="categoryName" value="박물관">
 									<span class="option-btn">박물관</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="음악">
+									<input type="radio" name="categoryName" value="음악">
 									<span class="option-btn">음악</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="전시">
+									<input type="radio" name="categoryName" value="전시">
 									<span class="option-btn">전시</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="공연">
+									<input type="radio" name="categoryName" value="공연">
 									<span class="option-btn">공연</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="도서관">
+									<input type="radio" name="categoryName" value="도서관">
 									<span class="option-btn">도서관</span>
 								</label>
 							</div>
@@ -413,19 +412,19 @@
 							<b>쇼핑</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="radio" name="category" value="샵">
+									<input type="radio" name="categoryName" value="샵">
 									<span class="option-btn">샵</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="서점">
+									<input type="radio" name="categoryName" value="서점">
 									<span class="option-btn">서점</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="시장">
+									<input type="radio" name="categoryName" value="시장">
 									<span class="option-btn">시장</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="쇼핑몰">
+									<input type="radio" name="categoryName" value="쇼핑몰">
 									<span class="option-btn">쇼핑몰</span>
 								</label>
 							</div>
@@ -433,11 +432,11 @@
 							<b>숙박</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="radio" name="category" value="호텔">
+									<input type="radio" name="categoryName" value="호텔">
 									<span class="option-btn">호텔</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="스테이">
+									<input type="radio" name="categoryName" value="스테이">
 									<span class="option-btn">스테이</span>
 								</label>
 							</div>
@@ -445,33 +444,32 @@
 							<b>액티비티</b>
 							<div class="category-options mb-2">
 								<label>
-									<input type="radio" name="category" value="미용 / 스파">
+									<input type="radio" name="categoryName" value="미용 / 스파">
 									<span class="option-btn">미용 / 스파</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="오락">
+									<input type="radio" name="categoryName" value="오락">
 									<span class="option-btn">오락</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="운동">
+									<input type="radio" name="categoryName" value="운동">
 									<span class="option-btn">운동</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="스튜디오 / 클래스">
+									<input type="radio" name="categoryName" value="스튜디오 / 클래스">
 									<span class="option-btn">스튜디오 / 클래스</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="골프장">
+									<input type="radio" name="categoryName" value="골프장">
 									<span class="option-btn">골프장</span>
 								</label>
 								<label>
-									<input type="radio" name="category" value="캠핑장">
+									<input type="radio" name="categoryName" value="캠핑장">
 									<span class="option-btn">캠핑장</span>
 								</label>
 							</div>
 						</div>
 					</div>
-					<!-- <button type="button" class="form-control mb-3" id="complete" onclick="addANewPlace()">완료</button> -->
 					<button type="submit" class="form-control mb-3" id="complete" onclick="validateForm()">완료</button>
 				</form>
 			</div>
@@ -512,7 +510,7 @@
 		const placeName = document.forms["addANewPlaceForm"].placeName.value.trim();
 		const region1DepthName = document.forms["addANewPlaceForm"].region1DepthName.value.trim();
 		const region2DepthName = document.forms["addANewPlaceForm"].region2DepthName.value.trim();
-		const categoryName = document.forms["addANewPlaceForm"].category.value.trim();
+		const categoryName = document.forms["addANewPlaceForm"].categoryName.value.trim();
 
 		if (placeName === "") {
 			showAlert("공간의 이름을 입력해주세요.");
@@ -536,32 +534,5 @@
 			showAlert("공간의 카테고리를 선택해 주세요.");
 			return false;
 		}
-
-		/* else {
-			$.ajax({
-				url : '${ctp}/addANewPlace.g',
-				type : 'POST',
-				data : {
-					createdBy : createdBy,
-					placeName : placeName,
-					region1DepthName : region1DepthName,
-					region2DepthName : region2DepthName,
-					categoryName : categoryName
-				},
-				success : function(response) {
-					if (response === 'true') {
-						$('#addANewPlaceModal').modal('hide');
-						$('#searchAPlaceModal').modal('hide');
-						location.reload(); // 새로고침하여 새로 추가된 장소를 폼에 반영
-					} else {
-						showAlert('장소 추가가 정상적으로 이루어지지 않았습니다. <br>다시 시도해주세요.');
-					}
-				},
-				error : function(xhr, status, error) {
-					console.error("AJAX Error: ", status, error);
-					showAlert("전송 오류");
-				}
-			});
-		} */
 	}
 </script>

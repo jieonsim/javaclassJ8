@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import place.PlaceVO;
+import record.guestBook.GuestBookInterface;
 
-public class AddANewPlaceCommand2 implements RecordInterface {
+public class AddANewPlaceCommand2 implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import record.RecordInterface;
 import user.UserDAO;
 import user.UserVO;
 
-public class GuestBookCommand implements RecordInterface {
+public class GuestBookCommand implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

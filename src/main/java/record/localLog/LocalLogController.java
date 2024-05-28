@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import record.RecordInterface;
+import record.guestBook.GuestBookInterface;
 
 @SuppressWarnings("serial")
 @WebServlet("*.ll")
 public class LocalLogController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecordInterface command = null;
+		GuestBookInterface command = null;
 		String viewPage = "/WEB-INF/record/";
 
 		String com = request.getRequestURI();

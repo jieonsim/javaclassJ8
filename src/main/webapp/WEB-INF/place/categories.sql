@@ -6,9 +6,9 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE categories (
-    categoryIdx INT AUTO_INCREMENT PRIMARY KEY,
-    categoryName VARCHAR(50) NOT NULL,
-    categoryType ENUM('식음료', '여행', '문화', '쇼핑', '숙박', '액티비티') NOT NULL
+    categoryIdx INT AUTO_INCREMENT PRIMARY KEY COMMENT '카테고리 고유번호',
+    categoryName VARCHAR(50) NOT NULL COMMENT '소분류',
+    categoryType ENUM('식음료', '여행', '문화', '쇼핑', '숙박', '액티비티') NOT NULL COMMENT '대분류'
 );
 
 INSERT INTO categories (categoryName, categoryType) VALUES 

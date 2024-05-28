@@ -1,4 +1,4 @@
-package record;
+package record.guestBook;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import place.PlaceVO;
 
-public class AddANewPlaceCommand implements RecordInterface {
+public class AddANewPlaceCommand implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class AddANewPlaceCommand implements RecordInterface {
 		String placeName = request.getParameter("placeName");
 		String region1DepthName = request.getParameter("region1DepthName");
 		String region2DepthName = request.getParameter("region2DepthName");
-		String categoryName = request.getParameter("category");
+		String categoryName = request.getParameter("categoryName");
 
 		if (placeName.isEmpty() || region1DepthName.isEmpty() || region2DepthName.isEmpty() || categoryName.isEmpty()) {
 			request.setAttribute("message", "모든 필드를 채워주세요.");
