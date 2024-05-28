@@ -41,15 +41,7 @@ public class GuestBookCommand implements GuestBookInterface {
 		
 		// 카테고리 데이터 로드
 		LoadCategoriesHelper.loadCategories(request);
-//		CategoryDAO categoryDAO = new CategoryDAO();
-//		List<CategoryVO> categories = categoryDAO.getAllCategories();
-//
-//		Map<String, List<CategoryVO>> categoriesByType = new HashMap<>();
-//		for (CategoryVO category : categories) {
-//			categoriesByType.computeIfAbsent(category.getCategoryType(), k -> new ArrayList<>()).add(category);
-//		}
-
-		//request.setAttribute("categoriesByType", categoriesByType);
+		
 		request.setAttribute("userVO", userVO);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

@@ -1,27 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
-<link rel="stylesheet" type="text/css" href="${ctp}/css/common/addANewPlaceModal.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/record/addANewPlaceModal.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
-<script src="${ctp}/js/common/basicAlert.js"></script>
 <div class="modal fade" id="addANewPlaceModal" tabindex="-1" role="dialog" aria-labelledby="addANewPlaceModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="addANewPlaceModalLabel">새로운 공간 추가하기</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
 			</div>
 			<div class="modal-body">
-				<form name="addAPlaceForm" class="addAPlace-form" method="post" action="${ctp}/addANewPlace.g">
+				<form name="addAPlaceForm" class="addAPlace-form" method="post" action="${ctp}/addANewPlace.g" onsubmit="return validateForm()">
 					<!-- 장소 최초 등록한 userIdx hidden 처리 -->
 					<input type="hidden" name="createdBy" value="${sessionScope.sessionUserIdx}" />
 					<div class="form-group mr-5 pb-4">
 						<label for="placeName" class="col-sm-4 col-form-label text-left">
 							<b>이름 <span style="color: lightcoral;">*</span></b>
 						</label>
-						<input type="text" class="form-control ml-3" name="placeName" id="inputPlaceName" placeholder="공간의 이름을 입력해 주세요." required>
+						<input type="text" class="form-control ml-3" name="placeName" id="inputPlaceName" placeholder="공간의 이름을 입력해 주세요.">
 					</div>
 					<div class="form-group pb-4">
 						<label for="address" class="col-sm-4 col-form-label text-left">
@@ -345,151 +341,7 @@
 							</c:forEach>
 						</div>
 					</div>
-					<!-- <div class="form-group">
-						<label for="category" class="col-sm-4 col-form-label text-left mb-3">
-							<b>공간 유형 <span style="color: lightcoral;">*</span></b>
-						</label>
-						<div class="mx-3 mb-4" style="font-size: 14px;">공간을 가장 잘 나타내는 유형 하나를 선택해주세요.</div>
-						Categories and options
-						<div class="category-section mx-3">
-							<b>식음료</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="radio" name="categoryName" value="바">
-									<span class="option-btn">바</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="카페">
-									<span class="option-btn">카페</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="음식점">
-									<span class="option-btn">음식점</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="디저트 / 베이커리">
-									<span class="option-btn">디저트 / 베이커리</span>
-								</label>
-							</div>
-
-							<b>여행</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="radio" name="categoryName" value="포토존">
-									<span class="option-btn">포토존</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="광장">
-									<span class="option-btn">광장</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="관광지">
-									<span class="option-btn">관광지</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="종교시설">
-									<span class="option-btn">종교시설</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="역사 유적지">
-									<span class="option-btn">역사 유적지</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="자연">
-									<span class="option-btn">자연</span>
-								</label>
-							</div>
-
-							<b>문화</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="radio" name="categoryName" value="복합문화공간">
-									<span class="option-btn">복합문화공간</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="박물관">
-									<span class="option-btn">박물관</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="음악">
-									<span class="option-btn">음악</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="전시">
-									<span class="option-btn">전시</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="공연">
-									<span class="option-btn">공연</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="도서관">
-									<span class="option-btn">도서관</span>
-								</label>
-							</div>
-
-							<b>쇼핑</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="radio" name="categoryName" value="샵">
-									<span class="option-btn">샵</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="서점">
-									<span class="option-btn">서점</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="시장">
-									<span class="option-btn">시장</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="쇼핑몰">
-									<span class="option-btn">쇼핑몰</span>
-								</label>
-							</div>
-
-							<b>숙박</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="radio" name="categoryName" value="호텔">
-									<span class="option-btn">호텔</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="스테이">
-									<span class="option-btn">스테이</span>
-								</label>
-							</div>
-
-							<b>액티비티</b>
-							<div class="category-options mb-2">
-								<label>
-									<input type="radio" name="categoryName" value="미용 / 스파">
-									<span class="option-btn">미용 / 스파</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="오락">
-									<span class="option-btn">오락</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="운동">
-									<span class="option-btn">운동</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="스튜디오 / 클래스">
-									<span class="option-btn">스튜디오 / 클래스</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="골프장">
-									<span class="option-btn">골프장</span>
-								</label>
-								<label>
-									<input type="radio" name="categoryName" value="캠핑장">
-									<span class="option-btn">캠핑장</span>
-								</label>
-							</div>
-						</div>
-					</div> -->
-					<button type="submit" class="form-control mb-3" id="complete" onclick="validateForm()">완료</button>
+					<button type="submit" class="form-control mb-3" id="complete">완료</button>
 				</form>
 			</div>
 		</div>
@@ -524,37 +376,54 @@
 	// 초기 상태에서 region_2depth_name을 비활성화
 	document.getElementById('region_2depth_name').disabled = true;
 
-	function addANewPlace() {
-		const createdBy = document.forms["addANewPlaceForm"].createdBy.value.trim();
-		const placeName = document.forms["addANewPlaceForm"].placeName.value.trim();
-		const region1DepthName = document.forms["addANewPlaceForm"].region1DepthName.value.trim();
-		const region2DepthName = document.forms["addANewPlaceForm"].region2DepthName.value.trim();
-		const categoryIdx = document.forms["addANewPlaceForm"].categoryIdx.value.trim();
+	function validateForm() {
+		const createdBy = document.forms["addAPlaceForm"].createdBy.value.trim();
+		const placeName = document.forms["addAPlaceForm"].placeName.value.trim();
+		const region1DepthName = document.forms["addAPlaceForm"].region1DepthName.value.trim();
+		const region2DepthName = document.forms["addAPlaceForm"].region2DepthName.value.trim();
+		const categoryIdx = document.forms["addAPlaceForm"].categoryIdx.value;
+
+		if (createdBy === "") {
+			showAlert("유효하지 않은 아이디입니다. 다시 로그인 후 이용해주세요.");
+			document.forms["addAPlaceForm"].placeName.focus();
+			return false;
+		}
 
 		if (placeName === "") {
 			showAlert("공간의 이름을 입력해주세요.");
-			document.forms["addANewPlaceForm"].placeName.focus();
+			document.forms["addAPlaceForm"].placeName.focus();
 			return false;
 		}
 
 		if (region1DepthName === "") {
 			showAlert("주소를 선택해 주세요.");
-			document.forms["addANewPlaceForm"].region1DepthName.focus();
+			document.forms["addAPlaceForm"].region1DepthName.focus();
 			return false;
 		}
 
 		if (region2DepthName === "") {
 			showAlert("상세 주소를 선택해 주세요.");
-			document.forms["addANewPlaceForm"].region2DepthName.focus();
+			document.forms["addAPlaceForm"].region2DepthName.focus();
 			return false;
 		}
 
-		if (categoryIdx === "") {
+		if (!categoryIdx) {
 			showAlert("공간의 유형을 선택해 주세요.");
 			return false;
 		}
 
-		// 폼이 유효한 경우 폼을 제출합니다.
-		document.forms["addANewPlaceForm"].submit();
+		return true; // 폼 제출을 허용
+	}
+
+	function showAlert(message) {
+		Swal.fire({
+			html : message,
+			confirmButtonText : '확인',
+			customClass : {
+				confirmButton : 'swal2-confirm',
+				popup : 'custom-swal-popup',
+				htmlContainer : 'custom-swal-text'
+			}
+		});
 	}
 </script>

@@ -24,13 +24,13 @@ public class SubmitGuestBookCommand implements GuestBookInterface {
 		String visibility = request.getParameter("visibility");
 		String hostIp = request.getParameter("hostIp");
 
-		if (placeName.isEmpty()) {
+		if (placeName == null || placeName.isEmpty()) {
 			request.setAttribute("message", "공간을 추가해주세요.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
-		if (visitDate.isEmpty()) {
+		if (visitDate == null || visitDate.isEmpty()) {
 			request.setAttribute("message", "방문한 날짜를 선택해주세요.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
@@ -60,6 +60,9 @@ public class SubmitGuestBookCommand implements GuestBookInterface {
 		} else {
 			request.setAttribute("message", "방명록 작성 중 오류가 발생했습니다. 다시 시도해 주세요.");
 		}
+
+		// 카테고리 데이터를 로드하여 JSP에 전달
+		LoadCategoriesHelper.loadCategories(request);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

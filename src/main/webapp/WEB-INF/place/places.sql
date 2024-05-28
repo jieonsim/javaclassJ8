@@ -31,6 +31,9 @@ CREATE TABLE places (
 show tables;
 desc places;
 
-
-
 drop table places;
+
+
+
+
+SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName LIKE '%제발%';

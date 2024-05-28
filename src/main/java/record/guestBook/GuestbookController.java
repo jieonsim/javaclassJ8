@@ -34,6 +34,11 @@ public class GuestbookController extends HttpServlet {
             command.execute(request, response);
             return;
         }
+		else if (com.equals("searchPlace")) {
+			command = new SearchPlaceCommand();
+			command.execute(request, response);
+			return;
+		}
 
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

@@ -12,6 +12,9 @@ public class PlaceVO {
 	private int updatedBy;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	
+	// 검색을 위한 새로운 필드 추가
+	private String categoryName;
 
 	public PlaceVO(int createdBy, String placeName, String region1DepthName, String region2DepthName, int categoryIdx) {
         this.createdBy = createdBy;
@@ -20,6 +23,9 @@ public class PlaceVO {
         this.region2DepthName = region2DepthName;
         this.categoryIdx = categoryIdx;
     }
+
+	public PlaceVO() {
+	}
 
 	public int getPlaceIdx() {
 		return placeIdx;
@@ -93,9 +99,17 @@ public class PlaceVO {
 		this.updatedAt = updatedAt;
 	}
 
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	@Override
 	public String toString() {
 		return "PlaceVO [placeIdx=" + placeIdx + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName=" + region2DepthName + ", categoryIdx=" + categoryIdx
-				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", categoryName=" + categoryName + "]";
 	}
 }

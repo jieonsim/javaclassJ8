@@ -12,52 +12,57 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
-    /* function setVisibilityValue() {
-        const visibilityCheckbox = document.getElementById('visibility');
-        const visibilityInput = document.createElement('input');
-        visibilityInput.setAttribute('type', 'hidden');
-        visibilityInput.setAttribute('name', 'visibility');
-        visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
-        document.forms['guestBookForm'].appendChild(visibilityInput);
-    } */
-	
-    /* function setVisibilityValue() {
-        const visibilityCheckbox = document.getElementById('visibility');
-        const visibilityInput = document.createElement('input');
-        visibilityInput.setAttribute('type', 'hidden');
-        visibilityInput.setAttribute('name', 'visibility');
-        visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
-        document.forms['guestBookForm'].appendChild(visibilityInput);
-    }
+	document.addEventListener('DOMContentLoaded', function() {
+		function setVisibilityValue() {
+			const visibilityCheckbox = document.getElementById('visibility');
+			const visibilityInput = document.createElement('input');
+			visibilityInput.setAttribute('type', 'hidden');
+			visibilityInput.setAttribute('name', 'visibility');
+			visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
+			document.forms['guestBookForm'].appendChild(visibilityInput);
+		}
 
-    document.forms['guestBookForm'].addEventListener('submit', function(event) {
-        setVisibilityValue();
+		function validateForm() {
+			const sessionUserIdx = document.forms["guestBookForm"].sessionUserIdx.value.trim();
+			const placeNameField = document.forms["guestBookForm"].placeName;
+			const placeName = placeNameField ? placeNameField.value.trim() : "";
+			const visitDate = document.forms["guestBookForm"].visitDate.value.trim();
 
-        // 디버깅을 위해 form 데이터 출력
-        const formData = new FormData(document.forms['guestBookForm']);
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-    }); */
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        function setVisibilityValue() {
-            const visibilityCheckbox = document.getElementById('visibility');
-            const visibilityInput = document.createElement('input');
-            visibilityInput.setAttribute('type', 'hidden');
-            visibilityInput.setAttribute('name', 'visibility');
-            visibilityInput.setAttribute('value', visibilityCheckbox.checked ? 'public' : 'private');
-            document.forms['guestBookForm'].appendChild(visibilityInput);
-        }
+			if (sessionUserIdx === "") {
+				showAlert("세션이 만료되었습니다. 다시 로그인 후 이용해주세요.", "login.l");
+				return false;
+			}
 
-        const guestBookForm = document.forms['guestBookForm'];
-        if (guestBookForm) {
-            guestBookForm.addEventListener('submit', setVisibilityValue);
-        } else {
-            console.error("guestBookForm is not defined");
-        }
-    });
-    
+			if (placeName === "") {
+				showAlert("공간을 추가해주세요.");
+				if (placeNameField) {
+					placeNameField.focus();
+				}
+				return false;
+			}
+
+			if (visitDate === "") {
+				showAlert("방문한 날짜를 선택해 주세요.");
+				document.forms["guestBookForm"].visitDate.focus();
+				return false;
+			}
+			return true;
+		}
+
+		const guestBookForm = document.forms['guestBookForm'];
+		if (guestBookForm) {
+			guestBookForm.addEventListener('submit', function(event) {
+				if (!validateForm()) {
+					event.preventDefault(); // 유효성 검사가 실패하면 폼 제출을 막음
+				} else {
+					setVisibilityValue();
+				}
+			});
+		} else {
+			console.error("guestBookForm is not defined");
+		}
+	});
+
 	function switchModals() {
 		$('#searchAPlaceModal').modal('hide');
 		$('#searchAPlaceModal').on('hidden.bs.modal', function() {
@@ -78,19 +83,16 @@
 			<span>방명록 작성</span>
 		</div>
 		<div class="gusetBook-container">
-			<form name="guestBookForm" class="guestBook-form" method="post" action="submitGuestBook.g" onsubmit="setVisibilityValue()">
+			<form name="guestBookForm" class="guestBook-form" method="post" action="submitGuestBook.g">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
-				<%-- <input type="hidden" name="userIdx" value="${userVO.userIdx}" /> --%>
 				<div class="form-group row">
 					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
 					</label>
-					<!-- <div class="col"> -->
 					<div class="col" style="position: relative;">
 						<c:choose>
 							<c:when test="${not empty sessionScope.temporaryPlace}">
 								<input type="text" class="form-control" name="placeName" value="${sessionScope.temporaryPlace.placeName}" readonly>
-								<!-- <a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal"> -->
 								<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
 									<i class="ph ph-caret-right"></i>
 								</a>
@@ -108,7 +110,7 @@
 						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col">
-						<input type="date" class="form-control" name="visitDate" required />
+						<input type="date" class="form-control" name="visitDate" />
 					</div>
 				</div>
 				<div class="form-group row mb-4">
