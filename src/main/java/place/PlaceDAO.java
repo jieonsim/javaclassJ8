@@ -154,11 +154,70 @@ public class PlaceDAO {
 				place.setCategoryName(rs.getString("categoryName"));
 				places.add(place);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
+        	System.out.println("SQL 오류 : " + e.getMessage());
+        } finally {
+			rsClose();
+		}
+		return places;
+	}
+
+    public PlaceVO getPlaceByName(String placeName) {
+        PlaceVO place = null;
+        try {
+            sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, placeName);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                place = new PlaceVO();
+                place.setPlaceIdx(rs.getInt("placeIdx"));
+                place.setPlaceName(rs.getString("placeName"));
+                place.setRegion1DepthName(rs.getString("region1DepthName"));
+                place.setRegion2DepthName(rs.getString("region2DepthName"));
+                place.setCategoryIdx(rs.getInt("categoryIdx"));
+                place.setCategoryName(rs.getString("categoryName"));
+                place.setCreatedBy(rs.getInt("createdBy"));
+                place.setUpdatedBy(rs.getInt("updatedBy"));
+                place.setCreatedAt(rs.getTimestamp("createdAt"));
+                place.setUpdatedAt(rs.getTimestamp("updatedAt"));
+            }
+        } catch (SQLException e) {
+        	System.out.println("SQL 오류 : " + e.getMessage());
+        } finally {
+            rsClose();
+        }
+        return place;
+    }
+
+	// getPlaceByIdx 메소드 구현
+	public PlaceVO getPlaceByIdx(int placeIdx) {
+		PlaceVO place = null;
+		try {
+			sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, placeIdx);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				place = new PlaceVO();
+				place.setPlaceIdx(rs.getInt("placeIdx"));
+				place.setPlaceName(rs.getString("placeName"));
+				place.setRegion1DepthName(rs.getString("region1DepthName"));
+				place.setRegion2DepthName(rs.getString("region2DepthName"));
+				place.setCategoryIdx(rs.getInt("categoryIdx"));
+				place.setCategoryName(rs.getString("categoryName"));
+				place.setCreatedBy(rs.getInt("createdBy"));
+				place.setUpdatedBy(rs.getInt("updatedBy"));
+				place.setCreatedAt(rs.getTimestamp("createdAt"));
+				place.setUpdatedAt(rs.getTimestamp("updatedAt"));
+			}
+		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
-		return places;
+		return place;
 	}
 }

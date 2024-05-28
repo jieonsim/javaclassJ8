@@ -18,3 +18,26 @@ CREATE TABLE guestBooks (
 desc guestBooks;
 
 drop table guestBooks;
+
+
+select * from guestBooks;
+
+
+
+CREATE TABLE guestbooks (
+    guestBookIdx INT AUTO_INCREMENT PRIMARY KEY,
+    userIdx INT NOT NULL,
+    placeIdx INT NOT NULL,
+    visitDate DATE NOT NULL,
+    content TEXT,
+    companions VARCHAR(255),
+    visibility VARCHAR(255),
+    hostIp VARCHAR(255),
+    FOREIGN KEY (userIdx) REFERENCES users2 (userIdx),
+    FOREIGN KEY (placeIdx) REFERENCES places (placeIdx)
+);
+
+
+ALTER TABLE guestBooks ADD COLUMN createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE guestBooks ADD COLUMN updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+

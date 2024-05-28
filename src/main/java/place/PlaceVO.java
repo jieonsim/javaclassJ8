@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 public class PlaceVO {
 	private int placeIdx;
-	private String placeName;
-	private String region1DepthName;
-	private String region2DepthName;
-	private int categoryIdx;
-	private int createdBy;
-	private int updatedBy;
-	private Timestamp createdAt;
-	private Timestamp updatedAt;
+    private String placeName;
+    private String region1DepthName;
+    private String region2DepthName;
+    private int categoryIdx;
+    private int createdBy;
+    private Integer updatedBy; // 변경: Integer로 수정하여 null 허용
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 	
 	// 검색을 위한 새로운 필드 추가
 	private String categoryName;
@@ -75,11 +75,11 @@ public class PlaceVO {
 		this.createdBy = createdBy;
 	}
 
-	public int getUpdatedBy() {
+	public Integer getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(Integer updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
@@ -109,7 +109,10 @@ public class PlaceVO {
 
 	@Override
 	public String toString() {
-		return "PlaceVO [placeIdx=" + placeIdx + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName=" + region2DepthName + ", categoryIdx=" + categoryIdx
-				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", categoryName=" + categoryName + "]";
+		return "PlaceVO [placeIdx=" + placeIdx + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName="
+				+ region2DepthName + ", categoryIdx=" + categoryIdx + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", categoryName=" + categoryName + "]";
 	}
+
+
 }

@@ -44,11 +44,11 @@ h4 {
 	box-shadow: none;
 }
 
-#place:focus {
+#placeLink:focus {
 	box-shadow: none;
 }
 
-#place {
+#placeLink {
 	border: none;
 	background-color: white;
 	color: dimgrey;
@@ -142,4 +142,8 @@ input[type="checkbox"]:checked+.option-btn {
 
 .form-control-link i {
 	font-size: inherit;
+}
+
+#temporaryPlaceName, #searchedPlaceName {
+	border: none;
 }

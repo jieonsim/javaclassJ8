@@ -38,14 +38,13 @@
 	</div>
 </div>
 <script>
-	function searchAPlace() {
+/* 	function searchAPlace() {
 		const placeName = document.getElementById('searching').value.trim();
 
 		if (placeName === "") {
 			showAlert("공간명을 입력해주세요.");
 			return;
 		}
-		/* location.href = "searchPlace.g?placeName=" + placeName; */
 
 		$.ajax({
 			url : '${ctp}/searchPlace.g',
@@ -60,7 +59,37 @@
 				showAlert("검색 중 오류가 발생했습니다.");
 			}
 		});
+	} */
+	
+	function searchAPlace(event) {
+	    event.preventDefault();
+	    const placeName = document.getElementById('searching').value.trim();
+
+	    if (placeName === "") {
+	        showAlert("공간명을 입력해주세요.");
+	        return;
+	    }
+
+	    $.ajax({
+	        url: '${ctp}/searchPlace.g',
+	        type: 'GET',
+	        data: {
+	            placeName: placeName
+	        },
+	        success: function(response) {
+	            $('#placeList').html(response);
+	            // 검색 결과가 없는 경우 알럿 띄우기
+	            const isEmptyList = $('#placeList').find('div').length === 0;
+	            if (isEmptyList) {
+	                showAlert("검색 결과가 없습니다. 공간을 새롭게 추가해주세요.");
+	            }
+	        },
+	        error: function() {
+	            showAlert("검색 중 오류가 발생했습니다.");
+	        }
+	    });
 	}
+
 
 	function showAlert(message) {
 		Swal.fire({

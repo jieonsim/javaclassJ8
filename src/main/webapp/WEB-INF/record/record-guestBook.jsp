@@ -89,11 +89,68 @@
 			},
 			success : function(response) {
 				$('#placeList').html(response);
+				// 검색 결과가 없는 경우 알럿 띄우기
+				if ($('#placeList').find('#noResults').length > 0) {
+					showAlert("검색 결과가 없습니다. 공간을 새롭게 추가해주세요.");
+				}
 			},
 			error : function() {
 				showAlert("검색 중 오류가 발생했습니다.");
 			}
 		});
+	}
+
+/* 	function selectPlace(placeName) {
+		$.ajax({
+			url : '${ctp}/getPlaceDetails.g',
+			type : 'GET',
+			data : {
+				placeName : placeName
+			},
+			success : function(response) {
+				if (response === "success") {
+					const placeNameField = document.getElementById('placeNameInput');
+					const placeLink = document.getElementById('placeLink');
+
+					if (placeNameField) {
+						placeNameField.value = placeName;
+						placeNameField.style.display = 'block';
+
+						// Hide the place link
+						if (placeLink) {
+							placeLink.style.display = 'none';
+						}
+
+						$('#searchAPlaceModal').modal('hide');
+					}
+				} else {
+					showAlert("장소 정보를 가져오는 데 실패했습니다.");
+				}
+			},
+			error : function() {
+				showAlert("장소 정보를 가져오는 중 오류가 발생했습니다.");
+			}
+		});
+	} */
+
+	function selectPlace(placeName) {
+	    // Get references to the specific input fields
+	    const placeNameField = document.getElementById('placeNameInput');
+	    const placeLink = document.getElementById('placeLink');
+
+	    if (placeNameField) {
+	        placeNameField.value = placeName;
+	        placeNameField.style.display = 'block';
+
+	        // Hide the place link
+	        if (placeLink) {
+	            placeLink.style.display = 'none';
+	        }
+
+	        $('#searchAPlaceModal').modal('hide');
+	    } else {
+	        showAlert('장소 이름 필드를 찾을 수 없습니다.');
+	    }
 	}
 
 	function showAlert(message) {
@@ -106,23 +163,6 @@
 				htmlContainer : 'custom-swal-text'
 			}
 		});
-	}
-
-	function selectPlace(placeName) {
-		const guestBookForm = document.forms['guestBookForm'];
-		console.log(guestBookForm); // Debug: Log the guestBookForm
-		if (guestBookForm) {
-			const placeNameField = guestBookForm.placeName;
-			console.log(placeNameField); // Debug: Log the placeName field
-			if (placeNameField) {
-				placeNameField.value = placeName;
-				$('#searchAPlaceModal').modal('hide');
-			} else {
-				console.error('placeName input field not found in the form.');
-			}
-		} else {
-			console.error('guestBookForm not found.');
-		}
 	}
 </script>
 </head>
@@ -143,23 +183,12 @@
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col" style="position: relative;">
-						<c:if test="${not empty sessionScope.temporaryPlace}">
-							<!-- 새로운 공간을 추가했을 때 보여야하는 input -->
-							<input type="text" class="form-control" name="placeName" value="${sessionScope.temporaryPlace.placeName}" readonly>
-							<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
-								<i class="ph ph-caret-right"></i>
-							</a>
-						</c:if>
-						<c:if test="${not empty place.placeName}">
-							<!-- 기존에 등록되어있는 공간을 검색해서 선택했을 때 보여야하는 input -->
-							<input type="text" class="form-control" name="placeName" value="${place.placeName}" readonly>
-							<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
-								<i class="ph ph-caret-right"></i>
-							</a>
-						</c:if>
-						<c:if test="${empty sessionScope.temporaryPlace && empty place.placeName}">
-							<!-- 공간이 선택되지 않았을 때 보여야하는 링크 -->
-							<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
+						<!-- 공간 이름 입력 필드 -->
+						<input type="text" class="form-control" id="placeNameInput" name="placeName" value="${sessionScope.temporaryPlace != null ? sessionScope.temporaryPlace.placeName : ''}" readonly style="${sessionScope.temporaryPlace != null ? 'display:block;' : 'display:none;'}">
+
+						<!-- 공간이 선택되지 않았을 때 보여야하는 링크 -->
+						<c:if test="${sessionScope.temporaryPlace == null}">
+							<a href="#" id="placeLink" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
 								<i class="ph ph-caret-right"></i>
 							</a>
 						</c:if>
@@ -235,7 +264,7 @@
 						<a href="#" id="goToNewModal" onclick="switchModals()">이 곳을 클릭해 새로운 공간을 추가해보세요.</a>
 					</div>
 					<div class="my-3 mx-5" style="position: relative;">
-						<form id="searchForm" onsubmit="searchAPlace(event); return false;">
+						<form id="searchForm" action="${ctp}/searchPlace.g" method="get" onsubmit="searchAPlace(event)">
 							<input type="search" name="placeName" placeholder="공간명 검색" aria-label="Search" id="searching">
 							<button id="searchBtn" type="submit">
 								<i class="ph ph-magnifying-glass"></i>
@@ -243,7 +272,6 @@
 						</form>
 					</div>
 					<div id="placeList" class="mx-5 pl-3">
-						<!-- 검색 결과 뿌리기 -->
 						<jsp:include page="/WEB-INF/record/searchPlaceResults.jsp" />
 					</div>
 				</div>

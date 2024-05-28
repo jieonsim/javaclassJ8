@@ -11,10 +11,19 @@ public class GuestBookVO {
 	private String companions;
 	private String visibility;
 	private Timestamp createdAt;
+	private Timestamp updatedAt;
 	private String hostIp;
 
 	public int getGuestBookIdx() {
 		return guestBookIdx;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public void setGuestBookIdx(int guestBookIdx) {
@@ -88,7 +97,8 @@ public class GuestBookVO {
 	@Override
 	public String toString() {
 		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content="
-				+ content + ", companions=" + companions + ", visibility=" + visibility + ", createdAt=" + createdAt + ", hostIp=" + hostIp + "]";
+				+ content + ", companions=" + companions + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp="
+				+ hostIp + "]";
 	}
 
 }
