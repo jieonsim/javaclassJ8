@@ -12,16 +12,21 @@ public class SearchPlaceCommand implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String placeName = request.getParameter("placeName");
-		if (placeName == null || placeName.trim().isEmpty()) {
-			throw new ServletException("placeName 파라미터가 유효하지 않음");
+		try {
+			String placeName = request.getParameter("placeName");
+			if (placeName == null || placeName.trim().isEmpty()) {
+				throw new ServletException("Invalid place name parameter.");
+			}
+
+			PlaceDAO placeDAO = new PlaceDAO();
+			List<PlaceVO> places = placeDAO.searchPlacesByName(placeName);
+
+			request.setAttribute("places", places);
+			request.setAttribute("placeName", placeName);
+			request.getRequestDispatcher("/WEB-INF/record/searchPlaceResults.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServletException("SearchPlaceCommand error: " + e.getMessage());
 		}
-
-		PlaceDAO placeDAO = new PlaceDAO();
-		/* List<PlaceVO> places = placeDAO.searchPlacesByName(placeName); */
-		List<PlaceVO> places = placeDAO.searchAllPlaces();
-
-		request.setAttribute("places", places);
-		request.setAttribute("placeSw", "0");
 	}
 }

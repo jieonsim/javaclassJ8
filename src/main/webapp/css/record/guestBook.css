@@ -143,15 +143,3 @@ input[type="checkbox"]:checked+.option-btn {
 .form-control-link i {
 	font-size: inherit;
 }
-
-
-#placeInfoResult {
-	color: dimgray
-}
-
-#placeNameReslut {
-	color: black;
-	font-size: 18px;
-	font-weight: bold;
-	text-decoration: none;
-}

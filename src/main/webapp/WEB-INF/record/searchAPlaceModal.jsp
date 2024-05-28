@@ -15,7 +15,7 @@
 					<div>검색 결과가 없다면</div>
 				</div>
 				<div class="my-3 mx-5" style="position: relative;">
-						<a href="#" id="goToNewModal" onclick="switchModals()">이 곳을 클릭해 새로운 공간을 추가해보세요.</a>
+					<a href="#" id="goToNewModal" onclick="switchModals()">이 곳을 클릭해 새로운 공간을 추가해보세요.</a>
 					<form id="searchForm" action="${ctp}/searchPlace.g" method="get" onsubmit="return searchAPlace();">
 						<input type="search" name="placeName" placeholder="공간명 검색" aria-label="Search" id="searching">
 						<button id="searchBtn" type="submit">
@@ -27,8 +27,8 @@
 					<!-- 검색 결과가 여기에 표시 -->
 					<c:forEach var="place" items="${places}">
 						<div class="mb-3" onclick="selectPlace('${place.placeName}')">
-							<div style="font-size: 18px; font-weight: bold;">${place.placeName}</div>
-							<div style="color: dimgray">${place.region1DepthName},${place.region2DepthName} · ${place.categoryName}</div>
+							<div id="placeNameReslut">${place.placeName}</div>
+							<div id="placeInfoResult">${place.region1DepthName},${place.region2DepthName}· ${place.categoryName}</div>
 						</div>
 						<hr>
 					</c:forEach>
@@ -45,9 +45,9 @@
 			showAlert("공간명을 입력해주세요.");
 			return;
 		}
-		location.href = "searchPlace.g?placeName=" + placeName;
+		/* location.href = "searchPlace.g?placeName=" + placeName; */
 
-		/* $.ajax({
+		$.ajax({
 			url : '${ctp}/searchPlace.g',
 			type : 'GET',
 			data : {
@@ -59,7 +59,7 @@
 			error : function() {
 				showAlert("검색 중 오류가 발생했습니다.");
 			}
-		}); */
+		});
 	}
 
 	function showAlert(message) {

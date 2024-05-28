@@ -34,6 +34,6 @@ desc places;
 drop table places;
 
 
-
+SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx;
 
 SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName LIKE '%제발%';

@@ -13,6 +13,13 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/record/searchAPlaceModal.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
+	$(document).ready(function() {
+		// 모달창에서 아이디 검색할시에는, 커맨드객체에서 아이디 검색된 결과와 함께 placeSw변수에 0을 넣어서 보내준다.
+		<c:if test="${placeSw == '0'}">
+		document.getElementById("searching").click();
+		</c:if>
+	});
+
 	document.addEventListener('DOMContentLoaded', function() {
 		function setVisibilityValue() {
 			const visibilityCheckbox = document.getElementById('visibility');
@@ -72,28 +79,19 @@
 		});
 	}
 
-	function searchAPlace(event) {
-		event.preventDefault();
+	function searchAPlace() {
 		const placeName = document.getElementById('searching').value.trim();
 
 		if (placeName === "") {
 			showAlert("공간명을 입력해주세요.");
 			return;
 		}
+		location.href = "searchPlace.g?placeName=" + placeName;
+	}
 
-		$.ajax({
-			url : '${ctp}/searchPlace.g',
-			type : 'GET',
-			data : {
-				placeName : placeName
-			},
-			success : function(response) {
-				$('#placeList').html(response);
-			},
-			error : function() {
-				showAlert("검색 중 오류가 발생했습니다.");
-			}
-		});
+	function selectPlace(placeName) {
+		$('#searchAPlaceModal').modal('hide');
+		$('input[name="placeName"]').val(placeName);
 	}
 
 	function showAlert(message) {
@@ -107,28 +105,12 @@
 			}
 		});
 	}
-
-	function selectPlace(placeName) {
-		const guestBookForm = document.forms['guestBookForm'];
-		console.log(guestBookForm); // Debug: Log the guestBookForm
-		if (guestBookForm) {
-			const placeNameField = guestBookForm.placeName;
-			console.log(placeNameField); // Debug: Log the placeName field
-			if (placeNameField) {
-				placeNameField.value = placeName;
-				$('#searchAPlaceModal').modal('hide');
-			} else {
-				console.error('placeName input field not found in the form.');
-			}
-		} else {
-			console.error('guestBookForm not found.');
-		}
-	}
 </script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
+	<%-- <jsp:include page="/WEB-INF/record/searchAPlaceModal.jsp" /> --%>
 	<jsp:include page="/WEB-INF/record/addANewPlaceModal.jsp" />
 	<div class="container mt-5">
 		<div class="guestBook_title">
@@ -143,26 +125,20 @@
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col" style="position: relative;">
-						<c:if test="${not empty sessionScope.temporaryPlace}">
-							<!-- 새로운 공간을 추가했을 때 보여야하는 input -->
-							<input type="text" class="form-control" name="placeName" value="${sessionScope.temporaryPlace.placeName}" readonly>
-							<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
-								<i class="ph ph-caret-right"></i>
-							</a>
-						</c:if>
-						<c:if test="${not empty place.placeName}">
-							<!-- 기존에 등록되어있는 공간을 검색해서 선택했을 때 보여야하는 input -->
-							<input type="text" class="form-control" name="placeName" value="${place.placeName}" readonly>
-							<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
-								<i class="ph ph-caret-right"></i>
-							</a>
-						</c:if>
-						<c:if test="${empty sessionScope.temporaryPlace && empty place.placeName}">
-							<!-- 공간이 선택되지 않았을 때 보여야하는 링크 -->
-							<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
-								<i class="ph ph-caret-right"></i>
-							</a>
-						</c:if>
+						<c:choose>
+							<c:when test="${not empty sessionScope.temporaryPlace}">
+								<input type="text" class="form-control" name="placeName" value="${sessionScope.temporaryPlace.placeName}" readonly>
+								<a href="#" id="placeName" class="form-control-link" data-toggle="modal" data-target="#searchAPlaceModal">
+									<i class="ph ph-caret-right"></i>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" name="placeName" value="">
+								<a href="#" id="place" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
+									<i class="ph ph-caret-right"></i>
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="form-group row mb-4">
@@ -224,7 +200,7 @@
 	</div>
 	<!-- 공간 검색 모달 -->
 	<div class="modal fade" id="searchAPlaceModal" tabindex="-1" role="dialog" aria-labelledby="searchAPlaceModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="searchAPlaceModalLabel">공간 추가하기</h5>
@@ -235,7 +211,7 @@
 						<a href="#" id="goToNewModal" onclick="switchModals()">이 곳을 클릭해 새로운 공간을 추가해보세요.</a>
 					</div>
 					<div class="my-3 mx-5" style="position: relative;">
-						<form id="searchForm" onsubmit="searchAPlace(event); return false;">
+						<form id="searchForm" action="${ctp}/searchPlace.g" method="get" onsubmit="return searchAPlace();">
 							<input type="search" name="placeName" placeholder="공간명 검색" aria-label="Search" id="searching">
 							<button id="searchBtn" type="submit">
 								<i class="ph ph-magnifying-glass"></i>
@@ -243,8 +219,13 @@
 						</form>
 					</div>
 					<div id="placeList" class="mx-5 pl-3">
-						<!-- 검색 결과 뿌리기 -->
-						<jsp:include page="/WEB-INF/record/searchPlaceResults.jsp" />
+						<c:forEach var="place" items="${places}">
+							<div class="mb-3">
+								<div id="placeNameReslut">${place.placeName}</div>
+								<div id="placeInfoResult">${place.region1DepthName},${place.region2DepthName}·${place.categoryName}</div>
+							</div>
+							<hr>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
