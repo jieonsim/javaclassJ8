@@ -15,9 +15,6 @@ public class DeleteGuestBookCommand implements ArchiveInterface {
         int guestBookIdx = Integer.parseInt(request.getParameter("guestBookIdx"));
         Integer sessionUserIdx = (Integer) request.getSession().getAttribute("sessionUserIdx");
 
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-
         if (sessionUserIdx == null) {
             response.getWriter().write("failed");
             return;

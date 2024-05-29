@@ -33,6 +33,66 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+//모달이 열릴 때, 클릭된 버튼에서 guestBookIdx를 가져와 삭제 버튼에 저장
+//모달 내의 삭제 버튼을 클릭하면, 해당 guestBookIdx를 사용하여 삭제 요청을 보냄
+$(document).ready(function() {
+ $('#updateGuestBook').on('show.bs.modal', function(event) {
+     var button = $(event.relatedTarget); // 클릭된 버튼
+     var guestBookIdx = button.data('guestbook-id'); // data-guestbook-id의 값
+     var visibilityStatus = button.data('visibility'); // data-visibility의 값
+     var modal = $(this);
+
+     if (visibilityStatus === 'private') {
+         modal.find('input[type="checkbox"]').prop('checked', false);
+     } else {
+         modal.find('input[type="checkbox"]').prop('checked', true);
+     }
+
+     modal.find('#deleteGuestBookBtn').data('guestbook-id', guestBookIdx); // 삭제 버튼에 guestBookIdx 설정
+ });
+
+ $('input[type="checkbox"]').on('change', function() {
+     var guestBookIdx = $(this).closest('#updateGuestBook').find('#deleteGuestBookBtn').data('guestbook-id');
+     var visibility = this.checked ? 'public' : 'private';
+     toggleVisibility(guestBookIdx, visibility);
+ });
+});
+
+function toggleVisibility(guestBookIdx, visibility) {
+ var message = visibility === 'public' ? '방명록이 공개 처리되었습니다.' : '방명록이 비공개 처리되었습니다.';
+ 
+ $.ajax({
+     url: 'toggleVisibility.a',
+     type: 'POST',
+     data: { guestBookIdx: guestBookIdx, visibility: visibility },
+     success: function(response) {
+         if (response === 'success') {
+             $('#updateGuestBook').modal('hide');
+             Swal.fire({
+                 text: message,
+                 confirmButtonText: '확인',
+                 customClass: {
+                     confirmButton: 'swal2-confirm',
+                     popup: 'custom-swal-popup',
+                     htmlContainer: 'custom-swal-text'
+                 }
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     location.reload(); // 페이지를 새로고침하여 변경 사항을 반영합니다.
+                 }
+             });
+         } else {
+             console.error("Unexpected response:", response);
+             showAlert("예상치 못한 응답: " + response);
+         }
+     },
+     error: function(xhr, status, error) {
+         console.error("Error during AJAX request:", status, error);
+         showAlert("상태 변경에 실패했습니다.");
+     }
+ });
+}
+
 function deleteCheck(guestBookIdx) {
     Swal.fire({
         text: '방명록을 삭제하시겠습니까?',
@@ -54,9 +114,22 @@ function deleteCheck(guestBookIdx) {
                 data: { guestBookIdx: guestBookIdx },
                 success: function(response) {
                     if (response === 'deleted') {
-                        showAlert("방명록이 삭제되었습니다.");
+                        $('#updateGuestBook').modal('hide'); // 모달을 숨깁니다.
+                        Swal.fire({
+                            text: "방명록이 삭제되었습니다.",
+                            confirmButtonText: '확인',
+                            customClass: {
+                                confirmButton: 'swal2-confirm',
+                                popup: 'custom-swal-popup',
+                                htmlContainer: 'custom-swal-text'
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(); // 페이지를 새로고침하여 삭제된 방명록을 반영합니다.
+                            }
+                        });
                     } else if (response === 'failed') {
-                        showAlert("방명록 삭제에 실패했습니다.");
+                        showAlert("방명록 삭제에 실패했습니다.1");
                     } else {
                         console.error("Unexpected response:", response);
                         showAlert("예상치 못한 응답: " + response);
@@ -64,16 +137,28 @@ function deleteCheck(guestBookIdx) {
                 },
                 error: function(xhr, status, error) {
                     console.error("Error during AJAX request:", status, error);
-                    showAlert("방명록 삭제에 실패했습니다.");
+                    showAlert("방명록 삭제에 실패했습니다.2");
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            $('#updateGuestBook').modal('hide');
+            $('#updateGuestBook').modal('hide'); // 취소 버튼을 누를 때도 모달을 숨깁니다.
         }
     });
 }
 
-
+//화살표클릭시 화면 상단으로 부드럽게 이동하기
+$(window).scroll(function(){
+	if($(this).scrollTop() > 100) {
+		$("#topBtn").addClass("on");
+	}
+	else {
+		$("#topBtn").removeClass("on");
+	}
+	
+	$("#topBtn").click(function(){
+		window.scrollTo({top:0, behavior: "smooth"});
+	});
+});
 </script>
 </head>
 <body>
@@ -117,6 +202,7 @@ function deleteCheck(guestBookIdx) {
 				</li>
 				<li>
 					<a href="archive-guestBook.a" id="guestBook">방명록</a>
+					<span>${guestBookCount}</span>
 				</li>
 				<li>
 					<a href="archive-curation.a" id="curation">큐레이션</a>
@@ -148,7 +234,7 @@ function deleteCheck(guestBookIdx) {
 										<c:if test="${guestBook.visibility == 'private'}">
 											<i class="ph ph-lock mr-2"></i>
 										</c:if>
-										<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" onclick="deleteCheck(${guestBook.guestBookIdx})">
+										<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" data-guestbook-id="${guestBook.guestBookIdx}" data-visibility="${guestBook.visibility}">
 											<i class="ph ph-dots-three"></i>
 										</a>
 									</div>
@@ -156,6 +242,10 @@ function deleteCheck(guestBookIdx) {
 							</div>
 						</div>
 					</c:forEach>
+					<!-- 위로가기 버튼 -->
+					<div id="topBtn" class="">
+						<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
+					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="text-center" style="margin-top: 100px;">

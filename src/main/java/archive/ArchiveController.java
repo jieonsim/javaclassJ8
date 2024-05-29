@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import archive.guestBook.ArchiveGuestBookCommand;
 import archive.guestBook.DeleteGuestBookCommand;
+import archive.guestBook.ToggleVisibilityCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.a")
@@ -26,23 +27,23 @@ public class ArchiveController extends HttpServlet {
 			command = new ArchiveLocalLogCommand();
 			command.execute(request, response);
 			return;
-		} 
-		else if (com.equals("archive-guestBook")) {
+		} else if (com.equals("archive-guestBook")) {
 			command = new ArchiveGuestBookCommand();
 			command.execute(request, response);
 			return;
-		}
-		else if (com.equals("archive-curation")) {
+		} else if (com.equals("archive-curation")) {
 			command = new ArchiveCurationCommand();
 			command.execute(request, response);
 			return;
-		}
-		else if (com.equals("deleteGuestBook")) {
+		} else if (com.equals("deleteGuestBook")) {
 			command = new DeleteGuestBookCommand();
 			command.execute(request, response);
 			return;
+		} else if (com.equals("toggleVisibility")) {
+			command = new ToggleVisibilityCommand();
+			command.execute(request, response);
+			return;
 		}
-
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

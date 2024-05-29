@@ -53,7 +53,7 @@ public class GuestBookDAO {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("saveGuestBook SQL 오류 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}
@@ -64,8 +64,9 @@ public class GuestBookDAO {
 	public List<GuestBookVO> getGuestBooksByUserIdx(int userIdx) {
 		List<GuestBookVO> guestBooks = new ArrayList<>();
 		try {
-			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC";
+			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb "
+					+ "JOIN places p ON gb.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? "
+					+ "ORDER BY gb.createdAt DESC";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			rs = pstmt.executeQuery();
@@ -89,7 +90,7 @@ public class GuestBookDAO {
 				guestBooks.add(guestBook);
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("getGuestBooksByUserIdx SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -110,10 +111,47 @@ public class GuestBookDAO {
 				result = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("deleteGuestBook SQL 오류 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}
 		return result;
+	}
+
+	// 방명록 전체공개/비공개 토글 처리
+	public boolean toggleVisibility(int guestBookIdx, String visibility) {
+		try {
+			sql = "UPDATE guestBooks SET visibility = ? WHERE guestBookIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, visibility);
+			pstmt.setInt(2, guestBookIdx);
+
+			int result = pstmt.executeUpdate();
+			return result == 1;
+		} catch (SQLException e) {
+			System.out.println("toggleVisibility SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return false;
+	}
+
+	// 본인 아카이브 접속 시 방명록 개수 보여주기
+	public int getGuestBookCountByUserIdx(int userIdx) {
+		int count = 0;
+		try {
+			sql = "SELECT COUNT(*) FROM guestBooks WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("getGuestBookCountByUserIdx SQL 오류: " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return count;
 	}
 }

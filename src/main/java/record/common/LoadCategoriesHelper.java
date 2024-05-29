@@ -1,4 +1,4 @@
-package record.guestBook;
+package record.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;

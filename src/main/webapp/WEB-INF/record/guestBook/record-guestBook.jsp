@@ -151,7 +151,7 @@
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<jsp:include page="/WEB-INF/record/addANewPlaceModal.jsp" />
+	<jsp:include page="/WEB-INF/record/guestBook/addANewPlaceModal.jsp" />
 	<div class="container mt-5">
 		<div class="guestBook_title">
 			<i class="ph ph-map-pin-simple"></i>
@@ -181,12 +181,12 @@
 						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col">
-						<input type="date" class="form-control" name="visitDate" />
+						<input type="date" class="form-control" name="visitDate" id="visitDateInput"/>
 					</div>
 				</div>
 				<div class="form-group row mb-4">
 					<div class="col">
-						<textarea name="content" rows="4" class="form-control" name="content" placeholder="방명록을 작성해 보세요."></textarea>
+						<textarea name="content" rows="4" class="form-control" name="content" placeholder="방명록을 작성해 보세요." id="contentInput"></textarea>
 					</div>
 				</div>
 				<div class="form-group row mb-4">

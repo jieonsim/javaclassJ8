@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import place.PlaceDAO;
 import place.PlaceVO;
+import record.common.LoadCategoriesHelper;
 
 public class SubmitGuestBookCommand implements GuestBookInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/record/record-guestBook.jsp";
+		String viewPage = "/WEB-INF/record/guestBook/record-guestBook.jsp";
 
 		try {
 			int userIdx = Integer.parseInt(request.getParameter("sessionUserIdx"));

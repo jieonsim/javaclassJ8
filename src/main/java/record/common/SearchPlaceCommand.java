@@ -1,4 +1,4 @@
-package record.guestBook;
+package record.common;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import place.PlaceDAO;
 import place.PlaceVO;
+import record.guestBook.GuestBookInterface;
 
 public class SearchPlaceCommand implements GuestBookInterface {
 

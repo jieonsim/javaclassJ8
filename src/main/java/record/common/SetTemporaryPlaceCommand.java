@@ -1,4 +1,4 @@
-package record.guestBook;
+package record.common;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import place.PlaceVO;
+import record.guestBook.GuestBookInterface;
 
 public class SetTemporaryPlaceCommand implements GuestBookInterface {
 

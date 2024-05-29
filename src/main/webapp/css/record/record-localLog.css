@@ -34,7 +34,7 @@ h4 {
     margin-right: 8px;
 }
 
-.localLog-container .localLog-form .form-control:not(#submit) {
+.localLog-container .localLog-form .form-control:not(#submitBtn) {
     border-radius: 0;
 }
 
@@ -57,15 +57,6 @@ h4 {
     text-decoration: none;
 }
 
-#submit {
-    color: white;
-    background-color: black;
-    border: none;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 30px;
-}
-
 .localLog-container label:not(.option-btn) {
     font-size: 16px; /* Increased font size */
     color: dimgrey;
@@ -73,25 +64,37 @@ h4 {
 }
 
 .photo-section {
-    margin-bottom: 20px;
     text-align: center;
 }
 
 .photo-placeholder {
     width: 100%;
-    height: 150px;
+    height: 200px;
     border: 1px dashed #ced4da;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    color: #ced4da;
-    border-radius: 8px;
-    cursor: pointer; /* Add pointer cursor for file upload */
+    cursor: pointer;
+    margin-bottom: 0;
 }
 
 #photo-upload {
     display: none;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    max-height: 200px; /* 높이를 일정하게 유지 */
+}
+
+.table-bordered {
+    white-space: nowrap;
+}
+
+.photo-preview {
+    width: 100%;
+    height: auto;
 }
 
 input[type='checkbox'] {
@@ -131,7 +134,6 @@ input[type="radio"]:checked + .option-btn {
     border-color: black;
 }
 
-/* New style to ensure the '공간 추가' button is completely on the right */
 .form-group.row {
     display: flex;
     align-items: center;
@@ -153,3 +155,25 @@ input[type="radio"]:checked + .option-btn {
 }
 
 
+#placeLink {
+	border: none;
+	background-color: white;
+	color: dimgrey;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: right;
+	text-decoration: none;
+}
+
+#placeLink:focus {
+	box-shadow: none;
+}
+
+#submitBtn {
+	color: white;
+	background-color: black;
+	border: none;
+	height: 50px;
+	font-size: 20px;
+	border-radius: 30px;
+}
