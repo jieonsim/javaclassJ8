@@ -1,46 +1,46 @@
 @charset "UTF-8";
 
 @font-face {
-    font-family: 'Pretendard-SemiBold';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
+	font-family: 'Pretendard-SemiBold';
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
 }
 
 h4 {
-    font-family: 'Pretendard-SemiBold';
+	font-family: 'Pretendard-SemiBold';
 }
 
 .localLog-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
+	max-width: 400px;
+	margin: auto;
+	padding: 20px;
+	text-align: center;
 }
 
 .localLog_title {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 18px;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	font-size: 18px;
 }
 
 .localLog_title a {
-    text-decoration: none;
-    color: inherit;
+	text-decoration: none;
+	color: inherit;
 }
 
 .localLog_title i {
-    margin-right: 8px;
+	margin-right: 8px;
 }
 
 .localLog-container .localLog-form .form-control:not(#submitBtn) {
-    border-radius: 0;
+	border-radius: 0;
 }
 
 .localLog-container .localLog-form .form-control:focus {
-    border-color: black;
-    box-shadow: none;
+	border-color: black;
+	box-shadow: none;
 }
 
 #place:focus {
@@ -48,110 +48,111 @@ h4 {
 }
 
 #place {
-    border: none;
-    background-color: white;
-    color: dimgrey;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: right;
-    text-decoration: none;
+	border: none;
+	background-color: white;
+	color: dimgrey;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: right;
+	text-decoration: none;
 }
 
 .localLog-container label:not(.option-btn) {
-    font-size: 16px; /* Increased font size */
-    color: dimgrey;
-    text-align: left; /* Align text to the left */
+	font-size: 16px;
+	color: dimgrey;
+	text-align: left;
 }
 
 .photo-section {
-    text-align: center;
+	text-align: center;
 }
 
 .photo-placeholder {
-    width: 100%;
-    height: 200px;
-    border: 1px dashed #ced4da;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
-    margin-bottom: 0;
+	width: 100%;
+	height: 200px;
+	border: 1px dashed #ced4da;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	cursor: pointer;
+	margin-bottom: 0;
 }
 
 #photo-upload {
-    display: none;
+	display: none;
 }
 
 .table-responsive {
-    overflow-x: auto;
-    max-height: 200px; /* 높이를 일정하게 유지 */
+	overflow-x: auto;
+	max-height: 200px;
 }
 
 .table-bordered {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .photo-preview {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
 
+
 input[type='checkbox'] {
-    accent-color: black;
+	accent-color: black;
 }
 
 input[type='radio'] {
-    display: none;
+	display: none;
 }
 
 .community-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 .option-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ced4da;
-    border-radius: 30px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ced4da;
+	border-radius: 30px;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: background-color 0.3s, border-color 0.3s;
 }
 
 .option-btn:hover {
-    background-color: black;
-    color: white;
-    border-color: black;
+	background-color: black;
+	color: white;
+	border-color: black;
 }
 
-input[type="radio"]:checked + .option-btn {
-    background-color: black;
-    color: white;
-    border-color: black;
+input[type="radio"]:checked+.option-btn {
+	background-color: black;
+	color: white;
+	border-color: black;
 }
 
 .form-group.row {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .form-group.row .col {
-    flex-grow: 1;
+	flex-grow: 1;
 }
 
 .form-group.row .col label {
-    flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 
 .localLog-container .localLog-form label:not(.option-btn):not(.photo-placeholder) {
-    font-size: 16px; 
-    color: #212529;
-    text-align: left; 
+	font-size: 16px;
+	color: #212529;
+	text-align: left;
 }
 
 
