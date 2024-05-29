@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import archive.guestBook.ArchiveGuestBookCommand;
+import archive.guestBook.DeleteGuestBookCommand;
+
 @SuppressWarnings("serial")
 @WebServlet("*.a")
 public class ArchiveController extends HttpServlet {
@@ -20,17 +23,22 @@ public class ArchiveController extends HttpServlet {
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
 		if (com.equals("archive-localLog")) {
-			command = new LocalLogCommand();
+			command = new ArchiveLocalLogCommand();
 			command.execute(request, response);
 			return;
 		} 
 		else if (com.equals("archive-guestBook")) {
-			command = new GuestBookCommand();
+			command = new ArchiveGuestBookCommand();
 			command.execute(request, response);
 			return;
-		} 
+		}
 		else if (com.equals("archive-curation")) {
-			command = new CurationCommand();
+			command = new ArchiveCurationCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if (com.equals("deleteGuestBook")) {
+			command = new DeleteGuestBookCommand();
 			command.execute(request, response);
 			return;
 		}

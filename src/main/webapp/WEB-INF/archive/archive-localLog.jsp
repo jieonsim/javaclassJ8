@@ -101,12 +101,7 @@ $(window).scroll(function(){
 			</div>
 			<!-- 위로가기 버튼 -->
 			<div id="topBtn" class="">
-				<!-- <i class="ph ph-arrow-circle-up" id="arrowUp"></i> -->
-				<!-- <i class="ph ph-arrow-up" id="arrowUp"></i> -->
-				<!-- <i class="ph ph-caret-double-up" id="arrowUp"></i> -->
-				<!-- <i class="ph ph-arrow-fat-lines-up" id="arrowUp"></i> -->
 				<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
-				<!-- <i class="ph-fill ph-caret-circle-double-up" id="arrowUp"></i> -->
 			</div>
 		</div>
 	</div>

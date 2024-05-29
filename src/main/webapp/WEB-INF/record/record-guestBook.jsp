@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
-<link rel="stylesheet" type="text/css" href="${ctp}/css/record/guestBook.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/record/record-guestBook.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/record/searchAPlaceModal.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>

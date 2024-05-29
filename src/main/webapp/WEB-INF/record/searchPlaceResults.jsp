@@ -22,7 +22,7 @@
 		<c:forEach var="place" items="${places}">
 			<div class="mb-3" onclick="selectPlace('${place.placeName}')" id="searchResults">
 				<div id="placeNameReslut">${place.placeName}</div>
-				<div id="placeInfoResult">${place.region1DepthName}, ${place.region2DepthName} · ${place.categoryName}</div>
+				<div id="placeInfoResult">${place.region1DepthName},&nbsp;${place.region2DepthName}&nbsp;·&nbsp;${place.categoryName}</div>
 			</div>
 			<hr>
 		</c:forEach>

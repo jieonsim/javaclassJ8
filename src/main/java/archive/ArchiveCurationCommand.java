@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import user.UserDAO;
 import user.UserVO;
 
-public class CurationCommand implements ArchiveInterface {
+public class ArchiveCurationCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

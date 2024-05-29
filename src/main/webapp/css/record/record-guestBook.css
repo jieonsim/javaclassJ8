@@ -34,12 +34,12 @@ h4 {
 	margin-right: 8px;
 }
 
-.gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place) {
+.gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#placeLink) {
 	border-radius: 0;
 	border: 1px solid #ced4da;
 }
 
-.gusetBook-container .guestBook-form .form-control:not(#submitBtn):not(#place):focus {
+.gusetBook-container .guestBook-form .form-control:not(#placeLink):focus {
 	border-color: black;
 	box-shadow: none;
 }
@@ -146,6 +146,6 @@ input[type="checkbox"]:checked+.option-btn {
 	border: none;
 }*/
 
-#placeLink {
+/*#placeLink {
 	border: none !important;
-}
+}*/

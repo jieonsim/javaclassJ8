@@ -1,4 +1,4 @@
-package record.guestBook;
+package archive;
 
 import java.io.IOException;
 
@@ -11,18 +11,18 @@ import javax.servlet.http.HttpSession;
 import user.UserDAO;
 import user.UserVO;
 
-public class GuestBookCommand implements GuestBookInterface {
+public class ArchiveLocalLogCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/record/record-guestBook.jsp";
+		String viewPage = "/WEB-INF/archive/archive-localLog.jsp";
 
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
 		// Null 검사
 		if (sessionUserIdx == null) {
-			request.setAttribute("message", "로그인 후 이용해 주세요.");
+			request.setAttribute("message", "로그인 후 이용하실 수 있습니다.");
 			viewPage = "/WEB-INF/user/login/login.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
@@ -38,10 +38,7 @@ public class GuestBookCommand implements GuestBookInterface {
 			dispatcher.forward(request, response);
 			return;
 		}
-		
-		// 카테고리 데이터 로드
-		LoadCategoriesHelper.loadCategories(request);
-		
+
 		request.setAttribute("userVO", userVO);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

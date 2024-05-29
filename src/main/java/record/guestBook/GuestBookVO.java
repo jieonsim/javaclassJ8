@@ -1,12 +1,13 @@
 package record.guestBook;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class GuestBookVO {
 	private int guestBookIdx;
 	private int userIdx;
 	private int placeIdx;
-	private String visitDate;
+	private Date visitDate;
 	private String content;
 	private String companions;
 	private String visibility;
@@ -14,16 +15,14 @@ public class GuestBookVO {
 	private Timestamp updatedAt;
 	private String hostIp;
 
+	// 필드 추가
+	private String placeName;
+	private String region1DepthName;
+	private String region2DepthName;
+	private String categoryName;
+
 	public int getGuestBookIdx() {
 		return guestBookIdx;
-	}
-
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Timestamp updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 	public void setGuestBookIdx(int guestBookIdx) {
@@ -46,11 +45,11 @@ public class GuestBookVO {
 		this.placeIdx = placeIdx;
 	}
 
-	public String getVisitDate() {
+	public Date getVisitDate() {
 		return visitDate;
 	}
 
-	public void setVisitDate(String visitDate) {
+	public void setVisitDate(Date visitDate) {
 		this.visitDate = visitDate;
 	}
 
@@ -86,6 +85,14 @@ public class GuestBookVO {
 		this.createdAt = createdAt;
 	}
 
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	public String getHostIp() {
 		return hostIp;
 	}
@@ -94,11 +101,42 @@ public class GuestBookVO {
 		this.hostIp = hostIp;
 	}
 
-	@Override
-	public String toString() {
-		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content="
-				+ content + ", companions=" + companions + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp="
-				+ hostIp + "]";
+	public String getPlaceName() {
+		return placeName;
 	}
 
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getRegion1DepthName() {
+		return region1DepthName;
+	}
+
+	public void setRegion1DepthName(String region1DepthName) {
+		this.region1DepthName = region1DepthName;
+	}
+
+	public String getRegion2DepthName() {
+		return region2DepthName;
+	}
+
+	public void setRegion2DepthName(String region2DepthName) {
+		this.region2DepthName = region2DepthName;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	@Override
+	public String toString() {
+		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content=" + content + ", companions=" + companions
+				+ ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName
+				+ ", region2DepthName=" + region2DepthName + ", categoryName=" + categoryName + "]";
+	}
 }
