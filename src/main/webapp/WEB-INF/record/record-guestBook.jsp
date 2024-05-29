@@ -47,6 +47,21 @@
 				document.forms["guestBookForm"].visitDate.focus();
 				return false;
 			}
+
+			const companions = document.forms["guestBookForm"].companions;
+			let companionSelected = false;
+
+			for (let i = 0; i < companions.length; i++) {
+				if (companions[i].checked) {
+					companionSelected = true;
+					break;
+				}
+			}
+
+			if (!companionSelected) {
+				showAlert("동반인을 선택해 주세요.");
+				return false;
+			}
 			return true;
 		}
 
@@ -101,23 +116,23 @@
 	}
 
 	function selectPlace(placeName) {
-	    // Get references to the specific input fields
-	    const placeNameField = document.getElementById('placeNameInput');
-	    const placeLink = document.getElementById('placeLink');
+		// Get references to the specific input fields
+		const placeNameField = document.getElementById('placeNameInput');
+		const placeLink = document.getElementById('placeLink');
 
-	    if (placeNameField) {
-	        placeNameField.value = placeName;
-	        placeNameField.style.display = 'block';
+		if (placeNameField) {
+			placeNameField.value = placeName;
+			placeNameField.style.display = 'block';
 
-	        // Hide the place link
-	        if (placeLink) {
-	            placeLink.style.display = 'none';
-	        }
+			// Hide the place link
+			if (placeLink) {
+				placeLink.style.display = 'none';
+			}
 
-	        $('#searchAPlaceModal').modal('hide');
-	    } else {
-	        showAlert('장소 이름 필드를 찾을 수 없습니다.');
-	    }
+			$('#searchAPlaceModal').modal('hide');
+		} else {
+			showAlert('장소 이름 필드를 찾을 수 없습니다.');
+		}
 	}
 
 	function showAlert(message) {
@@ -177,7 +192,7 @@
 				<div class="form-group row mb-4">
 					<div class="col text-left">
 						<label for="companions" id="companionsLabel" class="text-left">
-							<b>누구와 방문했나요?</b>
+							<b>누구와 방문했나요? <span style="color: lightcoral;">*</span></b>
 						</label>
 						<div class="companions-options">
 							<input type="checkbox" name="companions" id="family" value="부모님 & 가족">
