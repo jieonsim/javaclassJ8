@@ -369,3 +369,26 @@ input:checked+.slider:before {
 	text-align: left;
 }
 
+* .swal2-cancel {
+	background-color: white;
+	border-color: black;
+	border-radius: 0;
+	color: black;
+	padding: 10px 24px;
+	margin: 0;
+	font-size: 18px;
+	font-weight: bold;
+	border: none;
+}
+
+.swal2-confirm {
+	background-color: black !important;
+	color: white !important;
+	border-radius: 0px;
+	box-shadow: none;
+	font-weight: bold;
+	font-size: 18px;
+	padding: 10px 24px;
+	margin: 0;
+	border: none;
+}

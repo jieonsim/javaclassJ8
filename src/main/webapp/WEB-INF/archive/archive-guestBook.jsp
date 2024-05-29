@@ -14,32 +14,8 @@ pageContext.setAttribute("newLine", "\n");
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-<style>
-.swal2-cancel {
-	background-color: white;
-	border-color: black;
-	border-radius: 0;
-	color: black;
-	padding: 10px 24px;
-	margin: 0;
-	font-size: 18px;
-	font-weight: bold;
-	border: none;
-}
-
-.swal2-confirm {
-	background-color: black !important;
-	color: white !important;
-	border-radius: 0px;
-	box-shadow: none;
-	font-weight: bold;
-	font-size: 18px;
-	padding: 10px 24px;
-	margin: 0;
-	border: none;
-}
-</style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const links = document.querySelectorAll('.archive-container ul li a');
@@ -57,41 +33,47 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function deleteCheck() {
-	Swal.fire({
+function deleteCheck(guestBookIdx) {
+    Swal.fire({
         text: '방명록을 삭제하시겠습니까?',
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
         customClass: {
-        	confirmButton: 'swal2-confirm',
-        	cancelButton: 'swal2-cancel',
-			popup: 'custom-swal-popup',
-			htmlContainer: 'custom-swal-text',
+            confirmButton: 'swal2-confirm',
+            cancelButton: 'swal2-cancel',
+            popup: 'custom-swal-popup',
+            htmlContainer: 'custom-swal-text',
         },
         buttonsStyling: false
     }).then((result) => {
         if (result.isConfirmed) {
-            showAlert("방명록이 삭제되었습니다.");
+            $.ajax({
+                url: 'deleteGuestBook.a',
+                type: 'POST',
+                data: { guestBookIdx: guestBookIdx },
+                success: function(response) {
+                    if (response === 'deleted') {
+                        showAlert("방명록이 삭제되었습니다.");
+                    } else if (response === 'failed') {
+                        showAlert("방명록 삭제에 실패했습니다.");
+                    } else {
+                        console.error("Unexpected response:", response);
+                        showAlert("예상치 못한 응답: " + response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error during AJAX request:", status, error);
+                    showAlert("방명록 삭제에 실패했습니다.");
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            $('#updateGuestBook').modal('hide');
         }
     });
 }
 
-function showAlert(message, url) {
-	Swal.fire({
-		html: message,
-		confirmButtonText: '확인',
-		customClass: {
-			confirmButton: 'swal2-confirm',
-			popup: 'custom-swal-popup',
-			htmlContainer: 'custom-swal-text'
-		}
-	}).then((result) => {
-		if (result.isConfirmed && url) {
-			window.location.href = url;
-		}
-	});
-}
+
 </script>
 </head>
 <body>
@@ -166,7 +148,7 @@ function showAlert(message, url) {
 										<c:if test="${guestBook.visibility == 'private'}">
 											<i class="ph ph-lock mr-2"></i>
 										</c:if>
-										<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;">
+										<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" onclick="deleteCheck(${guestBook.guestBookIdx})">
 											<i class="ph ph-dots-three"></i>
 										</a>
 									</div>
@@ -196,7 +178,7 @@ function showAlert(message, url) {
 							<span class="slider round"></span>
 						</label>
 					</div>
-					<button type="button" class="btn btn-block mt-2" id="deleteGuestBookBtn" onclick="deleteCheck()">방명록 삭제</button>
+					<button type="button" class="btn btn-block mt-2" id="deleteGuestBookBtn" onclick="deleteCheck(${guestBook.guestBookIdx})">방명록 삭제</button>
 				</div>
 			</div>
 		</div>

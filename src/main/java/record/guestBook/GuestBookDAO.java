@@ -64,10 +64,8 @@ public class GuestBookDAO {
 	public List<GuestBookVO> getGuestBooksByUserIdx(int userIdx) {
 		List<GuestBookVO> guestBooks = new ArrayList<>();
 		try {
-			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
-					+ "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
-					+ "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC";
+			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			rs = pstmt.executeQuery();
@@ -96,5 +94,26 @@ public class GuestBookDAO {
 			rsClose();
 		}
 		return guestBooks;
+	}
+
+	// 아카이브에서 본인 방명록 삭제
+	public boolean deleteGuestBook(int guestBookIdx, int userIdx) {
+		boolean result = false;
+		try {
+			sql = "DELETE FROM guestBooks WHERE guestBookIdx = ? AND userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, guestBookIdx);
+			pstmt.setInt(2, userIdx);
+
+			int rowCount = pstmt.executeUpdate();
+			if (rowCount > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return result;
 	}
 }
