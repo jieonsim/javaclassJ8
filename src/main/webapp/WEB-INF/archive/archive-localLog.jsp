@@ -90,6 +90,15 @@ $(window).scroll(function(){
 					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
 			</ul>
+			<div class="d-flex justify-content-center">
+				<div class="card" style="width: 400px">
+					<img class="card-img-top" src="${ctp}/images/dummy/newjeans1.jpg" alt="Card image" style="width: 100%">
+					<div class="card-body">
+						<h4 class="card-title">에이미테이블</h4>
+						<p class="card-text">☕ 경기도, 하남시</p>
+					</div>
+				</div>
+			</div>
 			<div class="text-center" style="margin-top: 100px;">
 				<div class="mb-2">내가 방문한 공간을 기록해보세요.</div>
 				<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-localLog.ll'">첫 로컬로그 남기기</button>

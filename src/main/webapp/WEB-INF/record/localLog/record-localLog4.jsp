@@ -97,8 +97,7 @@
 		const photoPlaceholder = document.querySelector('.photo-placeholder');
 		const fileInput = document.getElementById('photo-upload');
 
-		function handlePhotoPlaceholderClick(event) {
-			event.preventDefault();
+		function handlePhotoPlaceholderClick() {
 			fileInput.click();
 		}
 
@@ -190,6 +189,18 @@
 			showAlert('장소 이름 필드를 찾을 수 없습니다.');
 		}
 	}
+
+	function showAlert(message) {
+		Swal.fire({
+			html : message,
+			confirmButtonText : '확인',
+			customClass : {
+				confirmButton : 'swal2-confirm',
+				popup : 'custom-swal-popup',
+				htmlContainer : 'custom-swal-text'
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -213,8 +224,7 @@
 									<span style="color: lightcoral;">*</span>
 								</span>
 							</label>
-							<!-- <input type="file" id="photo-upload" name="photos" class="d-none" onchange="previewPhoto(event)" multiple /> -->
-							<input type="file" id="photo-upload" name="photos" class="d-none" multiple />
+							<input type="file" id="photo-upload" name="photos" class="d-none" onchange="previewPhoto(event)" multiple />
 						</div>
 					</div>
 				</div>

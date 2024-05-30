@@ -36,20 +36,17 @@ public class LocalLogDAO {
 	}
 
 	public void saveLocalLog(LocalLogVO localLogVO) {
-		sql = "INSERT INTO localLogs (userIdx, placeIdx, content, fileName, fileSystemName, coverPhoto, fileSize, visitDate, community, visibility, hostIp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
+			sql = "INSERT INTO localLogs (userIdx, placeIdx, content, photos, visitDate, community, visibility, hostIp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, localLogVO.getUserIdx());
 			pstmt.setInt(2, localLogVO.getPlaceIdx());
 			pstmt.setString(3, localLogVO.getContent());
-			pstmt.setString(4, localLogVO.getFileName());
-			pstmt.setString(5, localLogVO.getFileSystemName());
-			pstmt.setString(6, localLogVO.getCoverPhoto());
-			pstmt.setLong(7, localLogVO.getFileSize());
-			pstmt.setDate(8, localLogVO.getVisitDate());
-			pstmt.setString(9, localLogVO.getCommunity());
-			pstmt.setString(10, localLogVO.getVisibility());
-			pstmt.setString(11, localLogVO.getHostIp());
+			pstmt.setString(4, localLogVO.getPhotos());
+			pstmt.setDate(5, localLogVO.getVisitDate());
+			pstmt.setString(6, localLogVO.getCommunity());
+			pstmt.setString(7, localLogVO.getVisibility());
+			pstmt.setString(8, localLogVO.getHostIp());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -8,10 +8,7 @@ public class LocalLogVO {
 	private int userIdx;
 	private int placeIdx;
 	private String content;
-	private String fileName;
-	private String fileSystemName;
-	private String coverPhoto;
-	private long fileSize;
+	private String photos;
 	private Date visitDate;
 	private String community;
 	private String visibility;
@@ -51,36 +48,12 @@ public class LocalLogVO {
 		this.content = content;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getPhotos() {
+		return photos;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileSystemName() {
-		return fileSystemName;
-	}
-
-	public void setFileSystemName(String fileSystemName) {
-		this.fileSystemName = fileSystemName;
-	}
-
-	public String getCoverPhoto() {
-		return coverPhoto;
-	}
-
-	public void setCoverPhoto(String coverPhoto) {
-		this.coverPhoto = coverPhoto;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
+	public void setPhotos(String photos) {
+		this.photos = photos;
 	}
 
 	public Date getVisitDate() {
@@ -133,8 +106,8 @@ public class LocalLogVO {
 
 	@Override
 	public String toString() {
-		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", fileName=" + fileName + ", fileSystemName=" + fileSystemName
-				+ ", coverPhoto=" + coverPhoto + ", fileSize=" + fileSize + ", visitDate=" + visitDate + ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + "]";
+		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos + ", visitDate=" + visitDate
+				+ ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + "]";
 	}
+
 }
