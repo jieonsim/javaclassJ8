@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive.css" />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive-localLog.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -90,16 +91,131 @@ $(window).scroll(function(){
 					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
 			</ul>
-			<div class="d-flex justify-content-center">
-				<div class="card" style="width: 400px">
-					<img class="card-img-top" src="${ctp}/images/dummy/newjeans1.jpg" alt="Card image" style="width: 100%">
-					<div class="card-body">
-						<h4 class="card-title">에이미테이블</h4>
-						<p class="card-text">☕ 경기도, 하남시</p>
+			<div class="container-flud px-0">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans2.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-coffee"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans3.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-image"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans4.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-mountains"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans2.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-desk"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans3.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-martini"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans2.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-desk"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans3.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-martini"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans4.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-dog"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans4.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-dog"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" id="archive-localLog-card">
+							<img class="card-img-top" src="${ctp}/images/dummy/newjeans4.jpg" alt="Card image" id="archive-localLog-card-img">
+							<div class="card-body">
+								<h4 class="card-title">에이미테이블</h4>
+								<p class="card-text text-muted">
+									<i class="ph ph-dog"></i> 경기도, 하남시
+								</p>
+								<a href="record-localLog.ll" class="stretched-link"></a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="text-center" style="margin-top: 100px;">
+			<div class="text-center" style="margin-top: 300px;">
 				<div class="mb-2">내가 방문한 공간을 기록해보세요.</div>
 				<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-localLog.ll'">첫 로컬로그 남기기</button>
 			</div>

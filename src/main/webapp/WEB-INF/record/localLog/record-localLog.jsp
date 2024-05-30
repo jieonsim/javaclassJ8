@@ -204,6 +204,60 @@
 		<div class="localLog-container">
 			<form name="localLogForm" class="localLog-form" method="post" action="submitLocalLog.ll" enctype="multipart/form-data">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+				<!-- 				<div class="form-group row">
+					<div class="col">
+						<div class="photo-section">
+							<label for="photo-upload" class="photo-placeholder">
+								<span style="color: black">
+									<i class="ph-fill ph-plus-circle"></i> <b> 사진 추가 </b>
+									<span style="color: lightcoral;">*</span>
+								</span>
+							</label>
+							<input type="file" id="photo-upload" name="photos" class="d-none" onchange="previewPhoto(event)" multiple />
+							<input type="file" id="photo-upload" name="photos" class="d-none" multiple />
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-borderedless">
+								<tbody id="photoPreviewContainer">
+									미리보기 이미지들이 여기에 추가
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div> -->
+				<!-- <div class="form-group row">
+					<div class="col">
+						<textarea name="content" rows="6" class="form-control" id="content" placeholder="로컬로그를 작성해 보세요."></textarea>
+					</div>
+				</div> -->
+				<div class="form-group row">
+					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
+						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
+					</label>
+					<div class="col" style="position: relative;">
+						<!-- 공간 이름 입력 필드 -->
+						<input type="text" class="form-control" id="placeNameInput" name="placeName" value="${sessionScope.temporaryPlace != null ? sessionScope.temporaryPlace.placeName : ''}" readonly style="${sessionScope.temporaryPlace != null ? 'display:block;' : 'display:none;'}">
+
+						<!-- 공간이 선택되지 않았을 때 보여야하는 링크 -->
+						<c:if test="${sessionScope.temporaryPlace == null}">
+							<a href="#" id="placeLink" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
+								<i class="ph ph-caret-right"></i>
+							</a>
+						</c:if>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<label for="visit_date" class="col-sm-4 col-form-label">
+						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
+					</label>
+					<div class="col">
+						<input type="date" class="form-control" name="visitDate" id="visitDateInput" />
+					</div>
+				</div>
 				<div class="form-group row">
 					<div class="col">
 						<div class="photo-section">
@@ -232,30 +286,6 @@
 				<div class="form-group row">
 					<div class="col">
 						<textarea name="content" rows="6" class="form-control" id="content" placeholder="로컬로그를 작성해 보세요."></textarea>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
-						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
-					</label>
-					<div class="col" style="position: relative;">
-						<!-- 공간 이름 입력 필드 -->
-						<input type="text" class="form-control" id="placeNameInput" name="placeName" value="${sessionScope.temporaryPlace != null ? sessionScope.temporaryPlace.placeName : ''}" readonly style="${sessionScope.temporaryPlace != null ? 'display:block;' : 'display:none;'}">
-
-						<!-- 공간이 선택되지 않았을 때 보여야하는 링크 -->
-						<c:if test="${sessionScope.temporaryPlace == null}">
-							<a href="#" id="placeLink" class="form-control" data-toggle="modal" data-target="#searchAPlaceModal">
-								<i class="ph ph-caret-right"></i>
-							</a>
-						</c:if>
-					</div>
-				</div>
-				<div class="form-group row mb-4">
-					<label for="visit_date" class="col-sm-4 col-form-label">
-						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
-					</label>
-					<div class="col">
-						<input type="date" class="form-control" name="visitDate" id="visitDateInput" />
 					</div>
 				</div>
 				<div class="form-group row mb-4">
