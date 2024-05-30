@@ -30,8 +30,14 @@ public class LocalLogController extends HttpServlet {
 			command = new AddANewPlaceCommand();
 			command.execute(request, response);
 			return;
-		} else if (com.equals("searchPlace")) {
+		} 
+		else if (com.equals("searchPlace")) {
 			command = new SearchPlaceCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if (com.equals("submitLocalLog")) {
+			command = new SubmitLocalLogCommand();
 			command.execute(request, response);
 			return;
 		}

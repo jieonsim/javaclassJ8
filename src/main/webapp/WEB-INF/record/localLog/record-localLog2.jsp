@@ -13,7 +13,95 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/record/searchAPlaceModal.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
+function validateForm() {
+    const sessionUserIdx = document.forms["localLogForm"].sessionUserIdx.value.trim();
+    const placeNameField = document.forms["localLogForm"].placeName;
+    const placeName = placeNameField ? placeNameField.value.trim() : "";
+    const visitDate = document.forms["localLogForm"].visitDate.value.trim();
+    const photoUpload = document.getElementById('photo-upload');
+    const files = photoUpload.files;
+    const validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    const maxTotalSize = 50 * 1024 * 1024; // 50MB
+    let totalSize = 0;
+
+    if (sessionUserIdx === "") {
+        showAlert("세션이 만료되었습니다. 다시 로그인 후 이용해주세요.", "login.l");
+        return false;
+    }
+
+    if (placeName === "") {
+        showAlert("공간을 추가해주세요.");
+        if (placeNameField) {
+            placeNameField.focus();
+        }
+        return false;
+    }
+
+    if (visitDate === "") {
+        showAlert("방문한 날짜를 선택해 주세요.");
+        document.forms["localLogForm"].visitDate.focus();
+        return false;
+    }
+
+    if (files.length === 0) {
+        showAlert("사진을 추가해주세요.");
+        return false;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        const fileExtension = files[i].name.split('.').pop().toLowerCase();
+        if (!validExtensions.includes(fileExtension)) {
+            showAlert("이미지 파일만 첨부 가능합니다. (jpg, jpeg, png, gif)");
+            return false;
+        }
+
+        if (files[i].size > maxFileSize) {
+            showAlert("각 파일의 크기는 5MB를 초과할 수 없습니다.");
+            return false;
+        }
+
+        totalSize += files[i].size;
+        if (totalSize > maxTotalSize) {
+            showAlert("총 파일 크기는 50MB를 초과할 수 없습니다.");
+            return false;
+        }
+    }
+
+    // 첫 번째 사진을 커버 이미지로 설정
+    document.getElementById('coverPhotoIndex').value = 0;
+
+    return true;
+}
+
+function previewPhoto(event) {
+    const files = event.target.files;
+    const photoPreviewContainer = document.getElementById('photoPreviewContainer');
+    photoPreviewContainer.innerHTML = ""; // 기존 미리보기 내용을 초기화
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('photo-preview');
+
+            const td = document.createElement('td');
+            td.appendChild(img);
+
+            const tr = document.createElement('tr');
+            tr.appendChild(td);
+
+            photoPreviewContainer.appendChild(tr);
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+
+/* 	document.addEventListener('DOMContentLoaded', function() {
 		function setVisibilityValue() {
 			const visibilityCheckbox = document.getElementById('visibility');
 			const visibilityInput = document.createElement('input');
@@ -28,13 +116,12 @@
 			const placeNameField = document.forms["localLogForm"].placeName;
 			const placeName = placeNameField ? placeNameField.value.trim() : "";
 			const visitDate = document.forms["localLogForm"].visitDate.value.trim();
-			const photoUpload = document.getElementById('file');
+			const photoUpload = document.getElementById('photo-upload');
 			const files = photoUpload.files;
 			const validExtensions = [ 'jpg', 'jpeg', 'png', 'gif' ];
 			const maxFileSize = 5 * 1024 * 1024; // 5MB
 			const maxTotalSize = 50 * 1024 * 1024; // 50MB
 			let totalSize = 0;
-			let originalFileNames = "";
 
 			if (sessionUserIdx === "") {
 				showAlert("세션이 만료되었습니다. 다시 로그인 후 이용해주세요.", "login.l");
@@ -51,7 +138,7 @@
 
 			if (visitDate === "") {
 				showAlert("방문한 날짜를 선택해 주세요.");
-				document.forms["localLogForm"].visitDate.focus();
+				document.forms["guestBookForm"].visitDate.focus();
 				return false;
 			}
 
@@ -77,17 +164,7 @@
 					showAlert("총 파일 크기는 50MB를 초과할 수 없습니다.");
 					return false;
 				}
-
-				if (originalFileNames) {
-					originalFileNames += "/";
-				}
-				originalFileNames += files[i].name;
 			}
-
-			document.getElementById('originalFileNames').value = originalFileNames;
-
-			// 첫 번째 사진을 커버 이미지로 설정
-			document.getElementById('coverPhoto').value = files[0].name;
 
 			return true;
 		}
@@ -102,16 +179,10 @@
 				}
 			});
 		} else {
-			console.error("로컬로그 폼이 존재하지 않습니다.");
+			console.error("방명록 폼이 존재하지 않습니다.");
 		}
-
-		// 파일 업로드 버튼 클릭 이벤트 핸들러 추가
-		const photoPlaceholder = document.querySelector('.photo-placeholder');
-		photoPlaceholder.addEventListener('click', function() {
-			document.getElementById('file').click();
-		});
 	});
-
+	
 	function previewPhoto(event) {
 		const files = event.target.files;
 		const photoPreviewContainer = document.getElementById('photoPreviewContainer');
@@ -137,7 +208,7 @@
 
 			reader.readAsDataURL(file);
 		}
-	}
+	} */
 
 	function switchModals() {
 		$('#searchAPlaceModal').modal('hide');
@@ -203,6 +274,8 @@
 			}
 		});
 	}
+
+
 </script>
 </head>
 <body>
@@ -215,33 +288,52 @@
 			<span>로컬로그 작성</span>
 		</div>
 		<div class="localLog-container">
-			<form name="localLogForm" class="localLog-form" method="post" action="submitLocalLog.ll" enctype="multipart/form-data">
+			<form name="localLogForm" class="localLog-form" method="post" action="submitLocalLog.g" enctype="multipart/form-data">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
-				<div class="form-group row">
-					<div class="col">
+				<!-- <div class="form-group row">
+					<div class="col-4">
 						<div class="photo-section">
 							<label for="photo-upload" class="photo-placeholder">
 								<span style="color: black">
-									<i class="ph-fill ph-plus-circle"></i> <b> 사진 추가 </b>
+									<b> 사진 추가 </b>
 									<span style="color: lightcoral;">*</span>
 								</span>
 							</label>
-							<input type="file" id="file" name="photoFiles" class="d-none" onchange="previewPhoto(event)" multiple />
+							<input type="file" id="photo-upload" name="photoFiles" class="d-none" onchange="previewPhoto(event)" multiple />
 						</div>
 					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col">
+					<div class="col-8">
 						<div class="table-responsive">
-							<table class="table table-borderedless">
+							<table class="table table-bordered">
+								<tbody id="photoPreviewContainer">
+									미리보기 이미지들이 여기에 추가
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div> -->
+				<div class="form-group row">
+					<div class="col-4">
+						<div class="photo-section">
+							<label for="photo-upload" class="photo-placeholder">
+								<span style="color: black">
+									<b> 사진 추가 </b>
+									<span style="color: lightcoral;">*</span>
+								</span>
+							</label>
+							<input type="file" id="photo-upload" name="photoFiles" class="d-none" onchange="previewPhoto(event)" multiple />
+						</div>
+					</div>
+					<div class="col-8">
+						<div class="table-responsive">
+							<table class="table table-bordered">
 								<tbody id="photoPreviewContainer">
 									<!-- 미리보기 이미지들이 여기에 추가 -->
 								</tbody>
 							</table>
 						</div>
-						<input type="hidden" id="coverPhoto" name="coverPhoto">
-						<input type="hidden" id="originalFileNames" name="originalFileNames">
 					</div>
+					<input type="hidden" id="coverPhotoIndex" name="coverPhotoIndex" value="">
 				</div>
 				<div class="form-group row">
 					<div class="col">
