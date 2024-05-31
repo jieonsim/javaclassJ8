@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%
+pageContext.setAttribute("newLine", "\n");
+%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -44,6 +48,34 @@ $(window).scroll(function(){
 	});
 });
 </script>
+<style>
+.carousel-inner img {
+	width: 100%;
+	/* height: 625px; */ 
+	/* height: 500px; */
+	height: 100%;
+	/* Maintain the aspect ratio */
+	object-fit: cover; /* Ensure the image covers the area */
+}
+    
+.card-img-overlay {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.7) 100%);
+	color: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding-left: 30px;
+	padding-bottom: 45px;
+}
+
+
+.card-title, .card-text {
+	/* margin-bottom: 10px; */
+}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -92,78 +124,60 @@ $(window).scroll(function(){
 					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
 			</ul>
-			<c:choose>
-				<c:when test="${not empty localLogs}">
-					<div class="container-flud px-0">
-						<div class="row no-gutters">
-							<c:forEach var="localLog" items="${localLogs}">
-								<div class="col-md-4">
-									<div class="card" id="archive-localLog-card">
-										<div class="image-container">
-											<img class="card-img-top" src="${ctp}/images/localLog/${localLog.coverImage}" alt="Card image" id="archive-localLog-card-img">
-											<c:if test="${localLog.visibility == 'private'}">
-												<i class="ph ph-lock icon-top-right"></i>
-											</c:if>
-										</div>
-										<div class="card-body">
-											<h4 class="card-title">${localLog.placeName}</h4>
-											<p class="card-text text-muted">
-												<c:choose>
-													<c:when test="${localLog.categoryName == '바'}">🍸&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '카페'}">☕&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '음식점'}">🍴&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '디저트 / 베이커리'}">🍰&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '포토존'}">🤳🏻&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '광장'}">👥&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '관광지'}">🗽&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '종교시설'}">⛪&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '역사 유적지'}">🕌&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '자연'}">🍃&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '복합문화공간'}">🎨&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '박물관'}">🏛️&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '음악'}">🎵&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '전시'}">🖼️&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '공연'}">🎫&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '도서관'}">📖&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '샵'}">🛍️&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '서점'}">📚&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '시장'}">🛒&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '쇼핑몰'}">🏬&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '호텔'}">🏨&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '스테이'}">🛏️&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '미용 / 스파'}">💇🏻‍♀️&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '오락'}">🎮&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '운동'}">🏃🏻&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '스튜디오 / 클래스'}">👩🏻‍💻&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '골프장'}">⛳&nbsp;</c:when>
-													<c:when test="${localLog.categoryName == '캠핑장'}">🏕️&nbsp;</c:when>
-												</c:choose>
-												${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}
-											</p>
-											<a href="#" class="stretched-link"></a>
-										</div>
-									</div>
+			<hr>
+			<div class="container my-4" style="width: 450px;">
+				<div class="d-flex justify-content-between">
+					<div>
+						<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
+							<i class="ph ph-caret-left"></i>
+						</a>
+						<span class="text-dark" style="font-size: 14px;">${localLog.visitDate}&nbsp;방문</span>
+					</div>
+					<div>
+						<a href="#" data-toggle="modal" data-target="#updateLocalLog" class="text-dark" style="text-decoration: none;">
+							<i class="ph ph-dots-three" style="font-size: 20px"></i>
+						</a>
+					</div>
+				</div>
+				<div class="position-relative" style="width: 100%; margin: auto;">
+					<div id="cardCarousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
+								<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
+							</c:forEach>
+						</ol>
+						<div class="carousel-inner">
+							<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
+								<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+									<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
 								</div>
 							</c:forEach>
 						</div>
+						<a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
 					</div>
-					<!-- 위로가기 버튼 -->
-					<div id="topBtn" class="">
-						<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
+					<div class="card-img-overlay">
+						<h4 class="card-title" style="color: white">${localLog.placeName}</h4>
+						<p class="card-text" style="color: white">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
 					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="text-center" style="margin-top: 100px;">
-						<div class="mb-2">내가 방문한 공간을 기록해보세요.</div>
-						<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-localLog.ll'">첫 로컬로그 남기기</button>
+				</div>
+				<c:if test="${not empty localLog.content}">
+					<div class="localLogContent-container mt-3">
+						<div>${fn:replace(localLog.content, newLine, "<br>")}</div>
 					</div>
-				</c:otherwise>
-			</c:choose>
-			<div class="text-center" style="margin-top: 100px;">
-				<i class="ph ph-image" style="font-size: 48px"></i>
-				<div class="mb-1 mt-3" style="font-weight: bold">콘텐츠가 없습니다.</div>
-				<div style="color: dimgray">아직 콘텐츠가 존재하지 않습니다.</div>
+				</c:if>
 			</div>
+			<hr>
+		</div>
+		<!-- 위로가기 버튼 -->
+		<div id="topBtn" class="">
+			<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 		</div>
 	</div>
 	<input type="hidden" id="message" value="${message}" />

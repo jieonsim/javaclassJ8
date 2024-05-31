@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import archive.curation.ArchiveCurationCommand;
 import archive.guestBook.ArchiveGuestBookCommand;
 import archive.guestBook.DeleteGuestBookCommand;
 import archive.guestBook.ToggleVisibilityCommand;
 import archive.localLog.ArchiveLocalLogCommand;
+import archive.localLog.LocalLogDetailCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.a")
@@ -42,6 +44,10 @@ public class ArchiveController extends HttpServlet {
 			return;
 		} else if (com.equals("toggleVisibility")) {
 			command = new ToggleVisibilityCommand();
+			command.execute(request, response);
+			return;
+		} else if (com.equals("localLogDetail")) {
+			command = new LocalLogDetailCommand();
 			command.execute(request, response);
 			return;
 		}

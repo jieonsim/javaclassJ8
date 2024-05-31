@@ -1,4 +1,4 @@
-package archive;
+package archive.curation;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import archive.ArchiveInterface;
 import user.UserDAO;
 import user.UserVO;
 

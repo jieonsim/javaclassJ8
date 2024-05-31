@@ -46,7 +46,7 @@ SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName FROM localLogs 
 
 
 
-
+SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName FROM localLogs ll JOIN places p ON ll.placeIdx = p.placeIdx JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE ll.localLogIdx = 15
 
 
 

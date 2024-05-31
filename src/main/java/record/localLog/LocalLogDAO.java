@@ -77,7 +77,7 @@ public class LocalLogDAO {
 		return count;
 	}
 
-	// userIdx로 해당 userIdx에 등록된 방명록 데이터 가져오기 / 아카이브-로컬로그
+	// userIdx로 해당 userIdx에 등록된 로컬로그 데이터 가져오기 / 아카이브-로컬로그
 	public List<LocalLogVO> getLocalLogsByUserIdx(int userIdx) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
@@ -111,7 +111,7 @@ public class LocalLogDAO {
 				if (photoArray.length > 0) {
 					localLog.setCoverImage(photoArray[0]);
 				}
-				
+
 				localLogs.add(localLog);
 			}
 		} catch (SQLException e) {
@@ -120,5 +120,46 @@ public class LocalLogDAO {
 			rsClose();
 		}
 		return localLogs;
+	}
+
+	public LocalLogVO getLocalLogByIdx(int localLogIdx) {
+		LocalLogVO localLog = null;
+		try {
+			String sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.localLogIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, localLogIdx);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				localLog = new LocalLogVO();
+				localLog.setLocalLogIdx(rs.getInt("localLogIdx"));
+				localLog.setUserIdx(rs.getInt("userIdx"));
+				localLog.setPlaceIdx(rs.getInt("placeIdx"));
+				localLog.setContent(rs.getString("content"));
+				localLog.setPhotos(rs.getString("photos"));
+				localLog.setVisitDate(rs.getDate("visitDate"));
+				localLog.setCommunity(rs.getString("community"));
+				localLog.setVisibility(rs.getString("visibility"));
+				localLog.setCreatedAt(rs.getTimestamp("created_at"));
+				localLog.setUpdatedAt(rs.getTimestamp("updated_at"));
+				localLog.setHostIp(rs.getString("hostIp"));
+				localLog.setPlaceName(rs.getString("placeName"));
+				localLog.setRegion1DepthName(rs.getString("region1DepthName"));
+				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
+				localLog.setCategoryName(rs.getString("categoryName"));
+
+				// 커버 이미지를 설정합니다.
+				String[] photoArray = rs.getString("photos").split("/");
+				if (photoArray.length > 0) {
+					localLog.setCoverImage(photoArray[0]);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("getLocalLogByIdx SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return localLog;
 	}
 }

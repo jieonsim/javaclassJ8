@@ -145,7 +145,7 @@ $(window).scroll(function(){
 												</c:choose>
 												${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}
 											</p>
-											<a href="#" class="stretched-link"></a>
+											<a href="localLogDetail.a?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
 										</div>
 									</div>
 								</div>
