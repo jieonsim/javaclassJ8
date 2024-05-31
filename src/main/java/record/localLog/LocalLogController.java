@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import record.common.SearchPlaceCommand;
+import record.SearchPlaceCommand;
 import record.guestBook.GuestBookInterface;
 
 @SuppressWarnings("serial")

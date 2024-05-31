@@ -19,7 +19,7 @@ import javax.servlet.http.Part;
 
 import place.PlaceDAO;
 import place.PlaceVO;
-import record.common.LoadCategoriesHelper;
+import record.LoadCategoriesHelper;
 
 @SuppressWarnings("serial")
 @WebServlet("/submitLocalLog.ll")
@@ -36,7 +36,7 @@ public class SubmitLocalLogCommand extends HttpServlet {
 
 		try {
 			// 파일 저장 경로 설정 및 디렉토리 생성 확인
-			String realPath = request.getServletContext().getRealPath("/images/record/localLog/");
+			String realPath = request.getServletContext().getRealPath("/images/localLog/");
 			File uploadDir = new File(realPath);
 			if (!uploadDir.exists()) {
 				uploadDir.mkdirs(); // 디렉토리가 없으면 생성

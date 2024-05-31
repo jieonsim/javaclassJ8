@@ -204,36 +204,6 @@
 		<div class="localLog-container">
 			<form name="localLogForm" class="localLog-form" method="post" action="submitLocalLog.ll" enctype="multipart/form-data">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
-				<!-- 				<div class="form-group row">
-					<div class="col">
-						<div class="photo-section">
-							<label for="photo-upload" class="photo-placeholder">
-								<span style="color: black">
-									<i class="ph-fill ph-plus-circle"></i> <b> 사진 추가 </b>
-									<span style="color: lightcoral;">*</span>
-								</span>
-							</label>
-							<input type="file" id="photo-upload" name="photos" class="d-none" onchange="previewPhoto(event)" multiple />
-							<input type="file" id="photo-upload" name="photos" class="d-none" multiple />
-						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col">
-						<div class="table-responsive">
-							<table class="table table-borderedless">
-								<tbody id="photoPreviewContainer">
-									미리보기 이미지들이 여기에 추가
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div> -->
-				<!-- <div class="form-group row">
-					<div class="col">
-						<textarea name="content" rows="6" class="form-control" id="content" placeholder="로컬로그를 작성해 보세요."></textarea>
-					</div>
-				</div> -->
 				<div class="form-group row">
 					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>

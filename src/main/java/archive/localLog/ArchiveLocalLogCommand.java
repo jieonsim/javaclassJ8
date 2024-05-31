@@ -1,6 +1,7 @@
-package archive;
+package archive.localLog;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import archive.ArchiveInterface;
+import record.localLog.LocalLogDAO;
+import record.localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 
@@ -30,16 +34,24 @@ public class ArchiveLocalLogCommand implements ArchiveInterface {
 		}
 
 		UserDAO userDAO = new UserDAO();
-		UserVO userVO = userDAO.getUserByIdx(sessionUserIdx);
+		UserVO users = userDAO.getUserByIdx(sessionUserIdx);
 
-		if (userVO == null) {
+		if (users == null) {
 			request.setAttribute("message", "사용자 정보를 가져오지 못했습니다.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
 
-		request.setAttribute("userVO", userVO);
+		LocalLogDAO localLogDAO = new LocalLogDAO();
+
+		List<LocalLogVO> localLogs = localLogDAO.getLocalLogsByUserIdx(sessionUserIdx);
+		int localLogCount = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
+
+		request.setAttribute("users", users);
+		request.setAttribute("localLogs", localLogs);
+		request.setAttribute("localLogCount", localLogCount);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

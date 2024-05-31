@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+#guestBookPlaceName {
+	font-size: 18px;
+}
+
+#guestBookContent {
+	background-color: #f2f2f2;
+	font-size: 18px;
+}
+
+#guestBookSetUp {
+	font-size: 20px;
+}

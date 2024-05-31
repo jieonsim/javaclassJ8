@@ -67,12 +67,7 @@ $(window).scroll(function(){
 					</div>
 				</div>
 				<div class="col-9">
-					<div class="nickname-container">
-						<c:if test="${users.visibility == 'private'}">
-							<i class="ph ph-lock"></i>
-						</c:if>
-						<span id="nickname">${users.nickname}</span>
-					</div>
+					<div class="mb-3" id="nickname">${users.nickname}</div>
 					<c:choose>
 						<c:when test="${not empty users.introduction}">
 							<div>${users.introduction}</div>

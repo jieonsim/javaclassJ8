@@ -42,6 +42,50 @@ INSERT INTO categories (categoryName, categoryType) VALUES
 ('골프장', '액티비티'),
 ('캠핑장', '액티비티');
 
+ALTER TABLE categories ADD COLUMN emoticon VARCHAR(5);
+ALTER TABLE categories DROP COLUMN emoticon;
+
+UPDATE categories SET emoticon = '🍸 ' WHERE categoryIdx = 1;
+UPDATE categories SET emoticon = '☕' WHERE categoryIdx = 2;
+UPDATE categories SET emoticon = '🍴' WHERE categoryIdx = 3;
+UPDATE categories SET emoticon = '🍰' WHERE categoryIdx = 4;
+UPDATE categories SET emoticon = '📷' WHERE categoryIdx = 5;
+UPDATE categories SET emoticon = '👥' WHERE categoryIdx = 6;
+UPDATE categories SET emoticon = '🗽' WHERE categoryIdx = 7;
+UPDATE categories SET emoticon = '⛪' WHERE categoryIdx = 8;
+UPDATE categories SET emoticon = '🕌' WHERE categoryIdx = 9;
+UPDATE categories SET emoticon = '🏞️' WHERE categoryIdx = 10;
+UPDATE categories SET emoticon = '🎨' WHERE categoryIdx = 11;
+UPDATE categories SET emoticon = '🏛️' WHERE categoryIdx = 12;
+UPDATE categories SET emoticon = '🎵' WHERE categoryIdx = 13;
+UPDATE categories SET emoticon = '🖼️' WHERE categoryIdx = 14;
+UPDATE categories SET emoticon = '🎫' WHERE categoryIdx = 15;
+UPDATE categories SET emoticon = '📖' WHERE categoryIdx = 16;
+UPDATE categories SET emoticon = '🛍️' WHERE categoryIdx = 17;
+UPDATE categories SET emoticon = '📚' WHERE categoryIdx = 18;
+UPDATE categories SET emoticon = '🛒' WHERE categoryIdx = 19;
+UPDATE categories SET emoticon = '🏬' WHERE categoryIdx = 20;
+UPDATE categories SET emoticon = '🏨' WHERE categoryIdx = 21;
+UPDATE categories SET emoticon = '🛏️' WHERE categoryIdx = 22;
+UPDATE categories SET emoticon = '💇🏻‍♀️' WHERE categoryIdx = 23;
+UPDATE categories SET emoticon = '🎮' WHERE categoryIdx = 24;
+UPDATE categories SET emoticon = '🏃🏻' WHERE categoryIdx = 25;
+UPDATE categories SET emoticon = '👩🏻‍💻' WHERE categoryIdx = 26;
+UPDATE categories SET emoticon = '⛳' WHERE categoryIdx = 27;
+UPDATE categories SET emoticon = '🏕️' WHERE categoryIdx = 28;
+
+
+ALTER DATABASE javaclass8 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Set table character set to utf8mb4
+ALTER TABLE localLogs CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE places CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE categories CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Set column character set to utf8mb4 (if necessary)
+ALTER TABLE localLogs MODIFY COLUMN content TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE localLogs MODIFY COLUMN photos VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 select * from categories;
 desc categories;
 

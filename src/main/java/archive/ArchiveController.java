@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import archive.guestBook.ArchiveGuestBookCommand;
 import archive.guestBook.DeleteGuestBookCommand;
 import archive.guestBook.ToggleVisibilityCommand;
+import archive.localLog.ArchiveLocalLogCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.a")
@@ -44,6 +45,7 @@ public class ArchiveController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

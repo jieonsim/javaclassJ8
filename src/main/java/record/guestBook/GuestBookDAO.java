@@ -81,6 +81,7 @@ public class GuestBookDAO {
 				guestBook.setCompanions(rs.getString("companions"));
 				guestBook.setVisibility(rs.getString("visibility"));
 				guestBook.setCreatedAt(rs.getTimestamp("createdAt"));
+				guestBook.setUpdatedAt(rs.getTimestamp("updatedAt"));
 				guestBook.setHostIp(rs.getString("hostIp"));
 				guestBook.setPlaceName(rs.getString("placeName"));
 				guestBook.setRegion1DepthName(rs.getString("region1DepthName"));
@@ -136,7 +137,7 @@ public class GuestBookDAO {
 		return false;
 	}
 
-	// 본인 아카이브 접속 시 방명록 개수 보여주기
+	// 본인 아카이브 - 방명록 메뉴 접속 시 방명록 개수 보여주기
 	public int getGuestBookCountByUserIdx(int userIdx) {
 		int count = 0;
 		try {

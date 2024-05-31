@@ -85,7 +85,8 @@ h4 {
 
 .table-responsive {
 	overflow-x: auto;
-	max-height: 250px;
+	/*max-height: 250px;*/
+	max-height: 500px;
 }
 
 .table-bordered {

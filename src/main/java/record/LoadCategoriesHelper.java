@@ -1,4 +1,4 @@
-package record.common;
+package record;
 
 import java.util.ArrayList;
 import java.util.HashMap;

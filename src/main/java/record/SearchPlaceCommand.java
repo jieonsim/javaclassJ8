@@ -1,4 +1,4 @@
-package record.common;
+package record;
 
 import java.io.IOException;
 import java.util.List;

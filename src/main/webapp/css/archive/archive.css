@@ -230,3 +230,14 @@ input:checked+.slider:before {
 	margin: 0;
 	border: none;
 }
+
+.nickname-container {
+	display: flex;
+	align-items: center;
+}
+
+.nickname-container .ph-lock {
+	margin-right: 10px;
+	font-size: 18px;
+	/* Adjust the spacing as needed */
+}

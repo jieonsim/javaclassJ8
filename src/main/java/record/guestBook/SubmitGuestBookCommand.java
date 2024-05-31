@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import place.PlaceDAO;
 import place.PlaceVO;
-import record.common.LoadCategoriesHelper;
+import record.LoadCategoriesHelper;
 
 public class SubmitGuestBookCommand implements GuestBookInterface {
 

@@ -44,6 +44,7 @@ public class ArchiveGuestBookCommand implements ArchiveInterface {
 		}
 		
 		GuestBookDAO guestBookDAO = new GuestBookDAO();
+		
         List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByUserIdx(sessionUserIdx);
         int guestBookCount = guestBookDAO.getGuestBookCountByUserIdx(sessionUserIdx);
         

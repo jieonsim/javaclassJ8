@@ -15,6 +15,7 @@ pageContext.setAttribute("newLine", "\n");
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive-guestBook.css" />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -129,7 +130,7 @@ function deleteCheck(guestBookIdx) {
                             }
                         });
                     } else if (response === 'failed') {
-                        showAlert("방명록 삭제에 실패했습니다.1");
+                        showAlert("방명록 삭제에 실패했습니다.");
                     } else {
                         console.error("Unexpected response:", response);
                         showAlert("예상치 못한 응답: " + response);
@@ -137,7 +138,7 @@ function deleteCheck(guestBookIdx) {
                 },
                 error: function(xhr, status, error) {
                     console.error("Error during AJAX request:", status, error);
-                    showAlert("방명록 삭제에 실패했습니다.2");
+                    showAlert("방명록 삭제에 실패했습니다.");
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -183,7 +184,12 @@ $(window).scroll(function(){
 					</div>
 				</div>
 				<div class="col-9">
-					<div class="mb-3" id="nickname">${users.nickname}</div>
+					<div class="nickname-container">
+						<c:if test="${users.visibility == 'private'}">
+							<i class="ph ph-lock"></i>
+						</c:if>
+						<span id="nickname">${users.nickname}</span>
+					</div>
 					<c:choose>
 						<c:when test="${not empty users.introduction}">
 							<div>${users.introduction}</div>
@@ -213,13 +219,13 @@ $(window).scroll(function(){
 					<c:forEach var="guestBook" items="${guestBooks}">
 						<div class="d-flex flex-column border-bottom py-3">
 							<div>
-								<div style="font-size: 18px;">
+								<div id="guestBookPlaceName">
 									<b>${guestBook.placeName}</b>
 								</div>
 								<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
 							</div>
 							<c:if test="${not empty guestBook.content}">
-								<div class="mt-2 p-3" style="background-color: #f2f2f2; font-size: 18px;">${fn:replace(guestBook.content, newLine, "<br>")}</div>
+								<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
 							</c:if>
 							<div class="row">
 								<div class="col-sm-6">
@@ -229,7 +235,7 @@ $(window).scroll(function(){
 										<c:if test="${guestBook.companions != '기타'}">&nbsp;· ${guestBook.companions}</c:if>
 									</div>
 								</div>
-								<div class="col-sm-6" style="font-size: 20px;">
+								<div class="col-sm-6" id="guestBookSetUp">
 									<div class="d-flex justify-content-end mt-2">
 										<c:if test="${guestBook.visibility == 'private'}">
 											<i class="ph ph-lock mr-2"></i>

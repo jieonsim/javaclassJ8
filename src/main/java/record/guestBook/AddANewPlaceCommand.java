@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import place.PlaceVO;
-import record.common.LoadCategoriesHelper;
+import record.LoadCategoriesHelper;
 
 public class AddANewPlaceCommand implements GuestBookInterface {
 

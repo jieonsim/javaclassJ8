@@ -23,6 +23,8 @@ CREATE TABLE localLogs (
     FOREIGN KEY (userIdx) REFERENCES users2(userIdx),
     FOREIGN KEY (placeIdx) REFERENCES places(placeIdx)
 );
+
+------------------------------------------------------------------------
 CREATE TABLE localLogs (
     localLogIdx INT AUTO_INCREMENT PRIMARY KEY,
     userIdx INT,
@@ -38,6 +40,15 @@ CREATE TABLE localLogs (
     FOREIGN KEY (userIdx) REFERENCES users2(userIdx),
     FOREIGN KEY (placeIdx) REFERENCES places(placeIdx)
 );
+
+
+SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName FROM localLogs ll JOIN places p ON ll.placeIdx = p.placeIdx WHERE ll.userIdx = 16 ORDER BY ll.visitDate DESC;
+
+
+
+
+
+
 
 -- 인덱스 추가
 CREATE INDEX idx_localLogs_userIdx ON localLogs(userIdx);

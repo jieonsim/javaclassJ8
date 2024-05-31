@@ -16,6 +16,13 @@ public class LocalLogVO {
 	private Timestamp updatedAt;
 	private String hostIp;
 
+	// 추가
+	private String placeName;
+	private String region1DepthName;
+	private String region2DepthName;
+	private String coverImage;
+	private String categoryName;
+
 	public int getLocalLogIdx() {
 		return localLogIdx;
 	}
@@ -104,10 +111,51 @@ public class LocalLogVO {
 		this.hostIp = hostIp;
 	}
 
-	@Override
-	public String toString() {
-		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos + ", visitDate=" + visitDate
-				+ ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + "]";
+	public String getPlaceName() {
+		return placeName;
 	}
 
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getRegion1DepthName() {
+		return region1DepthName;
+	}
+
+	public void setRegion1DepthName(String region1DepthName) {
+		this.region1DepthName = region1DepthName;
+	}
+
+	public String getRegion2DepthName() {
+		return region2DepthName;
+	}
+
+	public void setRegion2DepthName(String region2DepthName) {
+		this.region2DepthName = region2DepthName;
+	}
+
+	public String getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(String coverImage) {
+		this.coverImage = coverImage;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	@Override
+	public String toString() {
+		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos
+				+ ", visitDate=" + visitDate + ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName="
+				+ region2DepthName + ", coverImage=" + coverImage + ", categoryName=" + categoryName + "]";
+	}
 }

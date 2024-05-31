@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import common.GetConnection;
 
@@ -54,5 +56,69 @@ public class LocalLogDAO {
 		} finally {
 			pstmtClose();
 		}
+	}
+
+	// userIdx로 해당 userIdx에 등록된 로컬로그 개수 가져오기 / 아카이브-로컬로그
+	public int getLocalLogCountByUserIdx(int userIdx) {
+		int count = 0;
+		try {
+			sql = "SELECT COUNT(*) FROM localLogs WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("getLocalLogCountByUserIdx SQL 오류: " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return count;
+	}
+
+	// userIdx로 해당 userIdx에 등록된 방명록 데이터 가져오기 / 아카이브-로컬로그
+	public List<LocalLogVO> getLocalLogsByUserIdx(int userIdx) {
+		List<LocalLogVO> localLogs = new ArrayList<>();
+		try {
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.userIdx = ? "
+					+ "ORDER BY ll.visitDate DESC";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				LocalLogVO localLog = new LocalLogVO();
+				localLog.setLocalLogIdx(rs.getInt("localLogIdx"));
+				localLog.setUserIdx(rs.getInt("userIdx"));
+				localLog.setPlaceIdx(rs.getInt("placeIdx"));
+				localLog.setContent(rs.getString("content"));
+				localLog.setPhotos(rs.getString("photos"));
+				localLog.setVisitDate(rs.getDate("visitDate"));
+				localLog.setCommunity(rs.getString("community"));
+				localLog.setVisibility(rs.getString("visibility"));
+				localLog.setCreatedAt(rs.getTimestamp("created_at"));
+				localLog.setUpdatedAt(rs.getTimestamp("updated_at"));
+				localLog.setHostIp(rs.getString("hostIp"));
+				localLog.setPlaceName(rs.getString("placeName"));
+				localLog.setRegion1DepthName(rs.getString("region1DepthName"));
+				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
+				localLog.setCategoryName(rs.getString("categoryName"));
+
+				// 커버 이미지를 설정합니다.
+				String[] photoArray = rs.getString("photos").split("/");
+				if (photoArray.length > 0) {
+					localLog.setCoverImage(photoArray[0]);
+				}
+				
+				localLogs.add(localLog);
+			}
+		} catch (SQLException e) {
+			System.out.println("getLocalLogsByUserIdx SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return localLogs;
 	}
 }
