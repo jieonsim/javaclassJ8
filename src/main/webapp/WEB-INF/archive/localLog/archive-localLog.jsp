@@ -136,7 +136,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			<ul class="d-flex justify-content-between list-unstyled">
 				<li>
 					<a href="archive-localLog.a" id="localLog">로컬로그</a>
-					<span>${localLogCount}</span>
+					<c:if test="${not empty localLogs}">
+						<span>${localLogCount}</span>
+					</c:if>
 				</li>
 				<li>
 					<a href="archive-guestBook.a" id="guestBook">방명록</a>
@@ -202,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						</div>
 					</div>
 					<!-- 위로가기 버튼 -->
-					<div id="topBtn" class="">
+					<div id="topBtn">
 						<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 					</div>
 				</c:when>

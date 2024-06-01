@@ -257,7 +257,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				</li>
 				<li>
 					<a href="archive-guestBook.a" id="guestBook">방명록</a>
-					<span>${guestBookCount}</span>
+					<c:if test="${not empty localLogs}">
+						<span>${guestBookCount}</span>
+					</c:if>
 				</li>
 				<li>
 					<a href="archive-curation.a" id="curation">큐레이션</a>

@@ -1,6 +1,8 @@
 package main;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import record.localLog.LocalLogDAO;
+import record.localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 
@@ -47,6 +52,15 @@ public class Main extends HttpServlet {
 
 			request.setAttribute("userVO", userVO);
 		}
+
+		LocalLogDAO localLogDAO = new LocalLogDAO();
+		int pageSize = 1;
+		int totalPages = (int) Math.ceil((double) localLogDAO.getLocalLogCount() / pageSize);
+		List<LocalLogVO> localLogs = localLogDAO.getRandomLocalLogs(0, pageSize);
+
+		request.setAttribute("localLogs", localLogs);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("curScrStartNo", localLogDAO.getLocalLogCount());
 
 		String viewPage = "/WEB-INF/main/main.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

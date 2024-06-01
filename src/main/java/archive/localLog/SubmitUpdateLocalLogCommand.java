@@ -87,10 +87,7 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 			String visibility = request.getParameter("visibility");
 			String hostIp = request.getParameter("hostIp");
 
-			System.out.println("placeIdxStr1: " + placeIdxStr);
-
 			if (placeIdxStr == null || placeIdxStr.isEmpty() || placeName == null || placeName.isEmpty()) {
-				System.out.println("placeIdxStr2: " + placeIdxStr);
 	            request.setAttribute("message", "공간을 추가해주세요.");
 	            response.sendRedirect("updateLocalLog.a?localLogIdx=" + localLogIdxStr);
 	            return;

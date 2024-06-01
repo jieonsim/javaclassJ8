@@ -165,7 +165,7 @@ function deleteCheck(localLogIdx) {
 				</li>
 			</ul>
 			<hr>
-			<div class="container my-4" style="width: 450px;">
+			<div class="container my-4 pt-3" style="width: 450px;">
 				<div class="d-flex justify-content-between">
 					<div>
 						<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
@@ -203,8 +203,8 @@ function deleteCheck(localLogIdx) {
 						</a>
 					</div>
 					<div class="card-img-overlay">
-						<h4 class="card-title" style="color: white">${localLog.placeName}</h4>
-						<p class="card-text" style="color: white">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
+						<div class="card-title" style="color: white; font-size:18px"><b>${localLog.placeName}</b></div>
+						<div class="card-text" style="color: white; font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
 					</div>
 				</div>
 				<c:if test="${not empty localLog.content}">

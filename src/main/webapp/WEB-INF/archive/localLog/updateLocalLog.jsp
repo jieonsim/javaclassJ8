@@ -184,7 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	<jsp:include page="/WEB-INF/record/localLog/addANewPlaceModal.jsp" />
 	<div class="container mt-5">
 		<div class="localLog_title">
-			<i class="ph ph-image"></i>
+			<!-- <i class="ph ph-image"></i> -->
+			<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
+				<i class="ph ph-caret-left"></i>
+			</a>
 			<span>로컬로그 수정</span>
 		</div>
 		<div class="localLog-container">
