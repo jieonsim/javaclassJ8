@@ -1,7 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.List"%>
 <%@ page import="record.localLog.LocalLogVO"%>
+<!-- 디버깅용 데이터 출력 -->
+<%
+if (request.getAttribute("localLogs") == null) {
+	out.println("localLogs is null");
+} else {
+	List<LocalLogVO> localLogs = (List<LocalLogVO>) request.getAttribute("localLogs");
+	out.println("localLogs size: " + localLogs.size());
+	for (LocalLogVO log : localLogs) {
+		out.println("LocalLog: " + log.toString());
+	}
+}
+%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -36,7 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
 $(window).scroll(function(){
 	if($(this).scrollTop() > 100) {
 		$("#topBtn").addClass("on");
-	} else {
+	}
+	else {
 		$("#topBtn").removeClass("on");
 	}
 	
@@ -47,13 +60,15 @@ $(window).scroll(function(){
 
 function getNextList(curPage) {
     $.ajax({
-        url: "getNextLocalLog.a",
+        url: "/javaclassJ8/getNextLocalLog.a",  // 여기서 your_context_path를 프로젝트 이름으로 변경합니다.
         type: "post",
-        data: { pag: curPage },
+        data: {
+            pag: curPage
+        },
         success: function(res) {
-            console.log("AJAX Response:", res);
+            console.log("AJAX Response:", res); // 응답 데이터를 콘솔에 출력
             $("#list-wrap").append(res);
-            updateTotalPages(); // AJAX 응답 후 totalPages 요소 확인
+            checkTotalPages(); // AJAX 응답 후에 totalPages 요소 확인
         },
         error: function(err) {
             console.log("Error: ", err);
@@ -61,44 +76,11 @@ function getNextList(curPage) {
     });
 }
 
-function updateTotalPages() {
+function checkTotalPages() {
     let totalPagesElement = document.getElementById('totalPages');
     if (totalPagesElement) {
         let totalPages = parseInt(totalPagesElement.value, 10);
-        console.log("Total Pages after AJAX:", totalPages);
-        return totalPages;
-    } else {
-        console.error("totalPages element not found after AJAX!");
-        return 0;
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    let lastScroll = 0;
-    let curPage = 1;
-    let totalPages = updateTotalPages();
-
-    $(document).scroll(function() {
-        let currentScroll = $(this).scrollTop();
-        let documentHeight = $(document).height();
-        let nowHeight = $(this).scrollTop() + $(window).height();
-
-        if (currentScroll > lastScroll && curPage < totalPages) {
-            if (documentHeight < (nowHeight + (documentHeight * 0.1))) {
-                console.log("Get next page");
-                curPage++;
-                getNextList(curPage);
-            }
-        }
-        lastScroll = currentScroll;
-    });
-});       		
-
-/* function checkTotalPages() {
-    let totalPagesElement = document.getElementById('totalPages');
-    if (totalPagesElement) {
-        let totalPages = parseInt(totalPagesElement.value, 10);
-        console.log("Total Pages after AJAX:", totalPages);
+        console.log("Total Pages after AJAX:", totalPages); // AJAX 응답 후 totalPages 값 확인
     } else {
         console.error("totalPages element not found after AJAX!");
     }
@@ -107,16 +89,17 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
     let lastScroll = 0;
     let curPage = 1;
-    checkTotalPages();
+    checkTotalPages(); // DOMContentLoaded 후 totalPages 요소 확인
 
     $(document).scroll(function() {
         let totalPagesElement = document.getElementById('totalPages');
         if (totalPagesElement) {
             let totalPages = parseInt(totalPagesElement.value, 10);
-            let currentScroll = $(this).scrollTop();
-            let documentHeight = $(document).height();
-            let nowHeight = $(this).scrollTop() + $(window).height();
+            let currentScroll = $(this).scrollTop(); // 스크롤바 위쪽 시작 위치, 처음은 0이다.
+            let documentHeight = $(document).height(); // 화면에 표시되는 전체 문서의 높이
+            let nowHeight = $(this).scrollTop() + $(window).height(); // 현재 화면 상단 + 현재 화면 높이
 
+            // 스크롤이 아래로 내려갔을 때 이벤트 처리..
             if (currentScroll > lastScroll && curPage < totalPages) {
                 if (documentHeight < (nowHeight + (documentHeight * 0.1))) {
                     console.log("Get next page");
@@ -129,7 +112,17 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("totalPages element not found in scroll event!");
         }
     });
-}); */
+});
+
+function checkTotalPages() {
+    let totalPagesElement = document.getElementById('totalPages');
+    if (totalPagesElement) {
+        let totalPages = parseInt(totalPagesElement.value, 10);
+        console.log("Total Pages after DOMContentLoaded:", totalPages); // DOMContentLoaded 후 totalPages 값 확인
+    } else {
+        console.error("totalPages element not found after DOMContentLoaded!");
+    }
+}
 </script>
 </head>
 <body>
@@ -186,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			</ul>
 			<c:choose>
 				<c:when test="${not empty localLogs}">
-					<div class="container-flud px-0" id="list-wrap">
+					<div class="container-flud px-0">
 						<div class="row no-gutters">
 							<c:forEach var="localLog" items="${localLogs}">
 								<div class="col-md-4">

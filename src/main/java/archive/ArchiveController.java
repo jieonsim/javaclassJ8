@@ -14,6 +14,7 @@ import archive.guestBook.ArchiveGuestBookCommand;
 import archive.guestBook.DeleteGuestBookCommand;
 import archive.guestBook.ToggleVisibilityCommand;
 import archive.localLog.ArchiveLocalLogCommand;
+import archive.localLog.GetNextLocalLogCommand;
 import archive.localLog.LocalLogDetailCommand;
 
 @SuppressWarnings("serial")
@@ -48,6 +49,10 @@ public class ArchiveController extends HttpServlet {
 			return;
 		} else if (com.equals("localLogDetail")) {
 			command = new LocalLogDetailCommand();
+			command.execute(request, response);
+			return;
+		} else if (com.equals("getNextLocalLog")) {
+			command = new GetNextLocalLogCommand();
 			command.execute(request, response);
 			return;
 		}

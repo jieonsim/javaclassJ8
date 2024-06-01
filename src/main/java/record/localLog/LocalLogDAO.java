@@ -78,14 +78,20 @@ public class LocalLogDAO {
 	}
 
 	// userIdx로 해당 userIdx에 등록된 로컬로그 데이터 가져오기 / 아카이브-로컬로그
-	public List<LocalLogVO> getLocalLogsByUserIdx(int userIdx) {
+	public List<LocalLogVO> getLocalLogsByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll "
-					+ "JOIN places p ON ll.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.userIdx = ? "
-					+ "ORDER BY ll.visitDate DESC";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + 
+		              "FROM localLogs ll " +
+		              "JOIN places p ON ll.placeIdx = p.placeIdx " + 
+		              "JOIN categories c ON p.categoryIdx = c.categoryIdx " + 
+		              "WHERE ll.userIdx = ? " +
+		              "ORDER BY ll.visitDate DESC " +
+		              "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
+			pstmt.setInt(2, startIndexNo);
+	        pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

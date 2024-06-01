@@ -24,7 +24,6 @@ public class ArchiveLocalLogCommand implements ArchiveInterface {
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
-		// Null 검사
 		if (sessionUserIdx == null) {
 			request.setAttribute("message", "로그인 후 이용하실 수 있습니다.");
 			viewPage = "/WEB-INF/user/login/login.jsp";
@@ -45,12 +44,21 @@ public class ArchiveLocalLogCommand implements ArchiveInterface {
 
 		LocalLogDAO localLogDAO = new LocalLogDAO();
 
-		List<LocalLogVO> localLogs = localLogDAO.getLocalLogsByUserIdx(sessionUserIdx);
+		int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
+		int pageSize = 6;
+		int totRecCnt = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
+		int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
+		int startIndexNo = (pag - 1) * pageSize;
+		int curScrStartNo = totRecCnt - startIndexNo;
+
+		List<LocalLogVO> localLogs = localLogDAO.getLocalLogsByUserIdx(sessionUserIdx, startIndexNo, pageSize);
 		int localLogCount = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
 
 		request.setAttribute("users", users);
 		request.setAttribute("localLogs", localLogs);
 		request.setAttribute("localLogCount", localLogCount);
+		request.setAttribute("curScrStartNo", curScrStartNo);
+		request.setAttribute("totalPages", totalPages);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

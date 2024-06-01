@@ -31,7 +31,7 @@ import record.LoadCategoriesHelper;
 )
 public class SubmitLocalLogCommand extends HttpServlet {
 
-    private static final int IMG_WIDTH = 1080;
+	private static final int IMG_WIDTH = 1080;
     //private static final int IMG_HEIGHT = 1440;
     private static final int IMG_HEIGHT = 1350;
 
