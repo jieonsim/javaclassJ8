@@ -81,17 +81,13 @@ public class LocalLogDAO {
 	public List<LocalLogVO> getLocalLogsByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + 
-		              "FROM localLogs ll " +
-		              "JOIN places p ON ll.placeIdx = p.placeIdx " + 
-		              "JOIN categories c ON p.categoryIdx = c.categoryIdx " + 
-		              "WHERE ll.userIdx = ? " +
-		              "ORDER BY ll.visitDate DESC " +
-		              "LIMIT ?, ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.userIdx = ? "
+					+ "ORDER BY ll.visitDate DESC " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			pstmt.setInt(2, startIndexNo);
-	        pstmt.setInt(3, pageSize);
+			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -128,6 +124,7 @@ public class LocalLogDAO {
 		return localLogs;
 	}
 
+	// 로컬로그 디테일에서 게시글 하나씩 상세보기
 	public LocalLogVO getLocalLogByIdx(int localLogIdx) {
 		LocalLogVO localLog = null;
 		try {
@@ -167,5 +164,47 @@ public class LocalLogDAO {
 			rsClose();
 		}
 		return localLog;
+	}
+
+	// 아카이브에서 본인 로컬로그 삭제
+	public boolean deleteLocalLog(int localLogIdx, int userIdx) {
+		boolean result = false;
+		try {
+			sql = "DELETE FROM localLogs WHERE localLogIdx = ? AND userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, localLogIdx);
+			pstmt.setInt(2, userIdx);
+
+			int rowCount = pstmt.executeUpdate();
+			if (rowCount > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("deleteLocalLog SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return result;
+	}
+
+	// 아카이브에서 본인 로컬로그 수정
+	public void updateLocalLog(LocalLogVO localLogVO) {
+		try {
+			String sql = "UPDATE localLogs SET placeIdx=?, visitDate=?, content=?, community=?, visibility=?, photos=? WHERE localLogIdx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, localLogVO.getPlaceIdx());
+			pstmt.setDate(2, localLogVO.getVisitDate());
+			pstmt.setString(3, localLogVO.getContent());
+			pstmt.setString(4, localLogVO.getCommunity());
+			pstmt.setString(5, localLogVO.getVisibility());
+			pstmt.setString(6, localLogVO.getPhotos());
+			pstmt.setInt(7, localLogVO.getLocalLogIdx());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateLocalLog SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
 	}
 }

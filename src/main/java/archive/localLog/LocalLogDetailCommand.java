@@ -17,7 +17,7 @@ public class LocalLogDetailCommand implements ArchiveInterface {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String viewPage = "/WEB-INF/archive/localLogDetail.jsp";
+        String viewPage = "/WEB-INF/archive/localLog/localLogDetail.jsp";
 
         HttpSession session = request.getSession();
         Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");

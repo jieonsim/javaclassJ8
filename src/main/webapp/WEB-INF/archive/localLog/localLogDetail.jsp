@@ -47,35 +47,75 @@ $(window).scroll(function(){
 		window.scrollTo({top:0, behavior: "smooth"});
 	});
 });
+
+$(document).ready(function() {
+$('#updateAndDeleteLocalLog').on('show.bs.modal', function(event) {
+   var button = $(event.relatedTarget); // 클릭된 버튼
+   var localLogIdx = button.data('localLog-id'); // data-localLog-id의 값
+   var modal = $(this);
+
+   modal.find('#deleteLocalLogBtn').data('localLog-id', localLogIdx); // 삭제 버튼에 localLogIdx 설정
+   modal.find('#updateLocalLogBtn').data('localLog-id', localLogIdx); // 수정 버튼에 localLogIdx 설정
+});
+});
+
+function editLocalLog(localLogIdx) {
+    window.location.href = 'updateLocalLog.a?localLogIdx=' + localLogIdx;
+}
+
+function deleteCheck(localLogIdx) {
+    Swal.fire({
+        text: '로컬로그를 삭제하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        customClass: {
+            confirmButton: 'swal2-confirm',
+            cancelButton: 'swal2-cancel',
+            popup: 'custom-swal-popup',
+            htmlContainer: 'custom-swal-text',
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: 'deleteLocalLog.a',
+                type: 'POST',
+                data: { localLogIdx: localLogIdx },
+                success: function(response) {
+                    if (response === 'deleted') {
+                        $('#updateAndDeleteLocalLog').modal('hide'); // 모달을 숨깁니다.
+                        Swal.fire({
+                            text: "로컬로그가 삭제되었습니다.",
+                            confirmButtonText: '확인',
+                            customClass: {
+                                confirmButton: 'swal2-confirm',
+                                popup: 'custom-swal-popup',
+                                htmlContainer: 'custom-swal-text'
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                            	window.location.href = "archive-localLog.a";
+                            }
+                        });
+                    } else if (response === 'failed') {
+                        showAlert("로컬로그 삭제에 실패했습니다.");
+                    } else {
+                        console.error("Unexpected response:", response);
+                        showAlert("예상치 못한 응답: " + response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error during AJAX request:", status, error);
+                    showAlert("로컬로그 삭제에 실패했습니다.");
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            $('#updateAndDeleteLocalLog').modal('hide'); // 취소 버튼을 누를 때도 모달을 숨깁니다.
+        }
+    });
+}
 </script>
-<style>
-.carousel-inner img {
-	width: 100%;
-	/* height: 625px; */ 
-	/* height: 500px; */
-	height: 100%;
-	/* Maintain the aspect ratio */
-	object-fit: cover; /* Ensure the image covers the area */
-}
-    
-.card-img-overlay {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.7) 100%);
-	color: white;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	padding-left: 30px;
-	padding-bottom: 45px;
-}
-
-
-.card-title, .card-text {
-	/* margin-bottom: 10px; */
-}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -134,7 +174,7 @@ $(window).scroll(function(){
 						<span class="text-dark" style="font-size: 14px;">${localLog.visitDate}&nbsp;방문</span>
 					</div>
 					<div>
-						<a href="#" data-toggle="modal" data-target="#updateLocalLog" class="text-dark" style="text-decoration: none;">
+						<a href="#" data-toggle="modal" data-target="#updateAndDeleteLocalLog" class="text-dark" style="text-decoration: none;" data-localLog-id="${localLog.localLogIdx}">
 							<i class="ph ph-dots-three" style="font-size: 20px"></i>
 						</a>
 					</div>
@@ -178,6 +218,17 @@ $(window).scroll(function(){
 		<!-- 위로가기 버튼 -->
 		<div id="topBtn" class="">
 			<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
+		</div>
+	</div>
+	<!-- updateAndDeleteLocalLog Modal -->
+	<div class="modal fade" id="updateAndDeleteLocalLog" tabindex="-1" role="dialog" aria-labelledby="updateAndDeleteLocalLogLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="btn btn-block mt-2" id="updatedLocalLogBtn" onclick="editLocalLog(${localLog.localLogIdx})">데이로그 수정</button>
+					<button type="button" class="btn btn-block mt-2" id="deleteLocalLogBtn" onclick="deleteCheck(${localLog.localLogIdx})">데이로그 삭제</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<input type="hidden" id="message" value="${message}" />

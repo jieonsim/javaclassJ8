@@ -1,12 +1,15 @@
-package record.localLog;
+package archive.localLog;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -19,41 +22,50 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import place.PlaceDAO;
-import place.PlaceVO;
-import record.LoadCategoriesHelper;
+import record.localLog.LocalLogDAO;
+import record.localLog.LocalLogVO;
 
 @SuppressWarnings("serial")
-@WebServlet("/submitLocalLog.ll")
+@WebServlet("/submitUpdateLocalLog.a")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
 		maxFileSize = 5 * 1024 * 1024, // 5MB
 		maxRequestSize = 50 * 1024 * 1024 // 50MB
 )
-public class SubmitLocalLogCommand extends HttpServlet {
+public class SubmitUpdateLocalLogCommand extends HttpServlet {
 
 	private static final int IMG_WIDTH = 1080;
 	private static final int IMG_HEIGHT = 1440;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/record/localLog/record-localLog.jsp";
-		StringBuilder photos = new StringBuilder();
+		String viewPage = "/WEB-INF/archive/localLog/updateLocalLog.jsp";
+		//StringBuilder photos = new StringBuilder();
 
 		try {
-			// 파일 저장 경로 설정 및 디렉토리 생성 확인
 			String realPath = request.getServletContext().getRealPath("/images/localLog/");
 			File uploadDir = new File(realPath);
 			if (!uploadDir.exists()) {
-				uploadDir.mkdirs(); // 디렉토리가 없으면 생성
+				uploadDir.mkdirs();
+			}
+
+			String localLogIdxStr = request.getParameter("localLogIdx");
+			String existingPhotosStr = request.getParameter("existingPhotos");
+			String removedPhotosStr = request.getParameter("removedPhotos");
+			List<String> photoNames = new ArrayList<>();
+
+			if (existingPhotosStr != null && !existingPhotosStr.isEmpty()) {
+				for (String photo : existingPhotosStr.split("/")) {
+					if (removedPhotosStr == null || !removedPhotosStr.contains(photo)) {
+						photoNames.add(photo);
+					}
+				}
 			}
 
 			Collection<Part> fileParts = request.getParts();
-
 			for (Part filePart : fileParts) {
-				if (!filePart.getName().equals("photos"))
+				if (!filePart.getName().equals("photos") || filePart.getSize() == 0) {
 					continue;
-				if (filePart.getSize() == 0)
-					continue;
+				}
 
 				String fileName = filePart.getSubmittedFileName();
 				InputStream fis = filePart.getInputStream();
@@ -64,14 +76,10 @@ public class SubmitLocalLogCommand extends HttpServlet {
 				File outputFile = new File(uploadDir, fileName);
 				cropAndResizeImage(fis, outputFile, IMG_WIDTH, IMG_HEIGHT);
 
-				photos.append(fileName).append("/");
+				photoNames.add(fileName);
 			}
 
-			// 마지막 슬래시 제거
-			if (photos.length() > 0 && photos.charAt(photos.length() - 1) == '/') {
-				photos.deleteCharAt(photos.length() - 1);
-			}
-
+			String placeIdxStr = request.getParameter("placeIdx");
 			String placeName = request.getParameter("placeName");
 			String visitDateString = request.getParameter("visitDate");
 			String content = request.getParameter("content");
@@ -79,76 +87,58 @@ public class SubmitLocalLogCommand extends HttpServlet {
 			String visibility = request.getParameter("visibility");
 			String hostIp = request.getParameter("hostIp");
 
-			if (placeName == null || placeName.isEmpty()) {
-				request.setAttribute("message", "공간을 추가해주세요.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-				dispatcher.forward(request, response);
-				return;
-			}
+			System.out.println("placeIdxStr1: " + placeIdxStr);
+
+			if (placeIdxStr == null || placeIdxStr.isEmpty() || placeName == null || placeName.isEmpty()) {
+				System.out.println("placeIdxStr2: " + placeIdxStr);
+	            request.setAttribute("message", "공간을 추가해주세요.");
+	            response.sendRedirect("updateLocalLog.a?localLogIdx=" + localLogIdxStr);
+	            return;
+	        }
 
 			if (visitDateString == null || visitDateString.isEmpty()) {
 				request.setAttribute("message", "방문한 날짜를 선택해주세요.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-				dispatcher.forward(request, response);
+				response.sendRedirect("updateLocalLog.a?localLogIdx=" + localLogIdxStr);
 				return;
 			}
 
-			if (photos.length() == 0) {
+			if (photoNames.isEmpty()) {
 				request.setAttribute("message", "사진을 추가해주세요.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-				dispatcher.forward(request, response);
+				response.sendRedirect("updateLocalLog.a?localLogIdx=" + localLogIdxStr);
 				return;
 			}
 
 			int userIdx = Integer.parseInt(request.getParameter("sessionUserIdx"));
+			int placeIdx = Integer.parseInt(placeIdxStr);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			java.sql.Date visitDate = new java.sql.Date(sdf.parse(visitDateString).getTime());
+			Date visitDate = new Date(sdf.parse(visitDateString).getTime());
 
-			PlaceVO placeVO = (PlaceVO) request.getSession().getAttribute("temporaryPlace");
-
-			int placeIdx;
-			if (placeVO != null) {
-				PlaceDAO placeDAO = new PlaceDAO();
-				placeIdx = placeDAO.savePlace(placeVO);
-				request.getSession().removeAttribute("temporaryPlace");
-			} else {
-				PlaceDAO placeDAO = new PlaceDAO();
-				PlaceVO existingPlace = placeDAO.getPlaceByName(placeName);
-				if (existingPlace == null) {
-					throw new Exception("Selected place information not found.");
-				}
-				placeIdx = existingPlace.getPlaceIdx();
-			}
-
-			// visibility 값이 올바른지 확인
 			if (!"public".equals(visibility) && !"private".equals(visibility)) {
-				visibility = "public"; // 기본 값 설정
+				visibility = "public";
 			}
 
-			LocalLogVO localLogVO = new LocalLogVO();
-			localLogVO.setUserIdx(userIdx);
-			localLogVO.setPlaceIdx(placeIdx);
-			localLogVO.setVisitDate(visitDate);
-			localLogVO.setContent(content);
-			localLogVO.setPhotos(photos.toString());
-			localLogVO.setCommunity(community);
-			localLogVO.setVisibility(visibility);
-			localLogVO.setHostIp(hostIp);
+			LocalLogVO localLog = new LocalLogVO();
+			localLog.setLocalLogIdx(Integer.parseInt(localLogIdxStr));
+			localLog.setUserIdx(userIdx);
+			localLog.setPlaceIdx(placeIdx);
+			localLog.setVisitDate(visitDate);
+			localLog.setContent(content);
+			localLog.setPhotos(String.join("/", photoNames));
+			localLog.setCommunity(community);
+			localLog.setVisibility(visibility);
+			localLog.setHostIp(hostIp);
 
 			LocalLogDAO localLogDAO = new LocalLogDAO();
-			localLogDAO.saveLocalLog(localLogVO);
+			localLogDAO.updateLocalLog(localLog);
 
-			request.setAttribute("message", "로컬로그 업로드 완료!");
+			response.sendRedirect("localLogDetail.a?localLogIdx=" + localLogIdxStr);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("message", "로컬로그 업로드 중 오류가 발생했습니다. 다시 시도해 주세요.");
+			request.setAttribute("message", "로컬로그 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
 		}
-
-		LoadCategoriesHelper.loadCategories(request);
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
 	}
 
 	private void cropAndResizeImage(InputStream inputStream, File outputFile, int width, int height) throws IOException {

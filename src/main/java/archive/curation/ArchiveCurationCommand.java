@@ -16,7 +16,7 @@ public class ArchiveCurationCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/archive/archive-curation.jsp";
+		String viewPage = "/WEB-INF/archive/curation/archive-curation.jsp";
 
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");

@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,15 +23,17 @@ import place.PlaceVO;
 import record.LoadCategoriesHelper;
 
 @SuppressWarnings("serial")
-@WebServlet("/submitLocalLog.ll")
+//@WebServlet("/submitLocalLog.ll")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
 		maxFileSize = 5 * 1024 * 1024, // 5MB
 		maxRequestSize = 50 * 1024 * 1024 // 50MB
 )
-public class SubmitLocalLogCommand extends HttpServlet {
+public class SubmitLocalLogCommand3 extends HttpServlet {
 
 	private static final int IMG_WIDTH = 1080;
 	private static final int IMG_HEIGHT = 1440;
+	// private static final int IMG_WIDTH = 1012;
+	// private static final int IMG_HEIGHT = 1350;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

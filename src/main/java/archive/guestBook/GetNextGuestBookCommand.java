@@ -1,25 +1,23 @@
-package archive.localLog;
+package archive.guestBook;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import archive.ArchiveInterface;
-import record.localLog.LocalLogDAO;
-import record.localLog.LocalLogVO;
+import record.guestBook.GuestBookDAO;
+import record.guestBook.GuestBookVO;
 import user.UserDAO;
 import user.UserVO;
 
-public class ArchiveLocalLogCommand implements ArchiveInterface {
+public class GetNextGuestBookCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/archive/localLog/archive-localLog.jsp";
+		String viewPage = "/WEB-INF/archive/guestBook/getNextGuestBook.jsp";
 
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
@@ -42,21 +40,18 @@ public class ArchiveLocalLogCommand implements ArchiveInterface {
 			return;
 		}
 
-		LocalLogDAO localLogDAO = new LocalLogDAO();
+		GuestBookDAO guestBookDAO = new GuestBookDAO();
 
-		int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
-		int pageSize = 6;
-		int totRecCnt = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
+		int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag"));
+		int pageSize = 3;
+		int totRecCnt = guestBookDAO.getGuestBookCountByUserIdx(sessionUserIdx);
 		int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
 		int startIndexNo = (pag - 1) * pageSize;
 		int curScrStartNo = totRecCnt - startIndexNo;
 
-		List<LocalLogVO> localLogs = localLogDAO.getLocalLogsByUserIdx(sessionUserIdx, startIndexNo, pageSize);
-		int localLogCount = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
+		List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByUserIdx(sessionUserIdx, startIndexNo, pageSize);
 
-		request.setAttribute("users", users);
-		request.setAttribute("localLogs", localLogs);
-		request.setAttribute("localLogCount", localLogCount);
+		request.setAttribute("guestBooks", guestBooks);
 		request.setAttribute("curScrStartNo", curScrStartNo);
 		request.setAttribute("totalPages", totalPages);
 

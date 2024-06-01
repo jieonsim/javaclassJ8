@@ -48,7 +48,7 @@ SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName FROM localLogs 
 
 SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName FROM localLogs ll JOIN places p ON ll.placeIdx = p.placeIdx JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE ll.localLogIdx = 15
 
-
+SELECT * FROM localLogs WHERE localLogIdx = 16;
 
 -- 인덱스 추가
 CREATE INDEX idx_localLogs_userIdx ON localLogs(userIdx);

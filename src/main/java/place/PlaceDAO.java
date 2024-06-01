@@ -63,28 +63,28 @@ public class PlaceDAO {
 	}
 
 	// 공간 이름으로 공간 검색
-	public List<PlaceVO> searchPlacesByNameWithCategory(String placeName) {
-		List<PlaceVO> places = new ArrayList<PlaceVO>();
-		try {
-			sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName LIKE ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + placeName + "%");
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				PlaceVO place = new PlaceVO();
-				place.setPlaceName(rs.getString("placeName"));
-				place.setRegion1DepthName(rs.getString("region1DepthName"));
-				place.setRegion1DepthName(rs.getString("region2DepthName"));
-				place.setCategoryName(rs.getString("categoryName"));
-				places.add(place);
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
-		} finally {
-			rsClose();
-		}
-		return places;
-	}
+//	public List<PlaceVO> searchPlacesByNameWithCategory(String placeName) {
+//		List<PlaceVO> places = new ArrayList<PlaceVO>();
+//		try {
+//			sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName LIKE ?";
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, "%" + placeName + "%");
+//			rs = pstmt.executeQuery();
+//			while (rs.next()) {
+//				PlaceVO place = new PlaceVO();
+//				place.setPlaceName(rs.getString("placeName"));
+//				place.setRegion1DepthName(rs.getString("region1DepthName"));
+//				place.setRegion1DepthName(rs.getString("region2DepthName"));
+//				place.setCategoryName(rs.getString("categoryName"));
+//				places.add(place);
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("SQL 오류 : " + e.getMessage());
+//		} finally {
+//			rsClose();
+//		}
+//		return places;
+//	}
 
 	public CategoryVO getCategoryByIdx(int categoryIdx) {
 		CategoryVO categoryVO = null;

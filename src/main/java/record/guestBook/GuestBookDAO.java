@@ -61,14 +61,20 @@ public class GuestBookDAO {
 	}
 
 	// userIdx로 해당 userIdx에 등록된 방명록 데이터 가져오기 / 아카이브-방명록
-	public List<GuestBookVO> getGuestBooksByUserIdx(int userIdx) {
+	public List<GuestBookVO> getGuestBooksByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<GuestBookVO> guestBooks = new ArrayList<>();
 		try {
-			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb "
-					+ "JOIN places p ON gb.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? "
-					+ "ORDER BY gb.createdAt DESC";
+			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + 
+					"FROM guestBooks gb " + 
+					"JOIN places p ON gb.placeIdx = p.placeIdx " + 
+					"JOIN categories c ON p.categoryIdx = c.categoryIdx " + 
+					"WHERE gb.userIdx = ? " + 
+					"ORDER BY gb.createdAt DESC " +
+					"LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
+			pstmt.setInt(2, startIndexNo);
+			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

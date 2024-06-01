@@ -8,40 +8,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
+<style>
+#localLogCardContainer {
+	width: 300px;
+}
+
+#localLogCard {
+	-webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	-moz-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	-ms-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	-o-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	border-radius: 10px;
+	width: 300px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
+	<div class="container mt-5" id="localLogCardContainer">
+		<div class="card" id="localLogCard">
+			<img class="card-img-top" src="${ctp}/images/dummy/1.jpg" alt="Card image" style="width: 100%;">
+			<div class="card-body">
+				<div class="card-title" style="font-size: 18px;">멀티피치</div>
+				<div class="text-mute" style="font-size: 14px">충청북도, 청주시 카페</div>
+				<div class="card-text">에그파이 냠냠</div>
+				<a href="#" class="stretched-link"></a>
+			</div>
+		</div>
+	</div>
 	<div class="container mt-5">
 		<h2>메인화면</h2>
-		'바'🍸
-		'카페'☕
-		'음식점'🍴
-		'디저트 / 베이커리'🍰
-		'포토존'🤳🏻
-		'광장'👥
-		'관광지'🗽
-		'종교시설'⛪
-		'역사 유적지'🕌
-		'자연'🍃
-		'복합문화공간'🎨
-		'박물관'🏛️
-		'음악'🎵
-		'전시'🖼️
-		'공연'🎫
-		'도서관'📖
-		'샵'🛍️
-		'서점'📚
-		'시장'🛒
-		'쇼핑몰'🏬
-		'호텔'🏨
-		'스테이'🛏️
-		'미용 / 스파'💇🏻‍♀️
-		'오락'🎮
-		'운동'🏃🏻
-		'스튜디오 / 클래스'👩🏻‍💻
-		'골프장'⛳
-		'캠핑장'🏕️
 		<div class="row">
 			<c:choose>
 				<c:when test="${not empty userVO}">
@@ -84,29 +82,6 @@
 					<li>방명록 crud</li>
 					<li>방명록 좋아요</li>
 				</ul>
-			</div>
-		</div>
-		<div class="container p-5">
-			<h2>Card Image</h2>
-			<p>Image at the top (card-img-top):</p>
-			<div class="card" style="width: 400px">
-				<img class="card-img-top" src="${ctp}/images/dummy/newjeans1.jpg" alt="Card image" style="width: 100%">
-				<div class="card-body">
-					<h4 class="card-title">John Doe</h4>
-					<p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-					<a href="#" class="btn btn-primary">See Profile</a>
-				</div>
-			</div>
-		</div>
-		<br>
-		<h2>Card Image Overlay</h2>
-		<p>Turn an image into a card background and use .card-img-overlay to overlay the card's text:</p>
-		<div class="card img-fluid" style="width: 500px">
-			<img class="card-img-top" src="${ctp}/images/dummy/newjeans2.jpg" alt="Card image" style="width: 100%">
-			<div class="card-img-overlay">
-				<h4 class="card-title">John Doe</h4>
-				<p class="card-text">Some example text some example text. Some example text some example text. Some example text some example text. Some example text some example text.</p>
-				<a href="#" class="btn btn-primary">See Profile</a>
 			</div>
 		</div>
 	</div>

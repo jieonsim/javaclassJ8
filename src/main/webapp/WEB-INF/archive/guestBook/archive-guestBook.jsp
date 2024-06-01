@@ -160,6 +160,55 @@ $(window).scroll(function(){
 		window.scrollTo({top:0, behavior: "smooth"});
 	});
 });
+
+function getNextList(curPage) {
+    $.ajax({
+        url: "getNextGuestBook.a",
+        type: "post",
+        data: { pag: curPage },
+        success: function(res) {
+            console.log("AJAX Response:", res);
+            $("#list-wrap").append(res);
+            updateTotalPages(); // AJAX 응답 후 totalPages 요소 확인
+        },
+        error: function(err) {
+            console.log("Error: ", err);
+        }
+    });
+}
+
+function updateTotalPages() {
+    let totalPagesElement = document.getElementById('totalPages');
+    if (totalPagesElement) {
+        let totalPages = parseInt(totalPagesElement.value, 10);
+        console.log("Total Pages after AJAX:", totalPages);
+        return totalPages;
+    } else {
+        console.error("totalPages element not found after AJAX!");
+        return 0;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    let lastScroll = 0;
+    let curPage = 1;
+    let totalPages = updateTotalPages();
+
+    $(document).scroll(function() {
+        let currentScroll = $(this).scrollTop();
+        let documentHeight = $(document).height();
+        let nowHeight = $(this).scrollTop() + $(window).height();
+
+        if (currentScroll > lastScroll && curPage < totalPages) {
+            if (documentHeight < (nowHeight + (documentHeight * 0.1))) {
+                console.log("Get next page");
+                curPage++;
+                getNextList(curPage);
+            }
+        }
+        lastScroll = currentScroll;
+    });
+});
 </script>
 </head>
 <body>
@@ -214,52 +263,55 @@ $(window).scroll(function(){
 					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
 			</ul>
-			<c:choose>
-				<c:when test="${not empty guestBooks}">
-					<c:forEach var="guestBook" items="${guestBooks}">
-						<div class="d-flex flex-column border-bottom py-3">
-							<div>
-								<div id="guestBookPlaceName">
-									<b>${guestBook.placeName}</b>
+			<div id="list-wrap">
+				<c:choose>
+					<c:when test="${not empty guestBooks}">
+						<c:forEach var="guestBook" items="${guestBooks}">
+							<div class="d-flex flex-column border-bottom py-3">
+								<div>
+									<div id="guestBookPlaceName">
+										<b>${guestBook.placeName}</b>
+									</div>
+									<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
 								</div>
-								<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
-							</div>
-							<c:if test="${not empty guestBook.content}">
-								<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
-							</c:if>
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="text-muted small mt-2">
-										<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
-										방문
-										<c:if test="${guestBook.companions != '기타'}">&nbsp;· ${guestBook.companions}</c:if>
+								<c:if test="${not empty guestBook.content}">
+									<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
+								</c:if>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="text-muted small mt-2">
+											<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
+											방문
+											<c:if test="${guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
+										</div>
+									</div>
+									<div class="col-sm-6" id="guestBookSetUp">
+										<div class="d-flex justify-content-end mt-2">
+											<c:if test="${guestBook.visibility == 'private'}">
+												<i class="ph ph-lock mr-2"></i>
+											</c:if>
+											<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" data-guestbook-id="${guestBook.guestBookIdx}" data-visibility="${guestBook.visibility}">
+												<i class="ph ph-dots-three"></i>
+											</a>
+										</div>
 									</div>
 								</div>
-								<div class="col-sm-6" id="guestBookSetUp">
-									<div class="d-flex justify-content-end mt-2">
-										<c:if test="${guestBook.visibility == 'private'}">
-											<i class="ph ph-lock mr-2"></i>
-										</c:if>
-										<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" data-guestbook-id="${guestBook.guestBookIdx}" data-visibility="${guestBook.visibility}">
-											<i class="ph ph-dots-three"></i>
-										</a>
-									</div>
-								</div>
 							</div>
+							<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
+						</c:forEach>
+						<!-- 위로가기 버튼 -->
+						<div id="topBtn" class="">
+							<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 						</div>
-					</c:forEach>
-					<!-- 위로가기 버튼 -->
-					<div id="topBtn" class="">
-						<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="text-center" style="margin-top: 100px;">
-						<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
-						<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
-					</div>
-				</c:otherwise>
-			</c:choose>
+					</c:when>
+					<c:otherwise>
+						<div class="text-center" style="margin-top: 100px;">
+							<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
+							<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
 	<!-- updateGuestBook Modal -->
@@ -283,5 +335,6 @@ $(window).scroll(function(){
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+	<input type="hidden" id="totalPages" value="${totalPages}" />
 </body>
 </html>

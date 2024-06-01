@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List"%>
-<%@ page import="record.localLog.LocalLogVO"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -51,7 +49,7 @@ function getNextList(curPage) {
         type: "post",
         data: { pag: curPage },
         success: function(res) {
-            console.log("AJAX Response:", res);
+            //console.log("AJAX Response:", res);
             $("#list-wrap").append(res);
             updateTotalPages(); // AJAX 응답 후 totalPages 요소 확인
         },
@@ -65,7 +63,7 @@ function updateTotalPages() {
     let totalPagesElement = document.getElementById('totalPages');
     if (totalPagesElement) {
         let totalPages = parseInt(totalPagesElement.value, 10);
-        console.log("Total Pages after AJAX:", totalPages);
+        //console.log("Total Pages after AJAX:", totalPages);
         return totalPages;
     } else {
         console.error("totalPages element not found after AJAX!");
@@ -93,43 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
         lastScroll = currentScroll;
     });
 });       		
-
-/* function checkTotalPages() {
-    let totalPagesElement = document.getElementById('totalPages');
-    if (totalPagesElement) {
-        let totalPages = parseInt(totalPagesElement.value, 10);
-        console.log("Total Pages after AJAX:", totalPages);
-    } else {
-        console.error("totalPages element not found after AJAX!");
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    let lastScroll = 0;
-    let curPage = 1;
-    checkTotalPages();
-
-    $(document).scroll(function() {
-        let totalPagesElement = document.getElementById('totalPages');
-        if (totalPagesElement) {
-            let totalPages = parseInt(totalPagesElement.value, 10);
-            let currentScroll = $(this).scrollTop();
-            let documentHeight = $(document).height();
-            let nowHeight = $(this).scrollTop() + $(window).height();
-
-            if (currentScroll > lastScroll && curPage < totalPages) {
-                if (documentHeight < (nowHeight + (documentHeight * 0.1))) {
-                    console.log("Get next page");
-                    curPage++;
-                    getNextList(curPage);
-                }
-            }
-            lastScroll = currentScroll;
-        } else {
-            console.error("totalPages element not found in scroll event!");
-        }
-    });
-}); */
 </script>
 </head>
 <body>

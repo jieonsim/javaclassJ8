@@ -2,13 +2,11 @@ package archive.guestBook;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import archive.ArchiveInterface;
 import record.guestBook.GuestBookDAO;
 import record.guestBook.GuestBookVO;
@@ -19,12 +17,11 @@ public class ArchiveGuestBookCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/archive/archive-guestBook.jsp";
+		String viewPage = "/WEB-INF/archive/guestBook/archive-guestBook.jsp";
 
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
-		// Null 검사
 		if (sessionUserIdx == null) {
 			request.setAttribute("message", "로그인 후 이용하실 수 있습니다.");
 			viewPage = "/WEB-INF/user/login/login.jsp";
@@ -42,16 +39,25 @@ public class ArchiveGuestBookCommand implements ArchiveInterface {
 			dispatcher.forward(request, response);
 			return;
 		}
-		
+
 		GuestBookDAO guestBookDAO = new GuestBookDAO();
-		
-        List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByUserIdx(sessionUserIdx);
-        int guestBookCount = guestBookDAO.getGuestBookCountByUserIdx(sessionUserIdx);
-        
+
+		int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
+		int pageSize = 3;
+		int totRecCnt = guestBookDAO.getGuestBookCountByUserIdx(sessionUserIdx);
+		int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
+		int startIndexNo = (pag - 1) * pageSize;
+		int curScrStartNo = totRecCnt - startIndexNo;
+
+		List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByUserIdx(sessionUserIdx, startIndexNo, pageSize);
+		int guestBookCount = guestBookDAO.getGuestBookCountByUserIdx(sessionUserIdx);
+
 		request.setAttribute("users", users);
 		request.setAttribute("guestBooks", guestBooks);
 		request.setAttribute("guestBookCount", guestBookCount);
-		
+		request.setAttribute("curScrStartNo", curScrStartNo);
+		request.setAttribute("totalPages", totalPages);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

@@ -1,7 +1,6 @@
 package archive.localLog;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,16 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import archive.ArchiveInterface;
+import place.PlaceDAO;
+import place.PlaceVO;
 import record.localLog.LocalLogDAO;
 import record.localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 
-public class ArchiveLocalLogCommand implements ArchiveInterface {
+public class UpdateLocalLogCommand implements ArchiveInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String viewPage = "/WEB-INF/archive/localLog/archive-localLog.jsp";
+		String viewPage = "/WEB-INF/archive/localLog/updateLocalLog.jsp";
 
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
@@ -42,23 +43,33 @@ public class ArchiveLocalLogCommand implements ArchiveInterface {
 			return;
 		}
 
-		LocalLogDAO localLogDAO = new LocalLogDAO();
+		String localLogIdxStr = request.getParameter("localLogIdx");
+		if (localLogIdxStr != null) {
+			int localLogIdx = Integer.parseInt(localLogIdxStr);
+			LocalLogDAO localLogDAO = new LocalLogDAO();
+			LocalLogVO localLog = localLogDAO.getLocalLogByIdx(localLogIdx);
 
-		int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
-		int pageSize = 6;
-		int totRecCnt = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
-		int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
-		int startIndexNo = (pag - 1) * pageSize;
-		int curScrStartNo = totRecCnt - startIndexNo;
+			if (localLog != null) {
+				request.setAttribute("localLog", localLog);
 
-		List<LocalLogVO> localLogs = localLogDAO.getLocalLogsByUserIdx(sessionUserIdx, startIndexNo, pageSize);
-		int localLogCount = localLogDAO.getLocalLogCountByUserIdx(sessionUserIdx);
-
+				// Fetch the place information
+				PlaceDAO placeDAO = new PlaceDAO();
+				PlaceVO place = placeDAO.getPlaceByIdx(localLog.getPlaceIdx());
+				if (place != null) {
+					request.setAttribute("place", place);
+				} else {
+					request.setAttribute("message", "공간 정보를 가져올 수 없습니다.");
+					viewPage = "archive/localLog/archive-localLog.jsp";
+				}
+			} else {
+				request.setAttribute("message", "로컬로그를 찾을 수 없습니다.");
+				viewPage = "/WEB-INF/archive/localLog/archive-localLog.jsp";
+			}
+		} else {
+			request.setAttribute("message", "잘못된 접근입니다.");
+			viewPage = "/WEB-INF/archive/localLog/archive-localLog.jsp";
+		}
 		request.setAttribute("users", users);
-		request.setAttribute("localLogs", localLogs);
-		request.setAttribute("localLogCount", localLogCount);
-		request.setAttribute("curScrStartNo", curScrStartNo);
-		request.setAttribute("totalPages", totalPages);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

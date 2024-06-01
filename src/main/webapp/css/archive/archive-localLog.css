@@ -1,35 +1,86 @@
 @charset "UTF-8";
 
-@charset "UTF-8";
-
 #archive-localLog-card {
-    border-color: white;
-    border-radius: 0;
-    padding: 0;
+	border-color: white;
+	border-radius: 0;
+	padding: 0;
 }
 
 #archive-localLog-card-img {
-    width: 100%;
-    /*height: 300px;*/
-    /*height: 268.83px;*/
-    height: 19.91%;
-    border-radius: 0;
+	width: 100%;
+	/*height: 300px;*/
+	/*height: 268.83px;*/
+	height: 19.91%;
+	border-radius: 0;
 }
 
 .card .card-title {
-    font-size: 18px;
-    font-weight: bold;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .image-container {
-    position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .icon-top-right {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: white; /* Change the color as needed */
-    font-size: 24px; /* Adjust size as needed */
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: white;
+	/* Change the color as needed */
+	font-size: 24px;
+	/* Adjust size as needed */
+}
+
+#updatedLocalLogBtn {
+	color: black;
+	font-size: 18px;
+	border-radius: 0;
+	text-align: center;
+}
+
+#deleteLocalLogBtn {
+	color: red;
+	font-size: 18px;
+	border-radius: 0;
+	text-align: center;
+}
+
+#updatedLocalLogBtn:hover,
+#deleteLocalLogBtn:hover {
+	font-weight: bold;
+}
+
+
+#updatedLocalLogBtn:focus,
+#deleteLocalLogBtn:focus {
+	box-shadow: none;
+}
+
+.carousel-inner img {
+	width: 100%;
+	/* height: 625px; */
+	/* height: 500px; */
+	height: 100%;
+	/* Maintain the aspect ratio */
+	object-fit: cover; /* Ensure the image covers the area */
+}
+
+.card-img-overlay {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.7) 100%);
+	color: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding-left: 30px;
+	padding-bottom: 45px;
+}
+
+.card-title {
+	margin: 0px;
 }
