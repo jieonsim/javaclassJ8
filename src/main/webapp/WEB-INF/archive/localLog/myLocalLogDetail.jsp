@@ -122,7 +122,7 @@ function deleteCheck(localLogIdx) {
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container">
 		<div class="archive-container">
-			<div class="row mb-5">
+<%-- 			<div class="row mb-5">
 				<div class="col-3">
 					<div class="photo-placeholder">
 						<c:choose>
@@ -163,11 +163,11 @@ function deleteCheck(localLogIdx) {
 				<li>
 					<a href="archive-curation.a" id="curation">큐레이션</a>
 				</li>
-			</ul>
-			<hr>
-			<div class="container my-4 pt-3">
+			</ul> 
+			<hr>--%>
+			<div class="container mx-auto">
 				<div class="row justify-content-center">
-					<div class="col-12 col-md-8 col-lg-6" style="max-width: 650px;">
+					<div class="col-12 col-md-8 col-lg-6" style="max-width: 700px;">
 						<div class="d-flex justify-content-between">
 							<div>
 								<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
@@ -192,23 +192,24 @@ function deleteCheck(localLogIdx) {
 									<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
 										<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
 											<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
+											<div class="gradient-overlay"></div>
 										</div>
 									</c:forEach>
 								</div>
-								<a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
+								<!-- <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
 									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 									<span class="sr-only">Previous</span>
 								</a>
 								<a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
 									<span class="carousel-control-next-icon" aria-hidden="true"></span>
 									<span class="sr-only">Next</span>
-								</a>
+								</a> -->
 							</div>
 							<div class="card-img-overlay">
-								<div class="card-title" style="color: white; font-size: 18px">
+								<div class="card-title" style="font-size: 18px; font-weight: bold;">
 									<b>${localLog.placeName}</b>
 								</div>
-								<div class="card-text" style="color: white; font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
+								<div class="card-text" style="font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
 							</div>
 						</div>
 						<c:if test="${not empty localLog.content}">
@@ -219,7 +220,7 @@ function deleteCheck(localLogIdx) {
 					</div>
 				</div>
 			</div>
-			<hr>
+			<!-- <hr> -->
 		</div>
 		<!-- 위로가기 버튼 -->
 		<div id="topBtn" class="">

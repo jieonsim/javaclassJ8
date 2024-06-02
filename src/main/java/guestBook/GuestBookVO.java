@@ -20,6 +20,18 @@ public class GuestBookVO {
 	private String region1DepthName;
 	private String region2DepthName;
 	private String categoryName;
+	private String nickname;
+	private String profileImage;
+	private int itemIdx;
+	private String itemType;
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
 
 	public int getGuestBookIdx() {
 		return guestBookIdx;
@@ -133,10 +145,35 @@ public class GuestBookVO {
 		this.categoryName = categoryName;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public int getItemIdx() {
+		return itemIdx;
+	}
+
+	public void setItemIdx(int itemIdx) {
+		this.itemIdx = itemIdx;
+	}
+
 	@Override
 	public String toString() {
-		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content=" + content + ", companions=" + companions
-				+ ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName
-				+ ", region2DepthName=" + region2DepthName + ", categoryName=" + categoryName + "]";
+		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content="
+				+ content + ", companions=" + companions + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp="
+				+ hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName=" + region2DepthName + ", categoryName="
+				+ categoryName + ", nickname=" + nickname + ", profileImage=" + profileImage + ", itemIdx=" + itemIdx + ", itemType=" + itemType + "]";
 	}
 }

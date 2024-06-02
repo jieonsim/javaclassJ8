@@ -123,7 +123,7 @@ pageContext.setAttribute("newLine", "\n");
 							<c:if test="${not empty localLog.content}">
 								<p class="card-text">${fn:replace(custom:truncateWithEllipsis(localLog.content, 50), newLine, "<br>")}</p>
 							</c:if>
-							<a href="localLogDetail.ld" class="stretched-link"></a>
+							<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
 						</div>
 					</div>
 				</div>
@@ -139,5 +139,6 @@ pageContext.setAttribute("newLine", "\n");
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" id="totalPages" value="${totalPages}" />
+	<input type="hidden" id="localLogIdx" value="${localLog.localLogIdx}" />
 </body>
 </html>

@@ -13,11 +13,11 @@ import localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 
-public class LocalLogDetailCommand implements ArchiveInterface {
+public class MyLocalLogDetailCommand implements ArchiveInterface {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String viewPage = "/WEB-INF/archive/localLog/localLogDetail.jsp";
+        String viewPage = "/WEB-INF/archive/localLog/myLocalLogDetail.jsp";
 
         HttpSession session = request.getSession();
         Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");

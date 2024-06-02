@@ -34,8 +34,8 @@ CREATE TABLE localLogs (
     visitDate DATE NOT NULL,
     community ENUM('여행', '문화생활', '커피', '미식', '건축', '아웃도어', '워크스페이스', '술', '반려', '차', '아이와 함께'),
     visibility ENUM('public', 'private') NOT NULL DEFAULT 'public',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     hostIp VARCHAR(45),
     FOREIGN KEY (userIdx) REFERENCES users2(userIdx),
     FOREIGN KEY (placeIdx) REFERENCES places(placeIdx)

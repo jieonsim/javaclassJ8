@@ -1,4 +1,4 @@
-package localLog;
+package guestBook;
 
 import java.io.IOException;
 
@@ -9,26 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import localLog.LocalLogInterface;
+
 @SuppressWarnings("serial")
-@WebServlet("*.ld")
-public class LocalLogController extends HttpServlet {
+@WebServlet("*.gb")
+public class GuestBookController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LocalLogInterface command = null;
-		String viewPage = "/WEB-INF/localLog/";
+		String viewPage = "/WEB-INF/guestBook/";
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("localLogDetail")) {
-			command = new LocalLogDetailCommand();
-			command.execute(request, response);
-			return;
-		} else if (com.equals("localLogLike")) {
-			command = new LocalLogLikeCommand();
-			command.execute(request, response);
-			return;
-		} else if (com.equals("checkLocalLogLikeStatus")) {
-			command = new CheckLocalLogLikeStatusCommand();
+		if (com.equals("guestBookLike")) {
+			command = new GuestBookLikeCommand4();
 			command.execute(request, response);
 			return;
 		}
@@ -36,3 +30,4 @@ public class LocalLogController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 }
+

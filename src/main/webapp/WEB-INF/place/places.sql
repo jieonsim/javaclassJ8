@@ -19,3 +19,5 @@ CREATE TABLE places (
     FOREIGN KEY (createdBy) REFERENCES users2 (userIdx),
     FOREIGN KEY (updatedBy) REFERENCES users2 (userIdx) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+SELECT p.*, c.categoryName, u.nickname AS createdByNickname FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx JOIN users2 u ON p.createdBy = u.userIdx WHERE p.placeIdx = 15

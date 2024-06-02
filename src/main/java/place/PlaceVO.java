@@ -4,27 +4,34 @@ import java.sql.Timestamp;
 
 public class PlaceVO {
 	private int placeIdx;
-    private String placeName;
-    private String region1DepthName;
-    private String region2DepthName;
-    private int categoryIdx;
-    private int createdBy;
-    private Integer updatedBy; // 변경: Integer로 수정하여 null 허용
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-	
-	// 검색을 위한 새로운 필드 추가
+	private String placeName;
+	private String region1DepthName;
+	private String region2DepthName;
+	private int categoryIdx;
+	private int createdBy;
+	private Integer updatedBy; // 변경: Integer로 수정하여 null 허용
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
+
+	// 필드 추가
 	private String categoryName;
-	
-	
+	private String createdByNickname;
 
 	public PlaceVO(int createdBy, String placeName, String region1DepthName, String region2DepthName, int categoryIdx) {
-        this.createdBy = createdBy;
-        this.placeName = placeName;
-        this.region1DepthName = region1DepthName;
-        this.region2DepthName = region2DepthName;
-        this.categoryIdx = categoryIdx;
-    }
+		this.createdBy = createdBy;
+		this.placeName = placeName;
+		this.region1DepthName = region1DepthName;
+		this.region2DepthName = region2DepthName;
+		this.categoryIdx = categoryIdx;
+	}
+
+	public String getCreatedByNickname() {
+		return createdByNickname;
+	}
+
+	public void setCreatedByNickname(String createdByNickname) {
+		this.createdByNickname = createdByNickname;
+	}
 
 	public PlaceVO() {
 	}
@@ -113,8 +120,6 @@ public class PlaceVO {
 	public String toString() {
 		return "PlaceVO [placeIdx=" + placeIdx + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName="
 				+ region2DepthName + ", categoryIdx=" + categoryIdx + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", categoryName=" + categoryName + "]";
+				+ ", updatedAt=" + updatedAt + ", categoryName=" + categoryName + ", createdByNickname=" + createdByNickname + "]";
 	}
-
-
 }

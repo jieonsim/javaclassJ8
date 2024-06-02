@@ -55,7 +55,7 @@ public class PlaceDAO {
 				placeIdx = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("savePlace SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -102,7 +102,7 @@ public class PlaceDAO {
 				categoryVO.setCategoryType(rs.getString("categoryType"));
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("getCategoryByIdx SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -130,7 +130,7 @@ public class PlaceDAO {
 				places.add(place);
 			}
 		} catch (Exception e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("searchPlacesByName SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -155,49 +155,19 @@ public class PlaceDAO {
 				places.add(place);
 			}
 		} catch (SQLException e) {
-        	System.out.println("SQL 오류 : " + e.getMessage());
-        } finally {
+			System.out.println("searchAllPlaces SQL 오류 : " + e.getMessage());
+		} finally {
 			rsClose();
 		}
 		return places;
 	}
 
-    public PlaceVO getPlaceByName(String placeName) {
-        PlaceVO place = null;
-        try {
-            sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, placeName);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                place = new PlaceVO();
-                place.setPlaceIdx(rs.getInt("placeIdx"));
-                place.setPlaceName(rs.getString("placeName"));
-                place.setRegion1DepthName(rs.getString("region1DepthName"));
-                place.setRegion2DepthName(rs.getString("region2DepthName"));
-                place.setCategoryIdx(rs.getInt("categoryIdx"));
-                place.setCategoryName(rs.getString("categoryName"));
-                place.setCreatedBy(rs.getInt("createdBy"));
-                place.setUpdatedBy(rs.getInt("updatedBy"));
-                place.setCreatedAt(rs.getTimestamp("createdAt"));
-                place.setUpdatedAt(rs.getTimestamp("updatedAt"));
-            }
-        } catch (SQLException e) {
-        	System.out.println("SQL 오류 : " + e.getMessage());
-        } finally {
-            rsClose();
-        }
-        return place;
-    }
-
-	// getPlaceByIdx 메소드 구현
-	public PlaceVO getPlaceByIdx(int placeIdx) {
+	public PlaceVO getPlaceByName(String placeName) {
 		PlaceVO place = null;
 		try {
-			sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeIdx = ?";
+			sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, placeIdx);
+			pstmt.setString(1, placeName);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -214,7 +184,70 @@ public class PlaceDAO {
 				place.setUpdatedAt(rs.getTimestamp("updatedAt"));
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("getPlaceByName SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return place;
+	}
+
+	// getPlaceByIdx로 방명록 가져오기
+	public PlaceVO getPlaceByIdx(int placeIdx) {
+		PlaceVO place = null;
+		try {
+			sql = "SELECT p.*, c.categoryName " + "FROM places p " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE p.placeIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, placeIdx);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				place = new PlaceVO();
+				place.setPlaceIdx(rs.getInt("placeIdx"));
+				place.setPlaceName(rs.getString("placeName"));
+				place.setRegion1DepthName(rs.getString("region1DepthName"));
+				place.setRegion2DepthName(rs.getString("region2DepthName"));
+				place.setCategoryIdx(rs.getInt("categoryIdx"));
+				place.setCategoryName(rs.getString("categoryName"));
+				place.setCreatedBy(rs.getInt("createdBy"));
+				place.setUpdatedBy(rs.getInt("updatedBy"));
+				place.setCreatedAt(rs.getTimestamp("createdAt"));
+				place.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				place.setCreatedByNickname(rs.getString("createdByNickname"));
+			}
+		} catch (SQLException e) {
+			System.out.println("getPlaceByIdx SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return place;
+	}
+
+	public PlaceVO getPlaceByPlaceIdx(int placeIdx) {
+		PlaceVO place = null;
+		try {
+			sql = "SELECT p.*, c.categoryName, u.nickname AS createdByNickname " 
+					+ "FROM places p " + "JOIN categories c ON p.categoryIdx = c.categoryIdx "
+					+ "JOIN users2 u ON p.createdBy = u.userIdx " + "WHERE p.placeIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, placeIdx);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				place = new PlaceVO();
+				place.setPlaceIdx(rs.getInt("placeIdx"));
+				place.setPlaceName(rs.getString("placeName"));
+				place.setRegion1DepthName(rs.getString("region1DepthName"));
+				place.setRegion2DepthName(rs.getString("region2DepthName"));
+				place.setCategoryIdx(rs.getInt("categoryIdx"));
+				place.setCategoryName(rs.getString("categoryName"));
+				place.setCreatedBy(rs.getInt("createdBy"));
+				place.setUpdatedBy(rs.getInt("updatedBy"));
+				place.setCreatedAt(rs.getTimestamp("createdAt"));
+				place.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				place.setCreatedByNickname(rs.getString("createdByNickname"));
+			}
+		} catch (SQLException e) {
+			System.out.println("getPlaceByIdx SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}

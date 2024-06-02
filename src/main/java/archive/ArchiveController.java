@@ -17,7 +17,7 @@ import archive.guestBook.ToggleVisibilityCommand;
 import archive.localLog.ArchiveLocalLogCommand;
 import archive.localLog.DeleteLocalLogCommand;
 import archive.localLog.GetNextLocalLogCommand;
-import archive.localLog.LocalLogDetailCommand;
+import archive.localLog.MyLocalLogDetailCommand;
 import archive.localLog.UpdateLocalLogCommand;
 
 @SuppressWarnings("serial")
@@ -50,8 +50,8 @@ public class ArchiveController extends HttpServlet {
 			command = new ToggleVisibilityCommand();
 			command.execute(request, response);
 			return;
-		} else if (com.equals("localLogDetail")) {
-			command = new LocalLogDetailCommand();
+		} else if (com.equals("myLocalLogDetail")) {
+			command = new MyLocalLogDetailCommand();
 			command.execute(request, response);
 			return;
 		} else if (com.equals("getNextLocalLog")) {
