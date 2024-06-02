@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import localLog.LocalLogDAO;
+import localLog.LocalLogVO;
 import place.PlaceDAO;
 import place.PlaceVO;
 import record.LoadCategoriesHelper;

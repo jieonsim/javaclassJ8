@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import record.localLog.LocalLogDAO;
-import record.localLog.LocalLogVO;
+import localLog.LocalLogDAO;
+import localLog.LocalLogVO;
 
 @SuppressWarnings("serial")
 @WebServlet("/submitUpdateLocalLog.a")

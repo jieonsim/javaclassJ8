@@ -14,7 +14,7 @@ import record.guestBook.GuestBookInterface;
 
 @SuppressWarnings("serial")
 @WebServlet("*.ll")
-public class LocalLogController extends HttpServlet {
+public class RecordLocalLogController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GuestBookInterface command = null;
 		String viewPage = "/WEB-INF/record/localLog/";

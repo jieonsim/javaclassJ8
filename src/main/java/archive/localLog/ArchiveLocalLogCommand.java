@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import archive.ArchiveInterface;
-import record.localLog.LocalLogDAO;
-import record.localLog.LocalLogVO;
+import localLog.LocalLogDAO;
+import localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 

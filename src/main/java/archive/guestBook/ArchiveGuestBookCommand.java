@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import archive.ArchiveInterface;
-import record.guestBook.GuestBookDAO;
-import record.guestBook.GuestBookVO;
+import guestBook.GuestBookDAO;
+import guestBook.GuestBookVO;
 import user.UserDAO;
 import user.UserVO;
 

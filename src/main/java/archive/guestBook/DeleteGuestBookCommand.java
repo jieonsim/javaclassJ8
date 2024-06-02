@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import archive.ArchiveInterface;
-import record.guestBook.GuestBookDAO;
+import guestBook.GuestBookDAO;
 
 public class DeleteGuestBookCommand implements ArchiveInterface {
     @Override

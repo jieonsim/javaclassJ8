@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import archive.ArchiveInterface;
-import record.localLog.LocalLogDAO;
+import localLog.LocalLogDAO;
 
 public class DeleteLocalLogCommand implements ArchiveInterface {
 

@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import archive.ArchiveInterface;
+import localLog.LocalLogDAO;
+import localLog.LocalLogVO;
 import place.PlaceDAO;
 import place.PlaceVO;
-import record.localLog.LocalLogDAO;
-import record.localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 

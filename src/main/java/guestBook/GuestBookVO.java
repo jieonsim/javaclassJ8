@@ -1,34 +1,32 @@
-package record.localLog;
+package guestBook;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class LocalLogVO {
-	private int localLogIdx;
+public class GuestBookVO {
+	private int guestBookIdx;
 	private int userIdx;
 	private int placeIdx;
-	private String content;
-	private String photos;
 	private Date visitDate;
-	private String community;
+	private String content;
+	private String companions;
 	private String visibility;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	private String hostIp;
 
-	// 추가
+	// 필드 추가
 	private String placeName;
 	private String region1DepthName;
 	private String region2DepthName;
-	private String coverImage;
 	private String categoryName;
 
-	public int getLocalLogIdx() {
-		return localLogIdx;
+	public int getGuestBookIdx() {
+		return guestBookIdx;
 	}
 
-	public void setLocalLogIdx(int localLogIdx) {
-		this.localLogIdx = localLogIdx;
+	public void setGuestBookIdx(int guestBookIdx) {
+		this.guestBookIdx = guestBookIdx;
 	}
 
 	public int getUserIdx() {
@@ -47,22 +45,6 @@ public class LocalLogVO {
 		this.placeIdx = placeIdx;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getPhotos() {
-		return photos;
-	}
-
-	public void setPhotos(String photos) {
-		this.photos = photos;
-	}
-
 	public Date getVisitDate() {
 		return visitDate;
 	}
@@ -71,12 +53,20 @@ public class LocalLogVO {
 		this.visitDate = visitDate;
 	}
 
-	public String getCommunity() {
-		return community;
+	public String getContent() {
+		return content;
 	}
 
-	public void setCommunity(String community) {
-		this.community = community;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getCompanions() {
+		return companions;
+	}
+
+	public void setCompanions(String companions) {
+		this.companions = companions;
 	}
 
 	public String getVisibility() {
@@ -135,14 +125,6 @@ public class LocalLogVO {
 		this.region2DepthName = region2DepthName;
 	}
 
-	public String getCoverImage() {
-		return coverImage;
-	}
-
-	public void setCoverImage(String coverImage) {
-		this.coverImage = coverImage;
-	}
-
 	public String getCategoryName() {
 		return categoryName;
 	}
@@ -153,9 +135,8 @@ public class LocalLogVO {
 
 	@Override
 	public String toString() {
-		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos
-				+ ", visitDate=" + visitDate + ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName="
-				+ region2DepthName + ", coverImage=" + coverImage + ", categoryName=" + categoryName + "]";
+		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content=" + content + ", companions=" + companions
+				+ ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName
+				+ ", region2DepthName=" + region2DepthName + ", categoryName=" + categoryName + "]";
 	}
 }

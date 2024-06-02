@@ -165,53 +165,59 @@ function deleteCheck(localLogIdx) {
 				</li>
 			</ul>
 			<hr>
-			<div class="container my-4 pt-3" style="width: 450px;">
-				<div class="d-flex justify-content-between">
-					<div>
-						<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
-							<i class="ph ph-caret-left"></i>
-						</a>
-						<span class="text-dark" style="font-size: 14px;">${localLog.visitDate}&nbsp;방문</span>
-					</div>
-					<div>
-						<a href="#" data-toggle="modal" data-target="#updateAndDeleteLocalLog" class="text-dark" style="text-decoration: none;" data-localLog-id="${localLog.localLogIdx}">
-							<i class="ph ph-dots-three" style="font-size: 20px"></i>
-						</a>
-					</div>
-				</div>
-				<div class="position-relative" style="width: 100%; margin: auto;">
-					<div id="cardCarousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
-								<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
-							</c:forEach>
-						</ol>
-						<div class="carousel-inner">
-							<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
-								<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-									<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
-								</div>
-							</c:forEach>
+			<div class="container my-4 pt-3">
+				<div class="row justify-content-center">
+					<div class="col-12 col-md-8 col-lg-6" style="max-width: 650px;">
+						<div class="d-flex justify-content-between">
+							<div>
+								<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
+									<i class="ph ph-caret-left"></i>
+								</a>
+								<span class="text-dark" style="font-size: 14px;">${localLog.visitDate}&nbsp;방문</span>
+							</div>
+							<div>
+								<a href="#" data-toggle="modal" data-target="#updateAndDeleteLocalLog" class="text-dark" style="text-decoration: none;" data-localLog-id="${localLog.localLogIdx}">
+									<i class="ph ph-dots-three" style="font-size: 20px"></i>
+								</a>
+							</div>
 						</div>
-						<a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
-					<div class="card-img-overlay">
-						<div class="card-title" style="color: white; font-size:18px"><b>${localLog.placeName}</b></div>
-						<div class="card-text" style="color: white; font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
+						<div class="position-relative" style="width: 100%; margin: auto;">
+							<div id="cardCarousel" class="carousel slide" data-ride="carousel">
+								<ol class="carousel-indicators">
+									<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
+										<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
+									</c:forEach>
+								</ol>
+								<div class="carousel-inner">
+									<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
+										<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+											<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
+										</div>
+									</c:forEach>
+								</div>
+								<a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+							<div class="card-img-overlay">
+								<div class="card-title" style="color: white; font-size: 18px">
+									<b>${localLog.placeName}</b>
+								</div>
+								<div class="card-text" style="color: white; font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
+							</div>
+						</div>
+						<c:if test="${not empty localLog.content}">
+							<div class="localLogContent-container mt-3">
+								<div>${fn:replace(localLog.content, newLine, "<br>")}</div>
+							</div>
+						</c:if>
 					</div>
 				</div>
-				<c:if test="${not empty localLog.content}">
-					<div class="localLogContent-container mt-3">
-						<div>${fn:replace(localLog.content, newLine, "<br>")}</div>
-					</div>
-				</c:if>
 			</div>
 			<hr>
 		</div>

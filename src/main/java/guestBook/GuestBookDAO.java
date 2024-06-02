@@ -1,4 +1,4 @@
-package record.guestBook;
+package guestBook;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import guestBook.GuestBookDAO;
+import guestBook.GuestBookVO;
 import place.PlaceDAO;
 import place.PlaceVO;
 import record.LoadCategoriesHelper;

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import record.localLog.LocalLogDAO;
-import record.localLog.LocalLogVO;
+import localLog.LocalLogDAO;
+import localLog.LocalLogVO;
 import user.UserDAO;
 import user.UserVO;
 
@@ -54,7 +54,7 @@ public class Main extends HttpServlet {
 		}
 
 		LocalLogDAO localLogDAO = new LocalLogDAO();
-		int pageSize = 1;
+		int pageSize = 4;
 		int totalPages = (int) Math.ceil((double) localLogDAO.getLocalLogCount() / pageSize);
 		List<LocalLogVO> localLogs = localLogDAO.getRandomLocalLogs(0, pageSize);
 

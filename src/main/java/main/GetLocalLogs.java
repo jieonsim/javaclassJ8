@@ -8,8 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import record.localLog.LocalLogDAO;
-import record.localLog.LocalLogVO;
+
+import localLog.LocalLogDAO;
+import localLog.LocalLogVO;
 
 @SuppressWarnings("serial")
 @WebServlet("/getLocalLogs")
@@ -17,11 +18,12 @@ public class GetLocalLogs extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pag = Integer.parseInt(request.getParameter("pag"));
-        int pageSize = 1; // 페이지당 보여줄 로컬로그 수
+        int pageSize = 4; // 페이지당 보여줄 로컬로그 수
         int startIndexNo = (pag - 1) * pageSize;
 
         LocalLogDAO localLogDAO = new LocalLogDAO();
-        List<LocalLogVO> localLogs = localLogDAO.getLocalLogs(startIndexNo, pageSize);
+//        List<LocalLogVO> localLogs = localLogDAO.getLocalLogs(startIndexNo, pageSize);
+        List<LocalLogVO> localLogs = localLogDAO.getRandomLocalLogs(startIndexNo, pageSize);
 
         request.setAttribute("localLogs", localLogs);
 
