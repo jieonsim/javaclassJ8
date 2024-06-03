@@ -77,7 +77,7 @@
 			lastScroll = currentScroll;
 		});
 	});
-	
+
 	$(document).ready(function() {
 	    let editMode = false;
 	    let initialState = [];
@@ -92,11 +92,23 @@
 	                });
 	            });
 
-	            $('.bookmark-container .image-container').append('<div class="overlay"></div>');
+	            $('.bookmark-container .image-container').append('<div class="overlay"><div class="checkbox"></div></div>');
 	            $(this).text('삭제');
 	            editMode = true;
 	        } else {
-	            showConfirmAlert();
+	            const selectedBookmarks = [];
+	            $('.overlay.selected').each(function() {
+	                const localLogIdx = $(this).closest('.card').data('locallogid');
+	                selectedBookmarks.push(localLogIdx);
+	            });
+
+	            if (selectedBookmarks.length === 0) {
+	                // Revert to initial state if no items are selected
+	                revertToInitialState();
+	                return;
+	            }
+
+	            showConfirmAlert(selectedBookmarks);
 	        }
 	    });
 
@@ -106,7 +118,7 @@
 	        $(this).parent().toggleClass('checked');
 	    });
 
-	    function showConfirmAlert() {
+	    function showConfirmAlert(selectedBookmarks) {
 	        Swal.fire({
 	            text: '선택된 공간을 정말 삭제하시겠어요?',
 	            showCancelButton: true,
@@ -120,12 +132,6 @@
 	            },
 	        }).then((result) => {
 	            if (result.isConfirmed) {
-	                const selectedBookmarks = [];
-	                $('.overlay.selected').each(function() {
-	                    const localLogIdx = $(this).closest('.card').data('locallogid');
-	                    selectedBookmarks.push(localLogIdx);
-	                });
-
 	                if (selectedBookmarks.length > 0) {
 	                    $.ajax({
 	                        url: 'deleteBookmarks.b',
@@ -145,96 +151,35 @@
 	                    });
 	                }
 	            } else {
-	                // Revert to initial state
-	                $('.bookmark-container .image-container').each(function(index) {
-	                    const state = initialState[index];
-	                    const overlay = $(this).find('.overlay');
-	                    if (state.selected) {
-	                        overlay.addClass('selected');
-	                        $(this).addClass('checked');
-	                    } else {
-	                        overlay.removeClass('selected');
-	                        $(this).removeClass('checked');
-	                    }
-	                });
-	                $('#bookmarkEdit').text('편집');
-	                $('.overlay').remove();
-	                editMode = false;
+	                // Revert to initial state if "취소" is clicked
+	                revertToInitialState();
 	            }
 	        });
+	    }
+
+	    function revertToInitialState() {
+	        $('.bookmark-container .image-container').each(function(index) {
+	            const state = initialState[index];
+	            const overlay = $(this).find('.overlay');
+	            if (state.selected) {
+	                overlay.addClass('selected');
+	                $(this).addClass('checked');
+	            } else {
+	                overlay.removeClass('selected');
+	                $(this).removeClass('checked');
+	            }
+	        });
+	        $('#bookmarkEdit').text('편집');
+	        $('.overlay').remove();
+	        editMode = false;
 	    }
 	});
-
-	
-/* 	$(document).ready(function() {
-	    let editMode = false;
-
-	    $('#bookmarkEdit').click(function() {
-	        if (!editMode) {
-	            $('.bookmark-container .image-container').append('<div class="overlay"></div>');
-	            $(this).text('삭제');
-	            editMode = true;
-	        } else {
-	            showConfirmAlert();
-	        }
-	    });
-
-	    $(document).on('click', '.overlay', function(e) {
-	        e.stopPropagation(); // Prevent the stretched link from triggering
-	        $(this).toggleClass('selected');
-	        $(this).parent().toggleClass('checked');
-	    });
-
-	    function showConfirmAlert() {
-	        Swal.fire({
-	            text: '선택된 공간을 정말 삭제하시겠어요?',
-	            showCancelButton: true,
-	            confirmButtonText: '삭제',
-	            cancelButtonText: '취소',
-	            customClass: {
-	                confirmButton: 'swal2-confirm',
-	                cancelButton: 'swal2-cancel',
-	                popup: 'custom-swal-popup',
-	                htmlContainer: 'custom-swal-text',
-	            },
-	        }).then((result) => {
-	            if (result.isConfirmed) {
-	                const selectedBookmarks = [];
-	                $('.overlay.selected').each(function() {
-	                    const localLogIdx = $(this).closest('.card').data('locallogid');
-	                    selectedBookmarks.push(localLogIdx);
-	                });
-
-	                if (selectedBookmarks.length > 0) {
-	                    $.ajax({
-	                        url: 'deleteBookmarks.b',
-	                        type: 'POST',
-	                        data: { localLogIdxs: selectedBookmarks },
-	                        traditional: true,
-	                        success: function(response) {
-	                            if (response === 'success') {
-	                                window.location.reload();
-	                            } else {
-	                                showAlert('북마크 삭제에 실패하였습니다.');
-	                            }
-	                        },
-	                        error: function() {
-	                            showAlert("에러 발생");
-	                        }
-	                    });
-	                }
-	            }
-	        });
-	    }
-	}); */
-
 </script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="container mt-5">
-<!-- 	<div class="bookmark-container"> -->
+	<div class="bookmark-container">
 		<c:if test="${not empty bookmarks}">
 			<div class="d-flex justify-content-end mb-3">
 				<div></div>
@@ -250,6 +195,7 @@
 								<div class="card img-fluid" id="bookmark-localLog-card" data-locallogid="${bookmark.localLogIdx}">
 									<div class="image-container">
 										<img class="card-img-top" src="${ctp}/images/localLog/${bookmark.coverImage}" alt="Card image" id="bookmark-localLog-card-img">
+										<div class="gradient-overlay"></div>
 										<div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
 											<p class="card-text">
 												<c:choose>
@@ -284,9 +230,9 @@
 												</c:choose>
 												<span>&nbsp;${bookmark.region1DepthName},&nbsp;${bookmark.region2DepthName}</span>
 											</p>
+											<!-- <div class="gradient-overlay"></div> -->
+											<a href="localLogDetail.ld?localLogIdx=${bookmark.localLogIdx}" class="stretched-link"></a>
 										</div>
-										<div class="gradient-overlay"></div>
-										<a href="localLogDetail.ld?localLogIdx=${bookmark.localLogIdx}" class="stretched-link"></a>
 									</div>
 									<div class="card-body">
 										<b>${bookmark.placeName}</b>

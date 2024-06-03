@@ -15,74 +15,47 @@
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="container">
-		<div class="search-result-header">
-			<input type="text" value="성수" class="search-input">
-			<a href="searchResult.search" class="search-icon">
-				<i class="ph ph-magnifying-glass"></i>
-			</a>
-			<div class="filter-options">
-				<span class="filter-option">인기순</span>
-				<span class="filter-option">필터</span>
-				<span class="filter-option">카페</span>
-				<span class="filter-option">음식점</span>
-				<span class="filter-option">문화</span>
-				<span class="filter-option">여행</span>
-				<span class="filter-option">바</span>
-				<span class="filter-option">숙박</span>
-				<span class="filter-option">쇼핑</span>
+	<div class="container mt-5">
+		<form>
+			<div class="search-result-header">
+				<input type="text" name="query" value="${param.query}" class="search-input">
+				<button type="submit" class="btn btn-custom" id="search-icon">
+					<i class="ph ph-magnifying-glass"></i>
+				</button>
+				<div class="filter-options">
+					<span class="filter-option">인기순</span>
+					<span class="filter-option">필터</span>
+					<span class="filter-option">카페</span>
+					<span class="filter-option">음식점</span>
+					<span class="filter-option">문화</span>
+					<span class="filter-option">여행</span>
+					<span class="filter-option">바</span>
+					<span class="filter-option">숙박</span>
+					<span class="filter-option">쇼핑</span>
+				</div>
+			</div>
+		</form>
+		<div class="search-result-content">
+			<div class="container-fluid">
+				<div class="row no-gutters">
+					<c:forEach var="localLog" items="${searchResults}">
+						<div class="col-md-4">
+							<div class="search-item">
+								<img src="${ctp}/images/localLog/${localLog.coverImage}" class="search-item-img img-fluid" alt="${localLog.placeName}">
+								<div class="search-item-details">
+									<h4>${localLog.placeName}</h4>
+									<p>${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-		<div class="search-result-content">
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/1.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>웹 성수</h4>
-					<p>서울, 성동구 · 음식점</p>
-				</div>
-			</div>
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/2.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>SILD 성수</h4>
-					<p>서울, 성동구 · 샵</p>
-				</div>
-			</div>
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/3.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>린 성수</h4>
-					<p>서울, 성동구 · 바</p>
-				</div>
-			</div>
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/newjeans1.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>29CM 성수</h4>
-					<p>서울, 성수 · 복합문화공간</p>
-				</div>
-			</div>
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/newjeans2.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>TTRS 성수</h4>
-					<p>서울, 성수 · 샵</p>
-				</div>
-			</div>
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/newjeans3.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>베통 성수</h4>
-					<p>서울, 성동구 · 디저트 / 베이커리</p>
-				</div>
-			</div>
-			<div class="search-item">
-				<img src="${ctp}/images/dummy/newjeans4.jpg" class="search-item-img">
-				<div class="search-item-details">
-					<h4>강별 성수</h4>
-					<p>서울, 성동구 · 음식점</p>
-				</div>
-			</div>
+
+		<div class="text-center" style="margin-top: 100px;">
+			<div class="mb-2">검색 결과가 없습니다.</div>
+			<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-localLog.ll'"></button>
 		</div>
 	</div>
 	<input type="hidden" id="message" value="${message}" />

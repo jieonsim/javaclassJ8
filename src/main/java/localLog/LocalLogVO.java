@@ -23,6 +23,7 @@ public class LocalLogVO {
 	private String region2DepthName;
 	private String coverImage;
 	private String categoryName;
+	private String categoryType;
 	private List<String> photoUrls;
 	private int itemIdx;
 	private String itemType;
@@ -188,12 +189,19 @@ public class LocalLogVO {
 		this.itemType = itemType;
 	}
 
+	public String getCategoryType() {
+		return categoryType;
+	}
+
+	public void setCategoryType(String categoryType) {
+		this.categoryType = categoryType;
+	}
+
 	@Override
 	public String toString() {
-		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos
-				+ ", visitDate=" + visitDate + ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName + ", region2DepthName="
-				+ region2DepthName + ", coverImage=" + coverImage + ", categoryName=" + categoryName + ", photoUrls=" + photoUrls + ", itemIdx=" + itemIdx
-				+ ", itemType=" + itemType + ", likeCount=" + likeCount + "]";
+		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos + ", visitDate=" + visitDate
+				+ ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName
+				+ ", region1DepthName=" + region1DepthName + ", region2DepthName=" + region2DepthName + ", coverImage=" + coverImage + ", categoryName=" + categoryName + ", categoryType="
+				+ categoryType + ", photoUrls=" + photoUrls + ", itemIdx=" + itemIdx + ", itemType=" + itemType + ", likeCount=" + likeCount + "]";
 	}
 }
