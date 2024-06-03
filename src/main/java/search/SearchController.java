@@ -1,4 +1,4 @@
-package bookmark;
+package search;
 
 import java.io.IOException;
 
@@ -9,28 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("*.b")
-public class BookmarkController extends HttpServlet {
+@WebServlet("*.search")
+public class SearchController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BookmarkInterface command = null;
+		SearchInterface command = null;
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("bookmarkCheck")) {
-			command = new BookmarkCheckCommand();
+		if (com.equals("search")) {
+			command = new SearchCommand();
 			command.execute(request, response);
 			return;
-		} else if (com.equals("bookmark")) {
-			command = new BookmarkCommand();
-			command.execute(request, response);
-			return;
-		} else if (com.equals("getNextBookmarks")) {
-			command = new GetNextBookmarksCommand();
-			command.execute(request, response);
-			return;
-		} else if (com.equals("deleteBookmarks")) {
-			command = new DeleteBookmarksCommand();
+		} else if (com.equals("searchResult")) {
+			command = new SearchResultCommand();
 			command.execute(request, response);
 			return;
 		}

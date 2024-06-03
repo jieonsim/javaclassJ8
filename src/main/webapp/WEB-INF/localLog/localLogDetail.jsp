@@ -68,10 +68,14 @@ pageContext.setAttribute("newLine", "\n");
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<!-- 	<a href="javascript:history.back()" class="back-button">
-		<i class="ph ph-caret-left"></i>
-	</a> -->
-	<div class="container mx-auto" style="width: 700px; padding-top: 50px;">
+	<div class="container" style="margin-top: 40px;">
+		<!-- <div class="d-flex justify-content-between"> -->
+			<a href="javascript:history.back()" class="back-button">
+				<i class="ph ph-caret-left"></i>
+			</a>
+		<!-- </div> -->
+	</div>
+	<div class="localLogDetail-container">
 		<div class="row">
 			<div class="col-md-6">
 				<div id="cardCarousel" class="carousel slide" data-ride="carousel">
@@ -139,8 +143,8 @@ pageContext.setAttribute("newLine", "\n");
 		</div>
 		<hr>
 		<div class="row mt-3 pb-5">
-			<div class="col-12 d-flex justify-content-between align-items-center">
-				<p style="font-size: 14px; margin: 0;">
+			<div class="col-12 d-flex justify-content-between align-items-center mb-1">
+				<p style="font-size: 14px; margin-bo: 0;">
 					<c:if test="${not empty place.createdBy}">
 						<span>
 							<b><c:out value="${place.createdByNickname}" /></b>
@@ -148,7 +152,9 @@ pageContext.setAttribute("newLine", "\n");
                 님이 처음으로 발견한 공간이에요!
             </c:if>
 				</p>
-				<a href="record-guestBook.g" id="writeToGuestBook"> 방명록 작성하러 가기 </a>
+				<c:if test="${not empty guestBooks}">
+					<a href="record-guestBook.g" id="writeToGuestBook"> 방명록 작성하러 가기 </a>
+				</c:if>
 			</div>
 			<div class="col-12">
 				<c:choose>

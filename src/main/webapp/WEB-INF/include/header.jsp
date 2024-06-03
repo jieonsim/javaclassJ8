@@ -10,12 +10,12 @@
 			<div class="col-auto">
 				<a href="#" class="header-link" id="localLens">Local Lens</a>
 			</div>
-			<div class="col-auto position-relative">
+			<!-- <div class="col-auto position-relative">
 				<input class="search-input" type="search" placeholder="find a lil spot? use me!" aria-label="Search">
 				<button class="search-btn" type="submit">
 					<i class="ph ph-magnifying-glass"></i>
 				</button>
-			</div>
+			</div> -->
 			<div class="col-auto d-flex align-items-center">
 				<c:if test="${empty sessionUserIdx}">
 					<a href="signup.s" class="header-link">

@@ -6,6 +6,7 @@
 
 .navbar ul li a#home,
 .navbar ul li a#map,
+.navbar ul li a#search,
 .navbar ul li a#record,
 .navbar ul li a#bookmark,
 .navbar ul li a#archive {
@@ -24,11 +25,13 @@
 
 .navbar ul li a#home:hover,
 .navbar ul li a#map:hover,
+.navbar ul li a#search:hover,
 .navbar ul li a#record:hover,
 .navbar ul li a#bookmark:hover,
 .navbar ul li a#archive:hover,
 .navbar ul li a#home:active,
 .navbar ul li a#map:active,
+.navbar ul li a#search:active,
 .navbar ul li a#record:active,
 .navbar ul li a#bookmark:active,
 .navbar ul li a#archive:active {

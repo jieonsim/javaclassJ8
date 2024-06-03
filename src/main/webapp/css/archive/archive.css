@@ -121,7 +121,7 @@
 }
 
 
-.swal2-cancel {
+/*.swal2-cancel {
 	background-color: white;
 	border-color: black;
 	border-radius: 0;
@@ -143,7 +143,7 @@
 	padding: 10px 24px;
 	margin: 0;
 	border: none;
-}
+}*/
 
 .nickname-container {
 	display: flex;
