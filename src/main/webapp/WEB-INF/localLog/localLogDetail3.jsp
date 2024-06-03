@@ -34,25 +34,25 @@ pageContext.setAttribute("newLine", "\n");
 		});
 	});
 
-	function toggleBookmark(event, localLogIdx) {
-	    event.preventDefault();
-	    event.stopPropagation();
-
+	function toggleBookmark(localLogIdx) {
+		 event.stopPropagation();
+		 event.preventDefault();
+		    
 	    $.ajax({
 	        url: 'bookmarkCheck.b',
 	        type: 'POST',
 	        data: { localLogIdx: localLogIdx },
 	        success: function(response) {
-	            if (response === 'not_logged_in') {
-	                showAlert("로그인 후 이용하실 수 있습니다.");
-	                return;
-	            }
+	        	if(response == 'not_logged_in') {
+	        		showAlert("로그인 후 이용하실 수 있습니다.");
+	        		return false;
+	        	}
+	            // Update the UI based on the response
 	            if (response === 'bookmarked') {
-	                $('#localLogBookmark-' + localLogIdx).removeClass('ph-bookmark-simple').addClass('ph-fill ph-bookmark-simple');
-	                showAlert("북마크에 저장되었습니다.");
+	                $('#localLogBookmark').removeClass('ph-bookmark-simple').addClass('ph-fill ph-bookmark-simple');
+	                showAlert("북마크에 저장되었습니다.")
 	            } else if (response === 'unbookmarked') {
-	                $('#localLogBookmark-' + localLogIdx).removeClass('ph-fill ph-bookmark-simple').addClass('ph-bookmark-simple');
-	                showAlert("북마크가 삭제되었습니다.");
+	                $('#localLogBookmark').removeClass('ph-fill ph-bookmark-simple').addClass('ph-bookmark-simple');
 	            } else if (response === 'error') {
 	                showAlert("로컬로그 정보를 찾지 못했습니다.");
 	            }
@@ -129,8 +129,11 @@ pageContext.setAttribute("newLine", "\n");
 				<div class="mb-3">
 					<p>${fn:replace(localLog.content, newLine, "<br>")}</p>
 				</div>
-				<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});" class="bookmark-icon" style="text-decoration: none">
-					<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}"></i>
+				<%-- <a href="javascript:void(0);" onclick="toggleBookmark(${localLog.localLogIdx});">
+					<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark" style="position: absolute; bottom: 10px; font-size: 28px; color: black; right: 10px;"></i>
+				</a> --%>
+				<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});">
+					<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}" style="position: absolute; bottom: 10px; font-size: 28px; color: black; right: 10px;"></i>
 				</a>
 				<a href="#">
 					<i class="ph ph-hands-clapping" id="localLogClap"></i>

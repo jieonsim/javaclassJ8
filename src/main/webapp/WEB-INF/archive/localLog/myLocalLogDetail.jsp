@@ -122,52 +122,9 @@ function deleteCheck(localLogIdx) {
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container">
 		<div class="archive-container">
-<%-- 			<div class="row mb-5">
-				<div class="col-3">
-					<div class="photo-placeholder">
-						<c:choose>
-							<c:when test="${not empty users.profileImage}">
-								<img id="profile-photo" src="${ctp}/images/profileImage/${users.profileImage}" alt="Profile Photo" class="profile-photo" />
-							</c:when>
-							<c:otherwise>
-								<span id="profile-icon" class="profile-icon">
-									<i class="ph ph-user-focus" id="profileIcon"></i>
-								</span>
-								<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-				<div class="col-9">
-					<div class="mb-3" id="nickname">${users.nickname}</div>
-					<c:choose>
-						<c:when test="${not empty users.introduction}">
-							<div>${users.introduction}</div>
-						</c:when>
-						<c:otherwise>
-							<div>
-								<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
-			<ul class="d-flex justify-content-between list-unstyled">
-				<li>
-					<a href="archive-localLog.a" id="localLog">로컬로그</a>
-					<span>${localLogCount}</span>
-				</li>
-				<li>
-					<a href="archive-guestBook.a" id="guestBook">방명록</a>
-				</li>
-				<li>
-					<a href="archive-curation.a" id="curation">큐레이션</a>
-				</li>
-			</ul> 
-			<hr>--%>
 			<div class="container mx-auto">
 				<div class="row justify-content-center">
-					<div class="col-12 col-md-8 col-lg-6" style="max-width: 700px;">
+					<div class="col-12 col-md-8 col-lg-8">
 						<div class="d-flex justify-content-between">
 							<div>
 								<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
@@ -196,14 +153,6 @@ function deleteCheck(localLogIdx) {
 										</div>
 									</c:forEach>
 								</div>
-								<!-- <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
-									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									<span class="sr-only">Previous</span>
-								</a>
-								<a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
-									<span class="carousel-control-next-icon" aria-hidden="true"></span>
-									<span class="sr-only">Next</span>
-								</a> -->
 							</div>
 							<div class="card-img-overlay">
 								<div class="card-title" style="font-size: 18px; font-weight: bold;">
@@ -220,7 +169,6 @@ function deleteCheck(localLogIdx) {
 					</div>
 				</div>
 			</div>
-			<!-- <hr> -->
 		</div>
 		<!-- 위로가기 버튼 -->
 		<div id="topBtn" class="">

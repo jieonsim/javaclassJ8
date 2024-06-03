@@ -95,6 +95,39 @@ pageContext.setAttribute("newLine", "\n");
 		// Initialize carousel on page load
 		reinitializeCarousel();
 	});
+	
+	function toggleBookmark(event, localLogIdx) {
+	    // Stop the link from being followed
+	    event.stopPropagation();
+	    
+	    // Retrieve the localLogIdx from the hidden input field
+	    var localLogIdx = $('#localLogIdx-' + localLogIdx).val();
+	    
+	    $.ajax({
+	        url: 'bookmarkCheck.b',
+	        type: 'POST',
+	        data: { localLogIdx: localLogIdx },
+	        success: function(response) {
+	            if (response == 'not_logged_in') {
+	                showAlert("로그인 후 이용하실 수 있습니다.");
+	                return false;
+	            }
+	            // Update the UI based on the response
+	            if (response === 'bookmarked') {
+	                $('#localLogBookmark-' + localLogIdx).removeClass('ph-bookmark-simple').addClass('ph-fill ph-bookmark-simple');
+	                showAlert("북마크에 저장되었습니다.");
+	            } else if (response === 'unbookmarked') {
+	                $('#localLogBookmark-' + localLogIdx).removeClass('ph-fill ph-bookmark-simple').addClass('ph-bookmark-simple');
+	            } else if (response === 'error') {
+	                showAlert("로컬로그 정보를 찾지 못했습니다.");
+	            }
+	        },
+	        error: function(error) {
+	            console.error('Error toggling bookmark', error);
+	            showAlert("전송 오류");
+	        }
+	    });
+	}
 </script>
 </head>
 <body>
@@ -122,8 +155,36 @@ pageContext.setAttribute("newLine", "\n");
 							<c:if test="${not empty localLog.content}">
 								<p class="card-text">${fn:replace(custom:truncateWithEllipsis(localLog.content, 50), newLine, "<br>")}</p>
 							</c:if>
+							<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
 						</div>
-						<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
+						<%-- <div class="card-body">
+							<h5 class="card-title d-flex justify-content-between align-items-center">
+								<span>${localLog.placeName}</span>
+							</h5>
+							<p class="card-text text-muted">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
+							<c:if test="${not empty localLog.content}">
+								<p class="card-text">${fn:replace(custom:truncateWithEllipsis(localLog.content, 50), newLine, "<br>")}</p>
+							</c:if>
+							<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
+							<input type="hidden" id="localLogIdx-${localLog.localLogIdx}" value="${localLog.localLogIdx}" />
+						</div>
+						<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});" class="bookmark-icon">
+							<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}"></i>
+						</a> --%>
+						<%-- <div class="card-body position-relative">
+							<h5 class="card-title d-flex justify-content-between align-items-center">
+								<span>${localLog.placeName}</span>
+								<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});" class="bookmark-icon">
+									<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}"></i>
+								</a>
+							</h5>
+							<p class="card-text text-muted">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
+							<c:if test="${not empty localLog.content}">
+								<p class="card-text">${fn:replace(custom:truncateWithEllipsis(localLog.content, 50), newLine, "<br>")}</p>
+							</c:if>
+							<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
+							<input type="hidden" id="localLogIdx-${localLog.localLogIdx}" value="${localLog.localLogIdx}" />
+						</div> --%>
 					</div>
 				</div>
 				<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
@@ -138,6 +199,6 @@ pageContext.setAttribute("newLine", "\n");
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" id="totalPages" value="${totalPages}" />
-	<input type="hidden" id="localLogIdx" value="${localLog.localLogIdx}" />
+	<%-- <input type="hidden" id="localLogIdx" value="${localLog.localLogIdx}" /> --%>
 </body>
 </html>

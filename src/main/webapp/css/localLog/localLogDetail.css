@@ -41,7 +41,7 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 70%;
+	height: 30%;
 	background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
 	z-index: 1;
 }
@@ -120,8 +120,8 @@
 	margin-left: 5px;
 }
 
-/* CSS for before clicking like */
-.beforelike {
+/* CSS for before clicking like (only for guestbook likes) */
+.guestbook-like-button.beforelike {
 	display: inline-flex;
 	align-items: center;
 	padding: 5px 10px;
@@ -133,12 +133,12 @@
 	text-decoration: none;
 }
 
-.beforelike i {
+.guestbook-like-button.beforelike i {
 	margin-right: 5px;
 }
 
-/* CSS for after clicking like */
-.afterlike {
+/* CSS for after clicking like (only for guestbook likes) */
+.guestbook-like-button.afterlike {
 	display: inline-flex;
 	align-items: center;
 	padding: 5px 10px;
@@ -150,6 +150,29 @@
 	text-decoration: none;
 }
 
-.afterlike i {
+.guestbook-like-button.afterlike i {
 	margin-right: 5px;
+}
+
+#writeToGuestBook {
+	text-decoration: none;
+	font-size: 14px;
+	color: black;
+}
+#writeToGuestBook:hover {
+	font-weight: bold;
+}
+
+.bookmark-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 1px;
+    font-size: 28px;
+    color: black;
+    z-index: 10; /* Ensure it is above other elements */
+}
+
+
+.bookmark-icon:hover {
+	color: black;
 }

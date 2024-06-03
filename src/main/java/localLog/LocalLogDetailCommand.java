@@ -7,7 +7,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import bookmark.BookmarkDAO;
 import guestBook.GuestBookDAO;
 import guestBook.GuestBookVO;
 import place.PlaceDAO;
@@ -19,11 +21,14 @@ public class LocalLogDetailCommand implements LocalLogInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
+
 		int localLogIdx = Integer.parseInt(request.getParameter("localLogIdx"));
-		
+
 		LocalLogDAO localLogDAO = new LocalLogDAO();
 		LocalLogVO localLog = localLogDAO.getLocalLogByIdx(localLogIdx);
-		
+
 		UserDAO userDAO = new UserDAO();
 		UserVO user = userDAO.getUserByIdx(localLog.getUserIdx());
 
@@ -33,10 +38,18 @@ public class LocalLogDetailCommand implements LocalLogInterface {
 		GuestBookDAO guestBookDAO = new GuestBookDAO();
 		List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByPlaceIdx(localLog.getPlaceIdx());
 
+		boolean isBookmarked = false;
+		if (sessionUserIdx != null) {
+			// Check if the local log is bookmarked by the user
+			BookmarkDAO bookmarkDAO = new BookmarkDAO();
+			isBookmarked = bookmarkDAO.isBookmarked(sessionUserIdx, localLogIdx);
+		}
+
 		request.setAttribute("localLog", localLog);
 		request.setAttribute("user", user);
 		request.setAttribute("place", place);
 		request.setAttribute("guestBooks", guestBooks);
+		request.setAttribute("isBookmarked", isBookmarked);
 
 		String viewPage = "/WEB-INF/localLog/localLogDetail.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

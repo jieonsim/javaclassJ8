@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container">
 		<div class="archive-container">
-			<div class="row mb-5">
+			<div class="row mb-4">
 				<div class="col-3">
 					<div class="photo-placeholder">
 						<c:choose>

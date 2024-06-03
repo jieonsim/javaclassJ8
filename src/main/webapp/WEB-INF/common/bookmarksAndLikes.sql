@@ -13,6 +13,17 @@ CREATE TABLE bookmarks (
     FOREIGN KEY (userIdx) REFERENCES users2(userIdx)
 );
 
+
+CREATE TABLE bookmarks (
+    bookmarkIdx INT AUTO_INCREMENT PRIMARY KEY,
+    userIdx INT,
+    localLogIdx INT,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userIdx) REFERENCES users2(userIdx),
+    FOREIGN KEY (localLogIdx) REFERENCES localLogs(localLogIdx)
+);
+
+
 CREATE TABLE likes (
     likeIdx INT AUTO_INCREMENT PRIMARY KEY,
     userIdx INT,

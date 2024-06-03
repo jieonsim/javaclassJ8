@@ -207,43 +207,43 @@ public class GuestBookDAO {
 //		return isLiked;
 //	}
 //	public boolean checkIfLiked(int userIdx, int itemIdx, String itemType) {
-//		boolean isLiked = false;
-//		try {
-//			sql = "SELECT * FROM likes WHERE userIdx = ? AND itemIdx = ? AND itemType = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, itemIdx);
-//			pstmt.setString(3, itemType);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				isLiked = true;
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-//		} finally {
-//			rsClose();
-//		}
-//		return isLiked;
+//	    boolean isLiked = false;
+//	    try {
+//	        sql = "SELECT * FROM likes WHERE userIdx = ? AND itemIdx = ? AND itemType = ?";
+//	        pstmt = conn.prepareStatement(sql);
+//	        pstmt.setInt(1, userIdx);
+//	        pstmt.setInt(2, itemIdx);
+//	        pstmt.setString(3, itemType);
+//	        rs = pstmt.executeQuery();
+//	        if (rs.next()) {
+//	            isLiked = true;
+//	        }
+//	    } catch (SQLException e) {
+//	        System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
+//	    } finally {
+//	        rsClose();
+//	    }
+//	    return isLiked;
 //	}
-	public boolean checkIfLiked(int userIdx, int itemIdx, int guestBookIdx) {
-		boolean isLiked = false;
-		try {
-			sql = "SELECT * FROM likes WHERE userIdx = ? AND itemIdx = ? AND guestBookIdx = ? AND itemType = 'guestBook'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userIdx);
-			pstmt.setInt(2, itemIdx);
-			pstmt.setInt(3, guestBookIdx);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				isLiked = true;
-			}
-		} catch (SQLException e) {
-			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-		} finally {
-			rsClose();
-		}
-		return isLiked;
+	public boolean checkIfLiked(int userIdx, int guestBookIdx) {
+	    boolean isLiked = false;
+	    try {
+	        sql = "SELECT * FROM likes WHERE userIdx = ? AND guestBookIdx = ? AND itemType = 'guestBook'";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userIdx);
+	        pstmt.setInt(2, guestBookIdx);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            isLiked = true;
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
+	    } finally {
+	        rsClose();
+	    }
+	    return isLiked;
 	}
+
 
 	// 좋아요 추가 메서드
 //	public void addLike(int userIdx, int guestBookIdx) {
@@ -260,33 +260,33 @@ public class GuestBookDAO {
 //		}
 //	}
 //	public void addLike(int userIdx, int itemIdx, String itemType) {
-//		try {
-//			sql = "INSERT INTO likes (userIdx, itemIdx, itemType) VALUES (?, ?, ?)";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, itemIdx);
-//			pstmt.setString(3, itemType);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("addLike SQL 오류 : " + e.getMessage());
-//		} finally {
-//			pstmtClose();
-//		}
+//	    try {
+//	        sql = "INSERT INTO likes (userIdx, itemIdx, itemType) VALUES (?, ?, ?)";
+//	        pstmt = conn.prepareStatement(sql);
+//	        pstmt.setInt(1, userIdx);
+//	        pstmt.setInt(2, itemIdx);
+//	        pstmt.setString(3, itemType);
+//	        pstmt.executeUpdate();
+//	    } catch (SQLException e) {
+//	        System.out.println("addLike SQL 오류 : " + e.getMessage());
+//	    } finally {
+//	        pstmtClose();
+//	    }
 //	}
-	public void addLike(int userIdx, int itemIdx, int guestBookIdx) {
-		try {
-			sql = "INSERT INTO likes (userIdx, itemIdx, guestBookIdx, itemType) VALUES (?, ?, ?, 'guestBook')";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userIdx);
-			pstmt.setInt(2, itemIdx);
-			pstmt.setInt(3, guestBookIdx);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("addLike SQL 오류 : " + e.getMessage());
-		} finally {
-			pstmtClose();
-		}
+	public void addLike(int userIdx, int guestBookIdx) {
+	    try {
+	        sql = "INSERT INTO likes (userIdx, guestBookIdx, itemType) VALUES (?, ?, 'guestBook')";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userIdx);
+	        pstmt.setInt(2, guestBookIdx);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("addLike SQL 오류 : " + e.getMessage());
+	    } finally {
+	        pstmtClose();
+	    }
 	}
+
 
 	// 좋아요 삭제 메서드
 //	public void removeLike(int userIdx, int guestBookIdx) {
@@ -303,33 +303,33 @@ public class GuestBookDAO {
 //		}
 //	}
 //	public void removeLike(int userIdx, int itemIdx, String itemType) {
-//		try {
-//			sql = "DELETE FROM likes WHERE userIdx = ? AND itemIdx = ? AND guestBookIdx = ? AND itemType = 'guestBook'";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, itemIdx);
-//			pstmt.setString(3, itemType);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("addLike SQL 오류 : " + e.getMessage());
-//		} finally {
-//			pstmtClose();
-//		}
+//	    try {
+//	        sql = "DELETE FROM likes WHERE userIdx = ? AND itemIdx = ? AND itemType = ?";
+//	        pstmt = conn.prepareStatement(sql);
+//	        pstmt.setInt(1, userIdx);
+//	        pstmt.setInt(2, itemIdx);
+//	        pstmt.setString(3, itemType);
+//	        pstmt.executeUpdate();
+//	    } catch (SQLException e) {
+//	        System.out.println("removeLike SQL 오류 : " + e.getMessage());
+//	    } finally {
+//	        pstmtClose();
+//	    }
 //	}
-	public void removeLike(int userIdx, int itemIdx, int guestBookIdx) {
-		try {
-			sql = "DELETE FROM likes WHERE userIdx = ? AND itemIdx = ? AND guestBookIdx = ? AND itemType = 'guestBook'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userIdx);
-			pstmt.setInt(2, itemIdx);
-			pstmt.setInt(3, guestBookIdx);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("addLike SQL 오류 : " + e.getMessage());
-		} finally {
-			pstmtClose();
-		}
+	public void removeLike(int userIdx, int guestBookIdx) {
+	    try {
+	        sql = "DELETE FROM likes WHERE userIdx = ? AND guestBookIdx = ? AND itemType = 'guestBook'";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userIdx);
+	        pstmt.setInt(2, guestBookIdx);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("removeLike SQL 오류 : " + e.getMessage());
+	    } finally {
+	        pstmtClose();
+	    }
 	}
+
 
 	// 좋아요 수 반환 메서드
 //	public int getLikeCount(int guestBookIdx) {
@@ -350,39 +350,38 @@ public class GuestBookDAO {
 //		return likeCount;
 //	}
 //	public int getLikeCount(int itemIdx, String itemType) {
-//		int likeCount = 0;
-//		try {
-//			sql = "SELECT COUNT(*) FROM likes WHERE itemIdx = ? AND itemType = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, itemIdx);
-//			pstmt.setString(2, itemType);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				likeCount = rs.getInt(1);
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-//		} finally {
-//			rsClose();
-//		}
-//		return likeCount;
+//	    int likeCount = 0;
+//	    try {
+//	        sql = "SELECT COUNT(*) FROM likes WHERE itemIdx = ? AND itemType = ?";
+//	        pstmt = conn.prepareStatement(sql);
+//	        pstmt.setInt(1, itemIdx);
+//	        pstmt.setString(2, itemType);
+//	        rs = pstmt.executeQuery();
+//	        if (rs.next()) {
+//	            likeCount = rs.getInt(1);
+//	        }
+//	    } catch (SQLException e) {
+//	        System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
+//	    } finally {
+//	        rsClose();
+//	    }
+//	    return likeCount;
 //	}
-	public int getLikeCount(int itemIdx, int guestBookIdx) {
-		int likeCount = 0;
-		try {
-			sql = "SELECT COUNT(*) FROM likes WHERE itemIdx = ? AND guestBookIdx = ? AND itemType = 'guestBook'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, itemIdx);
-			pstmt.setInt(2, guestBookIdx);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				likeCount = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-		} finally {
-			rsClose();
-		}
-		return likeCount;
+	public int getLikeCount(int guestBookIdx) {
+	    int likeCount = 0;
+	    try {
+	        sql = "SELECT COUNT(*) FROM likes WHERE guestBookIdx = ? AND itemType = 'guestBook'";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, guestBookIdx);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            likeCount = rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
+	    } finally {
+	        rsClose();
+	    }
+	    return likeCount;
 	}
 }
