@@ -48,20 +48,6 @@
 				return false;
 			}
 
-			const companions = document.forms["guestBookForm"].companions;
-			let companionSelected = false;
-
-			for (let i = 0; i < companions.length; i++) {
-				if (companions[i].checked) {
-					companionSelected = true;
-					break;
-				}
-			}
-
-			if (!companionSelected) {
-				showAlert("동반인을 선택해 주세요.");
-				return false;
-			}
 			return true;
 		}
 
@@ -192,7 +178,7 @@
 				<div class="form-group row mb-4">
 					<div class="col text-left">
 						<label for="companions" id="companionsLabel" class="text-left">
-							<b>누구와 방문했나요? <span style="color: lightcoral;">*</span></b>
+							<b>누구와 방문했나요?</b>
 						</label>
 						<div class="companions-options">
 							<input type="checkbox" name="companions" id="family" value="부모님 & 가족">
@@ -260,6 +246,7 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 </body>

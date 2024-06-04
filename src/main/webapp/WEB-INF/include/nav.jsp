@@ -17,18 +17,18 @@
 						<span>home</span>
 					</a>
 				</li>
-<!-- 				<li class="nav-item">
+ 				<li class="nav-item">
 					<a href="map.m" class="nav-link" id="map">
 						<i class="ph ph-map-trifold mr-1"></i> <i class="ph-fill ph-map-trifold mr-1"></i>
 						<span>map</span>
 					</a>
-				</li> -->
-				<li class="nav-item">
+				</li>
+				<!-- <li class="nav-item">
 					<a href="search.search" class="nav-link" id="search">
 						<i class="ph ph-magnifying-glass mr-1"></i> <i class="ph-fill ph-magnifying-glass mr-1"></i>
 						<span>search</span>
 					</a>
-				</li>
+				</li> -->
 				<li class="nav-item">
 					<a href="#" class="nav-link" data-toggle="modal" data-target="#recordModal" id="record">
 						<i class="ph ph-plus-circle mr-1"></i> <i class="ph-fill ph-plus-circle mr-1"></i>

@@ -35,6 +35,10 @@ public class ProfileController extends HttpServlet {
 			command = new GetNextGuestBookCommand();
 			command.execute(request, response);
 			return;
+		} else if(com.equals("anotherUserLocalLogDetail")) {
+			command = new AnotherUserLocalLogDetailCommand();
+			command.execute(request, response);
+			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

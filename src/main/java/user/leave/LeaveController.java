@@ -23,7 +23,16 @@ public class LeaveController extends HttpServlet {
 
 		if (com.equals("leave")) {
 			viewPage += "leave.jsp";
-		} 
+		} else if (com.equals("private")) {
+			command = new PrivateCommand();
+			command.execute(request, response);
+			return;
+		} else if (com.equals("public")) {
+			command = new PublicCommand();
+			command.execute(request, response);
+			return;
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

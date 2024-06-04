@@ -29,7 +29,7 @@ public class FindPasswordCommand implements UserInterface {
 			dispatcher.forward(request, response);
 		} else {
 			request.setAttribute("message", "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.");
-			viewPage += "findingPassword.jsp";
+			viewPage += "findPassword.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 		}

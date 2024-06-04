@@ -18,22 +18,6 @@ pageContext.setAttribute("newLine", "\n");
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive-guestBook.css" />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll('.archive-container ul li a');
-    const currentPage = window.location.pathname.split('/').pop();
-
-    links.forEach(link => {
-        link.addEventListener('click', function() {
-            links.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-        });
-
-        if (link.getAttribute('href').includes(currentPage)) {
-            link.classList.add('active');
-        }
-    });
-});
-
 //모달이 열릴 때, 클릭된 버튼에서 guestBookIdx를 가져와 삭제 버튼에 저장
 //모달 내의 삭제 버튼을 클릭하면, 해당 guestBookIdx를 사용하여 삭제 요청을 보냄
 $(document).ready(function() {
@@ -214,106 +198,56 @@ document.addEventListener("DOMContentLoaded", function() {
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="container">
-		<div class="archive-container">
-			<div class="row mb-4">
-				<div class="col-3">
-					<div class="photo-placeholder">
-						<c:choose>
-							<c:when test="${not empty users.profileImage}">
-								<img id="profile-photo" src="${ctp}/images/profileImage/${users.profileImage}" alt="Profile Photo" class="profile-photo" />
-							</c:when>
-							<c:otherwise>
-								<span id="profile-icon" class="profile-icon">
-									<i class="ph ph-user-focus" id="profileIcon"></i>
-								</span>
-								<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-				<div class="col-9">
-					<div class="nickname-container">
-						<c:if test="${users.visibility == 'private'}">
-							<i class="ph ph-lock"></i>
-						</c:if>
-						<span id="nickname">${users.nickname}</span>
-					</div>
-					<c:choose>
-						<c:when test="${not empty users.introduction}">
-							<div>${users.introduction}</div>
-						</c:when>
-						<c:otherwise>
+	<div class="container px-5" id="archive-container">
+		<jsp:include page="/WEB-INF/archive/archive-profile.jsp" />
+		<div id="list-wrap">
+			<c:choose>
+				<c:when test="${not empty guestBooks}">
+					<c:forEach var="guestBook" items="${guestBooks}">
+						<div class="d-flex flex-column border-bottom py-3">
 							<div>
-								<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
-			<ul class="d-flex justify-content-between list-unstyled pb-3">
-				<li>
-					<a href="archive-localLog.a" id="localLog">로컬로그</a>
-				</li>
-				<li>
-					<a href="archive-guestBook.a" id="guestBook">방명록</a>
-					<c:if test="${not empty guestBooks}">
-						<span>${guestBookCount}</span>
-					</c:if>
-				</li>
-				<li>
-					<a href="archive-curation.a" id="curation">큐레이션</a>
-				</li>
-			</ul>
-			<div id="list-wrap">
-				<c:choose>
-					<c:when test="${not empty guestBooks}">
-						<c:forEach var="guestBook" items="${guestBooks}">
-							<div class="d-flex flex-column border-bottom py-3">
-								<div>
-									<div id="guestBookPlaceName">
-										<b>${guestBook.placeName}</b>
-									</div>
-									<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
+								<div id="guestBookPlaceName">
+									<b>${guestBook.placeName}</b>
 								</div>
-								<c:if test="${not empty guestBook.content}">
-									<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
-								</c:if>
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="text-muted small mt-2">
-											<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
-											방문
-											<c:if test="${guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
-										</div>
+								<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
+							</div>
+							<c:if test="${not empty guestBook.content}">
+								<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
+							</c:if>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="text-muted small mt-2">
+										<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
+										방문
+										<c:if test="${not empty guestBook.companions && guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
 									</div>
-									<div class="col-sm-6" id="guestBookSetUp">
-										<div class="d-flex justify-content-end mt-2">
-											<c:if test="${guestBook.visibility == 'private'}">
-												<i class="ph ph-lock mr-2"></i>
-											</c:if>
-											<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" data-guestbook-id="${guestBook.guestBookIdx}" data-visibility="${guestBook.visibility}">
-												<i class="ph ph-dots-three"></i>
-											</a>
-										</div>
+								</div>
+								<div class="col-sm-6" id="guestBookSetUp">
+									<div class="d-flex justify-content-end mt-2">
+										<c:if test="${guestBook.visibility == 'private'}">
+											<i class="ph ph-lock mr-2"></i>
+										</c:if>
+										<a href="#" data-toggle="modal" data-target="#updateGuestBook" class="text-dark" style="text-decoration: none;" data-guestbook-id="${guestBook.guestBookIdx}" data-visibility="${guestBook.visibility}">
+											<i class="ph ph-dots-three"></i>
+										</a>
 									</div>
 								</div>
 							</div>
-							<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
-						</c:forEach>
-						<!-- 위로가기 버튼 -->
-						<div id="topBtn" class="">
-							<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="text-center" style="margin-top: 100px;">
-							<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
-							<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
+						<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
+					</c:forEach>
+					<!-- 위로가기 버튼 -->
+					<div id="topBtn" class="">
+						<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="text-center" style="margin-top: 100px;">
+						<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
+						<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<!-- updateGuestBook Modal -->
@@ -333,6 +267,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			</div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<!-- updateGuestBook Modal -->
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />

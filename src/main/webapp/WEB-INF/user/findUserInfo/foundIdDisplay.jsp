@@ -25,6 +25,7 @@
 			<button onclick="location.href='login.l'" type="submit" class="btn btn-custom btn-lg" id="logIn">로그인</button>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 </body>

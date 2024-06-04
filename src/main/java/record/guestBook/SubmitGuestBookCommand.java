@@ -45,15 +45,9 @@ public class SubmitGuestBookCommand implements GuestBookInterface {
 				dispatcher.forward(request, response);
 				return;
 			}
-			if (companionsArray == null || companionsArray.length == 0) {
-				request.setAttribute("message", "동반인을 선택해주세요.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-				dispatcher.forward(request, response);
-				return;
-			}
 
 			// companions 콤마로 구분된 문자열로 변환
-			String companions = String.join(",", companionsArray);
+			String companions = companionsArray != null ? String.join(",", companionsArray) : "";
 
 			PlaceVO placeVO = (PlaceVO) request.getSession().getAttribute("temporaryPlace");
 

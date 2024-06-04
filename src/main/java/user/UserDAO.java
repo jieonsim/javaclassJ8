@@ -286,4 +286,124 @@ public class UserDAO {
 		}
 		return result;
 	}
+
+	// 유저가 작성한 로컬로그가 있는지 확인하는 메서드
+	public boolean checkUserLocalLogs(int userIdx) {
+		boolean result = false;
+		try {
+			sql = "SELECT COUNT(*) FROM localLogs WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1) > 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("checkUserLocalLogs SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return result;
+	}
+
+	// 유저가 작성한 방명록이 있는지 확인하는 메서드
+	public boolean checkUserGuestBooks(int userIdx) {
+		boolean result = false;
+		try {
+			sql = "SELECT COUNT(*) FROM guestBooks WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1) > 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("checkUserGuestBooks SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return result;
+	}
+
+	// 유저의 모든 로컬로그를 비공개로 전환하는 메서드
+	public void updateLocalLogsVisibilityToPrivate(int userIdx) {
+		try {
+			sql = "UPDATE localLogs SET visibility = 'private' WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateLocalLogsVisibilityToPrivate SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+
+	// 유저의 모든 방명록을 비공개로 전환하는 메서드
+	public void updateGuestBooksVisibilityToPrivate(int userIdx) {
+		try {
+			sql = "UPDATE guestBooks SET visibility = 'private' WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateLocalLogsVisibilityToPrivate SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+
+	// 유저 계정 비공개 전환
+	public void updateUserVisibilityToPrivate(int userIdx) {
+		try {
+			sql = "UPDATE users2 SET visibility = 'private' WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateUserVisibilityToPrivate SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+
+	public void updateLocalLogsVisibilityToPublic(int userIdx) {
+		try {
+			sql = "UPDATE localLogs SET visibility = 'public' WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateLocalLogsVisibilityToPublic SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+
+	public void updateGuestBooksVisibilityToPublic(int userIdx) {
+		try {
+			sql = "UPDATE guestBooks SET visibility = 'public' WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateGuestBooksVisibilityToPublic SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+
+	// 유저 계정 공개 전환
+	public void updateUserVisibilityToPublic(int userIdx) {
+		try {
+			sql = "UPDATE users2 SET visibility = 'public' WHERE userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateUserVisibilityToPublic SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
 }

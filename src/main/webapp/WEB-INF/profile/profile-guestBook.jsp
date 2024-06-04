@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive-guestBook.css" />
+<script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const links = document.querySelectorAll('.archive-container ul li a');
@@ -97,108 +98,52 @@ document.addEventListener("DOMContentLoaded", function() {
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="container">
-		<div class="archive-container">
-			<div class="row mb-4">
-				<div class="col-3">
-					<div class="photo-placeholder">
-						<c:choose>
-							<c:when test="${not empty user.profileImage}">
-								<img id="profile-photo" src="${ctp}/images/profileImage/${user.profileImage}" alt="Profile Photo" class="profile-photo" />
-							</c:when>
-							<c:otherwise>
-								<span id="profile-icon" class="profile-icon">
-									<i class="ph ph-user-focus" id="profileIcon"></i>
-								</span>
-								<img id="profile-photo" src="" alt="Profile Photo" class="profile-photo d-none" />
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-				<div class="col-9">
-					<div class="nickname-container">
-						<c:if test="${user.visibility == 'private'}">
-							<i class="ph ph-lock"></i>
-						</c:if>
-						<span id="nickname">${user.nickname}</span>
-					</div>
-					<c:choose>
-						<c:when test="${not empty user.introduction}">
-							<div>${user.introduction}</div>
-						</c:when>
-					</c:choose>
-				</div>
-			</div>
-			<ul class="d-flex justify-content-between list-unstyled pb-3">
-				<li>
-					<a href="profileLocalLog.p?userIdx=${user.userIdx}" id="localLog">로컬로그</a>
-				</li>
-				<li>
-					<a href="profileGuestbook.p?userIdx=${user.userIdx}" id="guestBook">방명록</a>
-					<c:if test="${not empty guestBooks}">
-						<span>${guestBookCount}</span>
-					</c:if>
-				</li>
-				<li>
-					<a href="#" id="curation">큐레이션</a>
-				</li>
-			</ul>
-			<c:if test="${user.visibility == 'private'}">
-				<div class="text-center" style="margin-top: 100px;">
-					<i class="ph ph-lock" style="font-size: 48px"></i>
-					<div class="mb-1 mt-3" style="color: dimgray">비공개 계정입니다.</div>
-				</div>
-			</c:if>
-			<div id="list-wrap">
-				<c:choose>
-					<c:when test="${not empty guestBooks}">
-						<c:forEach var="guestBook" items="${guestBooks}">
-							<c:if test="${guestBook.visibility == 'public'}">
-								<div class="d-flex flex-column border-bottom py-3">
-									<div>
-										<div id="guestBookPlaceName">
-											<b>${guestBook.placeName}</b>
-										</div>
-										<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
+	<div class="container px-5" id="archive-container">
+		<jsp:include page="/WEB-INF/profile/anotherUserProfile.jsp" />
+		<div id="list-wrap">
+			<c:choose>
+				<c:when test="${not empty guestBooks}">
+					<c:forEach var="guestBook" items="${guestBooks}">
+						<c:if test="${guestBook.visibility == 'public'}">
+							<div class="d-flex flex-column border-bottom py-3">
+								<div>
+									<div id="guestBookPlaceName">
+										<b>${guestBook.placeName}</b>
 									</div>
-									<c:if test="${not empty guestBook.content}">
-										<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
-									</c:if>
-									<div class="row">
-										<div class="col-sm-6">
-											<div class="text-muted small mt-2">
-												<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
-												방문
-												<c:if test="${guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
-											</div>
-										</div>
-										<div class="col-sm-6" id="guestBookSetUp">
-											<div class="d-flex justify-content-end mt-2">
-												<c:if test="${guestBook.visibility == 'private'}">
-													<i class="ph ph-lock mr-2"></i>
-												</c:if>
-											</div>
+									<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
+								</div>
+								<c:if test="${not empty guestBook.content}">
+									<div class="mt-2 p-3" id="guestBookContent">${fn:replace(guestBook.content, newLine, "<br>")}</div>
+								</c:if>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="text-muted small mt-2">
+											<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
+											방문
+											<c:if test="${not empty guestBook.companions && guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
 										</div>
 									</div>
 								</div>
-							</c:if>
-							<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
-						</c:forEach>
-						<!-- 위로가기 버튼 -->
-						<div id="topBtn" class="">
-							<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="text-center" style="margin-top: 100px;">
-							<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
-							<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
+							</div>
+						</c:if>
+						<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
+					</c:forEach>
+					<!-- 위로가기 버튼 -->
+					<div id="topBtn" class="">
+						<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="text-center" style="margin-top: 100px;">
+						<i class="ph ph-image" style="font-size: 48px"></i>
+						<div class="mb-1 mt-3" style="font-weight: bold">콘텐츠가 없습니다.</div>
+						<div style="color: dimgray">아직 콘텐츠가 존재하지 않습니다.</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="message" />
 	<input type="hidden" id="url" value="url" />
 	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />

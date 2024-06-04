@@ -24,15 +24,15 @@
 	font-weight: bold;
 }
 
-.archive-container ul li a {
+#archive-container ul li a {
 	text-decoration: none;
 	color: lightgray;
 	font-size: 18px;
 	font-weight: bold;
 }
 
-.archive-container ul li a:hover,
-.archive-container ul li a.active {
+#archive-container ul li a:hover,
+#archive-container ul li a.active {
 	color: black;
 	text-decoration: underline;
 	text-underline-offset: 10px;
@@ -63,6 +63,55 @@
 	border-radius: 50%;
 }
 
+.nickname-container {
+	display: flex;
+	align-items: center;
+}
+
+.nickname-container .ph-lock {
+	margin-right: 10px;
+	font-size: 18px;
+}
+
+.custom-margin {
+	margin-right: 2rem;
+	/* Adjust this value as needed */
+}
+
+/*#updateProfileLink {
+	color: gray;
+	text-decoration: none;
+}
+
+.photo-placeholder {
+	width: 120px;
+	height: 120px;
+	border: 1px dashed darkgray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 40px;
+	color: darkgray;
+	border-radius: 50%;
+	position: relative;
+}
+
+.profile-photo {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.nickname-container {
+	display: flex;
+	align-items: center;
+}
+
+.nickname-container .ph-lock {
+	margin-right: 10px;
+	font-size: 18px;
+}*/
+
 #topBtn {
 	position: fixed;
 	/*right: 1rem;*/
@@ -70,7 +119,6 @@
 	bottom: 3%;
 	transition: 0.7s ease;
 }
-
 
 .on {
 	/*opacity: 0.8;*/
@@ -121,36 +169,7 @@
 }
 
 
-/*.swal2-cancel {
-	background-color: white;
-	border-color: black;
-	border-radius: 0;
+#makeAccountPublic {
+	text-decoration: none;
 	color: black;
-	padding: 10px 24px;
-	margin: 0;
-	font-size: 18px;
-	font-weight: bold;
-	border: none;
-}
-
-.swal2-confirm {
-	background-color: black !important;
-	color: white !important;
-	border-radius: 0px;
-	box-shadow: none;
-	font-weight: bold;
-	font-size: 18px;
-	padding: 10px 24px;
-	margin: 0;
-	border: none;
-}*/
-
-.nickname-container {
-	display: flex;
-	align-items: center;
-}
-
-.nickname-container .ph-lock {
-	margin-right: 10px;
-	font-size: 18px;
 }

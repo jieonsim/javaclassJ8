@@ -530,12 +530,18 @@ public class LocalLogDAO {
 //		return likeCount;
 //	}
 
-	public List<LocalLogVO> searchLocalLogs(String query) {
+	// 검색
+	public List<LocalLogVO> searchLocalLogs(String query, int startIndexNo, int pageSize) {
 		List<LocalLogVO> results = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, c.categoryType " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? "
-					+ "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ? " + "ORDER BY ll.visitDate DESC";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, c.categoryType " +
+                    "FROM localLogs ll " +
+                    "JOIN places p ON ll.placeIdx = p.placeIdx " +
+                    "JOIN categories c ON p.categoryIdx = c.categoryIdx " +
+                    "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? " +
+                    "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ? " +
+                    "ORDER BY ll.visitDate DESC " +
+                    "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
 			String likeQuery = "%" + query + "%";
@@ -546,6 +552,8 @@ public class LocalLogDAO {
 			pstmt.setString(5, likeQuery);
 			pstmt.setString(6, likeQuery);
 			pstmt.setString(7, likeQuery);
+			pstmt.setInt(8, startIndexNo);
+			pstmt.setInt(9, pageSize);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -580,5 +588,39 @@ public class LocalLogDAO {
 			System.out.println("searchLocalLogs SQL 오류: " + e.getMessage());
 		}
 		return results;
+	}
+
+	
+	// 검색
+	public int getLocalLogCountByQuery(String query) {
+		int count = 0;
+		try {
+			sql = "SELECT COUNT(*) " +
+                    "FROM localLogs ll " +
+                    "JOIN places p ON ll.placeIdx = p.placeIdx " +
+                    "JOIN categories c ON p.categoryIdx = c.categoryIdx " +
+                    "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? " +
+                    "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			String likeQuery = "%" + query + "%";
+			pstmt.setString(1, likeQuery);
+			pstmt.setString(2, likeQuery);
+			pstmt.setString(3, likeQuery);
+			pstmt.setString(4, likeQuery);
+			pstmt.setString(5, likeQuery);
+			pstmt.setString(6, likeQuery);
+			pstmt.setString(7, likeQuery);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("getLocalLogCountByQuery SQL 오류: " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return count;
 	}
 }

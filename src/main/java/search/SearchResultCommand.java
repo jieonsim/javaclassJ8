@@ -15,17 +15,39 @@ public class SearchResultCommand implements SearchInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = request.getParameter("query");
-		List<LocalLogVO> searchResults = null;
-
-		if (query != null && !query.trim().isEmpty()) {
-			LocalLogDAO localLogDAO = new LocalLogDAO();
-			searchResults = localLogDAO.searchLocalLogs(query);
-		}
-
-		request.setAttribute("searchResults", searchResults);
 		String viewPage = "/WEB-INF/search/searchResult.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
+        String query = request.getParameter("query");
+
+        if (query == null || query.trim().isEmpty()) {
+            request.setAttribute("message", "검색어를 입력해주세요.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        LocalLogDAO localLogDAO = new LocalLogDAO();
+
+        int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
+        int pageSize = 9; // 페이지당 표시할 레코드 수
+        int totRecCnt = localLogDAO.getLocalLogCountByQuery(query);
+        int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
+        int startIndexNo = (pag - 1) * pageSize;
+        int curScrStartNo = totRecCnt - startIndexNo;
+
+        System.out.println("Search query: " + query);
+        System.out.println("Total record count: " + totRecCnt);
+        System.out.println("Total pages: " + totalPages);
+        System.out.println("Start index number: " + startIndexNo);
+        System.out.println("Current screen start number: " + curScrStartNo);
+        
+        List<LocalLogVO> searchResults = localLogDAO.searchLocalLogs(query, startIndexNo, pageSize);
+
+        request.setAttribute("searchResults", searchResults);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("curScrStartNo", curScrStartNo);
+        request.setAttribute("query", query);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+        dispatcher.forward(request, response);
 	}
 }

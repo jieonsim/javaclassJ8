@@ -24,7 +24,7 @@ pageContext.setAttribute("newLine", "\n");
 					<div class="text-muted small mt-2">
 						<fmt:formatDate value="${guestBook.visitDate}" pattern="yyyy년 MM월 dd일" />
 						방문
-						<c:if test="${guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
+						<c:if test="${not empty guestBook.companions && guestBook.companions != '기타'}">&nbsp;·&nbsp;&nbsp;${guestBook.companions}</c:if>
 					</div>
 				</div>
 				<div class="col-sm-6" id="guestBookSetUp">

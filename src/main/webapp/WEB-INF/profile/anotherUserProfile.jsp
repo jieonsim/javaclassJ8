@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <div class="media my-5">
-	<div class="photo-placeholder custom-margin">
+	<div class="photo-placeholder mr-4">
 		<c:choose>
-			<c:when test="${not empty users.profileImage}">
-				<img id="profile-photo" src="${ctp}/images/profileImage/${users.profileImage}" alt="Profile Photo" class="profile-photo" />
+			<c:when test="${not empty user.profileImage}">
+				<img id="profile-photo" src="${ctp}/images/profileImage/${user.profileImage}" alt="Profile Photo" class="profile-photo" />
 			</c:when>
 			<c:otherwise>
 				<span id="profile-icon" class="profile-icon">
@@ -35,36 +35,27 @@ document.addEventListener("DOMContentLoaded", function() {
 	</div>
 	<div class="media-body">
 		<div class="nickname-container">
-			<span id="nickname">${users.nickname}</span>
-			<div class="public-toggle ml-2">
-				<c:if test="${users.visibility == 'private'}">
-					<a href="public.lv" id="makeAccountPublic">
-						<i class="ph ph-lock"></i>
-					</a>
-				</c:if>
-			</div>
+			<c:if test="${user.visibility == 'private'}">
+				<i class="ph ph-lock"></i>
+			</c:if>
+			<span id="nickname">${user.nickname}</span>
 		</div>
 		<c:choose>
-			<c:when test="${not empty users.introduction}">
-				<div>${users.introduction}</div>
+			<c:when test="${not empty user.introduction}">
+				<div>${user.introduction}</div>
 			</c:when>
-			<c:otherwise>
-				<div>
-					<a href="checkPassword.u" id="updateProfileLink">클릭하고 소개 글을 입력해 보세요.</a>
-				</div>
-			</c:otherwise>
 		</c:choose>
 	</div>
 </div>
-<ul class="d-flex justify-content-between list-unstyled pb-3">
+<ul class="d-flex justify-content-between list-unstyled">
 	<li>
-		<a href="archive-localLog.a" id="localLog">로컬로그</a>
+		<a href="profileLocalLog.p?userIdx=${user.userIdx}" id="localLog">로컬로그</a>
 		<c:if test="${not empty localLogs}">
 			<span>${localLogCount}</span>
 		</c:if>
 	</li>
 	<li>
-		<a href="archive-guestBook.a" id="guestBook">방명록</a>
+		<a href="profileGuestbook.p?userIdx=${user.userIdx}" id="guestBook">방명록</a>
 		<c:if test="${not empty guestBooks}">
 			<span>${guestBookCount}</span>
 		</c:if>
@@ -73,6 +64,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		<a href="#" id="curation">큐레이션</a>
 	</li>
 </ul>
-<input type="hidden" id="message" value="${message}" />
-<input type="hidden" id="url" value="${url}" />
-<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+<%-- <c:if test="${user.visibility == 'private'}">
+	<div class="text-center" style="margin-top: 100px;">
+		<i class="ph ph-lock" style="font-size: 48px"></i>
+		<div class="mb-1 mt-3" style="color: dimgray">비공개 계정입니다.</div>
+	</div>
+</c:if> --%>

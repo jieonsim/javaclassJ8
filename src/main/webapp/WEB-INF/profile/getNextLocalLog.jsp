@@ -49,7 +49,8 @@
 								</c:choose>
 								${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}
 							</p>
-							<a href="#" class="stretched-link"></a>
+							<a href="anotherUserLocalLogDetail.p?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
+							<input type="hidden" id="localLogIdx" value="${localLog.localLogIdx}">
 						</div>
 					</div>
 				</div>

@@ -14,7 +14,7 @@
 						</c:if>
 					</div>
 					<div class="card-body">
-						<h4 class="card-title">${localLog.placeName}</h4>
+						<h4 class="card-title" style="color: black;">${localLog.placeName}</h4>
 						<p class="card-text text-muted">
 							<c:choose>
 								<c:when test="${localLog.categoryName == '바'}">🍸&nbsp;</c:when>
@@ -48,7 +48,8 @@
 							</c:choose>
 							${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}
 						</p>
-						<a href="localLogDetail.a?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
+						<a href="myLocalLogDetail.a?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
+						<input type="hidden" id="localLogIdx" value="${localLog.localLogIdx}">
 					</div>
 				</div>
 			</div>

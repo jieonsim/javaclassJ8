@@ -18,36 +18,6 @@ pageContext.setAttribute("newLine", "\n");
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive-localLog.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll('.archive-container ul li a');
-    const currentPage = window.location.pathname.split('/').pop();
-
-    links.forEach(link => {
-        link.addEventListener('click', function() {
-            links.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-        });
-
-        if (link.getAttribute('href').includes(currentPage)) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// 화살표클릭시 화면 상단으로 부드럽게 이동하기
-$(window).scroll(function(){
-	if($(this).scrollTop() > 100) {
-		$("#topBtn").addClass("on");
-	}
-	else {
-		$("#topBtn").removeClass("on");
-	}
-	
-	$("#topBtn").click(function(){
-		window.scrollTo({top:0, behavior: "smooth"});
-	});
-});
-
 $(document).ready(function() {
 $('#updateAndDeleteLocalLog').on('show.bs.modal', function(event) {
    var button = $(event.relatedTarget); // 클릭된 버튼
@@ -120,59 +90,56 @@ function deleteCheck(localLogIdx) {
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="container">
-		<div class="archive-container">
-			<div class="container mx-auto">
-				<div class="row justify-content-center">
-					<div class="col-12 col-md-8 col-lg-8">
-						<div class="d-flex justify-content-between">
-							<div>
-								<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
-									<i class="ph ph-caret-left"></i>
-								</a>
-								<span class="text-dark" style="font-size: 14px;">${localLog.visitDate}&nbsp;방문</span>
-							</div>
-							<div>
-								<a href="#" data-toggle="modal" data-target="#updateAndDeleteLocalLog" class="text-dark" style="text-decoration: none;" data-localLog-id="${localLog.localLogIdx}">
-									<i class="ph ph-dots-three" style="font-size: 20px"></i>
-								</a>
-							</div>
-						</div>
-						<div class="position-relative" style="width: 100%; margin: auto;">
-							<div id="cardCarousel" class="carousel slide" data-ride="carousel">
-								<ol class="carousel-indicators">
-									<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
-										<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
-									</c:forEach>
-								</ol>
-								<div class="carousel-inner">
-									<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
-										<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-											<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
-											<div class="gradient-overlay"></div>
-										</div>
-									</c:forEach>
-								</div>
-							</div>
-							<div class="card-img-overlay">
-								<div class="card-title" style="font-size: 18px; font-weight: bold;">
-									<b>${localLog.placeName}</b>
-								</div>
-								<div class="card-text" style="font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
+	<div class="container" id="archive-container" style="padding-top: 60px;">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-8 col-lg-8">
+				<div class="d-flex justify-content-between">
+					<div>
+						<a href="javascript:history.back()" style="text-decoration: none;" class="text-dark">
+							<i class="ph ph-caret-left"></i>
+						</a>
+						<span class="text-dark" style="font-size: 18px;">${localLog.visitDate}&nbsp;방문</span>
+					</div>
+					<div>
+						<a href="#" data-toggle="modal" data-target="#updateAndDeleteLocalLog" class="text-dark" style="text-decoration: none;" data-localLog-id="${localLog.localLogIdx}">
+							<i class="ph ph-dots-three" style="font-size: 26px"></i>
+						</a>
+					</div>
+				</div>
+				<div class="d-flex">
+					<div class="position-relative" style="width: 60%; margin-right: 1rem;">
+						<div id="cardCarousel" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">
+								<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
+									<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
+								</c:forEach>
+							</ol>
+							<div class="carousel-inner">
+								<c:forEach var="photo" items="${localLog.photos.split('/')}" varStatus="status">
+									<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+										<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
+										<div class="gradient-overlay"></div>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
+						<div class="card-img-overlay">
+							<div class="card-title" style="font-size: 18px; font-weight: bold;">
+								<b>${localLog.placeName}</b>
+							</div>
+							<div class="card-text" style="font-size: 14px;">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</div>
+						</div>
+					</div>
+					<div class="localLogContent-container" style="width: 40%; background-color: #f2f2f2; padding: 20px;">
 						<c:if test="${not empty localLog.content}">
-							<div class="localLogContent-container mt-3">
-								<div>${fn:replace(localLog.content, newLine, "<br>")}</div>
-							</div>
+							<div>${fn:replace(localLog.content, newLine, "<br>")}</div>
+						</c:if>
+						<c:if test="${empty localLog.content}">
+							<div>로컬로그의 내용이 없습니다.</div>
 						</c:if>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- 위로가기 버튼 -->
-		<div id="topBtn" class="">
-			<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 		</div>
 	</div>
 	<!-- updateAndDeleteLocalLog Modal -->
@@ -186,8 +153,9 @@ function deleteCheck(localLogIdx) {
 			</div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
-	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+	<input type="hidden" id="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 </body>
 </html>

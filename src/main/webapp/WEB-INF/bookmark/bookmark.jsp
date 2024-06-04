@@ -181,8 +181,8 @@
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="bookmark-container">
 		<c:if test="${not empty bookmarks}">
-			<div class="d-flex justify-content-end mb-3">
-				<div></div>
+			<div class="d-flex justify-content-between mb-3">
+				<span style="font-size: 18px;"><b>저장된 공간</b></span>
 				<a href="#" id="bookmarkEdit">편집</a>
 			</div>
 		</c:if>
@@ -252,11 +252,12 @@
 				<div class="text-center" style="margin-top: 100px;">
 					<div class="mb-2" style="font-weight: bold; font-size: 18px;">저장된 콘텐츠가 없습니다.</div>
 					<div class="mb-2">궁금한 공간을 검색하고 저장해보세요.</div>
-					<button class="btn btn-custom" id="goToSearch" onclick="location.href='#'">검색하러 가기</button>
+					<button class="btn btn-custom" id="goToSearch" onclick="location.href='${ctp}/main'">둘러보기</button>
 				</div>
 			</c:otherwise>
 		</c:choose>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />

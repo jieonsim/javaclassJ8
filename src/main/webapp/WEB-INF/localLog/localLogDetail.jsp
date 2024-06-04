@@ -68,148 +68,157 @@ pageContext.setAttribute("newLine", "\n");
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
-	<div class="container" style="margin-top: 40px;">
-		<!-- <div class="d-flex justify-content-between"> -->
-			<a href="javascript:history.back()" class="back-button">
-				<i class="ph ph-caret-left"></i>
-			</a>
-		<!-- </div> -->
-	</div>
-	<div class="localLogDetail-container">
-		<div class="row">
-			<div class="col-md-6">
-				<div id="cardCarousel" class="carousel slide" data-ride="carousel">
-					<ol class="carousel-indicators">
-						<c:forEach var="photo" items="${fn:split(localLog.photos, '/')}" varStatus="status">
-							<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
-						</c:forEach>
-					</ol>
-					<div class="carousel-inner">
-						<c:forEach var="photo" items="${fn:split(localLog.photos, '/')}" varStatus="status">
-							<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-								<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
-								<div class="gradient-overlay"></div>
+	<div class="container mt-5">
+		<div class="localLogDetail-container">
+			<div class="row">
+				<div class="col-md-1">
+					<a href="javascript:history.back()" class="back-button">
+						<i class="ph ph-caret-left"></i>
+					</a>
+				</div>
+				<div class="col-md-5">
+					<div id="cardCarousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<c:forEach var="photo" items="${fn:split(localLog.photos, '/')}" varStatus="status">
+								<li data-target="#cardCarousel" data-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></li>
+							</c:forEach>
+						</ol>
+						<div class="carousel-inner">
+							<c:forEach var="photo" items="${fn:split(localLog.photos, '/')}" varStatus="status">
+								<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+									<img class="d-block w-100" src="${ctp}/images/localLog/${photo}" alt="Slide ${status.index + 1}">
+									<div class="gradient-overlay"></div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+					<div class="card-img-overlay">
+						<div class="card-title" style="font-size: 20px;">
+							<b><c:out value="${localLog.placeName}" /></b>
+						</div>
+						<div class="card-text" style="font-size: 14px;">
+							<c:out value="${localLog.region1DepthName}" />
+							,
+							<c:out value="${localLog.region2DepthName}" />
+							·
+							<c:out value="${localLog.categoryName}" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="d-flex align-items-center mb-3">
+						<a href="profileLocalLog.p?userIdx=${user.userIdx}" style="color: black; text-decoration: none;">
+							<c:choose>
+								<c:when test="${not empty user.profileImage}">
+									<img src="${ctp}/images/profileImage/${user.profileImage}" alt="User Profile" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;">
+								</c:when>
+								<c:otherwise>
+									<div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; margin-right: 10px;">
+										<i class="ph ph-user"></i>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</a>
+						<div>
+							<div style="font-size: 18px; font-weight: bold;">
+								<c:out value="${user.nickname}" />
 							</div>
-						</c:forEach>
+							<div class="text-muted" style="font-size: 14px;">
+								<c:out value="${localLog.visitDate}" />
+								방문
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="card-img-overlay">
-					<div class="card-title" style="font-size: 20px;">
-						<b><c:out value="${localLog.placeName}" /></b>
-					</div>
-					<div class="card-text" style="font-size: 14px;">
-						<c:out value="${localLog.region1DepthName}" />
-						,
-						<c:out value="${localLog.region2DepthName}" />
-						·
-						<c:out value="${localLog.categoryName}" />
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="d-flex align-items-center mb-3">
-					<a href="profileLocalLog.p?userIdx=${user.userIdx}" style="color: black; text-decoration: none;">
+					<div class="localLogContent-container" style="background-color: #f2f2f2; padding: 20px; height: 87%">
 						<c:choose>
-							<c:when test="${not empty user.profileImage}">
-								<img src="${ctp}/images/profileImage/${user.profileImage}" alt="User Profile" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;">
+							<c:when test="${not empty localLog.content}">
+								<p>${fn:replace(localLog.content, newLine, "<br>")}</p>
 							</c:when>
 							<c:otherwise>
-								<div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; margin-right: 10px;">
-									<i class="ph ph-user"></i>
-								</div>
+								<p>로컬로그 내용이 없습니다.</p>
 							</c:otherwise>
 						</c:choose>
-					</a>
-					<div>
-						<div style="font-size: 18px; font-weight: bold;">
-							<c:out value="${user.nickname}" />
-						</div>
-						<div class="text-muted" style="font-size: 14px;">
-							<c:out value="${localLog.visitDate}" />
-							방문
-						</div>
+					</div>
+					<div class="icons-container position-absolute" style="top: 0; right: 0;">
+						<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});" class="bookmark-icon" style="text-decoration: none;">
+							<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}"></i>
+						</a>
+						<a href="#" class="clapping-icon" style="text-decoration: none;">
+							<i class="ph ph-hands-clapping" id="localLogClap"></i>
+						</a>
 					</div>
 				</div>
-				<div class="mb-3">
-					<p>${fn:replace(localLog.content, newLine, "<br>")}</p>
+			</div>
+			<hr>
+			<div class="row pb-5">
+				<div class="col-12 d-flex justify-content-between mb-3">
+					<div style="font-size: 14px;">
+						<c:if test="${not empty place.createdBy}">
+							<div>
+								<b><c:out value="${place.createdByNickname}" /></b> 님이 처음으로 발견한 공간이에요!
+							</div>
+						</c:if>
+					</div>
+					<c:if test="${not empty guestBooks}">
+						<a href="record-guestBook.g" id="writeToGuestBook"> 방명록 작성하러 가기 </a>
+					</c:if>
 				</div>
-				<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});" class="bookmark-icon" style="text-decoration: none">
-					<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}"></i>
-				</a>
-				<a href="#">
-					<i class="ph ph-hands-clapping" id="localLogClap"></i>
-				</a>
-			</div>
-		</div>
-		<hr>
-		<div class="row mt-3 pb-5">
-			<div class="col-12 d-flex justify-content-between align-items-center mb-1">
-				<p style="font-size: 14px; margin-bo: 0;">
-					<c:if test="${not empty place.createdBy}">
-						<span>
-							<b><c:out value="${place.createdByNickname}" /></b>
-						</span>
-                님이 처음으로 발견한 공간이에요!
-            </c:if>
-				</p>
-				<c:if test="${not empty guestBooks}">
-					<a href="record-guestBook.g" id="writeToGuestBook"> 방명록 작성하러 가기 </a>
-				</c:if>
-			</div>
-			<div class="col-12">
-				<c:choose>
-					<c:when test="${not empty guestBooks}">
-						<c:forEach var="guestBook" items="${guestBooks}">
-							<div class="d-flex align-items-center mb-3 pt-2">
-								<a href="profileLocalLog.p?userIdx=${guestBook.userIdx}" style="color: black; text-decoration: none">
-									<c:choose>
-										<c:when test="${not empty guestBook.profileImage}">
-											<img src="${ctp}/images/profileImage/${guestBook.profileImage}" alt="User Profile" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;">
-										</c:when>
-										<c:otherwise>
-											<div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; margin-right: 10px;">
-												<i class="ph ph-user"></i>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</a>
-								<div>
-									<div style="font-size: 16px; font-weight: bold;">
-										<c:out value="${guestBook.nickname}" />
-									</div>
-									<div class="text-muted" style="font-size: 14px;">
-										<c:out value="${guestBook.visitDate}" />
-										방문
+				<div class="col-12">
+					<c:choose>
+						<c:when test="${not empty guestBooks}">
+							<c:forEach var="guestBook" items="${guestBooks}">
+								<div class="d-flex align-items-center mb-3 pt-2">
+									<a href="profileLocalLog.p?userIdx=${guestBook.userIdx}" style="color: black; text-decoration: none">
+										<c:choose>
+											<c:when test="${not empty guestBook.profileImage}">
+												<img src="${ctp}/images/profileImage/${guestBook.profileImage}" alt="User Profile" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;">
+											</c:when>
+											<c:otherwise>
+												<div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; margin-right: 10px;">
+													<i class="ph ph-user"></i>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</a>
+									<div>
+										<div style="font-size: 16px; font-weight: bold;">
+											<c:out value="${guestBook.nickname}" />
+										</div>
+										<div class="text-muted" style="font-size: 14px;">
+											<c:out value="${guestBook.visitDate}" />
+											방문
+										</div>
 									</div>
 								</div>
-							</div>
-							<div>${fn:replace(guestBook.content, newLine, "<br>")}</div>
-							<div class="d-flex justify-content-between mt-3">
-								<a href="javascript:likeGuestBook(${guestBook.guestBookIdx})" class="text-dark guestbook-like-button beforelike" data-guest-book-idx="${guestBook.guestBookIdx}" style="text-decoration: none; font-size: 14px;">
-									<i class="ph ph-thumbs-up"></i> 도움이 됐어요
+								<div>${fn:replace(guestBook.content, newLine, "<br>")}</div>
+								<div class="d-flex justify-content-between mt-3">
+									<a href="javascript:likeGuestBook(${guestBook.guestBookIdx})" class="text-dark guestbook-like-button beforelike" data-guest-book-idx="${guestBook.guestBookIdx}" style="text-decoration: none; font-size: 14px;">
+										<i class="ph ph-thumbs-up"></i> 도움이 됐어요
+									</a>
+								</div>
+								<hr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="guestbook-container">
+								<a href="record-guestBook.g" style="text-decoration: none;">
+									<span class="guestbook-question" style="color: black;">이 공간에 방문해본 적 있나요?</span>
+									<span class="guestbook-instruction">
+										다음 방문자를 도와 줄 방명록 남기기 <i class="ph ph-pencil-simple"></i>
+									</span>
 								</a>
 							</div>
-							<hr>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<div class="guestbook-container">
-							<a href="record-guestBook.g" style="text-decoration: none;">
-								<span class="guestbook-question" style="color: black;">이 공간에 방문해본 적 있나요?</span>
-								<span class="guestbook-instruction">
-									다음 방문자를 도와 줄 방명록 남기기 <i class="ph ph-pencil-simple"></i>
-								</span>
-							</a>
-						</div>
-					</c:otherwise>
-				</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+			<!-- 위로가기 버튼 -->
+			<div id="topBtn" class="">
+				<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 			</div>
 		</div>
-		<!-- 위로가기 버튼 -->
-		<div id="topBtn" class="">
-			<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
-		</div>
 	</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />

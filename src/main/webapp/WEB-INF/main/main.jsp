@@ -32,6 +32,7 @@ pageContext.setAttribute("newLine", "\n");
 			});
 		});
 	});
+
 	function reinitializeCarousel() {
 		$('.carousel').each(function() {
 			$(this).carousel({
@@ -103,29 +104,31 @@ pageContext.setAttribute("newLine", "\n");
 	<div class="container">
 		<div id="list-wrap">
 			<c:forEach var="localLog" items="${localLogs}">
-				<div class="container card-container mt-5">
-					<div class="card">
-						<div id="carousel-${localLog.localLogIdx}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2000">
-							<div class="carousel-inner">
-								<c:forEach var="photoUrl" items="${localLog.photoUrls}" varStatus="status">
-									<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-										<img src="${ctp}/images/localLog/${photoUrl}" class="d-block w-100" alt="Local Log Image">
-									</div>
-								</c:forEach>
+				<c:if test="${localLog.visibility == 'public'}">
+					<div class="container card-container mt-5">
+						<div class="card">
+							<div id="carousel-${localLog.localLogIdx}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2000">
+								<div class="carousel-inner">
+									<c:forEach var="photoUrl" items="${localLog.photoUrls}" varStatus="status">
+										<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+											<img src="${ctp}/images/localLog/${photoUrl}" class="d-block w-100" alt="Local Log Image">
+										</div>
+									</c:forEach>
+								</div>
 							</div>
+							<div class="card-body position-relative">
+								<h5 class="card-title d-flex justify-content-between align-items-center">
+									<span>${localLog.placeName}</span>
+								</h5>
+								<p class="card-text text-muted">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
+								<c:if test="${not empty localLog.content}">
+									<p class="card-text">${fn:replace(custom:truncateWithEllipsis(localLog.content, 50), newLine, "<br>")}</p>
+								</c:if>
+							</div>
+							<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
 						</div>
-						<div class="card-body position-relative">
-							<h5 class="card-title d-flex justify-content-between align-items-center">
-								<span>${localLog.placeName}</span>
-							</h5>
-							<p class="card-text text-muted">${localLog.region1DepthName},&nbsp;${localLog.region2DepthName}&nbsp;·&nbsp;${localLog.categoryName}</p>
-							<c:if test="${not empty localLog.content}">
-								<p class="card-text">${fn:replace(custom:truncateWithEllipsis(localLog.content, 50), newLine, "<br>")}</p>
-							</c:if>
-						</div>
-						<a href="localLogDetail.ld?localLogIdx=${localLog.localLogIdx}" class="stretched-link"></a>
 					</div>
-				</div>
+				</c:if>
 				<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
 			</c:forEach>
 		</div>
@@ -134,7 +137,7 @@ pageContext.setAttribute("newLine", "\n");
 			<i class="ph-fill ph-arrow-circle-up" id="arrowUp"></i>
 		</div>
 	</div>
-	<div class="pt-5">footer</div>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" id="totalPages" value="${totalPages}" />

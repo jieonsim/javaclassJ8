@@ -10,12 +10,14 @@
 			<div class="col-auto">
 				<a href="#" class="header-link" id="localLens">Local Lens</a>
 			</div>
-			<!-- <div class="col-auto position-relative">
-				<input class="search-input" type="search" placeholder="find a lil spot? use me!" aria-label="Search">
-				<button class="search-btn" type="submit">
-					<i class="ph ph-magnifying-glass"></i>
-				</button>
-			</div> -->
+			<form action="${ctp}/searchResult.search" method="get">
+				<div class="col-auto position-relative">
+					<input type="text" name="query" placeholder="find a lil spot? use me!" aria-label="Search" class="search-input">
+					<button type="submit" class="search-btn">
+						<i class="ph ph-magnifying-glass"></i>
+					</button>
+				</div>
+			</form>
 			<div class="col-auto d-flex align-items-center">
 				<c:if test="${empty sessionUserIdx}">
 					<a href="signup.s" class="header-link">
@@ -48,4 +50,4 @@
 		</div>
 	</div>
 	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}">
- </header>
+</header>

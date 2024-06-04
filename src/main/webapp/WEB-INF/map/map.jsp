@@ -39,5 +39,6 @@
 			});
 		}
 	</script> -->
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 </body>
 </html>
