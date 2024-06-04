@@ -23,14 +23,6 @@ public class LocalLogController extends HttpServlet {
 			command = new LocalLogDetailCommand();
 			command.execute(request, response);
 			return;
-		} else if (com.equals("localLogLike")) {
-			command = new LocalLogLikeCommand();
-			command.execute(request, response);
-			return;
-		} else if (com.equals("checkLocalLogLikeStatus")) {
-			command = new CheckLocalLogLikeStatusCommand();
-			command.execute(request, response);
-			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

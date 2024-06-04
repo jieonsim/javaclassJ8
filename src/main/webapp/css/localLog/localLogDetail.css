@@ -127,8 +127,22 @@
 	margin-left: 5px;
 }
 
-/* CSS for before clicking like (only for guestbook likes) */
-.guestbook-like-button.beforelike {
+.guestbook-like-button {
+	display: inline-flex;
+	align-items: center;
+	padding: 5px 10px;
+	border: 1px solid #e0e0e0;
+	border-radius: 20px;
+	color: #6e6e6e;
+	font-size: 14px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.guestbook-like-button:hover {
+	text-decoration: none;
+}
+/*.guestbook-like-button.beforelike {
 	display: inline-flex;
 	align-items: center;
 	padding: 5px 10px;
@@ -144,7 +158,6 @@
 	margin-right: 5px;
 }
 
-/* CSS for after clicking like (only for guestbook likes) */
 .guestbook-like-button.afterlike {
 	display: inline-flex;
 	align-items: center;
@@ -159,7 +172,7 @@
 
 .guestbook-like-button.afterlike i {
 	margin-right: 5px;
-}
+}*/
 
 #writeToGuestBook {
 	text-decoration: none;

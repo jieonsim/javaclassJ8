@@ -9,20 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import localLog.LocalLogInterface;
-
 @SuppressWarnings("serial")
 @WebServlet("*.gb")
 public class GuestBookController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LocalLogInterface command = null;
+		GuestBookInterface command = null;
 		String viewPage = "/WEB-INF/guestBook/";
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
 
-		if (com.equals("guestBookLike")) {
-			command = new GuestBookLikeCommand4();
+		if (com.equals("likeToggle")) {
+			command = new LikeToggleCommand();
 			command.execute(request, response);
 			return;
 		}

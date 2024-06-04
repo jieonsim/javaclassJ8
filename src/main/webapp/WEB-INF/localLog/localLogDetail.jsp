@@ -34,6 +34,7 @@ pageContext.setAttribute("newLine", "\n");
 		});
 	});
 
+	// 북마크 토글
 	function toggleBookmark(event, localLogIdx) {
 	    event.preventDefault();
 	    event.stopPropagation();
@@ -49,20 +50,57 @@ pageContext.setAttribute("newLine", "\n");
 	            }
 	            if (response === 'bookmarked') {
 	                $('#localLogBookmark-' + localLogIdx).removeClass('ph-bookmark-simple').addClass('ph-fill ph-bookmark-simple');
-	                showAlert("북마크에 저장되었습니다.");
+	                //showAlert("북마크에 저장되었습니다.");
 	            } else if (response === 'unbookmarked') {
 	                $('#localLogBookmark-' + localLogIdx).removeClass('ph-fill ph-bookmark-simple').addClass('ph-bookmark-simple');
-	                showAlert("북마크가 삭제되었습니다.");
+	                //showAlert("북마크가 삭제되었습니다.");
 	            } else if (response === 'error') {
 	                showAlert("로컬로그 정보를 찾지 못했습니다.");
 	            }
 	        },
 	        error: function(error) {
 	            console.error('Error toggling bookmark', error);
-	            showAlert("전송 오류");
+	            showAlert("전송 오류가 발생했습니다.");
 	        }
 	    });
 	}
+	
+	
+	// 방명록 좋아요 토글
+function toggleGuestBookLike(event, guestBookIdx, userIdx) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    $.ajax({
+        url: 'likeToggle.gb',
+        type: 'POST',
+        data: {
+            guestBookIdx: guestBookIdx,
+            userIdx: userIdx
+        },
+        success: function(response) {
+            if (response === 'not_logged_in') {
+            	showAlert("로그인 후 이용하실 수 있습니다.");
+                return;
+            } else if (response === 'cannot_like_own') {
+            	showAlert("자신의 방명록에는 좋아요를 누를 수 없습니다.");
+                return;
+            }
+
+            if (response === 'liked') {
+            	$('#guestBookLikeIcon-' + guestBookIdx).removeClass('ph-thumbs-up').addClass('ph-fill ph-thumbs-up');
+            } else if (response === 'unliked') {
+            	$('#guestBookLikeIcon-' + guestBookIdx).removeClass('ph-fill ph-thumbs-up').addClass('ph-thumbs-up');
+            } else {
+            	showAlert("예외 오류가 발생했습니다.");
+            }
+        },
+        error: function(error) {
+            console.error('Error toggling like', error);
+            showAlert("전송 오류가 발생했습니다.");
+        }
+    });
+}
 </script>
 </head>
 <body>
@@ -192,8 +230,8 @@ pageContext.setAttribute("newLine", "\n");
 								</div>
 								<div>${fn:replace(guestBook.content, newLine, "<br>")}</div>
 								<div class="d-flex justify-content-between mt-3">
-									<a href="javascript:likeGuestBook(${guestBook.guestBookIdx})" class="text-dark guestbook-like-button beforelike" data-guest-book-idx="${guestBook.guestBookIdx}" style="text-decoration: none; font-size: 14px;">
-										<i class="ph ph-thumbs-up"></i> 도움이 됐어요
+									<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button">
+										<i class="ph ${isLikedByUser ? 'ph-fill ph-thumbs-up' : 'ph ph-thumbs-up'}" id="guestBookLikeIcon-${guestBook.guestBookIdx}"></i>&nbsp;도움이 됐어요
 									</a>
 								</div>
 								<hr>
@@ -221,7 +259,8 @@ pageContext.setAttribute("newLine", "\n");
 	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
-	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+	<input type="hidden" id="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
+	<input type="hidden" id="guestBookIdx" value="${guestBook.guestBookIdx}" />
 	<input type="hidden" name="localLogIdx" value="${localLog.localLogIdx}" />
 	<input type="hidden" name="userIdx" value="${user.userIdx}" />
 </body>

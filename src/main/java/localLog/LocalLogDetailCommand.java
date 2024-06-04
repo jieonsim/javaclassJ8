@@ -25,6 +25,7 @@ public class LocalLogDetailCommand implements LocalLogInterface {
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
 
 		int localLogIdx = Integer.parseInt(request.getParameter("localLogIdx"));
+		// int guestBookIdx = Integer.parseInt(request.getParameter("guestBookIdx"));
 
 		LocalLogDAO localLogDAO = new LocalLogDAO();
 		LocalLogVO localLog = localLogDAO.getLocalLogByIdx(localLogIdx);
@@ -37,19 +38,26 @@ public class LocalLogDetailCommand implements LocalLogInterface {
 
 		GuestBookDAO guestBookDAO = new GuestBookDAO();
 		List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByPlaceIdx(localLog.getPlaceIdx());
-
+		
 		boolean isBookmarked = false;
 		if (sessionUserIdx != null) {
 			// Check if the local log is bookmarked by the user
 			BookmarkDAO bookmarkDAO = new BookmarkDAO();
 			isBookmarked = bookmarkDAO.isBookmarked(sessionUserIdx, localLogIdx);
 		}
+		
+//		boolean isLikedByUser = false;
+//		if (sessionUserIdx != null) {
+//			// Check if the guestbook is isLiked by the user
+//			isLikedByUser = guestBookDAO.isLikedByUser(guestBookIdx, sessionUserIdx);
+//		}
 
 		request.setAttribute("localLog", localLog);
 		request.setAttribute("user", user);
 		request.setAttribute("place", place);
-		request.setAttribute("guestBooks", guestBooks);
 		request.setAttribute("isBookmarked", isBookmarked);
+		request.setAttribute("guestBooks", guestBooks);
+		//request.setAttribute("isLikedByUser", isLikedByUser);
 
 		String viewPage = "/WEB-INF/localLog/localLogDetail.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

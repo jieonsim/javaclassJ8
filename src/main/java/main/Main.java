@@ -57,7 +57,7 @@ public class Main extends HttpServlet {
 		int pageSize = 4;
 		int totalPages = (int) Math.ceil((double) localLogDAO.getLocalLogCount() / pageSize);
 		List<LocalLogVO> localLogs = localLogDAO.getRandomLocalLogs(0, pageSize);
-
+		
         // Debug statements
 //        System.out.println("Total Local Logs: " + localLogDAO.getLocalLogCount());
 //        System.out.println("Total Pages: " + totalPages);

@@ -82,8 +82,12 @@ public class LocalLogDAO {
 	public List<LocalLogVO> getLocalLogsByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.userIdx = ? " + "ORDER BY ll.visitDate DESC " + "LIMIT ?, ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE ll.userIdx = ? "
+					+ "ORDER BY ll.visitDate DESC " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			pstmt.setInt(2, startIndexNo);
@@ -128,8 +132,11 @@ public class LocalLogDAO {
 	public LocalLogVO getLocalLogByIdx(int localLogIdx) {
 		LocalLogVO localLog = null;
 		try {
-			String sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.localLogIdx = ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE ll.localLogIdx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, localLogIdx);
 			rs = pstmt.executeQuery();
@@ -254,8 +261,12 @@ public class LocalLogDAO {
 	public List<LocalLogVO> getRandomLocalLogs(int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.visibility = 'public' " + "ORDER BY RAND() " + "LIMIT ?, ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE ll.visibility = 'public' "
+					+ "ORDER BY RAND() " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -293,255 +304,18 @@ public class LocalLogDAO {
 		return localLogs;
 	}
 
-	public List<LocalLogVO> getLocalLogs(int startIndexNo, int pageSize) {
-		List<LocalLogVO> localLogs = new ArrayList<>();
-		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "ORDER BY ll.visitDate DESC " + "LIMIT ?, ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startIndexNo);
-			pstmt.setInt(2, pageSize);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				LocalLogVO localLog = new LocalLogVO();
-				localLog.setLocalLogIdx(rs.getInt("localLogIdx"));
-				localLog.setUserIdx(rs.getInt("userIdx"));
-				localLog.setPlaceIdx(rs.getInt("placeIdx"));
-				localLog.setContent(rs.getString("content"));
-				localLog.setPhotos(rs.getString("photos"));
-				localLog.setVisitDate(rs.getDate("visitDate"));
-				localLog.setCommunity(rs.getString("community"));
-				localLog.setVisibility(rs.getString("visibility"));
-				localLog.setCreatedAt(rs.getTimestamp("createdAt"));
-				localLog.setUpdatedAt(rs.getTimestamp("updatedAt"));
-				localLog.setHostIp(rs.getString("hostIp"));
-				localLog.setPlaceName(rs.getString("placeName"));
-				localLog.setRegion1DepthName(rs.getString("region1DepthName"));
-				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
-				localLog.setCategoryName(rs.getString("categoryName"));
-
-				// Parse the photos field into a list of URLs
-				String[] photoArray = rs.getString("photos").split("/");
-				localLog.setPhotoUrls(Arrays.asList(photoArray));
-
-				localLogs.add(localLog);
-			}
-		} catch (SQLException e) {
-			System.out.println("getLocalLogs SQL 오류: " + e.getMessage());
-		} finally {
-			rsClose();
-		}
-		return localLogs;
-	}
-
-	// 사용자가 특정 로컬로그를 좋아요 했는지 확인하는 메서드
-	public boolean checkIfLiked(int userIdx, int localLogIdx) {
-		boolean isLiked = false;
-		try {
-			sql = "SELECT * FROM likes WHERE userIdx = ? AND localLogIdx = ? AND itemType = 'localLog'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userIdx);
-			pstmt.setInt(2, localLogIdx);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				isLiked = true;
-			}
-		} catch (SQLException e) {
-			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-		} finally {
-			rsClose();
-		}
-		return isLiked;
-	}
-//	public boolean checkIfLiked(int userIdx, int itemIdx, String itemType) {
-//		boolean isLiked = false;
-//		try {
-//			sql = "SELECT * FROM likes WHERE userIdx = ? AND localLogIdx = ? AND itemType = 'localLog'";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, itemIdx);
-//			pstmt.setString(3, itemType);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				isLiked = true;
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-//		} finally {
-//			rsClose();
-//		}
-//		return isLiked;
-//	}
-//	public boolean checkIfLiked(int userIdx, int localLogIdx) {
-//		boolean isLiked = false;
-//		try {
-//			sql = "SELECT * FROM likes WHERE userIdx = ? AND localLogIdx = ? AND itemType = 'localLog'";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, localLogIdx);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				isLiked = true;
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("checkIfLiked SQL 오류 : " + e.getMessage());
-//		} finally {
-//			rsClose();
-//		}
-//		return isLiked;
-//	}
-
-	// 로컬로그 좋아요 추가 메서드
-	public void addLike(int userIdx, int localLogIdx) {
-		try {
-			sql = "INSERT INTO likes (userIdx, localLogIdx, itemType) VALUES (?, ?, 'localLog')";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userIdx);
-			pstmt.setInt(2, localLogIdx);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("addLike SQL 오류 : " + e.getMessage());
-		} finally {
-			pstmtClose();
-		}
-	}
-//	public void addLike(int userIdx, int itemIdx, String itemType) {
-//		try {
-//			sql = "INSERT INTO likes (userIdx, itemIdx, itemType) VALUES (?, ?, ?)";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, itemIdx);
-//			pstmt.setString(3, itemType);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("addLike SQL 오류 : " + e.getMessage());
-//		} finally {
-//			pstmtClose();
-//		}
-//	}
-//	public void addLike(int userIdx, int localLogIdx) {
-//		try {
-//			sql = "INSERT INTO likes (userIdx, localLogIdx, itemType) VALUES (?, ?, 'localLog')";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, localLogIdx);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("addLike SQL 오류 : " + e.getMessage());
-//		} finally {
-//			pstmtClose();
-//		}
-//	}
-
-	// 로컬로그 좋아요 삭제 메서드
-	public void removeLike(int userIdx, int localLogIdx) {
-		try {
-			sql = "DELETE FROM likes WHERE userIdx = ? AND localLogIdx = ? AND itemType = 'localLog'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userIdx);
-			pstmt.setInt(2, localLogIdx);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("removeLike SQL 오류 : " + e.getMessage());
-		} finally {
-			pstmtClose();
-		}
-	}
-//	public void removeLike(int userIdx, int itemIdx, String itemType) {
-//		try {
-//			sql = "DELETE FROM likes WHERE userIdx = ? AND itemIdx = ? AND itemType = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, itemIdx);
-//			pstmt.setString(3, itemType);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("removeLike SQL 오류 : " + e.getMessage());
-//		} finally {
-//			pstmtClose();
-//		}
-//	}
-//	public void removeLike(int userIdx, int localLogIdx) {
-//		try {
-//			sql = "DELETE FROM likes WHERE userIdx = ? AND localLogIdx = ? AND itemType = 'localLog'";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, userIdx);
-//			pstmt.setInt(2, localLogIdx);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("removeLike SQL 오류 : " + e.getMessage());
-//		} finally {
-//			pstmtClose();
-//		}
-//	}
-
-	// 로컬로그 좋아요 수 반환 메서드
-	public int getLikeCount(int localLogIdx) {
-		int likeCount = 0;
-		try {
-			sql = "SELECT COUNT(*) FROM likes WHERE localLogIdx = ? AND itemType = 'localLog'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, localLogIdx);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				likeCount = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
-		} finally {
-			rsClose();
-		}
-		return likeCount;
-	}
-//	public int getLikeCount(int itemIdx, String itemType) {
-//		int likeCount = 0;
-//		try {
-//			sql = "SELECT COUNT(*) FROM likes WHERE itemIdx = ? AND itemType = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, itemIdx);
-//			pstmt.setString(2, itemType);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				likeCount = rs.getInt(1);
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
-//		} finally {
-//			rsClose();
-//		}
-//		return likeCount;
-//	}
-//	public int getLikeCount(int localLogIdx) {
-//		int likeCount = 0;
-//		try {
-//			sql = "SELECT COUNT(*) FROM likes WHERE localLogIdx = ? AND itemType = 'localLog'";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, localLogIdx);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				likeCount = rs.getInt(1);
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
-//		} finally {
-//			rsClose();
-//		}
-//		return likeCount;
-//	}
-
 	// 검색
 	public List<LocalLogVO> searchLocalLogs(String query, int startIndexNo, int pageSize) {
 		List<LocalLogVO> results = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, c.categoryType " +
-                    "FROM localLogs ll " +
-                    "JOIN places p ON ll.placeIdx = p.placeIdx " +
-                    "JOIN categories c ON p.categoryIdx = c.categoryIdx " +
-                    "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? " +
-                    "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ? " +
-                    "ORDER BY ll.visitDate DESC " +
-                    "LIMIT ?, ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, c.categoryType " 
+					+ "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx "
+					+ "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? "
+					+ "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ? " 
+					+ "ORDER BY ll.visitDate DESC " 
+					+ "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
 			String likeQuery = "%" + query + "%";
@@ -590,19 +364,16 @@ public class LocalLogDAO {
 		return results;
 	}
 
-	
 	// 검색
 	public int getLocalLogCountByQuery(String query) {
 		int count = 0;
 		try {
-			sql = "SELECT COUNT(*) " +
-                    "FROM localLogs ll " +
-                    "JOIN places p ON ll.placeIdx = p.placeIdx " +
-                    "JOIN categories c ON p.categoryIdx = c.categoryIdx " +
-                    "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? " +
-                    "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ?";
+			sql = "SELECT COUNT(*) " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx "
+					+ "WHERE p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? "
+					+ "OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ?";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			String likeQuery = "%" + query + "%";
 			pstmt.setString(1, likeQuery);
 			pstmt.setString(2, likeQuery);
@@ -611,7 +382,7 @@ public class LocalLogDAO {
 			pstmt.setString(5, likeQuery);
 			pstmt.setString(6, likeQuery);
 			pstmt.setString(7, likeQuery);
-			
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				count = rs.getInt(1);
@@ -622,5 +393,92 @@ public class LocalLogDAO {
 			rsClose();
 		}
 		return count;
+	}
+	
+	
+	// 안쓰임
+	public List<LocalLogVO> getLocalLogs(int startIndexNo, int pageSize) {
+		List<LocalLogVO> localLogs = new ArrayList<>();
+		try {
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "ORDER BY ll.visitDate DESC "
+					+ "LIMIT ?, ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				LocalLogVO localLog = new LocalLogVO();
+				localLog.setLocalLogIdx(rs.getInt("localLogIdx"));
+				localLog.setUserIdx(rs.getInt("userIdx"));
+				localLog.setPlaceIdx(rs.getInt("placeIdx"));
+				localLog.setContent(rs.getString("content"));
+				localLog.setPhotos(rs.getString("photos"));
+				localLog.setVisitDate(rs.getDate("visitDate"));
+				localLog.setCommunity(rs.getString("community"));
+				localLog.setVisibility(rs.getString("visibility"));
+				localLog.setCreatedAt(rs.getTimestamp("createdAt"));
+				localLog.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				localLog.setHostIp(rs.getString("hostIp"));
+				localLog.setPlaceName(rs.getString("placeName"));
+				localLog.setRegion1DepthName(rs.getString("region1DepthName"));
+				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
+				localLog.setCategoryName(rs.getString("categoryName"));
+
+				// Parse the photos field into a list of URLs
+				String[] photoArray = rs.getString("photos").split("/");
+				localLog.setPhotoUrls(Arrays.asList(photoArray));
+
+				localLogs.add(localLog);
+			}
+		} catch (SQLException e) {
+			System.out.println("getLocalLogs SQL 오류: " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return localLogs;
+	}
+
+	// 안쓰임
+	public List<LocalLogVO> getLocalLogsByPlaceIdx(int placeIdx) {
+		List<LocalLogVO> localLogs = new ArrayList<>();
+		try {
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx "
+					+ "WHERE ll.placeIdx = ? AND ll.visibility = 'public'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, placeIdx);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				LocalLogVO localLog = new LocalLogVO();
+				localLog.setLocalLogIdx(rs.getInt("localLogIdx"));
+				localLog.setUserIdx(rs.getInt("userIdx"));
+				localLog.setPlaceIdx(rs.getInt("placeIdx"));
+				localLog.setContent(rs.getString("content"));
+				localLog.setPhotos(rs.getString("photos"));
+				localLog.setVisitDate(rs.getDate("visitDate"));
+				localLog.setCommunity(rs.getString("community"));
+				localLog.setVisibility(rs.getString("visibility"));
+				localLog.setCreatedAt(rs.getTimestamp("createdAt"));
+				localLog.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				localLog.setHostIp(rs.getString("hostIp"));
+				localLog.setPlaceName(rs.getString("placeName"));
+				localLog.setRegion1DepthName(rs.getString("region1DepthName"));
+				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
+				localLog.setCategoryName(rs.getString("categoryName"));
+
+				localLogs.add(localLog);
+			}
+		} catch (SQLException e) {
+			System.out.println("getLocalLogsByPlaceIdx SQL 오류: " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return localLogs;
 	}
 }
