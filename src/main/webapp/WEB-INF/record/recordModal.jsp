@@ -34,7 +34,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link" id="curation">
+						<a href="#" class="nav-link" id="curation" onclick="notYet()">
 							<span class="link-content">
 								<img src="${ctp}/images/record/modal/curation.png" alt="curation">
 								<span class="text-content">
@@ -51,3 +51,8 @@
 		</div>
 	</div>
 </div>
+<script>
+	function notYet() {
+		showAlert("준비 중입니다.");
+	}
+</script>

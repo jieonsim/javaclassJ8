@@ -31,16 +31,16 @@ public class ArchiveCurationCommand implements ArchiveInterface {
 		}
 
 		UserDAO userDAO = new UserDAO();
-		UserVO userVO = userDAO.getUserByIdx(sessionUserIdx);
+		UserVO users = userDAO.getUserByIdx(sessionUserIdx);
 
-		if (userVO == null) {
+		if (users == null) {
 			request.setAttribute("message", "사용자 정보를 가져오지 못했습니다.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
 
-		request.setAttribute("userVO", userVO);
+		request.setAttribute("user", users);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

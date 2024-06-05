@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</c:if>
 	</li>
 	<li>
-		<a href="#" id="curation">큐레이션</a>
+		<a href="archive-curation.a" id="curation">큐레이션</a>
 	</li>
 </ul>
 <input type="hidden" id="message" value="${message}" />
