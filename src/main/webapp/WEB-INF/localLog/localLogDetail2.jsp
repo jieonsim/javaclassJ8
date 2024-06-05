@@ -65,7 +65,7 @@ pageContext.setAttribute("newLine", "\n");
 	    });
 	}
 	
-/* 	function toggleGuestBookLike(event, guestBookIdx, userIdx) {
+	function toggleGuestBookLike(event, guestBookIdx, userIdx) {
 	    event.preventDefault();
 	    event.stopPropagation();
 
@@ -97,12 +97,10 @@ pageContext.setAttribute("newLine", "\n");
 	            if (response === 'liked') {
 	                likeIcon.removeClass('ph-thumbs-up').addClass('ph-fill ph-thumbs-up');
 	                likeButton.data('liked', true);
-	                location.reload();
 	                console.log("Icon updated to liked state:", likeIcon.attr('class'));
 	            } else if (response === 'unliked') {
 	                likeIcon.removeClass('ph-fill ph-thumbs-up').addClass('ph-thumbs-up');
 	                likeButton.data('liked', false);
-	                location.reload();
 	                console.log("Icon updated to unliked state:", likeIcon.attr('class'));
 	            } else {
 	                showAlert("예외 오류가 발생했습니다.");
@@ -113,8 +111,8 @@ pageContext.setAttribute("newLine", "\n");
 	            showAlert("전송 오류가 발생했습니다.");
 	        }
 	    });
-	} */
-function toggleGuestBookLike(event, guestBookIdx, userIdx) {
+	}
+/* function toggleGuestBookLike(event, guestBookIdx, userIdx) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -138,10 +136,8 @@ function toggleGuestBookLike(event, guestBookIdx, userIdx) {
 
             if (response === 'liked') {
                 likeIcon.removeClass('ph-thumbs-up').addClass('ph-fill ph-thumbs-up');
-                location.reload();
             } else if (response === 'unliked') {
                 likeIcon.removeClass('ph-fill ph-thumbs-up').addClass('ph-thumbs-up');
-                location.reload();
             } else {
                 showAlert("예외 오류가 발생했습니다.");
             }
@@ -151,7 +147,7 @@ function toggleGuestBookLike(event, guestBookIdx, userIdx) {
             showAlert("전송 오류가 발생했습니다.");
         }
     });
-}
+} */
 </script>
 </head>
 <body>
@@ -280,17 +276,24 @@ function toggleGuestBookLike(event, guestBookIdx, userIdx) {
 									</div>
 								</div>
 								<div>${fn:replace(guestBook.content, newLine, "<br>")}</div>
-								<c:if test="${guestBook.userIdx != sessionUserIdx}">
+								<%-- <c:if test="${guestBook.userIdx != sessionUserIdx}">
 									<div class="d-flex justify-content-between mt-3">
 										<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button">
 											<i class="ph ${guestBook.likedByUser ? 'ph-fill ph-thumbs-up' : 'ph-thumbs-up'}" id="guestBookLikeIcon-${guestBook.guestBookIdx}"></i>&nbsp;도움이 됐어요
 										</a>
 									</div>
-									<%-- <div class="d-flex justify-content-between mt-3">
+									<div class="d-flex justify-content-between mt-3">
 										<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button" id="guestBookLikeButton-${guestBook.guestBookIdx}" data-liked="${guestBook.likedByUser}">
 											<i class="ph ${guestBook.likedByUser ? 'ph-fill ph-thumbs-up' : 'ph-thumbs-up'}" id="guestBookLikeIcon-${guestBook.guestBookIdx}"></i>&nbsp;&nbsp;도움이 됐어요
 										</a>
-									</div> --%>
+									</div>
+								</c:if> --%>
+								<c:if test="${guestBook.userIdx != sessionUserIdx}">
+									<div class="d-flex justify-content-between mt-3">
+										<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button" id="guestBookLikeButton-${guestBook.guestBookIdx}" data-liked="${guestBook.likedByUser}">
+											<i class="ph ${guestBook.likedByUser ? 'ph-fill ph-thumbs-up' : 'ph-thumbs-up'}" id="guestBookLikeIcon-${guestBook.guestBookIdx}"></i>&nbsp;&nbsp;도움이 됐어요
+										</a>
+									</div>
 								</c:if>
 								<hr>
 							</c:forEach>

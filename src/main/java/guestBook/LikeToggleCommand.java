@@ -27,7 +27,6 @@ public class LikeToggleCommand implements GuestBookInterface {
 		int guestBookIdx = Integer.parseInt(guestBookIdxStr);
 		GuestBookDAO guestBookDAO = new GuestBookDAO();
 
-		// Check if the user is trying to like their own guestbook
 		GuestBookVO guestBook = guestBookDAO.getGuestBookByGuestBookIdx(guestBookIdx);
 		if (guestBook.getUserIdx() == sessionUserIdx) {
 			response.getWriter().write("cannot_like_own");

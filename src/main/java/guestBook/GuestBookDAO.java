@@ -64,9 +64,16 @@ public class GuestBookDAO {
 	public List<GuestBookVO> getGuestBooksByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<GuestBookVO> guestBooks = new ArrayList<>();
 		try {
-			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb "
-					+ "JOIN places p ON gb.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? "
-					+ "ORDER BY gb.createdAt DESC " + "LIMIT ?, ?";
+//			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
+//					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC " + "LIMIT ?, ?";
+			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, " +
+                    "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " +
+                    "FROM guestBooks gb " +
+                    "JOIN places p ON gb.placeIdx = p.placeIdx " +
+                    "JOIN categories c ON p.categoryIdx = c.categoryIdx " +
+                    "WHERE gb.userIdx = ? " +
+                    "ORDER BY gb.createdAt DESC " +
+                    "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			pstmt.setInt(2, startIndexNo);
@@ -89,6 +96,7 @@ public class GuestBookDAO {
 				guestBook.setRegion1DepthName(rs.getString("region1DepthName"));
 				guestBook.setRegion2DepthName(rs.getString("region2DepthName"));
 				guestBook.setCategoryName(rs.getString("categoryName"));
+				guestBook.setLikeCount(rs.getInt("likeCount"));
 
 				guestBooks.add(guestBook);
 			}
@@ -188,97 +196,135 @@ public class GuestBookDAO {
 		return guestBooks;
 	}
 
-	
-    public boolean isLikedByUser(int guestBookIdx, int userIdx) {
-        boolean result = false;
-        try {
-            sql = "SELECT COUNT(*) FROM likes_guestBook WHERE guestBookIdx = ? AND userIdx = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, guestBookIdx);
-            pstmt.setInt(2, userIdx);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                result = rs.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-           System.out.println("isLikedByUser SQL 오류 : " + e.getMessage());
-        } finally {
-            rsClose();
-        }
-        return result;
-    }
 
-    public void addLike(int guestBookIdx, int userIdx) {
-        try {
-            sql = "INSERT INTO likes_guestBook (guestBookIdx, userIdx) VALUES (?, ?)";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, guestBookIdx);
-            pstmt.setInt(2, userIdx);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-        	System.out.println("addLike SQL 오류 : " + e.getMessage());
-        } finally {
-            pstmtClose();
-        }
-    }
+	public boolean isLikedByUser(int guestBookIdx, int userIdx) {
+		boolean result = false;
+		try {
+			sql = "SELECT COUNT(*) FROM likes_guestBook WHERE guestBookIdx = ? AND userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, guestBookIdx);
+			pstmt.setInt(2, userIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1) > 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("isLikedByUser SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return result;
+	}
 
-    public void removeLike(int guestBookIdx, int userIdx) {
-        try {
-            sql = "DELETE FROM likes_guestBook WHERE guestBookIdx = ? AND userIdx = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, guestBookIdx);
-            pstmt.setInt(2, userIdx);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("removeLike SQL 오류 : " + e.getMessage());
-        } finally {
-            pstmtClose();
-        }
-    }
+	public void addLike(int guestBookIdx, int userIdx) {
+		try {
+			sql = "INSERT INTO likes_guestBook (guestBookIdx, userIdx) VALUES (?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, guestBookIdx);
+			pstmt.setInt(2, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("addLike SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
 
-    public int getLikeCount(int guestBookIdx) {
-        int likeCount = 0;
-        try {
-            sql = "SELECT COUNT(*) FROM likes_guestBook WHERE guestBookIdx = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, guestBookIdx);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                likeCount = rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
-        } finally {
-            rsClose();
-        }
-        return likeCount;
-    }
+	public void removeLike(int guestBookIdx, int userIdx) {
+		try {
+			sql = "DELETE FROM likes_guestBook WHERE guestBookIdx = ? AND userIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, guestBookIdx);
+			pstmt.setInt(2, userIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("removeLike SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
 
-    public GuestBookVO getGuestBookByGuestBookIdx(int guestBookIdx) {
-        GuestBookVO guestBook = null;
-        try {
-            sql = "SELECT * FROM guestBooks WHERE guestBookIdx = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, guestBookIdx);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                guestBook = new GuestBookVO();
-                guestBook.setGuestBookIdx(rs.getInt("guestBookIdx"));
-                guestBook.setUserIdx(rs.getInt("userIdx"));
-                guestBook.setPlaceIdx(rs.getInt("placeIdx"));
-                guestBook.setVisitDate(rs.getDate("visitDate"));
-                guestBook.setContent(rs.getString("content"));
-                guestBook.setCompanions(rs.getString("companions"));
-                guestBook.setVisibility(rs.getString("visibility"));
-                guestBook.setCreatedAt(rs.getTimestamp("createdAt"));
-                guestBook.setUpdatedAt(rs.getTimestamp("updatedAt"));
-                guestBook.setHostIp(rs.getString("hostIp"));
-            }
-        } catch (SQLException e) {
-            System.out.println("getGuestBookByGuestBookIdx SQL 오류 : " + e.getMessage());
-        } finally {
-            rsClose();
-        }
-        return guestBook;
-    }
+	public int getLikeCount(int guestBookIdx) {
+		int likeCount = 0;
+		try {
+			sql = "SELECT COUNT(*) FROM likes_guestBook WHERE guestBookIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, guestBookIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				likeCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("getLikeCount SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return likeCount;
+	}
+
+	public GuestBookVO getGuestBookByGuestBookIdx(int guestBookIdx) {
+		GuestBookVO guestBook = null;
+		try {
+			sql = "SELECT * FROM guestBooks WHERE guestBookIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, guestBookIdx);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				guestBook = new GuestBookVO();
+				guestBook.setGuestBookIdx(rs.getInt("guestBookIdx"));
+				guestBook.setUserIdx(rs.getInt("userIdx"));
+				guestBook.setPlaceIdx(rs.getInt("placeIdx"));
+				guestBook.setVisitDate(rs.getDate("visitDate"));
+				guestBook.setContent(rs.getString("content"));
+				guestBook.setCompanions(rs.getString("companions"));
+				guestBook.setVisibility(rs.getString("visibility"));
+				guestBook.setCreatedAt(rs.getTimestamp("createdAt"));
+				guestBook.setUpdatedAt(rs.getTimestamp("updatedAt"));
+				guestBook.setHostIp(rs.getString("hostIp"));
+			}
+		} catch (SQLException e) {
+			System.out.println("getGuestBookByGuestBookIdx SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return guestBook;
+	}
+
+	// 로컬로그 디테일 내 방명록 좋아요를 위한 메소드
+	public List<GuestBookVO> getGuestBooksByPlaceIdx(int placeIdx, int sessionUserIdx) {
+	    List<GuestBookVO> guestBooks = new ArrayList<>();
+	    try {
+	    	sql = "SELECT gb.guestBookIdx, gb.userIdx, gb.placeIdx, gb.content, gb.visitDate, gb.visibility, " +
+                    "u.nickname, u.profileImage, " +
+                    "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx AND lg.userIdx = ?) AS likedByUser, " +
+                    "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " +
+                    "FROM guestBooks gb " +
+                    "JOIN users2 u ON gb.userIdx = u.userIdx " +
+                    "WHERE gb.placeIdx = ? AND gb.visibility = 'public'";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, sessionUserIdx);
+	        pstmt.setInt(2, placeIdx);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            GuestBookVO guestBook = new GuestBookVO();
+	            guestBook.setGuestBookIdx(rs.getInt("guestBookIdx"));
+	            guestBook.setUserIdx(rs.getInt("userIdx"));
+	            guestBook.setPlaceIdx(rs.getInt("placeIdx"));
+	            guestBook.setContent(rs.getString("content"));
+	            guestBook.setVisitDate(rs.getDate("visitDate"));
+	            guestBook.setVisibility(rs.getString("visibility"));
+	            guestBook.setNickname(rs.getString("nickname"));
+	            guestBook.setProfileImage(rs.getString("profileImage"));
+	            guestBook.setLikedByUser(rs.getInt("likedByUser") > 0);
+	            guestBook.setLikeCount(rs.getInt("likeCount"));
+	            guestBooks.add(guestBook);
+	        }
+	    } catch (Exception e) {
+	        System.out.println("getGuestBooksByPlaceIdx SQL 오류 : " + e.getMessage());
+	    } finally {
+	        rsClose();
+	    }
+	    return guestBooks;
+	}
 }
