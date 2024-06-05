@@ -34,7 +34,7 @@ pageContext.setAttribute("newLine", "\n");
 		});
 	});
 
-	// 북마크 토글
+	// 로컬로그 북마크 토글
 	function toggleBookmark(event, localLogIdx) {
 	    event.preventDefault();
 	    event.stopPropagation();
@@ -65,12 +65,40 @@ pageContext.setAttribute("newLine", "\n");
 	    });
 	}
 	
-/* 	function toggleGuestBookLike(event, guestBookIdx, userIdx) {
+	// 로컬로그 좋아요 토글
+	function toggleLocalLogLike(event, localLogIdx) {
 	    event.preventDefault();
 	    event.stopPropagation();
-
-	    console.log("Sending AJAX request to likeToggle.gb with guestBookIdx:", guestBookIdx, "and userIdx:", userIdx);
-
+	
+	    $.ajax({
+	        url: 'likeToggle.ld',
+	        type: 'POST',
+	        data: { localLogIdx: localLogIdx },
+	        success: function(response) {
+	            if (response === 'not_logged_in') {
+	                showAlert("로그인 후 이용하실 수 있습니다.");
+	                return;
+	            }
+	            if (response === 'liked') {
+	                $('#localLogLike-' + localLogIdx).removeClass('ph-hands-clapping').addClass('ph-fill ph-hands-clapping');
+	            } else if (response === 'unliked') {
+	                $('#localLogLike-' + localLogIdx).removeClass('ph-fill ph-hands-clapping').addClass('ph-hands-clapping');
+	            } else if (response === 'error') {
+	                showAlert("로컬로그 정보를 찾지 못했습니다.");
+	            }
+	        },
+	        error: function(error) {
+	            console.error('Error toggling localLog like', error);
+	            showAlert("전송 오류가 발생했습니다.");
+	        }
+	    });
+	}
+	
+	// 방명록 좋아요 토글
+	function toggleGuestBookLike(event, guestBookIdx, userIdx) {
+	    event.preventDefault();
+	    event.stopPropagation();
+	
 	    $.ajax({
 	        url: 'likeToggle.gb',
 	        type: 'POST',
@@ -79,79 +107,32 @@ pageContext.setAttribute("newLine", "\n");
 	            userIdx: userIdx
 	        },
 	        success: function(response) {
-	            console.log("Response from server:", response);
 	            if (response === 'not_logged_in') {
-	                showAlert("로그인 후 이용하실 수 있습니다.");
+	            	showAlert("로그인 후 이용하실 수 있습니다.");
 	                return;
 	            } else if (response === 'cannot_like_own') {
-	                showAlert("자신의 방명록에는 좋아요를 누를 수 없습니다.");
+	            	showAlert("자신의 방명록에는 좋아요를 누를 수 없습니다.");
 	                return;
 	            }
-
-	            const likeIconSelector = `#guestBookLikeIcon-${guestBookIdx}`;
-	            const likeIcon = $(likeIconSelector);
-	            const likeButton = $(`#guestBookLikeButton-${guestBookIdx}`);
-	            console.log("Selector for like icon:", likeIconSelector);
-	            console.log("Current like icon:", likeIcon.attr('class'));
-
+	            
+	            const likeIcon = $(`#guestBookLikeIcon-${guestBookIdx}`);
+	
 	            if (response === 'liked') {
 	                likeIcon.removeClass('ph-thumbs-up').addClass('ph-fill ph-thumbs-up');
-	                likeButton.data('liked', true);
 	                location.reload();
-	                console.log("Icon updated to liked state:", likeIcon.attr('class'));
 	            } else if (response === 'unliked') {
 	                likeIcon.removeClass('ph-fill ph-thumbs-up').addClass('ph-thumbs-up');
-	                likeButton.data('liked', false);
 	                location.reload();
-	                console.log("Icon updated to unliked state:", likeIcon.attr('class'));
 	            } else {
 	                showAlert("예외 오류가 발생했습니다.");
 	            }
 	        },
 	        error: function(error) {
-	            console.error('Error toggling like', error);
+	            console.error('Error toggling guestBook like', error);
 	            showAlert("전송 오류가 발생했습니다.");
 	        }
 	    });
-	} */
-function toggleGuestBookLike(event, guestBookIdx, userIdx) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    $.ajax({
-        url: 'likeToggle.gb',
-        type: 'POST',
-        data: {
-            guestBookIdx: guestBookIdx,
-            userIdx: userIdx
-        },
-        success: function(response) {
-            if (response === 'not_logged_in') {
-            	showAlert("로그인 후 이용하실 수 있습니다.");
-                return;
-            } else if (response === 'cannot_like_own') {
-            	showAlert("자신의 방명록에는 좋아요를 누를 수 없습니다.");
-                return;
-            }
-            
-            const likeIcon = $(`#guestBookLikeIcon-${guestBookIdx}`);
-
-            if (response === 'liked') {
-                likeIcon.removeClass('ph-thumbs-up').addClass('ph-fill ph-thumbs-up');
-                location.reload();
-            } else if (response === 'unliked') {
-                likeIcon.removeClass('ph-fill ph-thumbs-up').addClass('ph-thumbs-up');
-                location.reload();
-            } else {
-                showAlert("예외 오류가 발생했습니다.");
-            }
-        },
-        error: function(error) {
-            console.error('Error toggling like', error);
-            showAlert("전송 오류가 발생했습니다.");
-        }
-    });
-}
+	}
 </script>
 </head>
 <body>
@@ -229,11 +210,11 @@ function toggleGuestBookLike(event, guestBookIdx, userIdx) {
 						</c:choose>
 					</div>
 					<div class="icons-container position-absolute" style="top: 0; right: 0;">
+						<a href="javascript:void(0);" onclick="toggleLocalLogLike(event, ${localLog.localLogIdx});" class="clapping-icon" style="text-decoration: none;">
+							<i class="ph ${isLocalLogLiked ? 'ph-fill ph-hands-clapping' : 'ph ph-hands-clapping'}" id="localLogLike-${localLog.localLogIdx}"></i>
+						</a>
 						<a href="javascript:void(0);" onclick="toggleBookmark(event, ${localLog.localLogIdx});" class="bookmark-icon" style="text-decoration: none;">
 							<i class="ph ${isBookmarked ? 'ph-fill ph-bookmark-simple' : 'ph-bookmark-simple'}" id="localLogBookmark-${localLog.localLogIdx}"></i>
-						</a>
-						<a href="#" class="clapping-icon" style="text-decoration: none;">
-							<i class="ph ph-hands-clapping" id="localLogClap"></i>
 						</a>
 					</div>
 				</div>
@@ -282,15 +263,10 @@ function toggleGuestBookLike(event, guestBookIdx, userIdx) {
 								<div>${fn:replace(guestBook.content, newLine, "<br>")}</div>
 								<c:if test="${guestBook.userIdx != sessionUserIdx}">
 									<div class="d-flex justify-content-between mt-3">
-										<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button">
+										<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button" style="text-decoration: none;">
 											<i class="ph ${guestBook.likedByUser ? 'ph-fill ph-thumbs-up' : 'ph-thumbs-up'}" id="guestBookLikeIcon-${guestBook.guestBookIdx}"></i>&nbsp;도움이 됐어요
 										</a>
 									</div>
-									<%-- <div class="d-flex justify-content-between mt-3">
-										<a href="javascript:void(0);" onclick="toggleGuestBookLike(event, ${guestBook.guestBookIdx}, ${sessionScope.sessionUserIdx});" class="text-dark guestbook-like-button" id="guestBookLikeButton-${guestBook.guestBookIdx}" data-liked="${guestBook.likedByUser}">
-											<i class="ph ${guestBook.likedByUser ? 'ph-fill ph-thumbs-up' : 'ph-thumbs-up'}" id="guestBookLikeIcon-${guestBook.guestBookIdx}"></i>&nbsp;&nbsp;도움이 됐어요
-										</a>
-									</div> --%>
 								</c:if>
 								<hr>
 							</c:forEach>
@@ -319,7 +295,6 @@ function toggleGuestBookLike(event, guestBookIdx, userIdx) {
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" id="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 	<input type="hidden" id="guestBookIdx" value="${guestBook.guestBookIdx}" />
-	<input type="hidden" name="localLogIdx" value="${localLog.localLogIdx}" />
-	<input type="hidden" name="userIdx" value="${user.userIdx}" />
+	<input type="hidden" id="localLogIdx" value="${localLog.localLogIdx}" />
 </body>
 </html>

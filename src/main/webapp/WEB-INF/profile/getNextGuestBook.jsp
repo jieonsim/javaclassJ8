@@ -11,8 +11,11 @@ pageContext.setAttribute("newLine", "\n");
 	<c:if test="${guestBook.visibility == 'public'}">
 		<div class="d-flex flex-column border-bottom py-3">
 			<div>
-				<div id="guestBookPlaceName">
+				<div id="guestBookPlaceName" class="d-flex justify-content-between">
 					<b>${guestBook.placeName}</b>
+					<span class="guestbook-like-button" style="cursor: default;">
+						<i class="ph ph-thumbs-up"></i>&nbsp;${guestBook.likeCount}
+					</span>
 				</div>
 				<div class="text-muted">${guestBook.region1DepthName},&nbsp;${guestBook.region2DepthName}&nbsp;·&nbsp;${guestBook.categoryName}</div>
 			</div>

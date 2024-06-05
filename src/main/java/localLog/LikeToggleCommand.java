@@ -1,12 +1,13 @@
-package guestBook;
+package localLog;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LikeToggleCommand implements GuestBookInterface {
+public class LikeToggleCommand implements LocalLogInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,29 +19,23 @@ public class LikeToggleCommand implements GuestBookInterface {
 			return;
 		}
 
-		String guestBookIdxStr = request.getParameter("guestBookIdx");
-		if (guestBookIdxStr == null) {
+		String localLogIdxStr = request.getParameter("localLogIdx");
+		if (localLogIdxStr == null) {
 			response.getWriter().write("error");
 			return;
 		}
 
-		int guestBookIdx = Integer.parseInt(guestBookIdxStr);
-		
-		GuestBookDAO guestBookDAO = new GuestBookDAO();
+		int localLogIdx = Integer.parseInt(localLogIdxStr);
+		LocalLogDAO localLogDAO = new LocalLogDAO();
 
-		GuestBookVO guestBook = guestBookDAO.getGuestBookByGuestBookIdx(guestBookIdx);
-		if (guestBook.getUserIdx() == sessionUserIdx) {
-			response.getWriter().write("cannot_like_own");
-			return;
-		}
-
-		boolean isLiked = guestBookDAO.isLikedByUser(guestBookIdx, sessionUserIdx);
+		// Check if the user is trying to like their own local log
+		boolean isLiked = localLogDAO.isLikedByUser(sessionUserIdx, localLogIdx);
 
 		if (isLiked) {
-			guestBookDAO.removeLike(guestBookIdx, sessionUserIdx);
+			localLogDAO.removeLike(sessionUserIdx, localLogIdx);
 			response.getWriter().write("unliked");
 		} else {
-			guestBookDAO.addLike(guestBookIdx, sessionUserIdx);
+			localLogDAO.addLike(sessionUserIdx, localLogIdx);
 			response.getWriter().write("liked");
 		}
 	}

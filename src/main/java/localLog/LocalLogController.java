@@ -23,6 +23,10 @@ public class LocalLogController extends HttpServlet {
 			command = new LocalLogDetailCommand();
 			command.execute(request, response);
 			return;
+		} else if (com.equals("likeToggle")) {
+			command = new LikeToggleCommand();
+			command.execute(request, response);
+			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

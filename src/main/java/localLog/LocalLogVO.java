@@ -25,9 +25,8 @@ public class LocalLogVO {
 	private String categoryName;
 	private String categoryType;
 	private List<String> photoUrls;
-	private int itemIdx;
-	private String itemType;
 	private int likeCount;
+	public boolean isLikedByUser;
 
 	public int getLikeCount() {
 		return likeCount;
@@ -35,14 +34,6 @@ public class LocalLogVO {
 
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
-	}
-
-	public int getItemIdx() {
-		return itemIdx;
-	}
-
-	public void setItemIdx(int itemIdx) {
-		this.itemIdx = itemIdx;
 	}
 
 	public List<String> getPhotoUrls() {
@@ -181,14 +172,6 @@ public class LocalLogVO {
 		this.categoryName = categoryName;
 	}
 
-	public String getItemType() {
-		return itemType;
-	}
-
-	public void setItemType(String itemType) {
-		this.itemType = itemType;
-	}
-
 	public String getCategoryType() {
 		return categoryType;
 	}
@@ -202,6 +185,6 @@ public class LocalLogVO {
 		return "LocalLogVO [localLogIdx=" + localLogIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", content=" + content + ", photos=" + photos + ", visitDate=" + visitDate
 				+ ", community=" + community + ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName
 				+ ", region1DepthName=" + region1DepthName + ", region2DepthName=" + region2DepthName + ", coverImage=" + coverImage + ", categoryName=" + categoryName + ", categoryType="
-				+ categoryType + ", photoUrls=" + photoUrls + ", itemIdx=" + itemIdx + ", itemType=" + itemType + ", likeCount=" + likeCount + "]";
+				+ categoryType + ", photoUrls=" + photoUrls + ", likeCount=" + likeCount + ", isLikedByUser=" + isLikedByUser + "]";
 	}
 }

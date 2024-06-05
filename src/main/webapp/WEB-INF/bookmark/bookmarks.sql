@@ -1,10 +1,13 @@
+
+DROP TABLE bookmarks;
+
 CREATE TABLE bookmarks (
     bookmarkIdx INT AUTO_INCREMENT PRIMARY KEY,
     userIdx INT,
     localLogIdx INT,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userIdx) REFERENCES users2(userIdx),
-    FOREIGN KEY (localLogIdx) REFERENCES localLogs(localLogIdx)
+    FOREIGN KEY (userIdx) REFERENCES users2(userIdx) ON DELETE CASCADE,
+    FOREIGN KEY (localLogIdx) REFERENCES localLogs(localLogIdx) ON DELETE CASCADE
 );
 
 show tables;

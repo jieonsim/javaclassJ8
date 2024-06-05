@@ -12,7 +12,7 @@ pageContext.setAttribute("newLine", "\n");
 		<div>
 			<div id="guestBookPlaceName" class="d-flex justify-content-between">
 				<b>${guestBook.placeName}</b>
-				<span class="guestbook-like-button">
+				<span class="guestbook-like-button" style="cursor: default;">
 					<i class="ph ph-thumbs-up"></i>&nbsp;${guestBook.likeCount}
 				</span>
 			</div>

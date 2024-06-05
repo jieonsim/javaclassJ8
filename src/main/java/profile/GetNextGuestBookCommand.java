@@ -65,8 +65,10 @@ public class GetNextGuestBookCommand implements ProfileInterface {
         int curScrStartNo = totRecCnt - startIndexNo;
 
         List<GuestBookVO> guestBooks = guestBookDAO.getGuestBooksByUserIdx(userIdx, startIndexNo, pageSize);
-
+        int guestBookCount = guestBookDAO.getGuestBookCountByUserIdx(userIdx);
+        
         request.setAttribute("guestBooks", guestBooks);
+        request.setAttribute("guestBookCount", guestBookCount);
         request.setAttribute("curScrStartNo", curScrStartNo);
         request.setAttribute("totalPages", totalPages);
 

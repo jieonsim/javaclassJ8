@@ -22,7 +22,6 @@ public class GuestBookVO {
 	private String categoryName;
 	private String nickname;
 	private String profileImage;
-	private int likeIdx;
 	private boolean isLikedByUser;
 	private int likeCount;
 
@@ -154,23 +153,15 @@ public class GuestBookVO {
 		this.profileImage = profileImage;
 	}
 
-	public int getLikeIdx() {
-		return likeIdx;
-	}
-
-	public void setLikeIdx(int likeIdx) {
-		this.likeIdx = likeIdx;
-	}
-
 	public boolean isLikedByUser() {
-        return isLikedByUser;
-    }
+		return isLikedByUser;
+	}
 
 //    public void setIsLikedByUser(boolean isLikedByUser) {
 //        this.isLikedByUser = isLikedByUser;
 //    }
 	public void setLikedByUser(boolean isLikedByUser) {
-	    this.isLikedByUser = isLikedByUser;
+		this.isLikedByUser = isLikedByUser;
 	}
 
 	public int getLikeCount() {
@@ -185,7 +176,7 @@ public class GuestBookVO {
 	public String toString() {
 		return "GuestBookVO [guestBookIdx=" + guestBookIdx + ", userIdx=" + userIdx + ", placeIdx=" + placeIdx + ", visitDate=" + visitDate + ", content=" + content + ", companions=" + companions
 				+ ", visibility=" + visibility + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", hostIp=" + hostIp + ", placeName=" + placeName + ", region1DepthName=" + region1DepthName
-				+ ", region2DepthName=" + region2DepthName + ", categoryName=" + categoryName + ", nickname=" + nickname + ", profileImage=" + profileImage + ", likeIdx=" + likeIdx
-				+ ", isLikedByUser=" + isLikedByUser + ", likeCount=" + likeCount + "]";
+				+ ", region2DepthName=" + region2DepthName + ", categoryName=" + categoryName + ", nickname=" + nickname + ", profileImage=" + profileImage + ", isLikedByUser=" + isLikedByUser
+				+ ", likeCount=" + likeCount + "]";
 	}
 }
