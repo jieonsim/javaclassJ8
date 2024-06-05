@@ -129,7 +129,7 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 			LocalLogDAO localLogDAO = new LocalLogDAO();
 			localLogDAO.updateLocalLog(localLog);
 
-			response.sendRedirect("localLogDetail.a?localLogIdx=" + localLogIdxStr);
+			response.sendRedirect("myLocalLogDetail.a?localLogIdx=" + localLogIdxStr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", "로컬로그 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");

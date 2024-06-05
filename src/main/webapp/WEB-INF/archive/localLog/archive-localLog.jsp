@@ -150,7 +150,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="text-center" style="margin-top: 100px;">
+				<div class="text-center" style="margin-top: 100px; margin-bottom: 150px;">
 					<div class="mb-2">내가 방문한 공간을 기록해보세요.</div>
 					<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-localLog.ll'">첫 로컬로그 남기기</button>
 				</div>

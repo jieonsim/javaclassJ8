@@ -22,7 +22,7 @@ public class ProfileLocalLogCommand implements ProfileInterface {
 
         HttpSession session = request.getSession();
         Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");
-
+        
         String userIdxStr = request.getParameter("userIdx");
         Integer userIdx = null;
         if (userIdxStr != null) {
@@ -36,7 +36,7 @@ public class ProfileLocalLogCommand implements ProfileInterface {
                 return;
             }
         }
-        System.out.println("userIdx : " + userIdx);
+        // System.out.println("userIdx : " + userIdx);
 
         if (sessionUserIdx != null && sessionUserIdx.equals(userIdx)) {
             response.sendRedirect("archive-localLog.a");

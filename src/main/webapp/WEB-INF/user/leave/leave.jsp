@@ -45,7 +45,7 @@
 				<a href="private.lv" class="btn btn-custom btn-lg mt-5" id="makeAccountPrivate">콘텐츠 비공개로 전환 후 계속 이용하기</a>
 			</div>
 			<div>
-				<a href="#" class="btn btn-custom btn-lg mt-2" id="leave">탈퇴하기</a>
+				<a href="tryToLeave.lv" class="btn btn-custom btn-lg mt-2" id="leave">탈퇴하기</a>
 			</div>
 		</div>
 	</div>

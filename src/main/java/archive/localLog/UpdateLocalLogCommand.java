@@ -43,6 +43,7 @@ public class UpdateLocalLogCommand implements ArchiveInterface {
 			return;
 		}
 
+		
 		String localLogIdxStr = request.getParameter("localLogIdx");
 		if (localLogIdxStr != null) {
 			int localLogIdx = Integer.parseInt(localLogIdxStr);

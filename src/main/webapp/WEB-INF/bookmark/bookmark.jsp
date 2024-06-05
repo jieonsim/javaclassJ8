@@ -249,7 +249,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="text-center" style="margin-top: 100px;">
+				<div class="text-center" style="margin-top: 150px; margin-bottom: 200px;">
 					<div class="mb-2" style="font-weight: bold; font-size: 18px;">저장된 콘텐츠가 없습니다.</div>
 					<div class="mb-2">궁금한 공간을 검색하고 저장해보세요.</div>
 					<button class="btn btn-custom" id="goToSearch" onclick="location.href='${ctp}/main'">둘러보기</button>

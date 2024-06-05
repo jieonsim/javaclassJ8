@@ -4,6 +4,9 @@ desc places;
 
 drop table places;
 
+ALTER TABLE places MODIFY createdBy INT NULL;
+
+
 
 CREATE TABLE places (
     placeIdx INT AUTO_INCREMENT PRIMARY KEY,

@@ -236,7 +236,7 @@ public class LocalLogDAO {
 	public int getLocalLogCount() {
 		int count = 0;
 		try {
-			sql = "SELECT COUNT(*) FROM localLogs";
+			String sql = "SELECT COUNT(*) FROM localLogs";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -254,7 +254,7 @@ public class LocalLogDAO {
 	public List<LocalLogVO> getRandomLocalLogs(int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
+			String sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
 					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.visibility = 'public' " + "ORDER BY RAND() " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
@@ -510,7 +510,7 @@ public class LocalLogDAO {
 			pstmtClose();
 		}
 	}
-	
+
 	// 로컬로그 좋아요 카운트
 	public int getLikeCount(int localLogIdx) {
 		int likeCount = 0;

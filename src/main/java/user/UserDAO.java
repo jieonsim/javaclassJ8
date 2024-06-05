@@ -36,6 +36,16 @@ public class UserDAO {
 		}
 	}
 
+	public void pstmtClose(PreparedStatement pstmt) {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	// userIdx로 정보 조회
 	public UserVO getUserByIdx(int userIdx) {
 		UserVO userVO = null;
@@ -60,7 +70,7 @@ public class UserDAO {
 				userVO.setVisibility(rs.getString("visibility"));
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("getUserByIdx SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -79,7 +89,7 @@ public class UserDAO {
 			pstmt.setString(5, userVO.getEmail());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("insertUser SQL 오류 : " + e.getMessage());
 		}
 		return result;
 	}
@@ -96,7 +106,7 @@ public class UserDAO {
 				isDuplicated = rs.getInt(1) > 0;
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("checkIdDuplicated SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -115,7 +125,7 @@ public class UserDAO {
 				isDuplicated = rs.getInt(1) > 0;
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("checkNicknameDuplicated SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -134,7 +144,7 @@ public class UserDAO {
 				isDuplicated = rs.getInt(1) > 0;
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("checkEmailDuplicated SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -165,7 +175,7 @@ public class UserDAO {
 				userVO.setVisibility(rs.getString("visibility"));
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("validateUser SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -197,7 +207,7 @@ public class UserDAO {
 				userVO.setVisibility(rs.getString("visibility"));
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("findUserIdByNameAndEmail SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -217,7 +227,7 @@ public class UserDAO {
 				exists = rs.getInt(1) > 0;
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("checkUserByIdAndEmail SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -236,7 +246,7 @@ public class UserDAO {
 				storedPassword = rs.getString("password");
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("getPasswordById SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -256,7 +266,7 @@ public class UserDAO {
 				isUpdated = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("updatePasswordById SQL 오류 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}
@@ -266,8 +276,8 @@ public class UserDAO {
 	// 프로필 수정
 	public int updateProfile(UserVO userVO) {
 		int result = 0;
-		sql = "UPDATE users2 SET password = ?, nickname = ?, name = ?, email = ?, role = ?, introduction = ?, updatedAt = ?, profileImage = ? WHERE userIdx = ?";
 		try {
+			sql = "UPDATE users2 SET password = ?, nickname = ?, name = ?, email = ?, role = ?, introduction = ?, updatedAt = ?, profileImage = ? WHERE userIdx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userVO.getPassword());
 			pstmt.setString(2, userVO.getNickname());
@@ -280,7 +290,7 @@ public class UserDAO {
 			pstmt.setInt(9, userVO.getUserIdx());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
+			System.out.println("updateProfile SQL 오류 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}
@@ -406,4 +416,186 @@ public class UserDAO {
 			pstmtClose();
 		}
 	}
+
+	public boolean deleteUserContentAndAccount(int userIdx) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+//	public boolean deleteUserContentAndAccount(int userIdx) {
+//		PreparedStatement pstmt1 = null;
+//		PreparedStatement pstmt2 = null;
+//
+//		try {
+//			conn.setAutoCommit(false); // 트랜잭션 시작
+//
+//			// 1. 유저의 모든 컨텐츠 삭제
+//			String deleteGuestBooks = "DELETE FROM guestBooks WHERE userIdx = ?";
+//			String deleteLocalLogs = "DELETE FROM localLogs WHERE userIdx = ?";
+//			String deleteBookmarks = "DELETE FROM bookmarks WHERE userIdx = ?";
+//			String deleteLikesLocalLog = "DELETE FROM likes_localLog WHERE userIdx = ?";
+//			String deleteLikesGuestBook = "DELETE FROM likes_guestBook WHERE userIdx = ?";
+//
+//			pstmt1 = conn.prepareStatement(deleteGuestBooks);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmt1.close();
+//
+//			pstmt1 = conn.prepareStatement(deleteLocalLogs);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmt1.close();
+//
+//			pstmt1 = conn.prepareStatement(deleteBookmarks);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmt1.close();
+//
+//			pstmt1 = conn.prepareStatement(deleteLikesLocalLog);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmt1.close();
+//
+//			pstmt1 = conn.prepareStatement(deleteLikesGuestBook);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmt1.close();
+//
+//			// 2. 장소의 createdBy를 NULL로 업데이트
+//			String updatePlaces = "UPDATE places SET createdBy = NULL WHERE createdBy = ?";
+//			pstmt2 = conn.prepareStatement(updatePlaces);
+//			pstmt2.setInt(1, userIdx);
+//			pstmt2.executeUpdate();
+//			pstmt2.close();
+//
+//			// 3. 유저 삭제
+//			String deleteUser = "DELETE FROM users2 WHERE userIdx = ?";
+//			pstmt2 = conn.prepareStatement(deleteUser);
+//			pstmt2.setInt(1, userIdx);
+//			pstmt2.executeUpdate();
+//			pstmt2.close();
+//
+//			conn.commit(); // 트랜잭션 커밋
+//			return true;
+//
+//		} catch (SQLException e) {
+//			System.out.println("deleteUserContentAndAccount SQL 오류 : " + e.getMessage());
+//			if (conn != null) {
+//				try {
+//					conn.rollback(); // 오류 발생 시 롤백
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//				}
+//			}
+//			return false;
+//		} finally {
+//			if (pstmt1 != null)
+//				try {
+//					pstmt1.close();
+//				} catch (SQLException e) {
+//					System.out.println("deleteUserContentAndAccount pstmt1 SQL 오류 : " + e.getMessage());
+//				}
+//			if (pstmt2 != null)
+//				try {
+//					pstmt2.close();
+//				} catch (SQLException e) {
+//					System.out.println("deleteUserContentAndAccount pstmt2 SQL 오류 : " + e.getMessage());
+//				}
+//			if (conn != null)
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//		}
+//	}
+//	public boolean deleteUserContentAndAccount(int userIdx) {
+//		Connection conn = null;
+//		PreparedStatement pstmt1 = null;
+//		PreparedStatement pstmt2 = null;
+//
+//		try {
+//			conn = GetConnection.getConn(); // 연결 객체 초기화
+//			conn.setAutoCommit(false); // 트랜잭션 시작
+//
+//			// 1. 유저의 모든 컨텐츠 삭제
+//			String deleteGuestBooks = "DELETE FROM guestBooks WHERE userIdx = ?";
+//			String deleteLocalLogs = "DELETE FROM localLogs WHERE userIdx = ?";
+//			String deleteBookmarks = "DELETE FROM bookmarks WHERE userIdx = ?";
+//			String deleteLikesLocalLog = "DELETE FROM likes_localLog WHERE userIdx = ?";
+//			String deleteLikesGuestBook = "DELETE FROM likes_guestBook WHERE userIdx = ?";
+//
+//			pstmt1 = conn.prepareStatement(deleteGuestBooks);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmtClose(pstmt1);
+//
+//			pstmt1 = conn.prepareStatement(deleteLocalLogs);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmtClose(pstmt1);
+//
+//			pstmt1 = conn.prepareStatement(deleteBookmarks);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmtClose(pstmt1);
+//
+//			pstmt1 = conn.prepareStatement(deleteLikesLocalLog);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmtClose(pstmt1);
+//
+//			pstmt1 = conn.prepareStatement(deleteLikesGuestBook);
+//			pstmt1.setInt(1, userIdx);
+//			pstmt1.executeUpdate();
+//			pstmtClose(pstmt1);
+//
+//			// 2. 장소의 createdBy를 NULL로 업데이트
+//			String updatePlaces = "UPDATE places SET createdBy = NULL WHERE createdBy = ?";
+//			pstmt2 = conn.prepareStatement(updatePlaces);
+//			pstmt2.setInt(1, userIdx);
+//			pstmt2.executeUpdate();
+//			pstmtClose(pstmt2);
+//
+//			// 3. 유저 삭제
+//			String deleteUser = "DELETE FROM users2 WHERE userIdx = ?";
+//			pstmt2 = conn.prepareStatement(deleteUser);
+//			pstmt2.setInt(1, userIdx);
+//			pstmt2.executeUpdate();
+//			pstmtClose(pstmt2);
+//
+//			conn.commit(); // 트랜잭션 커밋
+//			return true;
+//
+//		} catch (SQLException e) {
+//			System.out.println("deleteUserContentAndAccount SQL 오류 : " + e.getMessage());
+//			if (conn != null) {
+//				try {
+//					conn.rollback(); // 오류 발생 시 롤백
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//				}
+//			}
+//			return false;
+//		} finally {
+//			if (pstmt1 != null)
+//				try {
+//					pstmt1.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			if (pstmt2 != null)
+//				try {
+//					pstmt2.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			if (conn != null)
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//		}
+//	}
 }

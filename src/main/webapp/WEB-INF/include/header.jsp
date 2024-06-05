@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row align-items-center justify-content-between">
 			<div class="col-auto">
-				<a href="#" class="header-link" id="localLens">Local Lens</a>
+				<a href="${ctp}/main" class="header-link" id="localLens">Local Lens</a>
 			</div>
 			<form action="${ctp}/searchResult.search" method="get">
 				<div class="col-auto position-relative">

@@ -153,7 +153,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="text-center" style="margin-top: 100px;">
+				<div class="text-center" style="margin-top: 100px; margin-bottom: 150px;">
 					<i class="ph ph-image" style="font-size: 48px"></i>
 					<div class="mb-1 mt-3" style="font-weight: bold">콘텐츠가 없습니다.</div>
 					<div style="color: dimgray">아직 콘텐츠가 존재하지 않습니다.</div>

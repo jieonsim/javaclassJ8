@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="text-center" style="margin-top: 100px;">
+					<div class="text-center" style="margin-top: 100px; margin-bottom: 150px;">
 						<div class="mb-2">다녀온 공간에 대한 후기를 남겨보세요.</div>
 						<button class="btn btn-custom" id="firstRecord" onclick="location.href='record-guestBook.g'">첫 방명록 남기기</button>
 					</div>

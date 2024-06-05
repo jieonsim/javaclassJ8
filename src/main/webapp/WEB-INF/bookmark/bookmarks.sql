@@ -1,4 +1,4 @@
-
+show tables;
 DROP TABLE bookmarks;
 
 CREATE TABLE bookmarks (
@@ -9,8 +9,6 @@ CREATE TABLE bookmarks (
     FOREIGN KEY (userIdx) REFERENCES users2(userIdx) ON DELETE CASCADE,
     FOREIGN KEY (localLogIdx) REFERENCES localLogs(localLogIdx) ON DELETE CASCADE
 );
-
-show tables;
 
 ALTER TABLE bookmarks ADD CONSTRAINT fk_userIdx FOREIGN KEY (userIdx) REFERENCES users2(userIdx) ON DELETE CASCADE;
 ALTER TABLE bookmarks ADD CONSTRAINT fk_localLogIdx FOREIGN KEY (localLogIdx) REFERENCES localLogs(localLogIdx) ON DELETE CASCADE;

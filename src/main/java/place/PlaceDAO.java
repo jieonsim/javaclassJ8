@@ -191,11 +191,13 @@ public class PlaceDAO {
 		return place;
 	}
 
-	// getPlaceByIdx로 방명록 가져오기
+	// getPlaceByIdx로 방명록 가져오기 / 로컬로그 업데이트하기
 	public PlaceVO getPlaceByIdx(int placeIdx) {
 		PlaceVO place = null;
 		try {
-			sql = "SELECT p.*, c.categoryName " + "FROM places p " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE p.placeIdx = ?";
+			sql = "SELECT p.*, c.categoryName " + "FROM places p " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE p.placeIdx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, placeIdx);
 			rs = pstmt.executeQuery();
@@ -212,7 +214,7 @@ public class PlaceDAO {
 				place.setUpdatedBy(rs.getInt("updatedBy"));
 				place.setCreatedAt(rs.getTimestamp("createdAt"));
 				place.setUpdatedAt(rs.getTimestamp("updatedAt"));
-				place.setCreatedByNickname(rs.getString("createdByNickname"));
+				//place.setCreatedByNickname(rs.getString("createdByNickname"));
 			}
 		} catch (SQLException e) {
 			System.out.println("getPlaceByIdx SQL 오류 : " + e.getMessage());
@@ -222,6 +224,7 @@ public class PlaceDAO {
 		return place;
 	}
 
+	// 로컬로그 디테일 가져오기
 	public PlaceVO getPlaceByPlaceIdx(int placeIdx) {
 		PlaceVO place = null;
 		try {

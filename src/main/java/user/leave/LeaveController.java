@@ -31,6 +31,10 @@ public class LeaveController extends HttpServlet {
 			command = new PublicCommand();
 			command.execute(request, response);
 			return;
+		} else if (com.equals("tryToLeave")) {
+			command = new TryToLeaveCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
