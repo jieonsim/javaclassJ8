@@ -147,8 +147,8 @@ function deleteCheck(localLogIdx) {
 		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
-					<button type="button" class="btn btn-block mt-2" id="updatedLocalLogBtn" onclick="editLocalLog(${localLog.localLogIdx})">데이로그 수정</button>
-					<button type="button" class="btn btn-block mt-2" id="deleteLocalLogBtn" onclick="deleteCheck(${localLog.localLogIdx})">데이로그 삭제</button>
+					<button type="button" class="btn btn-block mt-2" id="updatedLocalLogBtn" onclick="editLocalLog(${localLog.localLogIdx})">로컬로그 수정</button>
+					<button type="button" class="btn btn-block mt-2" id="deleteLocalLogBtn" onclick="deleteCheck(${localLog.localLogIdx})">로컬로그 삭제</button>
 				</div>
 			</div>
 		</div>

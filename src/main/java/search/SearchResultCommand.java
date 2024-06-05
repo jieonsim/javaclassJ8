@@ -10,44 +10,53 @@ import javax.servlet.http.HttpServletResponse;
 
 import localLog.LocalLogDAO;
 import localLog.LocalLogVO;
+import record.LoadCategoriesHelper;
 
 public class SearchResultCommand implements SearchInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "/WEB-INF/search/searchResult.jsp";
-        String query = request.getParameter("query");
+		String query = request.getParameter("query");
+		String[] selectedCategories = request.getParameterValues("categoryIdx");
 
-        if (query == null || query.trim().isEmpty()) {
-            request.setAttribute("message", "검색어를 입력해주세요.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-            dispatcher.forward(request, response);
-            return;
-        }
+		// Check if query is available
+		if (query == null || query.trim().isEmpty()) {
+			// Check if there's a query saved in the session
+			query = (String) request.getSession().getAttribute("lastQuery");
+		} else {
+			// Save the query to the session
+			request.getSession().setAttribute("lastQuery", query);
+		}
 
-        LocalLogDAO localLogDAO = new LocalLogDAO();
+		if (query == null || query.trim().isEmpty()) {
+			request.setAttribute("message", "검색어를 입력해주세요.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
 
-        int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
-        int pageSize = 9; // 페이지당 표시할 레코드 수
-        int totRecCnt = localLogDAO.getLocalLogCountByQuery(query);
-        int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
-        int startIndexNo = (pag - 1) * pageSize;
-        int curScrStartNo = totRecCnt - startIndexNo;
+		LocalLogDAO localLogDAO = new LocalLogDAO();
 
-        System.out.println("Search query: " + query);
-        System.out.println("Total record count: " + totRecCnt);
-        System.out.println("Total pages: " + totalPages);
-        System.out.println("Start index number: " + startIndexNo);
-        System.out.println("Current screen start number: " + curScrStartNo);
-        
-        List<LocalLogVO> searchResults = localLogDAO.searchLocalLogs(query, startIndexNo, pageSize);
+		int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
+		int pageSize = 9; // 페이지당 표시할 레코드 수
+		/* int totRecCnt = localLogDAO.getLocalLogCountByQuery(query); */
+		int totRecCnt = localLogDAO.getLocalLogCountByQuery(query, selectedCategories);
+		int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
+		int startIndexNo = (pag - 1) * pageSize;
+		int curScrStartNo = totRecCnt - startIndexNo;
 
-        request.setAttribute("searchResults", searchResults);
-        request.setAttribute("totalPages", totalPages);
-        request.setAttribute("curScrStartNo", curScrStartNo);
-        request.setAttribute("query", query);
+		List<LocalLogVO> searchResults = localLogDAO.searchLocalLogs(query, startIndexNo, pageSize, selectedCategories);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-        dispatcher.forward(request, response);
+		request.setAttribute("searchResults", searchResults);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("curScrStartNo", curScrStartNo);
+		request.setAttribute("query", query);
+		request.setAttribute("selectedCategories", selectedCategories);
+
+		LoadCategoriesHelper.loadCategories(request);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+		dispatcher.forward(request, response);
 	}
 }

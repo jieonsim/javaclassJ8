@@ -19,6 +19,8 @@ public class GetNextSearchResultCommand implements SearchInterface {
     	 System.out.println("GetNextSearchResultCommand executed"); // 디버깅 로그 추가
 
          String query = request.getParameter("query");
+         String categoryIdxParam = request.getParameter("categoryIdx");
+         String[] selectedCategories = categoryIdxParam != null ? categoryIdxParam.split(",") : null;
 
          if (query == null || query.trim().isEmpty()) {
              System.out.println("Query is null or empty"); // 디버깅 로그 추가
@@ -36,9 +38,11 @@ public class GetNextSearchResultCommand implements SearchInterface {
          System.out.println("Page number: " + pag);
          System.out.println("Start index number: " + startIndexNo);
 
-         List<LocalLogVO> searchResults = localLogDAO.searchLocalLogs(query, startIndexNo, pageSize);
+         List<LocalLogVO> searchResults = localLogDAO.searchLocalLogs(query, startIndexNo, pageSize, selectedCategories);
+         int totalPages = (int) Math.ceil((double) localLogDAO.getLocalLogCountByQuery(query, selectedCategories) / pageSize);
 
          request.setAttribute("searchResults", searchResults);
+         request.setAttribute("totalPages", totalPages);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
         dispatcher.forward(request, response);

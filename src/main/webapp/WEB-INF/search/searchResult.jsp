@@ -35,8 +35,8 @@
 			type : "get",
 			data : {
 				pag : curPage,
-				query : $('#query').val()
-			// 히든 필드에서 query 값을 가져옴
+				query : $('#query').val(),
+				categoryIdx : $('#selectedCategories').val()
 			},
 			success : function(res) {
 				console.log("AJAX request successful, response: ", res); // 디버깅 로그 추가
@@ -81,6 +81,76 @@
 			lastScroll = currentScroll;
 		});
 	});
+
+	/* 	function getNextList(curPage) {
+	 console.log("Getting next list for page: " + curPage); // 디버깅 로그 추가
+	 $.ajax({
+	 url : "getNextSearchResult.search",
+	 type : "get",
+	 data : {
+	 pag : curPage,
+	 query : $('#query').val()
+	 // 히든 필드에서 query 값을 가져옴
+	 },
+	 success : function(res) {
+	 console.log("AJAX request successful, response: ", res); // 디버깅 로그 추가
+	 $("#list-wrap .row").append(res);
+	 totalPages = updateTotalPages(); // AJAX 응답 후 totalPages 요소 확인
+	 },
+	 error : function(err) {
+	 console.log("AJAX request error: ", err); // 디버깅 로그 추가
+	 }
+	 });
+	 }
+
+	 function updateTotalPages() {
+	 let totalPagesElement = document.getElementById('totalPages');
+	 if (totalPagesElement) {
+	 let totalPages = parseInt(totalPagesElement.value, 10);
+	 console.log("Total pages: " + totalPages); // 디버깅 로그 추가
+	 return totalPages;
+	 } else {
+	 console.error("totalPages element not found after AJAX!");
+	 return 0;
+	 }
+	 }
+
+	 document.addEventListener("DOMContentLoaded", function() {
+	 let lastScroll = 0;
+	 let curPage = 1;
+	 let totalPages = updateTotalPages();
+
+	 $(document).scroll(function() {
+	 let currentScroll = $(this).scrollTop();
+	 let documentHeight = $(document).height();
+	 let nowHeight = $(this).scrollTop() + $(window).height();
+
+	 if (currentScroll > lastScroll && curPage < totalPages) {
+	 if (documentHeight < (nowHeight + (documentHeight * 0.1))) {
+	 console.log("Get next page");
+	 curPage++;
+	 getNextList(curPage);
+	 }
+	 }
+	 lastScroll = currentScroll;
+	 });
+	 });
+	 */
+	$(document).ready(function() {
+		$('.all-check').click(function() {
+			let type = $(this).data('type');
+			console.log("Select All clicked for type: " + type); // Debugging log
+			let checkboxes = $('input[data-type="' + type + '"]');
+			let allChecked = checkboxes.length === checkboxes.filter(':checked').length;
+
+			// Toggle check/uncheck all checkboxes
+			checkboxes.prop('checked', !allChecked);
+		});
+
+		$('#resetBtn').click(function() {
+			$('input[type="checkbox"]').prop('checked', false);
+		});
+	});
 </script>
 </head>
 <body>
@@ -89,20 +159,14 @@
 	<div class="container mt-5">
 		<form>
 			<div class="search-result-header">
-				<input type="text" name="query" value="${param.query}" class="search-result-input">
 				<button type="submit" class="btn btn-custom" id="search-icon">
 					<i class="ph ph-magnifying-glass"></i>
 				</button>
+				<input type="text" name="query" value="${param.query}" class="search-result-input">
 				<div class="filter-options">
-					<span class="filter-option">인기순</span>
-					<span class="filter-option">필터</span>
-					<span class="filter-option">카페</span>
-					<span class="filter-option">음식점</span>
-					<span class="filter-option">문화</span>
-					<span class="filter-option">여행</span>
-					<span class="filter-option">바</span>
-					<span class="filter-option">숙박</span>
-					<span class="filter-option">쇼핑</span>
+					<a href="#" class="filter-option" data-toggle="modal" data-target="#searchFilter" id="filterIcon">
+						<i class="ph ph-sliders"></i>&nbsp;필터
+					</a>
 				</div>
 			</div>
 			<input type="hidden" id="query" name="query" value="${param.query}">
@@ -135,12 +199,48 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="text-center" style="margin-top: 100px;">
+				<div class="text-center" style="margin-top: 100px; margin-bottom: 150px;">
 					<i class="ph ph-binoculars"></i>
 					<div id="noResult">검색 결과가 없습니다.</div>
 				</div>
 			</c:otherwise>
 		</c:choose>
+	</div>
+	<div class="modal fade" id="searchFilter" tabindex="-1" role="dialog" aria-labelledby="addANewPlaceModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="searchFilterTitle">필터</h5>
+				</div>
+				<div class="modal-body">
+					<form name="searchFilterForm" class="searchFilter-form" method="post" action="searchResult.search">
+						<input type="hidden" name="query" value="${param.query}">
+						<div class="form-group">
+							<div class="category-section mx-3" id="categorySection">
+								<c:forEach var="categoryType" items="${categoriesByType.keySet()}">
+									<div class="d-flex justify-content-between">
+										<b>${categoryType}</b>
+										<button type="button" class="text-mute all-check" data-type="${categoryType}" id="allCheck">모두 선택</button>
+									</div>
+									<div class="category-options mb-3">
+										<c:forEach var="category" items="${categoriesByType[categoryType]}">
+											<label>
+												<input type="checkbox" name="categoryIdx" value="${category.categoryIdx}" class="category-checkbox" data-type="${categoryType}">
+												<span class="option-btn">${category.categoryName}</span>
+											</label>
+										</c:forEach>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="d-flex justify-content-around mx-2 my-3">
+							<button type="button" class="form-control btn btn-sm mr-3" id="resetBtn">초기화</button>
+							<button type="submit" class="form-control btn btn-sm" id="submitBtn">적용</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />

@@ -18,3 +18,4 @@
 <input type="hidden" id="url" value="${url}" />
 <input type="hidden" id="totalPages" value="${totalPages}" />
 <input type="hidden" id="query" name="query" value="${param.query}">
+<input type="hidden" id="selectedCategories" name="categoryIdx" value="${param.selectedCategories}">

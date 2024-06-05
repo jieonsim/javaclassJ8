@@ -529,4 +529,138 @@ public class LocalLogDAO {
 		}
 		return likeCount;
 	}
+
+	public int getLocalLogCountByQuery(String query, String[] selectedCategories) {
+	    int count = 0;
+	    StringBuilder sqlBuilder = new StringBuilder();
+	    sqlBuilder.append("SELECT COUNT(*) FROM localLogs ll ")
+	              .append("JOIN places p ON ll.placeIdx = p.placeIdx ")
+	              .append("JOIN categories c ON p.categoryIdx = c.categoryIdx ")
+	              .append("WHERE (p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? ")
+	              .append("OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ?) ");
+
+	    if (selectedCategories != null && selectedCategories.length > 0) {
+	        sqlBuilder.append("AND c.categoryIdx IN (");
+	        for (int i = 0; i < selectedCategories.length; i++) {
+	            sqlBuilder.append("?");
+	            if (i < selectedCategories.length - 1) {
+	                sqlBuilder.append(", ");
+	            }
+	        }
+	        sqlBuilder.append(") ");
+	    }
+
+	    try {
+	        pstmt = conn.prepareStatement(sqlBuilder.toString());
+
+	        String likeQuery = "%" + query + "%";
+	        pstmt.setString(1, likeQuery);
+	        pstmt.setString(2, likeQuery);
+	        pstmt.setString(3, likeQuery);
+	        pstmt.setString(4, likeQuery);
+	        pstmt.setString(5, likeQuery);
+	        pstmt.setString(6, likeQuery);
+	        pstmt.setString(7, likeQuery);
+
+	        if (selectedCategories != null && selectedCategories.length > 0) {
+	            for (int i = 0; i < selectedCategories.length; i++) {
+	                pstmt.setString(8 + i, selectedCategories[i]);
+	            }
+	        }
+
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("getLocalLogCountByQuery SQL 오류: " + e.getMessage());
+	    } finally {
+	        rsClose();
+	    }
+	    return count;
+	}
+	
+	public List<LocalLogVO> searchLocalLogs(String query, int startIndexNo, int pageSize, String[] selectedCategories) {
+	    List<LocalLogVO> results = new ArrayList<>();
+	    StringBuilder sqlBuilder = new StringBuilder();
+	    sqlBuilder.append("SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, c.categoryType ")
+	              .append("FROM localLogs ll ")
+	              .append("JOIN places p ON ll.placeIdx = p.placeIdx ")
+	              .append("JOIN categories c ON p.categoryIdx = c.categoryIdx ")
+	              .append("WHERE (p.placeName LIKE ? OR c.categoryName LIKE ? OR p.region1DepthName LIKE ? OR p.region2DepthName LIKE ? ")
+	              .append("OR ll.content LIKE ? OR ll.community LIKE ? OR c.categoryType LIKE ?) ");
+
+	    if (selectedCategories != null && selectedCategories.length > 0) {
+	        sqlBuilder.append("AND c.categoryIdx IN (");
+	        for (int i = 0; i < selectedCategories.length; i++) {
+	            sqlBuilder.append("?");
+	            if (i < selectedCategories.length - 1) {
+	                sqlBuilder.append(", ");
+	            }
+	        }
+	        sqlBuilder.append(") ");
+	    }
+
+	    sqlBuilder.append("ORDER BY ll.visitDate DESC ")
+	              .append("LIMIT ?, ?");
+
+	    try {
+	        pstmt = conn.prepareStatement(sqlBuilder.toString());
+
+	        String likeQuery = "%" + query + "%";
+	        pstmt.setString(1, likeQuery);
+	        pstmt.setString(2, likeQuery);
+	        pstmt.setString(3, likeQuery);
+	        pstmt.setString(4, likeQuery);
+	        pstmt.setString(5, likeQuery);
+	        pstmt.setString(6, likeQuery);
+	        pstmt.setString(7, likeQuery);
+
+	        if (selectedCategories != null && selectedCategories.length > 0) {
+	            for (int i = 0; i < selectedCategories.length; i++) {
+	                pstmt.setString(8 + i, selectedCategories[i]);
+	            }
+	            pstmt.setInt(8 + selectedCategories.length, startIndexNo);
+	            pstmt.setInt(9 + selectedCategories.length, pageSize);
+	        } else {
+	            pstmt.setInt(8, startIndexNo);
+	            pstmt.setInt(9, pageSize);
+	        }
+
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            LocalLogVO localLog = new LocalLogVO();
+	            localLog.setLocalLogIdx(rs.getInt("localLogIdx"));
+	            localLog.setUserIdx(rs.getInt("userIdx"));
+	            localLog.setPlaceIdx(rs.getInt("placeIdx"));
+	            localLog.setContent(rs.getString("content"));
+	            localLog.setPhotos(rs.getString("photos"));
+	            localLog.setVisitDate(rs.getDate("visitDate"));
+	            localLog.setCommunity(rs.getString("community"));
+	            localLog.setVisibility(rs.getString("visibility"));
+	            localLog.setCreatedAt(rs.getTimestamp("createdAt"));
+	            localLog.setUpdatedAt(rs.getTimestamp("updatedAt"));
+	            localLog.setHostIp(rs.getString("hostIp"));
+	            localLog.setPlaceName(rs.getString("placeName"));
+	            localLog.setRegion1DepthName(rs.getString("region1DepthName"));
+	            localLog.setRegion2DepthName(rs.getString("region2DepthName"));
+	            localLog.setCategoryName(rs.getString("categoryName"));
+	            localLog.setCategoryType(rs.getString("categoryType"));
+
+	            // Parse the photos field into a list of URLs and set the cover image
+	            String[] photoArray = rs.getString("photos").split("/");
+	            if (photoArray.length > 0) {
+	                localLog.setCoverImage(photoArray[0]);
+	            }
+	            localLog.setPhotoUrls(Arrays.asList(photoArray));
+
+	            results.add(localLog);
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("searchLocalLogs SQL 오류: " + e.getMessage());
+	    }
+	    return results;
+	}
+
 }

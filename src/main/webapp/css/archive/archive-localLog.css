@@ -35,6 +35,7 @@
 	font-size: 18px;
 	border-radius: 0;
 	text-align: center;
+	font-weight: bold;
 }
 
 #deleteLocalLogBtn {
@@ -42,10 +43,6 @@
 	font-size: 18px;
 	border-radius: 0;
 	text-align: center;
-}
-
-#updatedLocalLogBtn:hover,
-#deleteLocalLogBtn:hover {
 	font-weight: bold;
 }
 
