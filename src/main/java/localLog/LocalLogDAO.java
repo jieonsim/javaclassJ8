@@ -170,10 +170,17 @@ public class LocalLogDAO {
 	public boolean deleteLocalLog(int localLogIdx, int userIdx) {
 		boolean result = false;
 		try {
-			sql = "DELETE FROM localLogs WHERE localLogIdx = ? AND userIdx = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, localLogIdx);
-			pstmt.setInt(2, userIdx);
+			// 관련 북마크 삭제
+	        sql = "DELETE FROM bookmarks WHERE localLogIdx = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, localLogIdx);
+	        pstmt.executeUpdate();
+	        
+	        // 로컬 로그 삭제
+	        sql = "DELETE FROM localLogs WHERE localLogIdx = ? AND userIdx = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, localLogIdx);
+	        pstmt.setInt(2, userIdx);
 
 			int rowCount = pstmt.executeUpdate();
 			if (rowCount > 0) {

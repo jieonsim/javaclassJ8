@@ -6,7 +6,7 @@
 pageContext.setAttribute("newLine", "\n");
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"></c:set>
-<link rel="stylesheet" type="text/css" href="${ctp}/css/main/main.css" />
+<%-- <link rel="stylesheet" type="text/css" href="${ctp}/css/main/main.css" /> --%>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <div id="list-wrap">
 	<c:forEach var="localLog" items="${localLogs}">

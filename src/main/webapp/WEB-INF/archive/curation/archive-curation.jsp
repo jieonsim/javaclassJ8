@@ -18,7 +18,7 @@
 	<jsp:include page="/WEB-INF/include/nav.jsp" />
 	<div class="container px-5" id="archive-container">
 		<jsp:include page="/WEB-INF/archive/archive-profile.jsp" />
-		<div class="text-center" style="margin-top: 100px; margin-botto: 150px;">
+		<div class="text-center" style="margin-top: 100px; margin-bottom: 150px;">
 			<div class="mb-2">추천하고 싶은 나만의 공간 가이드를 만들어보세요.</div>
 			<button class="btn btn-custom" id="firstRecord">첫 큐레이션 작성하기</button>
 		</div>

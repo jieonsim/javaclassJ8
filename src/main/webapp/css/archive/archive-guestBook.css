@@ -14,15 +14,16 @@
 }
 
 #deleteGuestBookBtn {
-	color: black;
+	color: red;
 	font-size: 18px;
 	border-radius: 0;
 	text-align: left;
-}
-
-#deleteGuestBookBtn:hover {
 	font-weight: bold;
 }
+
+/*#deleteGuestBookBtn:hover {
+	font-weight: bold;
+}*/
 
 #deleteGuestBookBtn:focus {
 	box-shadow: none;
@@ -97,6 +98,7 @@ input:checked+.slider:before {
 #visibilityStatus {
 	font-size: 18px;
 	text-align: left;
+	font-weight: bold;
 }
 
 
@@ -110,4 +112,33 @@ input:checked+.slider:before {
 	font-size: 14px;
 	cursor: pointer;
 	text-decoration: none;
+}
+
+
+.swal2-container .swal2-popup .swal2-actions .swal2-confirm {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    margin: 0 !important;
+}
+
+.swal2-container .swal2-popup .swal2-actions .swal2-cancel {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    margin: 0 !important;
+}
+
+.swal2-container .swal2-popup .swal2-actions .swal2-confirm:hover {
+    background-color: none !important;
+}
+
+.swal2-container .swal2-popup .swal2-actions .swal2-cancel:hover {
+    background-color: none !important;
 }

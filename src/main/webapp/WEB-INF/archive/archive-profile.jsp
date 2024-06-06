@@ -18,6 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+function notYet() {
+	showAlert("준비 중입니다.");
+	return false;
+}
 </script>
 <div class="media my-5">
 	<div class="photo-placeholder custom-margin">
@@ -70,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</c:if>
 	</li>
 	<li>
-		<a href="archive-curation.a" id="curation">큐레이션</a>
+		<a href="#" id="curation" onclick="notYet()">큐레이션</a>
 	</li>
 </ul>
 <input type="hidden" id="message" value="${message}" />

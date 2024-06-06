@@ -10,23 +10,52 @@ import archive.ArchiveInterface;
 import guestBook.GuestBookDAO;
 
 public class DeleteGuestBookCommand implements ArchiveInterface {
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int guestBookIdx = Integer.parseInt(request.getParameter("guestBookIdx"));
-        Integer sessionUserIdx = (Integer) request.getSession().getAttribute("sessionUserIdx");
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String guestBookIdxStr = request.getParameter("guestBookIdx");
+		if (guestBookIdxStr == null || guestBookIdxStr.isEmpty()) {
+			response.getWriter().write("failed");
+			return;
+		}
 
-        if (sessionUserIdx == null) {
-            response.getWriter().write("failed");
-            return;
-        }
+		int guestBookIdx;
+		try {
+			guestBookIdx = Integer.parseInt(guestBookIdxStr);
+		} catch (NumberFormatException e) {
+			response.getWriter().write("failed");
+			return;
+		}
 
-        GuestBookDAO guestBookDAO = new GuestBookDAO();
-        boolean result = guestBookDAO.deleteGuestBook(guestBookIdx, sessionUserIdx);
+		Integer sessionUserIdx = (Integer) request.getSession().getAttribute("sessionUserIdx");
 
-        if (result) {
-            response.getWriter().write("deleted");
-        } else {
-            response.getWriter().write("failed");
-        }
-    }
+		if (sessionUserIdx == null) {
+			response.getWriter().write("failed");
+			return;
+		}
+
+		GuestBookDAO guestBookDAO = new GuestBookDAO();
+		boolean result = guestBookDAO.deleteGuestBook(guestBookIdx, sessionUserIdx);
+
+		if (result) {
+			response.getWriter().write("deleted");
+		} else {
+			response.getWriter().write("failed");
+		}
+//        int guestBookIdx = Integer.parseInt(request.getParameter("guestBookIdx"));
+//        Integer sessionUserIdx = (Integer) request.getSession().getAttribute("sessionUserIdx");
+//
+//        if (sessionUserIdx == null) {
+//            response.getWriter().write("failed");
+//            return;
+//        }
+//
+//        GuestBookDAO guestBookDAO = new GuestBookDAO();
+//        boolean result = guestBookDAO.deleteGuestBook(guestBookIdx, sessionUserIdx);
+//
+//        if (result) {
+//            response.getWriter().write("deleted");
+//        } else {
+//            response.getWriter().write("failed");
+//        }
+	}
 }

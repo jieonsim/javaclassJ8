@@ -14,34 +14,33 @@ pageContext.setAttribute("newLine", "\n");
 <title>Local Lens</title>
 <jsp:include page="/WEB-INF/include/bs4.jsp" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive.css" />
-<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/archive/archive-guestBook.css" />
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
+<!-- <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"> -->
 <script>
-//모달이 열릴 때, 클릭된 버튼에서 guestBookIdx를 가져와 삭제 버튼에 저장
-//모달 내의 삭제 버튼을 클릭하면, 해당 guestBookIdx를 사용하여 삭제 요청을 보냄
 $(document).ready(function() {
- $('#updateGuestBook').on('show.bs.modal', function(event) {
-     var button = $(event.relatedTarget); // 클릭된 버튼
-     var guestBookIdx = button.data('guestbook-id'); // data-guestbook-id의 값
-     var visibilityStatus = button.data('visibility'); // data-visibility의 값
-     var modal = $(this);
+    $('#updateGuestBook').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // 클릭된 버튼
+        var guestBookIdx = button.data('guestbook-id'); // data-guestbook-id의 값
+        var visibilityStatus = button.data('visibility'); // data-visibility의 값
+        var modal = $(this);
 
-     if (visibilityStatus === 'private') {
-         modal.find('input[type="checkbox"]').prop('checked', false);
-     } else {
-         modal.find('input[type="checkbox"]').prop('checked', true);
-     }
+        if (visibilityStatus === 'private') {
+            modal.find('input[type="checkbox"]').prop('checked', false);
+        } else {
+            modal.find('input[type="checkbox"]').prop('checked', true);
+        }
 
-     modal.find('#deleteGuestBookBtn').data('guestbook-id', guestBookIdx); // 삭제 버튼에 guestBookIdx 설정
- });
+        modal.find('#deleteGuestBookBtn').data('guestbook-id', guestBookIdx); // 삭제 버튼에 guestBookIdx 설정
+    });
 
- $('input[type="checkbox"]').on('change', function() {
-     var guestBookIdx = $(this).closest('#updateGuestBook').find('#deleteGuestBookBtn').data('guestbook-id');
-     var visibility = this.checked ? 'public' : 'private';
-     toggleVisibility(guestBookIdx, visibility);
- });
+    $('input[type="checkbox"]').on('change', function() {
+        var guestBookIdx = $(this).closest('#updateGuestBook').find('#deleteGuestBookBtn').data('guestbook-id');
+        var visibility = this.checked ? 'public' : 'private';
+        toggleVisibility(guestBookIdx, visibility);
+    });
 });
+
 
 function toggleVisibility(guestBookIdx, visibility) {
  var message = visibility === 'public' ? '방명록이 공개 처리되었습니다.' : '방명록이 비공개 처리되었습니다.';
@@ -79,14 +78,17 @@ function toggleVisibility(guestBookIdx, visibility) {
 }
 
 function deleteCheck(guestBookIdx) {
+	var guestBookIdx = $('#deleteGuestBookBtn').data('guestbook-id');
+	console.log("guestBookIdx:", guestBookIdx);  // 추가된 콘솔 로그
+	
     Swal.fire({
         text: '방명록을 삭제하시겠습니까?',
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
         customClass: {
-            confirmButton: 'swal2-confirm',
-            cancelButton: 'swal2-cancel',
+            confirmButton: 'swal2-confirm custom-confirm-button',
+            cancelButton: 'swal2-cancel custom-cancel-button',
             popup: 'custom-swal-popup',
             htmlContainer: 'custom-swal-text',
         },
@@ -265,13 +267,13 @@ document.addEventListener("DOMContentLoaded", function() {
 							<span class="slider round"></span>
 						</label>
 					</div>
-					<button type="button" class="btn btn-block mt-2" id="deleteGuestBookBtn" onclick="deleteCheck(${guestBook.guestBookIdx})">방명록 삭제</button>
+					<button type="button" class="btn btn-block mt-2" id="deleteGuestBookBtn" onclick="deleteCheck()">방명록 삭제</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<!-- updateGuestBook Modal -->
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 	<input type="hidden" id="message" value="${message}" />
 	<input type="hidden" id="url" value="${url}" />
 	<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
