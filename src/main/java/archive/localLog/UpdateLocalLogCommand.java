@@ -53,7 +53,6 @@ public class UpdateLocalLogCommand implements ArchiveInterface {
 			if (localLog != null) {
 				request.setAttribute("localLog", localLog);
 
-				// Fetch the place information
 				PlaceDAO placeDAO = new PlaceDAO();
 				PlaceVO place = placeDAO.getPlaceByIdx(localLog.getPlaceIdx());
 				if (place != null) {

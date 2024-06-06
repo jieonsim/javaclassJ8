@@ -64,7 +64,7 @@ public class LoginCommand implements UserInterface {
 			// 세션 처리
 			HttpSession session = request.getSession();
 			session.setAttribute("sessionUserIdx", userVO.getUserIdx());
-			System.out.println("User logged in with sessionUserIdx: " + userVO.getUserIdx());
+			//System.out.println("User logged in with sessionUserIdx: " + userVO.getUserIdx());
 			session.setAttribute("sessionId", userVO.getId());
 			session.setAttribute("sessionNickname", userVO.getNickname());
 			session.setAttribute("sessionName", userVO.getName());

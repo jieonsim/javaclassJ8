@@ -77,7 +77,7 @@ public class UpdateProfileCommand implements UserInterface {
 //		소개는 null이 허용되기 때문에 아무것도 입력하지 않은 채로 회원 수정하면 null로 저장되어야하기 때문에 아래 같이 코드 변경
 		
 		if (introduction != null && introduction.trim().isEmpty()) {
-            introduction = null;  // 빈 문자열을 null로 변환
+            introduction = null;
         }
         userVO.setIntroduction(introduction);
         

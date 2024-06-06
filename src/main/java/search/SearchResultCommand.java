@@ -20,12 +20,9 @@ public class SearchResultCommand implements SearchInterface {
 		String query = request.getParameter("query");
 		String[] selectedCategories = request.getParameterValues("categoryIdx");
 
-		// Check if query is available
 		if (query == null || query.trim().isEmpty()) {
-			// Check if there's a query saved in the session
 			query = (String) request.getSession().getAttribute("lastQuery");
 		} else {
-			// Save the query to the session
 			request.getSession().setAttribute("lastQuery", query);
 		}
 

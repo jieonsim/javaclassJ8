@@ -67,8 +67,11 @@ public class GuestBookDAO {
 //			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
 //					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC " + "LIMIT ?, ?";
 			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, "
-					+ "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " + "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC " + "LIMIT ?, ?";
+					+ "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " 
+					+ "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE gb.userIdx = ? " 
+					+ "ORDER BY gb.createdAt DESC " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			pstmt.setInt(2, startIndexNo);
@@ -107,10 +110,17 @@ public class GuestBookDAO {
 	public boolean deleteGuestBook(int guestBookIdx, int userIdx) {
 		boolean result = false;
 		try {
-			sql = "DELETE FROM guestBooks WHERE guestBookIdx = ? AND userIdx = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, guestBookIdx);
-			pstmt.setInt(2, userIdx);
+			// 좋아요 삭제
+	        sql = "DELETE FROM likes_guestBook WHERE guestBookIdx = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, guestBookIdx);
+	        pstmt.executeUpdate();
+
+	        // 방명록 삭제
+	        sql = "DELETE FROM guestBooks WHERE guestBookIdx = ? AND userIdx = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, guestBookIdx);
+	        pstmt.setInt(2, userIdx);
 
 			int rowCount = pstmt.executeUpdate();
 			if (rowCount > 0) {
@@ -288,9 +298,12 @@ public class GuestBookDAO {
 	public List<GuestBookVO> getGuestBooksByPlaceIdx(int placeIdx, int sessionUserIdx) {
 		List<GuestBookVO> guestBooks = new ArrayList<>();
 		try {
-			sql = "SELECT gb.guestBookIdx, gb.userIdx, gb.placeIdx, gb.content, gb.visitDate, gb.visibility, " + "u.nickname, u.profileImage, "
+			sql = "SELECT gb.guestBookIdx, gb.userIdx, gb.placeIdx, gb.content, gb.visitDate, gb.visibility, " 
+					+ "u.nickname, u.profileImage, "
 					+ "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx AND lg.userIdx = ?) AS likedByUser, "
-					+ "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " + "FROM guestBooks gb " + "JOIN users2 u ON gb.userIdx = u.userIdx "
+					+ "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " 
+					+ "FROM guestBooks gb " 
+					+ "JOIN users2 u ON gb.userIdx = u.userIdx "
 					+ "WHERE gb.placeIdx = ? AND gb.visibility = 'public'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, sessionUserIdx);

@@ -29,7 +29,6 @@ public class DeleteLocalLogCommand implements ArchiveInterface {
         if (photoFilenames != null) {
             String realPath = request.getServletContext().getRealPath("/images/localLog/");
 
-            // Delete the photo files from the file system
             for (String filename : photoFilenames) {
                 File photoFile = new File(realPath, filename);
                 if (photoFile.exists()) {

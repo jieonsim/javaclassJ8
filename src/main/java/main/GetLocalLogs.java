@@ -18,7 +18,7 @@ public class GetLocalLogs extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pag = Integer.parseInt(request.getParameter("pag"));
-        int pageSize = 4; // 페이지당 보여줄 로컬로그 수
+        int pageSize = 10; // 페이지당 보여줄 로컬로그 수
         int startIndexNo = (pag - 1) * pageSize;
 
         LocalLogDAO localLogDAO = new LocalLogDAO();

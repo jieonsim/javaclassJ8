@@ -54,7 +54,7 @@ public class Main extends HttpServlet {
 		}
 
 		LocalLogDAO localLogDAO = new LocalLogDAO();
-		int pageSize = 4;
+		int pageSize = 10;
 		int totalPages = (int) Math.ceil((double) localLogDAO.getLocalLogCount() / pageSize);
 		List<LocalLogVO> localLogs = localLogDAO.getRandomLocalLogs(0, pageSize);
         

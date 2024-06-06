@@ -128,8 +128,10 @@ public class LocalLogDAO {
 	public LocalLogVO getLocalLogByIdx(int localLogIdx) {
 		LocalLogVO localLog = null;
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.localLogIdx = ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE ll.localLogIdx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, localLogIdx);
 			rs = pstmt.executeQuery();
@@ -152,7 +154,6 @@ public class LocalLogDAO {
 				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
 				localLog.setCategoryName(rs.getString("categoryName"));
 
-				// 커버 이미지를 설정합니다.
 				String[] photoArray = rs.getString("photos").split("/");
 				if (photoArray.length > 0) {
 					localLog.setCoverImage(photoArray[0]);
@@ -261,8 +262,10 @@ public class LocalLogDAO {
 	public List<LocalLogVO> getRandomLocalLogs(int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			String sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE ll.visibility = 'public' " + "ORDER BY RAND() " + "LIMIT ?, ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE ll.visibility = 'public' " + "ORDER BY RAND() " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -286,7 +289,6 @@ public class LocalLogDAO {
 				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
 				localLog.setCategoryName(rs.getString("categoryName"));
 
-				// Parse the photos field into a list of URLs
 				String[] photoArray = rs.getString("photos").split("/");
 				localLog.setPhotoUrls(Arrays.asList(photoArray));
 
@@ -389,8 +391,12 @@ public class LocalLogDAO {
 	public List<LocalLogVO> getLocalLogs(int startIndexNo, int pageSize) {
 		List<LocalLogVO> localLogs = new ArrayList<>();
 		try {
-			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM localLogs ll " + "JOIN places p ON ll.placeIdx = p.placeIdx "
-					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "ORDER BY ll.visitDate DESC " + "LIMIT ?, ?";
+			sql = "SELECT ll.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM localLogs ll " 
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx "
+					+ "WHERE ll.visibility = 'public' "  // 조건 추가
+					+ "ORDER BY ll.visitDate DESC " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);

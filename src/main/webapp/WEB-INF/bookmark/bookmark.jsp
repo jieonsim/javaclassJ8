@@ -84,7 +84,6 @@
 
 	    $('#bookmarkEdit').click(function() {
 	        if (!editMode) {
-	            // Store the initial state
 	            $('.bookmark-container .image-container').each(function() {
 	                initialState.push({
 	                    card: $(this).closest('.card').data('locallogid'),
@@ -103,17 +102,15 @@
 	            });
 
 	            if (selectedBookmarks.length === 0) {
-	                // Revert to initial state if no items are selected
 	                revertToInitialState();
 	                return;
 	            }
-
 	            showConfirmAlert(selectedBookmarks);
 	        }
 	    });
 
 	    $(document).on('click', '.overlay', function(e) {
-	        e.stopPropagation(); // Prevent the stretched link from triggering
+	        e.stopPropagation();
 	        $(this).toggleClass('selected');
 	        $(this).parent().toggleClass('checked');
 	    });
@@ -146,12 +143,11 @@
 	                            }
 	                        },
 	                        error: function() {
-	                            showAlert("에러 발생");
+	                            showAlert("전송 오류가 발생했습니다.");
 	                        }
 	                    });
 	                }
 	            } else {
-	                // Revert to initial state if "취소" is clicked
 	                revertToInitialState();
 	            }
 	        });
@@ -230,7 +226,6 @@
 												</c:choose>
 												<span>&nbsp;${bookmark.region1DepthName},&nbsp;${bookmark.region2DepthName}</span>
 											</p>
-											<!-- <div class="gradient-overlay"></div> -->
 											<a href="localLogDetail.ld?localLogIdx=${bookmark.localLogIdx}" class="stretched-link"></a>
 										</div>
 									</div>

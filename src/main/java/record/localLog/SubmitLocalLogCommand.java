@@ -158,10 +158,8 @@ public class SubmitLocalLogCommand extends HttpServlet {
 		int originalWidth = originalImage.getWidth();
 		int originalHeight = originalImage.getHeight();
 
-		// Calculate the target aspect ratio (3:4 in this case)
 		double targetAspectRatio = 3.0 / 4.0;
 
-		// Calculate the crop area
 		int cropWidth = originalWidth;
 		int cropHeight = originalHeight;
 
@@ -176,12 +174,11 @@ public class SubmitLocalLogCommand extends HttpServlet {
 
 		BufferedImage croppedImage = originalImage.getSubimage(cropX, cropY, cropWidth, cropHeight);
 
-		// Resize the cropped image
 		BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = resizedImage.createGraphics();
 		g.drawImage(croppedImage, 0, 0, width, height, null);
 		g.dispose();
 
-		ImageIO.write(resizedImage, "jpg", outputFile); // Write the resized image to the output file
+		ImageIO.write(resizedImage, "jpg", outputFile);
 	}
 }

@@ -24,6 +24,24 @@ CREATE TABLE likes_guestBook (
 );
 
 
+-- 기존의 외래 키 제약 조건을 삭제합니다.
+ALTER TABLE likes_guestBook DROP FOREIGN KEY likes_guestbook_ibfk_2;
+
+-- 새로운 외래 키 제약 조건을 추가합니다.
+ALTER TABLE likes_guestBook ADD CONSTRAINT likes_guestbook_ibfk_2
+FOREIGN KEY (guestBookIdx) REFERENCES guestBooks(guestBookIdx) ON DELETE CASCADE;
+
+
+
+-- 기존의 외래 키 제약 조건을 삭제합니다.
+ALTER TABLE likes_localLog DROP FOREIGN KEY likes_localLog_ibfk_2;
+
+-- 새로운 외래 키 제약 조건을 추가합니다.
+ALTER TABLE likes_localLog ADD CONSTRAINT likes_localLog_ibfk_2
+FOREIGN KEY (localLogIdx) REFERENCES localLogs(localLogIdx) ON DELETE CASCADE;
+
+
+
 
 -- 유효하지 않은 userIdx 확인
 SELECT ll.userIdx

@@ -104,8 +104,12 @@ public class BookmarkDAO {
 	public List<BookmarkVO> getBookmarksByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<BookmarkVO> bookmarks = new ArrayList<>();
 		try {
-			sql = "SELECT b.*, ll.photos, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM bookmarks b " + "JOIN localLogs ll ON b.localLogIdx = ll.localLogIdx "
-					+ "JOIN places p ON ll.placeIdx = p.placeIdx " + "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE b.userIdx = ? " + "ORDER BY b.createdAt DESC " + "LIMIT ?, ?";
+			sql = "SELECT b.*, ll.photos, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " 
+					+ "FROM bookmarks b " + "JOIN localLogs ll ON b.localLogIdx = ll.localLogIdx "
+					+ "JOIN places p ON ll.placeIdx = p.placeIdx " 
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " 
+					+ "WHERE b.userIdx = ? " 
+					+ "ORDER BY b.createdAt DESC " + "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userIdx);
 			pstmt.setInt(2, startIndexNo);

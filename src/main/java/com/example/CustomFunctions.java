@@ -6,7 +6,6 @@ public class CustomFunctions {
 			return content;
 		}
 
-		// Find the last space within the limit
 		int lastSpaceIndex = content.lastIndexOf(' ', maxLength);
 		if (lastSpaceIndex == -1) {
 			return content.substring(0, maxLength) + "...";
@@ -15,3 +14,4 @@ public class CustomFunctions {
 		}
 	}
 }
+

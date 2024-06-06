@@ -40,7 +40,7 @@ public class PrivateCommand implements UserInterface {
 			if (hasGuestBooks) {
 				userDAO.updateGuestBooksVisibilityToPrivate(sessionUserIdx);
 			}
-			userDAO.updateUserVisibilityToPrivate(sessionUserIdx); // 유저의 visibility를 private으로 업데이트
+			userDAO.updateUserVisibilityToPrivate(sessionUserIdx); 
 			request.setAttribute("message", "모든 콘텐츠가 비공개 처리되었습니다.");
 		} else {
 			request.setAttribute("message", "작성하신 로컬로그 및 방명록이 없습니다.");

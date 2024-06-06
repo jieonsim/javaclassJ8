@@ -114,7 +114,10 @@ public class PlaceDAO {
 	public List<PlaceVO> searchPlacesByName(String placeName) {
 		List<PlaceVO> places = new ArrayList<>();
 		try {
-			sql = "SELECT p.*, c.categoryName FROM places p JOIN categories c ON p.categoryIdx = c.categoryIdx WHERE p.placeName LIKE ?";
+			sql = "SELECT p.*, c.categoryName "
+					+ "FROM places p "
+					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx "
+					+ "WHERE p.placeName LIKE ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + placeName + "%");
 			rs = pstmt.executeQuery();

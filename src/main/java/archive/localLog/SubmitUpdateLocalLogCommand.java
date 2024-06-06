@@ -39,7 +39,7 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "/WEB-INF/archive/localLog/updateLocalLog.jsp";
-		//StringBuilder photos = new StringBuilder();
+		// StringBuilder photos = new StringBuilder();
 
 		try {
 			String realPath = request.getServletContext().getRealPath("/images/localLog/");
@@ -60,6 +60,20 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 					}
 				}
 			}
+
+//			// 기존 사진 처리
+//			if (existingPhotosStr != null && !existingPhotosStr.isEmpty()) {
+//				for (String photo : existingPhotosStr.split("/")) {
+//					if (removedPhotosStr == null || !removedPhotosStr.contains(photo)) {
+//						photoNames.add(photo);
+//					} else {
+//						File photoFile = new File(realPath, photo);
+//						if (photoFile.exists()) {
+//							photoFile.delete(); // 파일 시스템에서 삭제
+//						}
+//					}
+//				}
+//			}
 
 			Collection<Part> fileParts = request.getParts();
 			for (Part filePart : fileParts) {
@@ -88,10 +102,10 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 			String hostIp = request.getParameter("hostIp");
 
 			if (placeIdxStr == null || placeIdxStr.isEmpty() || placeName == null || placeName.isEmpty()) {
-	            request.setAttribute("message", "공간을 추가해주세요.");
-	            response.sendRedirect("updateLocalLog.a?localLogIdx=" + localLogIdxStr);
-	            return;
-	        }
+				request.setAttribute("message", "공간을 추가해주세요.");
+				response.sendRedirect("updateLocalLog.a?localLogIdx=" + localLogIdxStr);
+				return;
+			}
 
 			if (visitDateString == null || visitDateString.isEmpty()) {
 				request.setAttribute("message", "방문한 날짜를 선택해주세요.");

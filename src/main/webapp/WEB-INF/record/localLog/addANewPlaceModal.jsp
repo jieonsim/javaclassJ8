@@ -74,7 +74,7 @@
 									<option data-parent="서울특별시">용산구</option>
 									<option data-parent="서울특별시">은평구</option>
 									<option data-parent="서울특별시">종로구</option>
-									<option data-parent="서울특별시">종구</option>
+									<option data-parent="서울특별시">중구</option>
 									<option data-parent="서울특별시">중랑구</option>
 									<!-- 부산광역시 -->
 									<option data-parent="부산광역시">중구</option>
