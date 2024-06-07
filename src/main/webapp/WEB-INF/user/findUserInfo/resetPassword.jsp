@@ -93,14 +93,14 @@
 				<input type="hidden" name="id" value="${id}" />
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">새 비밀번호 등록</label>
+						<label for="password">새 비밀번호 등록</label>
 						<input type="password" class="form-control" name="password" placeholder="새 비밀번호를 입력해 주세요." autofocus required />
 						<span class="validation-message">10자 이상, 영문,숫자,특수문자 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">새 비밀번호 확인</label>
+						<label for="passwordConfirmation">새 비밀번호 확인</label>
 						<input type="password" class="form-control" name="passwordConfirmation" placeholder="새 비밀번호를 한 번 더 입력해 주세요." required />
 						<span class="validation-message">동일한 비밀번호를 입력</span>
 					</div>

@@ -163,7 +163,7 @@
 					</div>
 				</div>
 				<div class="form-group row mb-4">
-					<label for="visit_date" class="col-sm-4 col-form-label text-left" id="visitdateLabel">
+					<label for="visitDate" class="col-sm-4 col-form-label text-left" id="visitdateLabel">
 						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col">

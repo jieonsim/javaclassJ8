@@ -244,7 +244,7 @@ public class LocalLogDAO {
 	public int getLocalLogCount() {
 		int count = 0;
 		try {
-			String sql = "SELECT COUNT(*) FROM localLogs";
+			sql = "SELECT COUNT(*) FROM localLogs";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -252,7 +252,9 @@ public class LocalLogDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("getLocalLogCount SQL 오류: " + e.getMessage());
-		} finally {
+		} catch (NullPointerException e) {
+            System.out.println("getLocalLogCount NullPointerException: " + e.getMessage());
+        } finally {
 			rsClose();
 		}
 		return count;

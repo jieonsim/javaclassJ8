@@ -38,7 +38,7 @@ public class FindIdCommand implements UserInterface {
 		} else {
 			request.setAttribute("message", "가입 시 입력하신 회원 정보가 맞는지 다시 한번 확인해 주세요.");
 			
-			viewPage += "findingId.jsp";
+			viewPage += "findId.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 		}

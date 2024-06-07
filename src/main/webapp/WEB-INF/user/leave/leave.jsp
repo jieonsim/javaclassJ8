@@ -11,6 +11,11 @@
 <link rel="stylesheet" type="text/css" href="${ctp}/css/user/leave/leave.css" />
 <link rel="stylesheet" type="text/css" href="${ctp}/css/common/basicAlert.css" />
 <script src="${ctp}/js/common/basicAlert.js"></script>
+<script>
+function notYet() {
+	showAlert("준비 중입니다.");
+}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/header.jsp" />
@@ -45,7 +50,7 @@
 				<a href="private.lv" class="btn btn-custom btn-lg mt-5" id="makeAccountPrivate">콘텐츠 비공개로 전환 후 계속 이용하기</a>
 			</div>
 			<div>
-				<a href="tryToLeave.lv" class="btn btn-custom btn-lg mt-2" id="leave">탈퇴하기</a>
+				<a href="#" class="btn btn-custom btn-lg mt-2" id="leave" onclick="notYet()">탈퇴하기</a>
 			</div>
 		</div>
 	</div>
