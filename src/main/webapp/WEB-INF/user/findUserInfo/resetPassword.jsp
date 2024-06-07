@@ -89,7 +89,7 @@
 			<div class="mb-5 text-center" id="ment">
 				비밀번호 재설정을 위해<br>새로운 비밀번호 입력해 주세요.
 			</div>
-			<form name="resetPasswordForm" class="resetPassword-form" method="post" action="tryToResetPassword.fi" onsubmit="return validateForm();">
+			<form name="resetPasswordForm" class="resetPassword-form" method="post" action="${ctp}/tryToResetPassword" onsubmit="return validateForm();">
 				<input type="hidden" name="id" value="${id}" />
 				<div class="form-group row">
 					<div class="col">

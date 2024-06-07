@@ -37,8 +37,8 @@ public class UpdateProfileController extends HttpServlet {
 			return;
 		}
 		else if (com.equals("tryToUpdateProfile")) {
-			command = new UpdateProfileCommand();
-			command.execute(request, response);
+//			command = new UpdateProfileCommand();
+//			command.execute(request, response);
 			return;
 		}
 		else if (com.equals("checkNicknameDuplicated")) {

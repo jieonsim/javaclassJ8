@@ -67,8 +67,8 @@ public class ArchiveController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		} else if (com.equals("updateLocalLog")) {
-			command = new UpdateLocalLogCommand();
-			command.execute(request, response);
+//			command = new UpdateLocalLogCommand();
+//			command.execute(request, response);
 			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

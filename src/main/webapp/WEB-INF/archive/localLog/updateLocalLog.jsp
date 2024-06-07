@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			<span>로컬로그 수정</span>
 		</div>
 		<div class="localLog-container">
-			<form name="localLogForm" class="localLog-form" method="post" action="submitUpdateLocalLog.a" enctype="multipart/form-data">
+			<!-- <form name="localLogForm" class="localLog-form" method="post" action="submitUpdateLocalLog.a" enctype="multipart/form-data"> -->
+			<form name="localLogForm" class="localLog-form" method="post" action="${ctp}/submitUpdateLocalLog" enctype="multipart/form-data">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 				<input type="hidden" name="localLogIdx" value="${localLog.localLogIdx}" />
 				<input type="hidden" name="placeIdx" value="${place.placeIdx}" />

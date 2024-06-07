@@ -35,13 +35,13 @@
 			<form name="checkPasswordForm" class="checkPassword-form" method="post" action="tryToCheckPassword.u" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">아이디</label>
+						<label for="id">아이디</label>
 						<input type="text" class="form-control" name="id" id="id" value="${sessionId}" readonly />
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">비밀번호</label>
+						<label for="password">비밀번호</label>
 						<input type="password" class="form-control" name="password" id="password" placeholder="현재 비밀번호를 입력해주세요." />
 					</div>
 				</div>

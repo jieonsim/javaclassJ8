@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,10 +16,11 @@ import place.PlaceDAO;
 import place.PlaceVO;
 import record.LoadCategoriesHelper;
 
-public class SubmitGuestBookCommand implements GuestBookInterface {
+@WebServlet("/submitGuestBook")
+public class SubmitGuestBookCommand extends HttpServlet {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "/WEB-INF/record/guestBook/record-guestBook.jsp";
 
 		try {

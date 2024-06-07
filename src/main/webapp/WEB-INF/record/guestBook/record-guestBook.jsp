@@ -144,7 +144,8 @@
 			<span>방명록 작성</span>
 		</div>
 		<div class="gusetBook-container">
-			<form name="guestBookForm" class="guestBook-form" method="post" action="submitGuestBook.g">
+			<!-- <form name="guestBookForm" class="guestBook-form" method="post" action="submitGuestBook.g"> -->
+			<form name="guestBookForm" class="guestBook-form" method="post" action="${ctp}/submitGuestBook">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 				<div class="form-group row">
 					<label for="placeNameInput" class="col-sm-4 col-form-label text-left" id="placeLabel">

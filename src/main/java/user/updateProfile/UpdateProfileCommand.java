@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,10 +20,11 @@ import user.UserDAO;
 import user.UserInterface;
 import user.UserVO;
 
-public class UpdateProfileCommand implements UserInterface {
+@WebServlet("/tryToUpdateProfile")
+public class UpdateProfileCommand extends HttpServlet {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "/WEB-INF/user/updateProfile/updateProfile.jsp";
 
 		String realPath = request.getServletContext().getRealPath("/images/profileImage/");

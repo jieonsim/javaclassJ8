@@ -76,14 +76,14 @@
 			<form name="findingPasswordForm" class="findingPassword-form" method="post" action="tryToFindPassword.fi" onsubmit="return validateForm();">
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">아이디</label>
+						<label for="id">아이디</label>
 						<input type="text" class="form-control" name="id" id="id" placeholder="가입 시 등록한 아이디를 입력해주세요." autofocus />
 						<span class="validation-message">5자 이상 15자 이하의 영문 혹은 영문과 숫자를 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col">
-						<label for="name">이메일</label>
+						<label for="email">이메일</label>
 						<input type="email" class="form-control" name="email" id='email' placeholder="가입 시 등록한 이메일을 입력해주세요." />
 						<span class="validation-message">이메일 형식에 맞춰 입력해주세요.</span>
 					</div>

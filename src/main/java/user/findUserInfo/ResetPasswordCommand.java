@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,10 +14,13 @@ import common.SecurityUtil;
 import user.UserDAO;
 import user.UserInterface;
 
-public class ResetPasswordCommand implements UserInterface {
+
+@WebServlet("/tryToResetPassword")
+//public class ResetPasswordCommand implements UserInterface {
+public class ResetPasswordCommand extends HttpServlet {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "/WEB-INF/user/";
 
 		String id = request.getParameter("id") == null ? "" : request.getParameter("id");

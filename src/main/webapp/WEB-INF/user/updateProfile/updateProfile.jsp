@@ -23,7 +23,8 @@
 		<div class="updateProfile-container">
 			<h3 class="mb-5">프로필 수정</h3>
 			<hr>
-			<form name="updateProfileForm" class="updateProfile-form pl-3 pr-3" method="post" action="tryToUpdateProfile.u" onsubmit="return validateForm();" enctype="multipart/form-data">
+			<!-- <form name="updateProfileForm" class="updateProfile-form pl-3 pr-3" method="post" action="tryToUpdateProfile.u" onsubmit="return validateForm();" enctype="multipart/form-data"> -->
+			<form name="updateProfileForm" class="updateProfile-form pl-3 pr-3" method="post" action="${ctp}/tryToUpdateProfile" onsubmit="return validateForm();" enctype="multipart/form-data">
 				<input type="hidden" name="userIdx" value="${sessionScope.sessionUserIdx}">
 				<div class="form-group row justify-content-center">
 					<div class="col-sm-6">
@@ -53,14 +54,14 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="password" class="col-sm-3 col-form-label">새 비밀번호</label>
+					<label for="newPassword" class="col-sm-3 col-form-label">새 비밀번호</label>
 					<div class="col-sm-6 text-left">
 						<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="새 비밀번호를 입력해주세요." />
 						<span class="validation-message">10자 이상, 영문,숫자,특수문자 조합</span>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="password" class="col-sm-3 col-form-label">새로운 비밀번호 확인</label>
+					<label for="newPasswordConfirmation" class="col-sm-3 col-form-label">새로운 비밀번호 확인</label>
 					<div class="col-sm-6 text-left">
 						<input type="password" class="form-control" id="newPasswordConfirmation" name="newPasswordConfirmation" placeholder="새 비밀번호를 다시 입력해주세요." />
 						<span class="validation-message">동일한 비밀번호를 입력</span>
@@ -77,7 +78,7 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="nickname" class="col-sm-3 col-form-label">소개</label>
+					<label for="introduction" class="col-sm-3 col-form-label">소개</label>
 					<div class="col-sm-6 text-left">
 						<input type="text" class="form-control" name="introduction" id="introduction" value="${userVO.introduction}" placeholder="소개글을 입력해 주세요." />
 						<span class="validation-message">소개글은 50자 이하 입력</span>

@@ -40,8 +40,8 @@ public class RecordGuestbookController extends HttpServlet {
 //			return;
 //		} 
 		else if (com.equals("submitGuestBook")) {
-			command = new SubmitGuestBookCommand();
-			command.execute(request, response);
+//			command = new SubmitGuestBookCommand();
+//			command.execute(request, response);
 			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

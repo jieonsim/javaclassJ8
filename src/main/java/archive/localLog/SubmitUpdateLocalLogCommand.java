@@ -26,7 +26,7 @@ import localLog.LocalLogDAO;
 import localLog.LocalLogVO;
 
 @SuppressWarnings("serial")
-@WebServlet("/submitUpdateLocalLog.a")
+@WebServlet("/submitUpdateLocalLog")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
 		maxFileSize = 5 * 1024 * 1024, // 5MB
 		maxRequestSize = 50 * 1024 * 1024 // 50MB

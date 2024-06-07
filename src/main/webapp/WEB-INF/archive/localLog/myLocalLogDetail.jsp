@@ -30,7 +30,8 @@ $('#updateAndDeleteLocalLog').on('show.bs.modal', function(event) {
 });
 
 function editLocalLog(localLogIdx) {
-    window.location.href = 'updateLocalLog.a?localLogIdx=' + localLogIdx;
+    /* window.location.href = 'updateLocalLog.a?localLogIdx=' + localLogIdx; */
+    window.location.href = '${ctp}/updateLocalLog?localLogIdx=' + localLogIdx;
 }
 
 function deleteCheck(localLogIdx) {
