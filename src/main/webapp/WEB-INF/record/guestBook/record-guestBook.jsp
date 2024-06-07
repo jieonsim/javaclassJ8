@@ -147,7 +147,7 @@
 			<form name="guestBookForm" class="guestBook-form" method="post" action="submitGuestBook.g">
 				<input type="hidden" name="sessionUserIdx" value="${sessionScope.sessionUserIdx}" />
 				<div class="form-group row">
-					<label for="place" class="col-sm-4 col-form-label text-left" id="placeLabel">
+					<label for="placeNameInput" class="col-sm-4 col-form-label text-left" id="placeLabel">
 						<b>공간 추가 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col" style="position: relative;">
@@ -167,7 +167,7 @@
 						<b>방문한 날짜 <span style="color: lightcoral;">*</span></b>
 					</label>
 					<div class="col">
-						<input type="date" class="form-control" name="visitDate" id="visitDateInput"/>
+						<input type="date" class="form-control" name="visitDate" id="visitDateInput" />
 					</div>
 				</div>
 				<div class="form-group row mb-4">
@@ -176,6 +176,43 @@
 					</div>
 				</div>
 				<div class="form-group row mb-4">
+					<div class="col text-left">
+						<label id="companionsLabel" class="text-left">
+							<b>누구와 방문했나요?</b>
+						</label>
+						<fieldset class="companions-options">
+							<legend class="sr-only">Choose companions</legend>
+
+							<input type="checkbox" name="companions" id="family" value="부모님 & 가족">
+							<label for="family" class="option-btn">👨‍👩‍👧‍👦 부모님 & 가족</label>
+
+							<input type="checkbox" name="companions" id="friend" value="친구">
+							<label for="friend" class="option-btn">👋 친구</label>
+
+							<input type="checkbox" name="companions" id="lover" value="연인">
+							<label for="lover" class="option-btn">💑 연인</label>
+
+							<input type="checkbox" name="companions" id="child" value="아이">
+							<label for="child" class="option-btn">🐤 아이</label>
+
+							<input type="checkbox" name="companions" id="alone" value="혼자">
+							<label for="alone" class="option-btn">👤 혼자</label>
+
+							<input type="checkbox" name="companions" id="pet" value="반려견">
+							<label for="pet" class="option-btn">🐕 반려견</label>
+
+							<input type="checkbox" name="companions" id="other" value="기타">
+							<label for="other" class="option-btn">💬 기타</label>
+						</fieldset>
+					</div>
+					<div class="col-sm-10 text-left mt-2">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="public" name="visibility" id="visibility" checked>
+							<label class="form-check-label" for="visibility">전체공개</label>
+						</div>
+					</div>
+				</div>
+				<!-- 				<div class="form-group row mb-4">
 					<div class="col text-left">
 						<label for="companions" id="companionsLabel" class="text-left">
 							<b>누구와 방문했나요?</b>
@@ -209,7 +246,7 @@
 							<label class="form-check-label" for="visibility">전체공개</label>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group text-center">
 					<div>
 						<button type="submit" class="btn btn-custom btn-lg form-control" id="submitBtn">등록</button>
