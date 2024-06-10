@@ -18,7 +18,6 @@ import archive.localLog.ArchiveLocalLogCommand;
 import archive.localLog.DeleteLocalLogCommand;
 import archive.localLog.GetNextLocalLogCommand;
 import archive.localLog.MyLocalLogDetailCommand;
-import archive.localLog.UpdateLocalLogCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.a")
