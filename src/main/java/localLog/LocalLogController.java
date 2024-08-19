@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@SuppressWarnings("serial")
 @WebServlet("*.ld")
 public class LocalLogController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LocalLogInterface command = null;
 		String viewPage = "/WEB-INF/localLog/";

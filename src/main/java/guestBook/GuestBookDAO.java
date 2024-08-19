@@ -64,8 +64,6 @@ public class GuestBookDAO {
 	public List<GuestBookVO> getGuestBooksByUserIdx(int userIdx, int startIndexNo, int pageSize) {
 		List<GuestBookVO> guestBooks = new ArrayList<>();
 		try {
-//			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName " + "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "
-//					+ "JOIN categories c ON p.categoryIdx = c.categoryIdx " + "WHERE gb.userIdx = ? " + "ORDER BY gb.createdAt DESC " + "LIMIT ?, ?";
 			sql = "SELECT gb.*, p.placeName, p.region1DepthName, p.region2DepthName, c.categoryName, "
 					+ "(SELECT COUNT(*) FROM likes_guestBook lg WHERE lg.guestBookIdx = gb.guestBookIdx) AS likeCount " 
 					+ "FROM guestBooks gb " + "JOIN places p ON gb.placeIdx = p.placeIdx "

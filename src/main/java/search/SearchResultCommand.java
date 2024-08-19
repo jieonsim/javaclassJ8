@@ -37,7 +37,6 @@ public class SearchResultCommand implements SearchInterface {
 
 		int pag = 1; // 처음 접속시 첫 페이지는 1로 설정
 		int pageSize = 9; // 페이지당 표시할 레코드 수
-		/* int totRecCnt = localLogDAO.getLocalLogCountByQuery(query); */
 		int totRecCnt = localLogDAO.getLocalLogCountByQuery(query, selectedCategories);
 		int totalPages = (int) Math.ceil((double) totRecCnt / pageSize);
 		int startIndexNo = (pag - 1) * pageSize;

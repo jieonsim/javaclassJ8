@@ -61,20 +61,6 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 				}
 			}
 
-//			// 기존 사진 처리
-//			if (existingPhotosStr != null && !existingPhotosStr.isEmpty()) {
-//				for (String photo : existingPhotosStr.split("/")) {
-//					if (removedPhotosStr == null || !removedPhotosStr.contains(photo)) {
-//						photoNames.add(photo);
-//					} else {
-//						File photoFile = new File(realPath, photo);
-//						if (photoFile.exists()) {
-//							photoFile.delete(); // 파일 시스템에서 삭제
-//						}
-//					}
-//				}
-//			}
-
 			Collection<Part> fileParts = request.getParts();
 			for (Part filePart : fileParts) {
 				if (!filePart.getName().equals("photos") || filePart.getSize() == 0) {
@@ -157,10 +143,10 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 		int originalWidth = originalImage.getWidth();
 		int originalHeight = originalImage.getHeight();
 
-		// Calculate the target aspect ratio (3:4 in this case)
+		// 목표 비율 계산 (3:4)
 		double targetAspectRatio = 3.0 / 4.0;
 
-		// Calculate the crop area
+		// 자를 영역을 계산
 		int cropWidth = originalWidth;
 		int cropHeight = originalHeight;
 
@@ -175,12 +161,12 @@ public class SubmitUpdateLocalLogCommand extends HttpServlet {
 
 		BufferedImage croppedImage = originalImage.getSubimage(cropX, cropY, cropWidth, cropHeight);
 
-		// Resize the cropped image
+		// 잘라낸 이미지 크기 조정
 		BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = resizedImage.createGraphics();
 		g.drawImage(croppedImage, 0, 0, width, height, null);
 		g.dispose();
 
-		ImageIO.write(resizedImage, "jpg", outputFile); // Write the resized image to the output file
+		ImageIO.write(resizedImage, "jpg", outputFile); // 크기 조정된 이미지를 출력 파일에 작성
 	}
 }

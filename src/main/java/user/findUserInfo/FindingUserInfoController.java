@@ -38,8 +38,6 @@ public class FindingUserInfoController extends HttpServlet {
 		} else if (com.equals("resetPassword")) {
 			viewPage += "resetPassword.jsp";
 		} else if (com.equals("tryToResetPassword")) {
-//			command = new ResetPasswordCommand();
-//			command.execute(request, response);
 			return;
 		}
 

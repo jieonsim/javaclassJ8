@@ -108,7 +108,7 @@ public class LocalLogDAO {
 				localLog.setRegion2DepthName(rs.getString("region2DepthName"));
 				localLog.setCategoryName(rs.getString("categoryName"));
 
-				// 커버 이미지를 설정합니다.
+				// 커버 이미지를 설정
 				String[] photoArray = rs.getString("photos").split("/");
 				if (photoArray.length > 0) {
 					localLog.setCoverImage(photoArray[0]);
@@ -663,7 +663,6 @@ public class LocalLogDAO {
 	            localLog.setCategoryName(rs.getString("categoryName"));
 	            localLog.setCategoryType(rs.getString("categoryType"));
 
-	            // Parse the photos field into a list of URLs and set the cover image
 	            String[] photoArray = rs.getString("photos").split("/");
 	            if (photoArray.length > 0) {
 	                localLog.setCoverImage(photoArray[0]);

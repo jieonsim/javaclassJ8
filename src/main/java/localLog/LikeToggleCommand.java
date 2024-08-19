@@ -28,7 +28,7 @@ public class LikeToggleCommand implements LocalLogInterface {
 		int localLogIdx = Integer.parseInt(localLogIdxStr);
 		LocalLogDAO localLogDAO = new LocalLogDAO();
 
-		// Check if the user is trying to like their own local log
+		// 자신의 로컬로그에 좋아요 하는지 확인
 		boolean isLiked = localLogDAO.isLikedByUser(sessionUserIdx, localLogIdx);
 
 		if (isLiked) {

@@ -17,11 +17,11 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.SecurityUtil;
 import user.UserDAO;
-import user.UserInterface;
 import user.UserVO;
 
 @WebServlet("/tryToUpdateProfile")
 public class UpdateProfileCommand extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,13 +72,6 @@ public class UpdateProfileCommand extends HttpServlet {
 		if (email != null && !email.trim().isEmpty()) {
 			userVO.setEmail(email);
 		}
-		
-//		if (introduction != null && !introduction.trim().isEmpty()) {
-//			userVO.setIntroduction(introduction);
-//		}
-//		위와 같이 했을 때 소개 란을 빈 칸으로 두고 저장해도 기존 소개 글이 업데이트됨, 
-//		소개는 null이 허용되기 때문에 아무것도 입력하지 않은 채로 회원 수정하면 null로 저장되어야하기 때문에 아래 같이 코드 변경
-		
 		if (introduction != null && introduction.trim().isEmpty()) {
             introduction = null;
         }

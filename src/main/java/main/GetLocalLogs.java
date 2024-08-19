@@ -22,7 +22,6 @@ public class GetLocalLogs extends HttpServlet {
         int startIndexNo = (pag - 1) * pageSize;
 
         LocalLogDAO localLogDAO = new LocalLogDAO();
-        //List<LocalLogVO> localLogs = localLogDAO.getLocalLogs(startIndexNo, pageSize);
         List<LocalLogVO> localLogs = localLogDAO.getRandomLocalLogs(startIndexNo, pageSize);
 
         request.setAttribute("localLogs", localLogs);

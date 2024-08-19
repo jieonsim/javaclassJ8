@@ -15,7 +15,6 @@ public class PublicCommand implements UserInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// String viewPage = "/WEB-INF/archive/localLog/archive-localLog.jsp";
 
 		HttpSession session = request.getSession();
 		Integer sessionUserIdx = (Integer) session.getAttribute("sessionUserIdx");

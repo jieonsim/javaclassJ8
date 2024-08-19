@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import archive.ArchiveInterface;
 import localLog.LocalLogDAO;
 import localLog.LocalLogVO;
 import place.PlaceDAO;
@@ -18,6 +17,7 @@ import place.PlaceVO;
 import user.UserDAO;
 import user.UserVO;
 
+@SuppressWarnings("serial")
 @WebServlet("/updateLocalLog")
 public class UpdateLocalLogCommand extends HttpServlet {
 

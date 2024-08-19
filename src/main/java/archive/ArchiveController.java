@@ -19,9 +19,10 @@ import archive.localLog.DeleteLocalLogCommand;
 import archive.localLog.GetNextLocalLogCommand;
 import archive.localLog.MyLocalLogDetailCommand;
 
-@SuppressWarnings("serial")
 @WebServlet("*.a")
 public class ArchiveController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArchiveInterface command = null;
 		String viewPage = "/WEB-INF/archive/";
@@ -66,8 +67,6 @@ public class ArchiveController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		} else if (com.equals("updateLocalLog")) {
-//			command = new UpdateLocalLogCommand();
-//			command.execute(request, response);
 			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
