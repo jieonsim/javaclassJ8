@@ -33,20 +33,24 @@
 <img src="https://img.shields.io/badge/html5-E34F26?style=flat-square&logo=html5&logoColor=white"> 
 <img src="https://img.shields.io/badge/css-1572B6?style=flat-square&logo=css3&logoColor=white"> 
 <img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white">
+<br>
+
+<h4>API</h4>
+<img src="https://img.shields.io/badge/googlemaps-4285F4?style=flat-square&logo=googlemaps&logoColor=white">
+</div>
 <hr>
 
-
 ## 2️⃣ 주요 기능
-<div align="center">
 
+<div align="center">
+  
 | **기능 구분** | **세부 기능** |
 |:---------------:|---------------|
-| **회원**   | - 회원가입 <br> - 로그인 <br> - 아이디 찾기 <br> - 비밀번호 찾기 <br> - 마이페이지 <ul><li>예매확인/취소</li><li>예매권 등록 및 사용내역 확인</li><li>참여 이벤트 확인</li><li>회원정보수정</li><li>회원탈퇴</li></ul>  |
-| **스포츠** | - 각 스포츠별 경기 및 예매 전체일정 리스트 <br> - 각 구단별 경기 및 예매 일정 리스트 |
-| **이벤트** | - 이벤트 CRUD <br> - 이벤트 당첨자 추첨 <br> - 이벤트 당첨자 대상으로 예매권 발행 및 안내 메일 발송 |
-| **예매**   | - 각 경기별 예매 <br> - 발행된 예매권 사용 가능 <br> - 포트원 결제 모듈 및 KG 이니시스를 이용한 결제 지원 |
-| **어드민** | - 스포츠, 구단, 경기장, 좌석 등급, 요금, 경기 관리 <br> - 회원 관리 <br> - 이벤트 관리 <br> - 예매권 관리 <br> - 통계 관리(차트) |
+| **회원**   | - 회원가입 <br> - 로그인 <br> - 아이디 찾기 <br> - 비밀번호 찾기 <br> - 회원정보수정 |
+| **레코드** | - 로컬로그 CRUD <br> - 방명록 CRUD  - 로컬로그 북마크 <br> - 방명록 좋아요 |
+| **북마크** | - 저장(북마크)한 로컬로그 목록 확인 |
+| **아카이브** | - 사용자의 로컬로그와 방명록 확인 / 수정 / 삭제 |
+| **맵** | - 구글 맵 API로 지도 보기 |
 
 </div>
-
 <hr>
