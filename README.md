@@ -152,7 +152,7 @@
 
 ⬇️ 방명록 비공개 전환 및 삭제
 <p align="center">
-<img src="https://github.com/user-attachments/assets/b1d79b01-4095-4d7a-b890-e160d47ef9a5" alt="로컬로그 수정 GIF" width="70%">
+<img src="https://github.com/user-attachments/assets/15f55a6a-a8e9-475a-9b8f-5be8f944a347" alt="방명록 비공개 전환 및 삭제 GIF" width="70%">
 </p>
 
 ### ✔ 북마크
