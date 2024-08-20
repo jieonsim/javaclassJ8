@@ -2,7 +2,7 @@
 로컬렌즈는 사용자가 다녀온 여행지를 공유하고,<br>
 자신의 취향에 맞는 공간을 발견 및 저장할 수 있는 웹 애플리케이션입니다.
 
-> 제작 기간 : 2024.05.16 - 2024.06.06<br>
+> 제작 기간 : 2024.05.16 - 2024.06.06 (22일)<br>
 > 인원 : 1명 (개인 프로젝트)
 
 👉🏻 [사이트 바로가기](http://49.142.157.251:9090/javaclassJ8/main)
@@ -65,3 +65,11 @@
   <img src="https://github.com/user-attachments/assets/bf160325-330a-41f1-a998-afd578b3b539" alt="메인화면 GIF" width="70%">
 </p>
 
+### ✔ 회원가입
+- 아이디, 비밀번호, 닉네임, 이름, 이메일 입력
+- 프론트엔드 유효성 검사 처리
+- 이름, 닉네임, 이메일 중복 체크
+- randomUUID를 이용한 비밀번호 암호화
+<p align="center">
+<img src="https://github.com/user-attachments/assets/83426e4e-da98-48a0-9633-f5f65972abd6" alt="회원가입 GIF" width="70%">
+</p>
