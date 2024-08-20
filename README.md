@@ -146,3 +146,8 @@
 
 ### ✔ 북마크
 - 본인이 북마크한 로컬로그 컨텐츠 확인 가능
+- 북마크 페이지에서 편집을 통해 북마크 취소 가능
+<p align="center">
+<img src="https://github.com/user-attachments/assets/2c612979-f943-49c3-b593-c9ecf725a545" alt="북마크 GIF" width="70%">
+</p>
+
