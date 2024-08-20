@@ -142,7 +142,18 @@
 ### ✔ 아카이브
 - 헤더의 아카이브 메뉴 클릭 시 본인의 아카이브 페이지로 이동
 - 본인이 업로드한 모든 로컬로그와 방명록을 볼 수 있음
-- 로컬로그 / 방명록 수정 및 삭제 가능능
+- 로컬로그 수정 / 방명록 비공개 전환 및 삭제 가능
+- 비공개 전환 시 자물쇠 아이콘 표기
+
+⬇️ 로컬로그 수정
+<p align="center">
+<img src="https://github.com/user-attachments/assets/b1d79b01-4095-4d7a-b890-e160d47ef9a5" alt="로컬로그 수정 GIF" width="70%">
+</p>
+
+⬇️ 방명록 비공개 전환 및 삭제
+<p align="center">
+<img src="https://github.com/user-attachments/assets/b1d79b01-4095-4d7a-b890-e160d47ef9a5" alt="로컬로그 수정 GIF" width="70%">
+</p>
 
 ### ✔ 북마크
 - 본인이 북마크한 로컬로그 컨텐츠 확인 가능
