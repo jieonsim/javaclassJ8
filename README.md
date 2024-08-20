@@ -99,6 +99,9 @@
 ### ✔ 회원 정보 수정
 - 비밀번호 확인 후 수정 페이지 이동
 - 프로필 사진, 닉네임, 소개글, 이름, 이메일, 비밀번호 수정 가능
+<p align="center">
+<img src="https://github.com/user-attachments/assets/bb2cec01-c1e1-4bc9-a20c-f0185a4907e4" alt="회원정보수정 GIF" width="70%">
+</p>
 
 ### ✔ 방명록
 - 쉽게 남기는 방문 기록
