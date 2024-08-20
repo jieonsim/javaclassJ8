@@ -114,6 +114,11 @@
 <img src="https://github.com/user-attachments/assets/3bcd7a4e-8495-4682-b5b5-16cd94ddf7a6" alt="공간추가 GIF" width="70%">
 </p>
 
+⬇️ 방명록 작성
+<p align="center">
+<img src="https://github.com/user-attachments/assets/0ee10fe3-1797-4ac9-9703-fc92b2c1ce2d" alt="방명록 작성 GIF" width="70%">
+</p>
+
 
 ### ✔ 로컬로그
 - 사진과 함깨 남기는 방문 경험 기록
