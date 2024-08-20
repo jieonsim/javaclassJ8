@@ -75,11 +75,11 @@
 </p>
 
 ### ✔ 로그인
-- 아이디 / 비밀번호 일치여부 확인
-- 자동 로그인 구현
-- 로그인 성공 시 홈화면으로 이동 및 헤더에 로그인한 이메일 아이디 노출
+- 아이디 / 비밀번호 각각 일치여부 확인
+- 아이디 저장 구현
+- 로그인 성공 시 홈화면으로 이동 및 헤더에 로그인한 아이디 노출
 <p align="center">
-<img src="https://github.com/user-attachments/assets/543a0e88-00fe-4b25-a2a3-31df71a919ff" alt="로그인 GIF" width="70%">
+<img src="https://github.com/user-attachments/assets/85126910-60cc-4f9a-929a-f8c6a656c92c" alt="로그인 GIF" width="70%">
 </p>
 
 ### ✔ 아이디 찾기
