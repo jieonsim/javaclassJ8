@@ -73,3 +73,27 @@
 <p align="center">
 <img src="https://github.com/user-attachments/assets/227678e7-a2d1-4678-8615-8ca808c63cac" alt="회원가입 GIF" width="70%">
 </p>
+
+### ✔ 로그인
+- 아이디 / 비밀번호 일치여부 확인
+- 자동 로그인 구현
+- 로그인 성공 시 홈화면으로 이동 및 헤더에 로그인한 이메일 아이디 노출
+<p align="center">
+<img src="https://github.com/user-attachments/assets/543a0e88-00fe-4b25-a2a3-31df71a919ff" alt="로그인 GIF" width="70%">
+</p>
+
+### ✔ 아이디 찾기
+- 이름 + 휴대폰 번호 조합으로 이메일 아이디 찾기
+- 계정이 존재할 경우 마스킹된 이메일 아이디와 가입일자를 안내
+- 입력한 정보로 가입된 아이디가 여러 개일 경우 로그인할 아이디 선택 가능
+<p align="center">
+<img src="https://github.com/user-attachments/assets/f30608e5-0fa8-46f3-a23a-1dcbf73e6102" alt="아이디찾기 GIF" width="70%">
+</p>
+
+### ✔ 비밀번호 찾기
+- 이름 + 이메일 아이디 조합으로 계정 유무 확인
+- 계정이 존재할 경우 입력한 이메일로 인증번호 발송
+- 인증번호 일치 시 새로운 비밀번호 설정 가능
+<p align="center">
+<img src="https://github.com/user-attachments/assets/f69b97a9-05c3-48db-b65e-c8c00770a63c" alt="비밀번호찾기 GIF" width="70%">
+</p>
