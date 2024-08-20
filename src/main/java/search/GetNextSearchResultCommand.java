@@ -16,14 +16,11 @@ public class GetNextSearchResultCommand implements SearchInterface {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String viewPage = "/WEB-INF/search/getNextSearchResult.jsp";
     	
-    	 System.out.println("GetNextSearchResultCommand executed"); // 디버깅 로그 추가
-
          String query = request.getParameter("query");
          String categoryIdxParam = request.getParameter("categoryIdx");
          String[] selectedCategories = categoryIdxParam != null ? categoryIdxParam.split(",") : null;
 
          if (query == null || query.trim().isEmpty()) {
-             System.out.println("Query is null or empty"); // 디버깅 로그 추가
              return;
          }
 
@@ -32,11 +29,6 @@ public class GetNextSearchResultCommand implements SearchInterface {
          int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag"));
          int pageSize = 9; // 테스트를 위해 페이지 크기를 3으로 설정
          int startIndexNo = (pag - 1) * pageSize;
-
-         // 디버깅 로그 추가
-         System.out.println("Search query: " + query);
-         System.out.println("Page number: " + pag);
-         System.out.println("Start index number: " + startIndexNo);
 
          List<LocalLogVO> searchResults = localLogDAO.searchLocalLogs(query, startIndexNo, pageSize, selectedCategories);
          int totalPages = (int) Math.ceil((double) localLogDAO.getLocalLogCountByQuery(query, selectedCategories) / pageSize);

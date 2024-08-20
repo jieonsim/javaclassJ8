@@ -19,8 +19,6 @@ public class SearchController extends HttpServlet {
 
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/") + 1, com.lastIndexOf("."));
-		
-		 System.out.println("Requested URI: " + com);
 
 		if (com.equals("searchResult")) {
 			command = new SearchResultCommand();
