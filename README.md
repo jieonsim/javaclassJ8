@@ -59,3 +59,9 @@
 
 ## 3️⃣ 기능별 화면 및 소개
 ### ✔ 메인 화면
+- 공개 상태인 로컬로그를 랜덤으로 보여주며, 카드 클릭 시 상세 로컬로그 확인 가능
+- 무한스크롤 구현
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bf160325-330a-41f1-a998-afd578b3b539" alt="메인화면 GIF" width="70%">
+</p>
+
