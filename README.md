@@ -93,56 +93,12 @@
 - 아이디 + 이메일 조합으로 계정 유무 확인
 - 계정이 존재할 경우 새로운 비밀번호 재설정 가능
 <p align="center">
-<img src="https://github.com/user-attachments/assets/6fdf4fd8-af0d-4d8a-9c08-edce0c2186a7" alt="비밀번호찾기 GIF" width="70%">
-</p>
+<img src="https://github.com/user-attachments/assets/6f시 자물쇠 아이콘 표기
 
-### ✔ 회원 정보 수정
-- 비밀번호 확인 후 수정 페이지 이동
-- 프로필 사진, 닉네임, 소개글, 이름, 이메일, 비밀번호 수정 가능
-<p align="center">
-<img src="https://github.com/user-attachments/assets/bb2cec01-c1e1-4bc9-a20c-f0185a4907e4" alt="회원정보수정 GIF" width="70%">
-</p>
-
-### ✔ 방명록
-- 쉽게 남기는 방문 기록
-- 방문한 공간, 방문 날짜, 방명록 입력 및 동반인 / 공개여부 선택
-- 공간이 등록되어있지 않을 경우 공간 등록 후 기록 가능
-- 공개로 업로드 시 다른 사용자도 해당 방명록을 볼 수 있음
-
-⬇️ 공간 추가
-<p align="center">
-<img src="https://github.com/user-attachments/assets/3bcd7a4e-8495-4682-b5b5-16cd94ddf7a6" alt="공간추가 GIF" width="70%">
-</p>
-
-⬇️ 방명록 작성
+⬇️ 로컬로그 수정
 <p align="center">
 <img src="https://github.com/user-attachments/assets/0ee10fe3-1797-4ac9-9703-fc92b2c1ce2d" alt="방명록 작성 GIF" width="70%">
 </p>
-
-
-### ✔ 로컬로그
-- 사진과 함깨 남기는 방문 경험 기록
-- 방문한 공간, 방문 날짜, 사진, 로컬로그 내용 입력 및 커뮤니티 / 공개여부 선택
-- 공개로 업로드 시 메인 화면에 로컬로그 카드가 보여지고 다른 사용자가 해당 로컬로그를 볼 수 있음
-<p align="center">
-<img src="https://github.com/user-attachments/assets/f1cba5aa-4eed-43f7-857f-ed844eb5d19f" alt="로컬로그 작성 GIF" width="70%">
-</p>
-
-### ✔ 메인 화면 > 로컬로그 카드
-- 로컬로그 카드 클릭 시 로컬로그 상세 페이지로 이동
-- 로컬로그 상세 페이지 하단에 같은 공간에 기록된 방명록을 볼 수 있음
-- 로컬로그 북마크 가능
-- 방명록 도움이 됐어요 (좋아요) 가능
-- 로컬로그 업로드한 사용자의 프로필 사진 클릭 시 아카이브로 이동되며,
-  해당 사용자가 업로드한 공개 상태의 로컬로그와 방명록을 모두 볼 수 있음
-<p align="center">
-<img src="https://github.com/user-attachments/assets/110785e6-de01-4e2a-a18c-6b7579c3a1e2" alt="로컬로그 카드 GIF" width="70%">
-</p>
-
-### ✔ 아카이브
-- 헤더의 아카이브 메뉴 클릭 시 본인의 아카이브 페이지로 이동
-- 본인이 업로드한 모든 로컬로그와 방명록을 볼 수 있음
-- 로컬로그 / 방명록 수정 및 삭제 가능능
 
 ### ✔ 북마크
 - 본인이 북마크한 로컬로그 컨텐츠 확인 가능
