@@ -71,5 +71,5 @@
 - 이름, 닉네임, 이메일 중복 체크
 - randomUUID를 이용한 비밀번호 암호화
 <p align="center">
-<img src="https://github.com/user-attachments/assets/83426e4e-da98-48a0-9633-f5f65972abd6" alt="회원가입 GIF" width="70%">
+<img src="https://github.com/user-attachments/assets/227678e7-a2d1-4678-8615-8ca808c63cac" alt="회원가입 GIF" width="70%">
 </p>
