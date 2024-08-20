@@ -162,3 +162,11 @@
 <p align="center">
 <img src="https://github.com/user-attachments/assets/2c612979-f943-49c3-b593-c9ecf725a545" alt="북마크 GIF" width="70%">
 </p>
+
+### ✔ 검색
+- 헤더의 검색 인풋에 키워드 입력 후 검색
+- 공간 이름, 공간 주소, 로컬로그 / 방명록 콘텐츠 내용, 로컬로그 커뮤니티로 검색 가능
+- 검색 후 필터를 이용해 상세 검색 가능
+<p align="center">
+<img src="https://github.com/user-attachments/assets/5e33dc74-a76c-471e-ab24-832d4975fed3" alt="검색 GIF" width="70%">
+</p>
