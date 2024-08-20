@@ -83,11 +83,10 @@
 </p>
 
 ### ✔ 아이디 찾기
-- 이름 + 휴대폰 번호 조합으로 이메일 아이디 찾기
-- 계정이 존재할 경우 마스킹된 이메일 아이디와 가입일자를 안내
-- 입력한 정보로 가입된 아이디가 여러 개일 경우 로그인할 아이디 선택 가능
+- 이름 + 이메일 조합으로 아이디 찾기
+- 계정이 존재할 경우 아이디와 가입일자를 안내
 <p align="center">
-<img src="https://github.com/user-attachments/assets/f30608e5-0fa8-46f3-a23a-1dcbf73e6102" alt="아이디찾기 GIF" width="70%">
+<img src="https://github.com/user-attachments/assets/abc35796-a740-4ffa-b10c-e732dd865ca3" alt="아이디찾기 GIF" width="70%">
 </p>
 
 ### ✔ 비밀번호 찾기
