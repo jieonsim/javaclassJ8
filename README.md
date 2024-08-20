@@ -59,46 +59,11 @@
 
 ## 3️⃣ 기능별 화면 및 소개
 ### ✔ 메인 화면
-- 공개 상태인 로컬로그를 랜덤으로 보여주며, 카드 클릭 시 상세 로컬로그 확인 가능
-- 무한스크롤 구현
+- 공개 상태인 로컬로그를 랜덤으로 보여크 수정
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bf160325-330a-41f1-a998-afd578b3b539" alt="메인화면 GIF" width="70%">
+<img src="https://github.com/user-attachments/assets/b1d79b01-4095-4d7a-b890-e160d47ef9a5" alt="로컬로그 수정 GIF" width="70%">
 </p>
 
-### ✔ 회원가입
-- 아이디, 비밀번호, 닉네임, 이름, 이메일 입력
-- 프론트엔드 유효성 검사 처리
-- 이름, 닉네임, 이메일 중복 체크
-- randomUUID를 이용한 비밀번호 암호화
-<p align="center">
-<img src="https://github.com/user-attachments/assets/227678e7-a2d1-4678-8615-8ca808c63cac" alt="회원가입 GIF" width="70%">
-</p>
-
-### ✔ 로그인
-- 아이디 / 비밀번호 각각 일치여부 확인
-- 아이디 저장 구현
-- 로그인 성공 시 홈화면으로 이동 및 헤더에 로그인한 아이디 노출
-<p align="center">
-<img src="https://github.com/user-attachments/assets/85126910-60cc-4f9a-929a-f8c6a656c92c" alt="로그인 GIF" width="70%">
-</p>
-
-### ✔ 아이디 찾기
-- 이름 + 이메일 조합으로 아이디 찾기
-- 계정이 존재할 경우 아이디와 가입일자를 안내
-<p align="center">
-<img src="https://github.com/user-attachments/assets/abc35796-a740-4ffa-b10c-e732dd865ca3" alt="아이디찾기 GIF" width="70%">
-</p>
-
-### ✔ 비밀번호 찾기
-- 아이디 + 이메일 조합으로 계정 유무 확인
-- 계정이 존재할 경우 새로운 비밀번호 재설정 가능
-<p align="center">
-<img src="https://github.com/user-attachments/assets/6f시 자물쇠 아이콘 표기
-
-⬇️ 로컬로그 수정
-<p align="center">
-<img src="https://github.com/user-attachments/assets/0ee10fe3-1797-4ac9-9703-fc92b2c1ce2d" alt="방명록 작성 GIF" width="70%">
-</p>
 
 ### ✔ 북마크
 - 본인이 북마크한 로컬로그 컨텐츠 확인 가능
