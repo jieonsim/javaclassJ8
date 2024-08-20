@@ -90,9 +90,8 @@
 </p>
 
 ### ✔ 비밀번호 찾기
-- 이름 + 이메일 아이디 조합으로 계정 유무 확인
-- 계정이 존재할 경우 입력한 이메일로 인증번호 발송
-- 인증번호 일치 시 새로운 비밀번호 설정 가능
+- 아이디 + 이메일 조합으로 계정 유무 확인
+- 계정이 존재할 경우 새로운 비밀번호 재설정 가능
 <p align="center">
-<img src="https://github.com/user-attachments/assets/f69b97a9-05c3-48db-b65e-c8c00770a63c" alt="비밀번호찾기 GIF" width="70%">
+<img src="https://github.com/user-attachments/assets/6fdf4fd8-af0d-4d8a-9c08-edce0c2186a7" alt="비밀번호찾기 GIF" width="70%">
 </p>
