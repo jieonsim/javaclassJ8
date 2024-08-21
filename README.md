@@ -12,7 +12,7 @@
 💁🏻 [프로젝트 PPT - PDF로 바로보기](https://drive.google.com/file/d/1tmYDJZYtSL24fWolg9wl8AunK0SSMpWr/view?usp=sharing)
 <br>
 
-📹 [발표 영상 - YouTube로 바로보기](https://youtu.be/CevBpGynJ34)
+📹 [발표 및 시연 영상 - YouTube로 바로보기](https://youtu.be/CevBpGynJ34)
 
 💭 [기획 및 제작과정 - 구글 스프레드시트로 바로보기](https://docs.google.com/spreadsheets/d/1e1T5jBh-7tM7CjCwONiFs9F7OIGQVMUJmeAd8-6eK-Q/edit?usp=sharing)
 <hr>
