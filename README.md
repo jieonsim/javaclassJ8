@@ -58,7 +58,15 @@
 </div>
 <hr>
 
-## 3️⃣ 기능별 화면 및 소개
+## 3️⃣ ERD
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6e1aa055-998d-4e07-9e39-ef2976ce4599" alt="로컬로그 ERD" width="70%">
+</p>
+
+<hr>
+
+## 4️⃣ 기능별 화면 및 소개
 ### ✔ 메인 화면
 - 공개 상태인 로컬로그를 랜덤으로 보여주며, 카드 클릭 시 상세 로컬로그 확인 가능
 - 무한스크롤 구현
