@@ -50,13 +50,12 @@ pageContext.setAttribute("newLine", "\n");
 				pag : curPage
 			},
 			success : function(res) {
-				//console.log("AJAX Response:", res);
 				$("#list-wrap").append(res);
 				updateTotalPages(); // AJAX 응답 후 totalPages 요소 확인
-				reinitializeCarousel(); // Reinitialize carousel after new content is appended
+				reinitializeCarousel();
 			},
 			error : function(err) {
-				console.log("Error: ", err);
+				console.error("Error: ", err);
 			}
 		});
 	}
@@ -65,7 +64,6 @@ pageContext.setAttribute("newLine", "\n");
 		let totalPagesElement = document.getElementById('totalPages');
 		if (totalPagesElement) {
 			let totalPages = parseInt(totalPagesElement.value, 10);
-			console.log("Total Pages after AJAX:", totalPages);
 			return totalPages;
 		} else {
 			console.error("totalPages element not found after AJAX!");
@@ -85,7 +83,6 @@ pageContext.setAttribute("newLine", "\n");
 
 			if (currentScroll > lastScroll && curPage < totalPages) {
 				if (documentHeight < (nowHeight + (documentHeight * 0.1))) {
-					console.log("Get next page");
 					curPage++;
 					getNextList(curPage);
 				}
@@ -93,7 +90,6 @@ pageContext.setAttribute("newLine", "\n");
 			lastScroll = currentScroll;
 		});
 
-		// Initialize carousel on page load
 		reinitializeCarousel();
 	});
 </script>
