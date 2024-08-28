@@ -188,3 +188,15 @@
 <p align="center">
 <img src="https://github.com/user-attachments/assets/5e33dc74-a76c-471e-ab24-832d4975fed3" alt="검색 GIF" width="70%">
 </p>
+
+<hr>
+
+
+프로젝트에 대한 더 자세한 내용과 개발 과정이 궁금하시다면,<br>
+아래 프로젝트 PPT를 통해 확인하실 수 있습니다. 
+<br><br>
+💁🏻 [프로젝트 PPT - PDF로 바로보기](https://drive.google.com/file/d/1tmYDJZYtSL24fWolg9wl8AunK0SSMpWr/view?usp=sharing)
+<br>
+<br>
+<br>
+감사합니다.
