@@ -10,8 +10,6 @@
 
 		<address>
 			109, Sajik-daero, Seowon-gu, Cheongju-si,<br>Chungcheongbuk-do, Republic of Korea<br>
-
-			<!-- <a class="footer__btn" href="#">Email Us</a> -->
 		</address>
 	</div>
 

@@ -34,8 +34,6 @@
 						<button type="button" class="btn btn-custom btn-lg dropdown-toggle" data-toggle="dropdown" id="user">
 							<i class="ph-fill ph-user"></i>
 							<span class="ml-2">${sessionScope.sessionNickname}</span>
-							<%-- <span class="ml-2">${userVO.nickname}</span> --%>
-							<!-- Use session attribute directly -->
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
 							<c:if test="${sessionScope.sessionRole == 'admin'}">
