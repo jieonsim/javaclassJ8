@@ -189,6 +189,14 @@
 <img src="https://github.com/user-attachments/assets/5e33dc74-a76c-471e-ab24-832d4975fed3" alt="검색 GIF" width="70%">
 </p>
 
+### ✔ 맵
+- 구글 맵 API를 사용해 세계지도를 제공하여 사용자가 다양한 지역을 탐색할 수 있도록 합니다.
+- 사용자는 지도를 통해 새로운 여행지를 찾고, 그 위치에 대한 정보를 확인할 수 있습니다.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/be9ba492-d7bc-433c-b79f-646490fd33f3" alt="맵 기능 GIF" width="70%">
+</p>
+
+
 <hr>
 
 
