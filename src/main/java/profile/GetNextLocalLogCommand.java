@@ -34,7 +34,7 @@ public class GetNextLocalLogCommand implements ProfileInterface {
     			return;
             }
         }
-        System.out.println("userIdx : " + userIdx);
+        // System.out.println("userIdx : " + userIdx);
 
         if (sessionUserIdx != null && sessionUserIdx.equals(userIdx)) {
             response.sendRedirect("archive-localLog.a");
